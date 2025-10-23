@@ -19,13 +19,13 @@ import logo from "../../public/auth/logo.png";
 import Link from "next/link";
 
 const formSchema = z.object({
-  email: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Email is required"),
+  newPassword: z.string().min(1, "New Password is required"),
+  confirmPassword: z.string().min(1, "Confirm Password is required"),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function LoginPage() {
+export default function NewPassword() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -46,7 +46,7 @@ export default function LoginPage() {
 
       <div className="w-[50%] border border-[##FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
-          Log In
+          Create New Password
         </h1>
         <Form {...form}>
           <form
@@ -56,7 +56,7 @@ export default function LoginPage() {
             {/* email */}
             <FormField
               control={form.control}
-              name="email"
+              name="newPassword"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email Address</FormLabel>
@@ -74,7 +74,7 @@ export default function LoginPage() {
             {/* Password */}
             <FormField
               control={form.control}
-              name="password"
+              name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>

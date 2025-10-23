@@ -19,13 +19,14 @@ import logo from "../../public/auth/logo.png";
 import Link from "next/link";
 
 const formSchema = z.object({
-  email: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Email is required"),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address"),
 });
-
 type FormData = z.infer<typeof formSchema>;
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -46,7 +47,7 @@ export default function LoginPage() {
 
       <div className="w-[50%] border border-[##FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
-          Log In
+          Forgot Password
         </h1>
         <Form {...form}>
           <form
@@ -71,27 +72,10 @@ export default function LoginPage() {
                 </FormItem>
               )}
             />
-            {/* Password */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="placeholder:text-white"
-                      placeholder="Enter Your Password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Link href="/forgot-password">
+
+            <Link href="/verify-otp">
               <Button className="custom-btn w-full" type="submit">
-                Submit
+                Verify
               </Button>
             </Link>
           </form>

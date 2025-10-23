@@ -25,7 +25,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function LoginPage() {
+export default function SignUp() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
