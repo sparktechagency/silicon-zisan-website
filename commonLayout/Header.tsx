@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="custom-bg flex justify-between items-center p-5">
+    <header className="custom-bg flex justify-between items-center p-4">
       <div>
         {/* <Image src="/" alt="Logo" width={100} height={24} /> */}
         <h1>Logo Here</h1>
@@ -23,10 +23,10 @@ export default function Header() {
       </nav>
 
       <div className="flex gap-5">
-        <button className="border border-[#A6DCE3] hover:bg-[#A6DCE3]/10 py-3 px-5 text-2xl text-white transition">
+        <button className="border border-[#A6DCE3] hover:bg-[#A6DCE3]/10 py-2 px-5 text-2xl text-white transition">
           Log In
         </button>
-        <button className="border border-[#A6DCE3] hover:bg-[#A6DCE3]/10 py-3 px-5 text-2xl text-white transition">
+        <button className="border border-[#A6DCE3] hover:bg-[#A6DCE3]/10 py-2 px-5 text-2xl text-white transition">
           Sign Up
         </button>
       </div>
