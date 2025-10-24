@@ -89,7 +89,7 @@ export default function LoginPage() {
                 </FormItem>
               )}
             />
-            <Link href="/forgot-password">
+            <Link href="/">
               <Button className="custom-btn w-full" type="submit">
                 Submit
               </Button>

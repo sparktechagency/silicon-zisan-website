@@ -11,13 +11,16 @@ export default function Header() {
       <nav>
         <ul className="flex gap-6 text-[22px]">
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/">Dashboard</Link>
           </li>
           <li>
-            <Link href="/jobs">Jobs</Link>
+            <Link href="/inbox">Inbox</Link>
           </li>
           <li>
-            <Link href="/employer-services">Employer Services</Link>
+            <Link href="/subscription">Subscription</Link>
+          </li>
+          <li>
+            <Link href="/alerts">Alerts</Link>
           </li>
         </ul>
       </nav>
