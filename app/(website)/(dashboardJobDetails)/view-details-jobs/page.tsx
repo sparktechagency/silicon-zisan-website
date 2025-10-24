@@ -1,4 +1,4 @@
-import ViewDetailsJobs from "@/components/dashboard/ViewDetailsJobs";
+import ViewDetailsJobs from "@/components/dashboard/job-details/ViewDetailsCompany";
 
 export default function page() {
   return (

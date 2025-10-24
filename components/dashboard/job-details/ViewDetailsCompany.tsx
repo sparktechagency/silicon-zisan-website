@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import logo from "../../public/dashboard/hotel.png";
+import logo from "../../../public/dashboard/hotel.png";
 import { ArrowLeft, Clock3 } from "lucide-react";
+import Link from "next/link";
 
-export default function ViewDetailsJobs() {
+export default function ViewDetailsCompany() {
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6">
       {/* Header */}
@@ -42,7 +43,9 @@ export default function ViewDetailsJobs() {
               <Clock3 size={20} /> 20 Jun 2025
             </p>
           </div>
-          <Button className="custom-btn mt-5">8 Applied</Button>
+          <Link href="/applied-jobs">
+            <Button className="custom-btn mt-5">8 Applied</Button>
+          </Link>
         </div>
       </div>
 
