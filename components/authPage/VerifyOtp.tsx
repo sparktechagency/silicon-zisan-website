@@ -26,7 +26,7 @@ export function VerifyOtp() {
         </h1>
       </div>
 
-      <div className="w-[50%] border border-[##FFFFFF0D] p-8 rounded-md bg-[#374859] text-center">
+      <div className="w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859] text-center">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-2">
           Verify OTP
         </h1>

@@ -44,7 +44,7 @@ export default function LoginPage() {
         </h1>
       </div>
 
-      <div className="w-[50%] border border-[##FFFFFF0D] p-8 rounded-md bg-[#374859]">
+      <div className="w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
           Log In
         </h1>
@@ -94,6 +94,12 @@ export default function LoginPage() {
                 Submit
               </Button>
             </Link>
+            <p className="text-center text-white mt-4">
+              Dont't have an account?{" "}
+              <Link className="underline" href="/signup">
+                SignUp
+              </Link>
+            </p>
           </form>
         </Form>
       </div>

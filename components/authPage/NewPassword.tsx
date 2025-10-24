@@ -44,7 +44,7 @@ export default function NewPassword() {
         </h1>
       </div>
 
-      <div className="w-[50%] border border-[##FFFFFF0D] p-8 rounded-md bg-[#374859]">
+      <div className="w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
           Create New Password
         </h1>

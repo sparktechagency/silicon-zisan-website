@@ -17,7 +17,7 @@ export default function SelectMethod() {
           WHERE DREAM JOB MEETS TOP TALENT
         </h1>
       </div>
-      <div className="w-[50%] border border-[##FFFFFF0D] p-8 rounded-md bg-[#374859]">
+      <div className="w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <div
           className={`${
             selected === "sekker"
