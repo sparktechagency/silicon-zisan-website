@@ -6,12 +6,28 @@ import React from "react";
 import logo from "../../public/auth/logo.png";
 import sekker from "../../public/auth/sekker.png";
 import employer from "../../public/auth/employer.png";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function SelectMethod() {
   const [selected, setSelected] = React.useState("");
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (selected) {
+      router.push("/signup");
+    }
+  }, [selected]);
+
   return (
     <Container className="flex flex-col md:flex-col lg:flex-row items-center justify-center h-auto lg:h-screen gap-10 px-4 py-10">
-      <div className="bg-[#374859] w-[200px] h-[200px] md:w-[300px] md:h-[300px] xl:w-[32%] xl:h-[400px] flex flex-col items-center justify-center rounded-full border border-[#FFFFFF0D]/50 p-5">
+      <div className="bg-[#374859] w-[200px] h-[200px] md:w-[300px] md:h-[300px] xl:w-[32%] xl:h-[400px] flex flex-col items-center justify-center rounded-full border border-[#FFFFFF0D]/50 p-5 relative">
+        <div
+          className="absolute top-0 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer"
+          onClick={() => history.back()}
+        >
+          <ArrowLeft />
+        </div>
         <Image src={logo} alt="Logo" width={100} height={24} />
         <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium">
           WHERE DREAM JOB MEETS TOP TALENT
@@ -41,11 +57,11 @@ export default function SelectMethod() {
           className={`mt-5 ${
             selected === "employer"
               ? "custom-btn"
-              : "bg-[#425363] py-2 rounded-md text-white"
+              : "bg-[#425363] py-2 rounded-md text-white cursor-pointer"
           } `}
           onClick={() => setSelected("employer")}
         >
-          <div className="flex items-center justify-center mt-5">
+          <div className="flex items-center justify-center mt-5 cursor-pointer">
             <Image
               src={employer}
               alt="Logo"

@@ -18,6 +18,7 @@ import Image from "next/image";
 import logo from "../../public/auth/logo.png";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   userName: z.string().min(1, "Username is required"),
@@ -31,6 +32,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function SignUpPage() {
+  // const router = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -44,7 +46,10 @@ export default function SignUpPage() {
       {/* logo */}
 
       <div className="bg-[#374859] w-[200px] h-[200px] md:w-[300px] md:h-[300px] xl:w-[32%] xl:h-[400px] flex flex-col items-center justify-center rounded-full border border-[#FFFFFF0D] p-5 relative">
-        <div className="absolute top-0 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer">
+        <div
+          className="absolute top-0 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer"
+          onClick={() => history.back()}
+        >
           <ArrowLeft />
         </div>
         <Image src={logo} alt="Logo" width={100} height={24} />
