@@ -76,9 +76,10 @@ body {
 :root {
   --radius: 0.625rem;
   --background: #2c3e50;
-  --foreground: oklch(0.145 0 0);
+  --foreground: text-white;
   --card: #374859;
   --card-foreground: #ffffff;
+  --card-border: #ffffff0d;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import personOne from "../../../public/dashboard/person-one.png";
 import pdf from "../../../public/dashboard/pdf.png";
+import FeedBackModal from "./FeedBackModal";
 
 const data = [
   { title: "Exam/Degree Title", value: "Bachelor Of Science BSC" },
@@ -122,9 +123,7 @@ export default function ViewDetailsPerson() {
 
         {/* Action Buttons */}
         <div className="flex gap-4  pt-4">
-          <button className="cursor-pointer border border-white px-4 py-2 rounded text-white hover:bg-white hover:text-[#0F172A] transition">
-            Feedback
-          </button>
+          <FeedBackModal />
           <button className="cursor-pointer bg-[#149235] px-4 py-2 rounded text-white hover:bg-green-600 transition">
             Approve
           </button>

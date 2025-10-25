@@ -92,7 +92,9 @@ export default function ViewDetailsCompany() {
 
       {/* Action Buttons */}
       <div className="flex gap-4 justify-end">
-        <Button className="custom-btn">Edit Now</Button>
+        <Link href="/edit-job-post">
+          <Button className="custom-btn">Edit Now</Button>
+        </Link>
         <Button className="custom-btn">Withdraw</Button>
       </div>
     </div>
