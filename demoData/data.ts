@@ -1,7 +1,8 @@
 import hotel from "../public/dashboard/hotel.png";
+import { CiCirclePlus } from "react-icons/ci";
 
 export const data = [
-  { title: "My Posted Jobs", icon: "" },
+  { title: "My Posted Jobs", icon: CiCirclePlus },
   { title: "Post Job", icon: "" },
   { title: "AI Tools", icon: "" },
   { title: "Appointments", icon: "" },

@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import PackeageType from "./PackeageType";
 import { Minus, Plus } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 export const jobRoles = [
   "Senior Business Analytics",
@@ -36,6 +37,7 @@ export const jobTypes = [
 ];
 
 const EditJobPost = () => {
+  const searchParams = useSearchParams();
   const [type, setType] = useState("day");
   const [addInput, setAddInput] = useState([{ id: 1, value: "" }]);
   const [addInput2, setAddInput2] = useState([{ id: 1, value: "" }]);
@@ -58,8 +60,16 @@ const EditJobPost = () => {
   const handleRemoveInput2 = () => {
     setAddInput2((prev) => prev.slice(0, -1));
   };
+
+  const urlName = new URLSearchParams(searchParams.toString());
+  const name = urlName.get("name");
+
   return (
-    <Container className="bg-card w-[50%] mx-auto p-5 border rounded-md my-10">
+    <Container
+      className={`bg-card ${
+        name === "Post Job" ? "w-full" : "w-[50%] mx-auto my-10"
+      } p-5 border rounded-md`}
+    >
       <div className=" text-gray-100 w-full  rounded-xl">
         <h2 className="text-lg font-semibold mb-4">Edit Job Post</h2>
 

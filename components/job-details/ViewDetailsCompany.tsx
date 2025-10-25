@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import logo from "../../../public/dashboard/hotel.png";
+import logo from "../../public/dashboard/hotel.png";
 import { ArrowLeft, Clock3 } from "lucide-react";
 import Link from "next/link";
 

@@ -1,4 +1,4 @@
-import AppliedJobs from "@/components/dashboard/job-details/AppliedJobs";
+import AppliedJobs from "@/components/job-details/AppliedJobs";
 
 export default function page() {
   return (

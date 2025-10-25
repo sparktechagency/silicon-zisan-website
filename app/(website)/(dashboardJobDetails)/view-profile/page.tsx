@@ -1,4 +1,4 @@
-import ViewProfile from "@/components/dashboard/job-details/ViewProfile";
+import ViewProfile from "@/components/job-details/ViewProfile";
 import { View } from "lucide-react";
 import React from "react";
 
