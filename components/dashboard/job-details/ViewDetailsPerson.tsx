@@ -44,7 +44,7 @@ export default function ViewDetailsPerson() {
             <p className="text-2xl gap-2">Applied : 01.02.2025</p>
           </div>
           <div className="flex gap-5">
-            <Link href="/applied-jobs">
+            <Link href="/view-profile">
               <Button className="border border-[#90D7E8] bg-card mt-5 h-10">
                 View Profile
               </Button>
