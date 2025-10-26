@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import personOne from "../../../public/dashboard/person-one.png";
+import personOne from "../../public/dashboard/person-one.png";
 import Container from "@/share/Container";
 import Link from "next/link";
 

@@ -1,13 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import personOne from "../../../public/dashboard/person-one.png";
-import pdf from "../../../public/dashboard/pdf.png";
-import viewOne from "../../../public/dashboard/profile-view/one.png";
-import resume from "../../../public/dashboard/profile-view/cv.png";
+import personOne from "../../public/dashboard/person-one.png";
+import pdf from "../../public/dashboard/pdf.png";
+import viewOne from "../../public/dashboard/profile-view/one.png";
+import resume from "../../public/dashboard/profile-view/cv.png";
 
 export default function ViewProfile() {
   const personalInfo = [

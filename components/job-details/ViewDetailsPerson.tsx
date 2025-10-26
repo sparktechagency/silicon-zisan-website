@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import personOne from "../../../public/dashboard/person-one.png";
-import pdf from "../../../public/dashboard/pdf.png";
+import personOne from "../../public/dashboard/person-one.png";
+import pdf from "../../public/dashboard/pdf.png";
 import FeedBackModal from "./FeedBackModal";
 
 const data = [
