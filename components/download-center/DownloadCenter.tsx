@@ -1,25 +1,17 @@
 import { ArrowDown, EyeIcon } from "lucide-react";
 import payment from "../../public/invoice-payment/payment.png";
 
-export default function InvoicePayments() {
+export default function DownloadCenter() {
   return (
     <div>
       {/* Buttons */}
-      <div className="flex gap-4">
-        <button className="flex-1 py-2 px-4 custom-btn text-white rounded hover:bg-blue-700 transition">
-          Invoice
-        </button>
-        <button className="flex-1 py-2 px-4 bg-card rounded hover:bg-gray-200 transition">
-          Card Information
-        </button>
-      </div>
-      {Array.from({ length: 6 }).map((_, index) => (
-        <div key={index} className="mb-4 mt-6">
+
+      {Array.from({ length: 9 }).map((_, index) => (
+        <div key={index} className="mb-4">
           {/* Transaction Info */}
           <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
             <div>
-              <p className="text-lg font-semibold">25635556</p>
-              <p className="text-sm text-gray-500">05.01.2022</p>
+              <p className="text-lg font-semibold">{index + 1} From</p>
             </div>
 
             <div className="flex space-x-2">

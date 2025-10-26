@@ -1,26 +1,21 @@
 "use client";
 
-import Image from "next/image";
-import logo from "../../public/dashboard/hotel.png"; // adjust the import path as needed
 import Container from "@/share/Container";
-import { data, postJobsDetails } from "@/demoData/data";
-import Link from "next/link";
+import { data } from "@/demoData/data";
 import { IconType } from "react-icons";
-import { use, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { url } from "inspector";
-import { ur } from "zod/locales";
+
 import JobPostHomePage from "../job-details/JobPostHomePage";
-import { Edit } from "lucide-react";
 import EditJobPost from "../job-details/EditjobPost";
 import AITools from "../ai-tools/AI-Tools";
 import Appointments from "../appointments/Appointments";
 import HireEmployees from "../hireEmployes/HireEmployees";
-import ContractInformation from "../hireEmployes/ContactInformation";
-import ContractInformationHomePage from "@/app/(website)/contact-information/page";
 import ShiftPlanpage from "@/app/(website)/shift-plan/page";
 import AddWhatsLinkPage from "@/app/(website)/add-whats-app-link/page";
 import InvoicePaymentspage from "@/app/(website)/invoice-payments/page";
+import ContactSupportPage from "@/app/(website)/contact-support/page";
+import VerifyAccountPage from "@/app/(website)/verify-account/page";
+import DownloadCenterPage from "@/app/(website)/download-center/page";
 
 type item =
   | {
@@ -91,6 +86,9 @@ export default function JobCard() {
         {urlName === "Shift Plan" && <ShiftPlanpage />}
         {urlName === "Add WhatsApp Link" && <AddWhatsLinkPage />}
         {urlName === "Invoice & Payments" && <InvoicePaymentspage />}
+        {urlName === "Contact & Support" && <ContactSupportPage />}
+        {urlName === "Verify Account" && <VerifyAccountPage />}
+        {urlName === "Download Center" && <DownloadCenterPage />}
       </div>
     </Container>
   );
