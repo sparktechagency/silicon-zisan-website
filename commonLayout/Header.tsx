@@ -17,7 +17,7 @@ export default function Header() {
             <Link href="/inbox">Inbox</Link>
           </li>
           <li>
-            <Link href="/subscription">Subscription</Link>
+            <Link href="/subscriptions">Subscription</Link>
           </li>
           <li>
             <Link href="/alerts">Alerts</Link>
