@@ -19,6 +19,8 @@ import HireEmployees from "../hireEmployes/HireEmployees";
 import ContractInformation from "../hireEmployes/ContactInformation";
 import ContractInformationHomePage from "@/app/(website)/contact-information/page";
 import ShiftPlanpage from "@/app/(website)/shift-plan/page";
+import AddWhatsLinkPage from "@/app/(website)/add-whats-app-link/page";
+import InvoicePaymentspage from "@/app/(website)/invoice-payments/page";
 
 type item =
   | {
@@ -87,6 +89,8 @@ export default function JobCard() {
         {urlName === "Appointments" && <Appointments />}
         {urlName === "Hire Employees" && <HireEmployees />}
         {urlName === "Shift Plan" && <ShiftPlanpage />}
+        {urlName === "Add WhatsApp Link" && <AddWhatsLinkPage />}
+        {urlName === "Invoice & Payments" && <InvoicePaymentspage />}
       </div>
     </Container>
   );
