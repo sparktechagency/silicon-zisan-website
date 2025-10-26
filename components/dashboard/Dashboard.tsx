@@ -4,7 +4,6 @@ import Container from "@/share/Container";
 import { data } from "@/demoData/data";
 import { IconType } from "react-icons";
 import { useRouter, useSearchParams } from "next/navigation";
-
 import JobPostHomePage from "../job-details/JobPostHomePage";
 import EditJobPost from "../job-details/EditjobPost";
 import AITools from "../ai-tools/AI-Tools";
@@ -32,7 +31,6 @@ export default function JobCard() {
   const router = useRouter();
   const params = new URLSearchParams(searchParams.toString());
   let urlName: string = params.get("name") || "";
-  console.log(urlName);
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,

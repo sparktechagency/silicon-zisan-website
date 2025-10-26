@@ -1,0 +1,63 @@
+import React from "react";
+import Image from "next/image"; // or <img> if not using Next.js
+import profileMan from "../../public/profile/profile.png";
+import { Camera } from "lucide-react";
+// Data for profile fields
+const profileData = [
+  { label: "Name", value: "Kamran Khan" },
+  { label: "Email", value: "Kamran@Gmail.Com" },
+  { label: "Contact", value: "+1524623256656" },
+  { label: "Location", value: "Dhaka Bangladesh" },
+  { label: "Role", value: "Employer" },
+  { label: "Role", value: "Employer" },
+];
+
+export default function PersonalInformation({
+  setStatus,
+}: {
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  return (
+    <div className="bg-card p-6 rounded-lg border border-gray-300/30">
+      {/* Profile Image */}
+      <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
+        <Image
+          src={profileMan}
+          alt="Profile"
+          className="object-cover w-full h-full"
+          priority
+        />
+        {/* Camera Icon overlay */}
+        <div className="absolute bottom-0.5 right-0.5 bg-[#416383] rounded-full p-1 cursor-pointer hover:bg-[#5881a3] transition">
+          <Camera />
+        </div>
+      </div>
+
+      {/* Profile Data */}
+      <div className="mb-6">
+        {profileData.map(({ label, value }, idx) => (
+          <div key={idx} className="grid grid-cols-2 py-2 ">
+            <span className="text-sm font-">{label}</span>
+            <span className="text-sm">: {value}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Buttons */}
+      <div className="flex space-x-4">
+        <button
+          className="custom-btn text-white px-4 rounded-md"
+          onClick={() => setStatus("Edit Profile")}
+        >
+          Edit Information
+        </button>
+        <button
+          className="flex-1 custom-btn text-white py-2 px-4 rounded-md "
+          onClick={() => setStatus("Complete Profile")}
+        >
+          Complete Profile
+        </button>
+      </div>
+    </div>
+  );
+}
