@@ -2,12 +2,14 @@ import React from "react";
 import { Button } from "../ui/button";
 import Container from "@/share/Container";
 import { id } from "zod/locales";
+import { Info } from "lucide-react";
 
 const packeages = [
   {
     id: 1,
     title: "Basic",
     price: "Free",
+    info: false,
     features: [
       "5 Jobs Posting",
       "Limited Candidate Alerts",
@@ -20,6 +22,7 @@ const packeages = [
     id: 2,
     title: "Standard",
     price: "€ 2.50 Per Day",
+    info: true,
     features: [
       "0 € For 30 Days",
       "Activated For 30 Days",
@@ -36,6 +39,7 @@ const packeages = [
     id: 3,
     title: "Booster",
     price: "€ 2.50 Per Day",
+    info: true,
     features: [
       "0 € For 30 Days",
       "Activated For 30 Days",
@@ -69,7 +73,10 @@ export default function Subscriptions() {
                 <h1 className="text-white text-2xl font-semibold">
                   {item.title}
                 </h1>
-                <p className="text-white text-md">{item.price}</p>
+                <p className="text-white text-sm flex gap-2 mt-2">
+                  {item.price}{" "}
+                  {item.info && <Info className="cursor-pointer" />}
+                </p>
               </div>
               <div className="flex">
                 <button className="custom-btn py-2 px-4 rounded-none">
