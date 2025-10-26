@@ -63,6 +63,7 @@ const EditJobPost = () => {
 
   const urlName = new URLSearchParams(searchParams.toString());
   const name = urlName.get("name");
+  const hire = urlName.get("type");
 
   return (
     <Container
@@ -71,7 +72,9 @@ const EditJobPost = () => {
       } p-5 border rounded-md`}
     >
       <div className=" text-gray-100 w-full  rounded-xl">
-        <h2 className="text-lg font-semibold mb-4">Edit Job Post</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          {hire === "hire" ? "Hire Employees" : "Edit Job Post"}
+        </h2>
 
         {/* Category & Subcategory */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -220,8 +223,38 @@ const EditJobPost = () => {
           ></Textarea>
         </div>
 
+        {/* privacy and policy */}
+        {hire === "hire" && (
+          <div className=" space-y-4">
+            {/* Privacy Policy & Terms */}
+            <label className="flex items-start space-x-2">
+              <Input type="checkbox" className="mt-1 h-5 w-5 accent-card" />
+              <span className="text-sm leading-6">
+                By continuing, you accept the{" "}
+                <a href="#" className=" font-semibold underline">
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a href="#" className=" font-semibold underline">
+                  Terms & Conditions
+                </a>{" "}
+                of JobsinApp.
+              </span>
+            </label>
+
+            {/* Contract Consent */}
+            <label className="flex items-start space-x-2">
+              <Input type="checkbox" className="mt-1 h-5 w-5 accent-card" />
+              <span className="text-sm leading-6">
+                By ticking the checkbox, the client declares their consent; the
+                contract thereby comes into effect.
+              </span>
+            </label>
+          </div>
+        )}
+
         {/* Confirm Button */}
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-6">
           <button className="custom-btn text-white font-medium px-6 py-2 rounded-md hover:opacity-90 transition w-[30%]">
             Confirm
           </button>

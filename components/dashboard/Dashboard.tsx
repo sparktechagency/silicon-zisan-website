@@ -15,6 +15,9 @@ import { Edit } from "lucide-react";
 import EditJobPost from "../job-details/EditjobPost";
 import AITools from "../ai-tools/AI-Tools";
 import Appointments from "../appointments/Appointments";
+import HireEmployees from "../hireEmployes/HireEmployees";
+import ContractInformation from "../hireEmployes/ContactInformation";
+import ContractInformationHomePage from "@/app/(website)/contact-information/page";
 
 type item =
   | {
@@ -81,6 +84,7 @@ export default function JobCard() {
         {urlName === "Post Job" && <EditJobPost />}
         {urlName === "AI Tools" && <AITools />}
         {urlName === "Appointments" && <Appointments />}
+        {urlName === "Hire Employees" && <HireEmployees />}
       </div>
     </Container>
   );

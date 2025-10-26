@@ -106,7 +106,7 @@ body {
 :root {
   --radius: 0.625rem;
   --background: #2c3e50;
-  --foreground: text-white;
+  --foreground: #ffffff;
   --card: #374859;
   --card-foreground: #ffffff;
   --card-border: #ffffff0d;
