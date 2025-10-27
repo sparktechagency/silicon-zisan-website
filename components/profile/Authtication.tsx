@@ -2,6 +2,7 @@
 import { Switch } from "@/components/ui/switch";
 import Container from "@/share/Container";
 import { Info } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function TwoFactorAuth() {
@@ -13,12 +14,20 @@ export default function TwoFactorAuth() {
       <h2 className="text-xl font-semibold">2 Factor Authentication</h2>
 
       <div className="space-y-2">
-        <button className="w-full border border-white rounded-full py-2 text-white">
-          Sms
-        </button>
-        <button className="w-full border border-white rounded-full py-2 text-white">
-          Authenticator App
-        </button>
+        <div>
+          <Link href="/phone-number-sms">
+            <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">
+              Sms
+            </button>
+          </Link>
+        </div>
+        <div>
+          <Link href="/verify-otp-phone-number">
+            <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">
+              Authenticator App
+            </button>
+          </Link>
+        </div>
       </div>
 
       <div className="space-y-4">
