@@ -19,7 +19,7 @@ export default function InvoicePayments() {
           <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
             <div>
               <p className="text-lg font-semibold">25635556</p>
-              <p className="text-sm text-gray-500">05.01.2022</p>
+              <p className="text-sm ">05.01.2022</p>
             </div>
 
             <div className="flex space-x-2">

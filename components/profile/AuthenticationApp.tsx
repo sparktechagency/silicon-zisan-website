@@ -56,7 +56,7 @@ export default function AuthenticationApp() {
         </div>
       </div>
 
-      <Button className="w-full custom-btn mt-4">Confirm</Button>
+      <Button className="w-full custom-btn h-12 mt-4">Confirm</Button>
     </div>
   );
 }
