@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -29,7 +28,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function EditProfile() {
+export default function EditProfile({ title }: { title?: string }) {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -49,7 +48,9 @@ export default function EditProfile() {
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
-        <h2 className="text-lg font-semibold">Edit Profile</h2>
+        <h2 className="text-lg font-semibold">
+          {title ? "Complete Profile" : "Edit Profile"}
+        </h2>
       </div>
 
       <Form {...form}>

@@ -5,10 +5,9 @@ import profileMan from "../../public/profile/profile.png";
 import { useState } from "react";
 import { Settings, Trash, User } from "lucide-react";
 import { IoIosLogOut } from "react-icons/io";
-import { stat } from "fs";
 import PersonalInformation from "./PersonalInformation";
 import EditProfile from "./EditProfile";
-import Container from "@/share/Container";
+import Setting from "./Settings";
 
 const buttons = [
   {
@@ -39,7 +38,7 @@ const buttons = [
 export default function Profile() {
   const [status, setStatus] = useState("");
   return (
-    <div className="flex mt-10 gap-10 w-[50%] mx-auto">
+    <div className="flex my-10 gap-10 w-[50%] mx-auto">
       <div className="w-88 text-white ">
         {/* Profile Image */}
         <div className="flex justify-center mb-6">
@@ -76,6 +75,11 @@ export default function Profile() {
           <PersonalInformation setStatus={setStatus} />
         )}
         {status === "Edit Profile" && <EditProfile />}
+        {status === "Complete Profile" && (
+          <EditProfile title="Complete Profile" />
+        )}
+
+        {status === "Settings" && <Setting />}
       </div>
     </div>
   );
