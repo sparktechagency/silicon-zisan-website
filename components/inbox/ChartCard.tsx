@@ -1,7 +1,7 @@
 import Image from "next/image";
 // import image from "../../../public/user.png";
 // import Chart from "../../../public/chart.png";
-import auth from "../../public/auth/scan.png";
+import man from "../../public/inbox/man.png";
 
 interface cardPros {
   name: string;
@@ -18,7 +18,7 @@ export const ChatCard = ({ card }: { card: cardPros }) => {
         <div>
           <Image
             className="w-9 h-9 xl:h-11 xl:w-11 rounded-full object-cover"
-            src={auth}
+            src={man}
             alt="User avatar"
           />
         </div>

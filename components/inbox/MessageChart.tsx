@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef, useState } from "react";
 // import image from "../../../public/user.png";
-import auth from "../../public/auth/scan.png";
+import man from "../../public/inbox/man.png";
 import Image from "next/image";
 import ChatInput from "./ChartInput";
 
@@ -97,7 +97,7 @@ const ChatMessages = () => {
       style={{ height: "calc(100vh - 88px)" }}
     >
       <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card">
-        <Image src={auth} width={50} height={50} alt="header" />
+        <Image src={man} className="w-11 h-11 rounded-full" alt="header" />
         <div className="font-medium">
           <h1 className="2xl:text-xl">Kamran Khan</h1>
           <p className="text-xs">Typing...</p>
@@ -115,7 +115,7 @@ const ChatMessages = () => {
             >
               {item.sender === "other" && (
                 <Image
-                  src={auth}
+                  src={man}
                   alt="avatar"
                   className="w-8 h-8 rounded-full mr-2"
                 />

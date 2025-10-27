@@ -1,44 +1,37 @@
-import { ArrowDown, EyeIcon } from "lucide-react";
-import payment from "../../public/invoice-payment/payment.png";
+"use client";
+import { useState } from "react";
+import Invoice from "./Invoice";
+import PaymentSystem from "./PaymentSystem";
 
 export default function InvoicePayments() {
+  const [selectedTab, setSelectedTab] = useState("invoice");
   return (
     <div>
       {/* Buttons */}
       <div className="flex gap-4">
-        <button className="flex-1 py-2 px-4 custom-btn text-white rounded hover:bg-blue-700 transition">
+        <button
+          className={`flex-1 py-3 px-4 text-white rounded  transition cursor-pointer ${
+            selectedTab === "invoice"
+              ? "custom-btn"
+              : "py-2 px-4 bg-card rounded  cursor-pointer"
+          }`}
+          onClick={() => setSelectedTab("invoice")}
+        >
           Invoice
         </button>
-        <button className="flex-1 py-2 px-4 bg-card rounded hover:bg-gray-200 transition">
-          Card Information
+        <button
+          className={`flex-1 py-3 px-4 text-white rounded  transition cursor-pointer ${
+            selectedTab === "card"
+              ? "custom-btn"
+              : "py-2 px-4 bg-card rounded  cursor-pointer"
+          }`}
+          onClick={() => setSelectedTab("card")}
+        >
+          Payment
         </button>
       </div>
-      {Array.from({ length: 6 }).map((_, index) => (
-        <div key={index} className="mb-4 mt-6">
-          {/* Transaction Info */}
-          <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
-            <div>
-              <p className="text-lg font-semibold">25635556</p>
-              <p className="text-sm ">05.01.2022</p>
-            </div>
-
-            <div className="flex space-x-2">
-              <a
-                href={`http://10.10.7.54:3000/${payment.src}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
-                  <EyeIcon className="w-5 h-5" />
-                </button>
-              </a>
-              <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
-                <ArrowDown className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
+      {selectedTab === "invoice" && <Invoice />}
+      {selectedTab === "card" && <PaymentSystem />}
     </div>
   );
 }

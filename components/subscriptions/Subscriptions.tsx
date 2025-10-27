@@ -1,8 +1,8 @@
-import React from "react";
 import { Button } from "../ui/button";
 import Container from "@/share/Container";
-import { id } from "zod/locales";
 import { Info } from "lucide-react";
+import Image from "next/image";
+import logo from "../../public/dashboard/logo.png";
 
 const packeages = [
   {
@@ -56,7 +56,7 @@ const packeages = [
 
 export default function Subscriptions() {
   return (
-    <Container className="grid grid-cols-3 gap-7 my-10">
+    <Container className="grid grid-cols-1 xl:grid-cols-3 gap-7 my-10">
       {packeages?.map((item, index) => (
         <div
           key={index}
@@ -69,7 +69,7 @@ export default function Subscriptions() {
 
           <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
             <div className="flex justify-between items-center">
-              <div>
+              <div className="mt-4">
                 <h1 className="text-white text-2xl font-semibold">
                   {item.title}
                 </h1>
@@ -78,13 +78,19 @@ export default function Subscriptions() {
                   {item.info && <Info className="cursor-pointer" />}
                 </p>
               </div>
-              <div className="flex">
-                <button className="custom-btn py-2 px-4 rounded-none">
-                  Active
-                </button>
-                <button className="border border-gray-300/50 px-2">
-                  Inactive
-                </button>
+
+              <div>
+                <div className="flex justify-end mb-2">
+                  <Image src={logo} className="h-10 w-10" alt="logo" />
+                </div>
+                <div className="flex">
+                  <button className="custom-btn py-1 px-4 rounded-none">
+                    Active
+                  </button>
+                  <button className="border border-gray-300/50 px-2">
+                    Inactive
+                  </button>
+                </div>
               </div>
             </div>
             {/* list */}

@@ -97,6 +97,10 @@ const AllUserChart = () => {
       className="max-w-md mx-auto  pr-2 flex flex-col"
       style={{ height: "calc(100vh - 88px)" }}
     >
+      <div>
+        <h1 className="text-lg font-semibold">Message</h1>
+        <hr className="my-3 w-[97%]" />
+      </div>
       <div className="mb-4 mr-3">
         <div className="">
           <div className="relative">

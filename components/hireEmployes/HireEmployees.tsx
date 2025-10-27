@@ -50,9 +50,9 @@ export default function HireEmployees() {
         href={{ pathname: "/edit-job-post", query: { type: "hire" } }}
         className="flex justify-end"
       >
-        <button className="custom-btn px-9 py-4 rounded mb-3 flex items-center gap-2 ">
+        <button className="custom-btn px-5 py-2 rounded mb-3 flex items-center gap-2 ">
           <CiCirclePlus size={28} />
-          <span className="text-2xl"> Hire Now</span>
+          <span className="text-lg"> Hire Now</span>
         </button>
       </Link>
 
