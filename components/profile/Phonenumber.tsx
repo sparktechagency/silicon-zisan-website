@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export default function Phonenumber() {
   return (
@@ -8,9 +9,11 @@ export default function Phonenumber() {
       <h1 className="text-2xl font-semibold text-white">Mobile Number</h1>
       <Input placeholder="Enter your number" className="mt-2 mb-4" />
 
-      <Button type="button" className="w-full custom-btn h-12">
-        Continue
-      </Button>
+      <Link href="/verify-otp-phone-number">
+        <Button type="button" className="w-full custom-btn h-12">
+          Continue
+        </Button>
+      </Link>
     </div>
   );
 }

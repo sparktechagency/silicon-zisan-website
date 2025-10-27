@@ -22,7 +22,7 @@ export default function TwoFactorAuth() {
           </Link>
         </div>
         <div>
-          <Link href="/verify-otp-phone-number">
+          <Link href="/authentication-app">
             <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">
               Authenticator App
             </button>
