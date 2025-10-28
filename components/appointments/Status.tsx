@@ -10,12 +10,8 @@ export default function Status({ active, setActive }: any) {
           <button
             key={tab}
             onClick={() => setActive(tab)}
-            className={`px-6 py-3 rounded-md font-medium text-sm transition-all duration-300 
-              ${
-                active === tab
-                  ? "btn text-xl"
-                  : "bg-[#415161] text-white shadow-md text-xl"
-              }`}
+            className={`px-6 py-3 rounded-md font-medium text-sm transition-all duration-300  xl:text-xl 
+              ${active === tab ? "btn " : "bg-[#415161] text-white shadow-md"}`}
           >
             {tab}
           </button>

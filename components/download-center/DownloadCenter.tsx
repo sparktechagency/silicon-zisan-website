@@ -14,13 +14,13 @@ export default function DownloadCenter() {
               <p className="text-lg font-semibold">{index + 1} From</p>
             </div>
 
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-2">
               <a
                 href={`http://10.10.7.54:3000/${payment.src}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
+                <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer mt-1">
                   <EyeIcon className="w-5 h-5" />
                 </button>
               </a>

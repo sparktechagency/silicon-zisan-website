@@ -68,14 +68,14 @@ export default function PaymentModal({
 
           <div className="">
             <div className="flex items-start gap-3">
-              <Checkbox className="mt-1 border-white/30 bg-[#1E293B] text-white" />
+              <Checkbox className="mt-1  bg-[#0288A6] text-white checked:bg-[#0288A6] !checked:border-[#0288A6]" />
               <p className="text-sm leading-relaxed">
                 Save Payment Information To My Account For Future Purchases
               </p>
             </div>
 
             <div className="flex items-start gap-3">
-              <Checkbox className="mt-1 border-white/30 bg-[#1E293B] text-white" />
+              <Checkbox className="mt-1  bg-[#0288A6] text-white checked:bg-[#0288A6] !checked:border-[#0288A6]" />
               <p className="text-sm leading-relaxed flex flex-wrap">
                 By continue with{" "}
                 <span className="underline text-gray-800  font-bold mx-1">

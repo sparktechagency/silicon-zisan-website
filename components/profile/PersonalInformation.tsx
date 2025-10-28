@@ -18,7 +18,7 @@ export default function PersonalInformation({
   setStatus: React.Dispatch<React.SetStateAction<string>>;
 }) {
   return (
-    <div className="bg-card p-6 rounded-lg border border-gray-300/30">
+    <div className="w-full max-w-[400px] bg-card p-6 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
         <Image

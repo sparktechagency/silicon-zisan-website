@@ -16,6 +16,7 @@ import { useState } from "react";
 import PackeageType from "./PackeageType";
 import { Minus, Plus } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import CustomBackButton from "@/share/CustomBackButton";
 
 export const jobRoles = [
   "Senior Business Analytics",
@@ -36,7 +37,7 @@ export const jobTypes = [
   "Career Changer",
 ];
 
-const EditJobPost = () => {
+const EditJobPost = ({ title }: { title: string }) => {
   const searchParams = useSearchParams();
   const [type, setType] = useState("day");
   const [addInput, setAddInput] = useState([{ id: 1, value: "" }]);
@@ -72,16 +73,17 @@ const EditJobPost = () => {
       } p-5 border rounded-md`}
     >
       <div className=" text-gray-100 w-full  rounded-xl">
-        <h2 className="text-xl font-semibold mb-4">
-          {hire === "hire" ? "Hire Employees" : "Edit Job Post"}
-        </h2>
+        <div className="text-xl font-semibold mb-4 flex items-center gap-2">
+          <CustomBackButton />
+          {title}
+        </div>
 
         {/* Category & Subcategory */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <Label className="block text-sm mb-1">Category</Label>
             <Select>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full border">
                 <SelectValue placeholder="Select Item" />
               </SelectTrigger>
               <SelectContent>
@@ -99,7 +101,7 @@ const EditJobPost = () => {
             <div>
               <Label className="block text-sm mb-1">Sub Category</Label>
               <Select>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full border">
                   <SelectValue placeholder="Select Item" />
                 </SelectTrigger>
                 <SelectContent>
@@ -119,7 +121,7 @@ const EditJobPost = () => {
           <div>
             <label className="block text-sm mb-1">Job Type</label>
             <Select>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full border">
                 <SelectValue placeholder="Select Item" />
               </SelectTrigger>
               <SelectContent>

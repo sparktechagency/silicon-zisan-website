@@ -19,6 +19,7 @@ import DashboardSubscriptionPlanCard from "./dashboardSubscription/DashboardSubs
 import CreateNewPlan from "../shift-plan/CreateNewPlan";
 import SalaryCalculator from "../salary-calculator/SalaryCalculator";
 import SalaryDetails from "../salary-calculator/SalarayDetails";
+import Image from "next/image";
 
 type item =
   | {
@@ -50,14 +51,20 @@ export default function JobCard() {
       <div className="basis-[30%]">
         {data?.map((item: item, index) => {
           const active = urlName === item.title;
-          const IconComponent =
-            typeof item.icon === "function" ? (item.icon as IconType) : null;
+          const icon = item.icon;
+          const isFunctionIcon = typeof icon === "function";
+          const IconComponent = isFunctionIcon ? (icon as IconType) : null;
+          const iconSrc = !isFunctionIcon ? (icon as string) : undefined;
+
+          console.log(typeof icon === "string" ? "yes" : "no");
           return (
             <div
               key={index}
               onClick={(e) => handleChangeName(e, item.title)}
               className={`w-full flex items-center justify-start pl-11 ml-3 gap-2 rounded h-20 mb-7 cursor-pointer ${
-                active ? "custom-btn" : "bg-card text-white border"
+                active
+                  ? "custom-btn"
+                  : "bg-card text-white border border-gray-400/20"
               }`}
             >
               {IconComponent ? (
@@ -65,15 +72,24 @@ export default function JobCard() {
                   className={`${
                     active
                       ? "rounded-full button-active p-1"
-                      : "bg-[#505E6E] button-unactive rounded-full p-1 "
-                  } `}
+                      : "bg-[#505E6E] button-unactive rounded-full p-1"
+                  }`}
                   size={44}
                 />
               ) : (
-                ""
-                // <p>{item.icon}</p>
+                <Image
+                  src={iconSrc!}
+                  alt={item.title}
+                  width={40}
+                  height={40}
+                  className={`${
+                    active
+                      ? "rounded-full button-active p-1"
+                      : "bg-[#505E6E] button-unactive rounded-full p-1"
+                  }`}
+                />
               )}
-              <p className="">{item.title}</p>
+              <span>{item.title}</span>
             </div>
           );
         })}
@@ -81,7 +97,7 @@ export default function JobCard() {
 
       <div className="basis-[70%]">
         {urlName === "My Posted Jobs" && <JobPostHomePage />}
-        {urlName === "Post Job" && <EditJobPost />}
+        {urlName === "Post Job" && <EditJobPost title="Post Job" />}
         {urlName === "AI Tools" && <AITools />}
         {urlName === "Appointments" && <Appointments />}
         {urlName === "Hire Employees" && <HireEmployees />}

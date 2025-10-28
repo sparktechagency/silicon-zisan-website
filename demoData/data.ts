@@ -1,21 +1,22 @@
 import hotel from "../public/dashboard/hotel.png";
 import { CiCirclePlus } from "react-icons/ci";
+import app from "../public/dashboard/sidebar/appoinment.svg";
 
 export const data = [
   { title: "My Posted Jobs", icon: CiCirclePlus },
-  { title: "Post Job", icon: "" },
-  { title: "AI Tools", icon: "" },
-  { title: "Appointments", icon: "" },
-  { title: "Subscription Plan", icon: "" },
-  { title: "Hire Employees", icon: "" },
-  { title: "Shift Plan", icon: "" },
-  { title: "Salary Calculator", icon: "" },
-  { title: "WhatsApp Support", icon: "" },
-  { title: "Add WhatsApp Link", icon: "" },
-  { title: "Invoice & Payments", icon: "" },
-  { title: "Contact & Support", icon: "" },
-  { title: "Verify Account", icon: "" },
-  { title: "Download Center", icon: "" },
+  { title: "Post Job", icon: CiCirclePlus },
+  { title: "AI Tools", icon: app },
+  // { title: "Appointments", icon: "" },
+  // { title: "Subscription Plan", icon: "" },
+  // { title: "Hire Employees", icon: "" },
+  // { title: "Shift Plan", icon: "" },
+  // { title: "Salary Calculator", icon: "" },
+  // { title: "WhatsApp Support", icon: "" },
+  // { title: "Add WhatsApp Link", icon: "" },
+  // { title: "Invoice & Payments", icon: "" },
+  // { title: "Contact & Support", icon: "" },
+  // { title: "Verify Account", icon: "" },
+  // { title: "Download Center", icon: "" },
 ];
 
 export const postJobsDetails = [

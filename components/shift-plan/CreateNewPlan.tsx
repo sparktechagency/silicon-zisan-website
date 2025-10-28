@@ -50,7 +50,7 @@ export default function CreateNewPlan({ title }: { title?: string }) {
         <AddEmployeeForm
           trigger={
             <div className="flex justify-end">
-              <Button className="custom-btn text-xl px-5 py-5">
+              <Button className="custom-btn text-md px-5 py-5">
                 Add Employee
               </Button>
             </div>
@@ -137,7 +137,7 @@ export default function CreateNewPlan({ title }: { title?: string }) {
           />
           <button
             onClick={handleAddTask}
-            className="button-active text-white px-4 py-2 rounded"
+            className="button-active text-white px-4 rounded"
           >
             Add
           </button>
@@ -176,7 +176,7 @@ export default function CreateNewPlan({ title }: { title?: string }) {
       </div>
 
       <div>
-        <Button className="custom-btn w-full text-xl">Create Now</Button>
+        <Button className="custom-btn w-full text-lg">Create Now</Button>
       </div>
     </div>
   );

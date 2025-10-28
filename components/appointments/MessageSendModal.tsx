@@ -19,10 +19,10 @@ export default function MessageSendModal() {
       </DialogTrigger>
 
       {/* Dialog Content */}
-      <DialogContent className="bg-gray-500/40 backdrop-blur-sm text-white p-6 rounded-lg  text-center border border-white/10 shadow-lg">
+      <DialogContent className="bg-gray-500/40 backdrop-blur-sm text-white p-6 rounded-lg  text-center border border-white/10 shadow-lg sm:max-w-xl">
         <div className="mt-6">
           <Textarea
-            className="h-32 capitalize border border-white/20 rounded"
+            className="h-40 capitalize border border-white/20 rounded"
             placeholder="type message to job seeker "
           />
         </div>

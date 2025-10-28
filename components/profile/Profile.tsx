@@ -36,9 +36,9 @@ const buttons = [
   },
 ];
 export default function Profile() {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Personal Information");
   return (
-    <div className="flex my-10 gap-10 w-[50%] mx-auto">
+    <div className="flex my-10 gap-10 w-full max-w-[1000px] mx-auto">
       <div className="w-88 text-white ">
         {/* Profile Image */}
         <div className="flex justify-center mb-6">
@@ -65,8 +65,6 @@ export default function Profile() {
             );
           })}
         </div>
-
-        {/* conditional components */}
       </div>
 
       {/* conditional components */}

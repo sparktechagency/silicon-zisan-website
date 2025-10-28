@@ -87,7 +87,7 @@ body {
 .btn {
   background: linear-gradient(to right, #083e4b, #074e5e, #0288a6);
   color: white;
-  font-weight: 400;
+  /* font-weight: 400; */
   /* font-size: 20px; */
   text-align: center;
   box-shadow: inset 0 0 10px #b1f1ff;

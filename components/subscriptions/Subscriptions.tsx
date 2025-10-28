@@ -8,6 +8,7 @@ const packeages = [
   {
     id: 1,
     title: "Basic",
+    subTitle: ["Basic", "Standard", "Booster"],
     price: "Free",
     info: false,
     active: " Active",
@@ -23,8 +24,11 @@ const packeages = [
   {
     id: 2,
     title: "Standard",
+    subTitle: ["Basic", "Standard", "Booster"],
     price: "€ 2.50 Per Day",
     info: true,
+    active: " Active",
+    unactive: " inactive",
     features: [
       "0 € For 30 Days",
       "Activated For 30 Days",
@@ -40,8 +44,11 @@ const packeages = [
   {
     id: 3,
     title: "Booster",
+    subTitle: ["Basic", "Standard", "Booster"],
     price: "€ 2.50 Per Day",
     info: true,
+    active: " Active",
+    unactive: " inactive",
     features: [
       "0 € For 30 Days",
       "Activated For 30 Days",
@@ -70,9 +77,24 @@ export default function Subscriptions({ title }: { title?: string }) {
         >
           <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
 
-          <button className="custom-btn w-full py-2 rounded-2xl">
-            {item.title}
-          </button>
+          {/* <button className="custom-btn w-full py-2 rounded-2xl">
+            {item.subTitle[0]}
+          </button> */}
+          <div className="grid grid-cols-3 gap-4 my-4">
+            <button
+              className={`button-unactive ${
+                item.title[0] && "custom-btn"
+              } w-full py-2 rounded-2xl`}
+            >
+              Basic
+            </button>
+            <button className="button-unactive w-full py-2 rounded-2xl">
+              Standard
+            </button>
+            <button className="button-unactive w-full py-2 rounded-2xl">
+              Extended
+            </button>
+          </div>
 
           <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
             <div className="flex justify-between items-center">
@@ -81,7 +103,10 @@ export default function Subscriptions({ title }: { title?: string }) {
                   {item.title}
                 </h1>
                 <p className="text-white text-sm flex gap-2 mt-2">
-                  {item.price}{" "}
+                  {item.price}
+                  {item.info && (
+                    <Info className="h-4 w-4 text-white" size={18} />
+                  )}
                 </p>
               </div>
 
@@ -112,11 +137,9 @@ export default function Subscriptions({ title }: { title?: string }) {
           </div>
 
           <div className="mt-auto">
-            {
-              <Button className="custom-btn py-2 rounded font-semibold w-full">
-                Subscription Now
-              </Button>
-            }
+            <Button className="custom-btn h-10 rounded font-bold w-full text-md">
+              Subscription Now
+            </Button>
           </div>
         </div>
       ))}
