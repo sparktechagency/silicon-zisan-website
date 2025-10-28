@@ -18,6 +18,7 @@ import DownloadCenterPage from "@/app/(website)/download-center/page";
 import DashboardSubscriptionPlanCard from "./dashboardSubscription/DashboardSubscriptionPlanCard";
 import CreateNewPlan from "../shift-plan/CreateNewPlan";
 import SalaryCalculator from "../salary-calculator/SalaryCalculator";
+import SalaryDetails from "../salary-calculator/SalarayDetails";
 
 type item =
   | {
@@ -94,6 +95,7 @@ export default function JobCard() {
         {urlName === "Create New Plan" && <CreateNewPlan />}
         {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
         {urlName === "Salary Calculator" && <SalaryCalculator />}
+        {urlName === "Information" && <SalaryDetails />}
       </div>
     </Container>
   );

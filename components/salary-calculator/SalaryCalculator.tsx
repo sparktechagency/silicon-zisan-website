@@ -11,6 +11,7 @@ import {
 import YesNoToggle, { HeaderYesNoToggle } from "@/share/YesNoToggle";
 import CustomSelect from "@/share/CustomSelect";
 import { age, child, position } from "@/demoData/data";
+import HandleInformationButton from "./HandleInformationButton";
 
 export default function SalaryCalculator() {
   const [form, setForm] = useState({
@@ -202,13 +203,7 @@ export default function SalaryCalculator() {
         <div className="border py-2 text-center">$25622556 (brutto)</div>
       </div>
 
-      {/* Calculate Button */}
-      <button
-        onClick={handleCalculate}
-        className="w-full py-3 rounded custom-btn transition"
-      >
-        More Information
-      </button>
+      <HandleInformationButton />
     </div>
   );
 }
