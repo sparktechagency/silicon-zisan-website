@@ -158,3 +158,22 @@ export const contractSections = [
     ],
   },
 ];
+
+// salary calculator
+export const child = [
+  { id: 1, label: "One" },
+  { id: 1, label: "Two" },
+];
+
+// age
+export const age = [
+  { id: 1, label: "17-44" },
+  { id: 2, label: "45-64" },
+  { id: 3, label: "65+" },
+];
+
+// position
+export const position = [
+  { id: 1, label: "Full Time" },
+  { id: 2, label: "Part Time" },
+];
