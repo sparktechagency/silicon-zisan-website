@@ -3,8 +3,8 @@ import React from "react";
 
 export default function SubscriptionsPage() {
   return (
-    <div>
-      <Subscriptions />
+    <div className="my-10">
+      <Subscriptions title="home" />
     </div>
   );
 }

@@ -15,6 +15,7 @@ import InvoicePaymentspage from "@/app/(website)/invoice-payments/page";
 import ContactSupportPage from "@/app/(website)/contact-support/page";
 import VerifyAccountPage from "@/app/(website)/verify-account/page";
 import DownloadCenterPage from "@/app/(website)/download-center/page";
+import DashboardSubscriptionPlanCard from "./dashboardSubscription/DashboardSubscriptionPlanCard";
 
 type item =
   | {
@@ -87,6 +88,7 @@ export default function JobCard() {
         {urlName === "Contact & Support" && <ContactSupportPage />}
         {urlName === "Verify Account" && <VerifyAccountPage />}
         {urlName === "Download Center" && <DownloadCenterPage />}
+        {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />}
       </div>
     </Container>
   );

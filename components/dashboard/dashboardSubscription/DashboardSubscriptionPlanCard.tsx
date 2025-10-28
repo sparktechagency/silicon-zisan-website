@@ -1,17 +1,18 @@
-import { Button } from "../ui/button";
 import Container from "@/share/Container";
-import { Info } from "lucide-react";
 import Image from "next/image";
-import logo from "../../public/dashboard/logo.png";
+import logo from "../../../public/subscription/logo.png";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
-const packeages = [
+const packages = [
   {
     id: 1,
-    title: "Basic",
+    title: ["Basic", "Standard", "Booster"],
+    subTitle: "Basic Free",
     price: "Free",
     info: false,
-    active: " Active",
-    unactive: " inactive",
+    active: "Active",
+    unactive: "Inactive",
     features: [
       "5 Jobs Posting",
       "Limited Candidate Alerts",
@@ -22,9 +23,12 @@ const packeages = [
   },
   {
     id: 2,
-    title: "Standard",
+    title: ["Basic", "Standard", "Booster"],
+    subTitle: "Standard",
     price: "€ 2.50 Per Day",
     info: true,
+    active: "Active",
+    unactive: "Inactive",
     features: [
       "0 € For 30 Days",
       "Activated For 30 Days",
@@ -39,9 +43,12 @@ const packeages = [
   },
   {
     id: 3,
-    title: "Booster",
+    title: ["Basic", "Standard", "Booster"],
+    subTitle: "Booster",
     price: "€ 2.50 Per Day",
     info: true,
+    active: "Active",
+    unactive: "Inactive",
     features: [
       "0 € For 30 Days",
       "Activated For 30 Days",
@@ -56,32 +63,43 @@ const packeages = [
   },
 ];
 
-export default function Subscriptions({ title }: { title?: string }) {
+export default function DashboardSubscriptionPlanCard() {
   return (
     <Container
-      className={`grid grid-cols-1 ${
-        title ? "xl:grid-cols-3" : " xl:grid-cols-2"
-      } gap-7`}
+      className={`grid grid-cols-1 xl:grid-cols-2
+      gap-7`}
     >
-      {packeages?.map((item, index) => (
+      {packages.map((item, index) => (
         <div
           key={index}
           className="bg-card p-3 rounded border border-gray-300/30 flex flex-col"
         >
           <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
 
-          <button className="custom-btn w-full py-2 rounded-2xl">
-            {item.title}
-          </button>
+          <div className="grid grid-cols-3 gap-4">
+            <button
+              className={`button-unactive ${
+                item.title[0] && "custom-btn"
+              } w-full py-2 rounded-2xl`}
+            >
+              Basic
+            </button>
+            <button className="button-unactive w-full py-2 rounded-2xl">
+              Standard
+            </button>
+            <button className="button-unactive w-full py-2 rounded-2xl">
+              Extended
+            </button>
+          </div>
 
           <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
             <div className="flex justify-between items-center">
               <div className="mt-4">
                 <h1 className="text-white text-2xl font-semibold">
-                  {item.title}
+                  {item.subTitle}
                 </h1>
                 <p className="text-white text-sm flex gap-2 mt-2">
-                  {item.price}{" "}
+                  {item.price}
                 </p>
               </div>
 
@@ -99,11 +117,11 @@ export default function Subscriptions({ title }: { title?: string }) {
                 </div>
               </div>
             </div>
-            {/* list */}
+
             <div className="py-10 px-5">
-              <ul>
-                {item?.features?.map((feature, index) => (
-                  <li key={index} className="text-white text-[12px] list-disc">
+              <ul className="list-disc list-inside space-y-1">
+                {item.features.map((feature, i) => (
+                  <li key={i} className="text-white text-[12px]">
                     {feature}
                   </li>
                 ))}
@@ -112,14 +130,31 @@ export default function Subscriptions({ title }: { title?: string }) {
           </div>
 
           <div className="mt-auto">
-            {
+            <Link href="/dashboard-payment">
               <Button className="custom-btn py-2 rounded font-semibold w-full">
                 Subscription Now
               </Button>
-            }
+            </Link>
           </div>
         </div>
       ))}
+
+      {/* Active Subscription Card */}
+      <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col items-center justify-between">
+        <h1 className="text-2xl font-semibold my-2"></h1>
+
+        <div className="py-10 px-5 my-3 w-full flex flex-col items-center">
+          <Image src={logo} alt="JobsinApp Logo" />
+          <h2 className="text-white text-2xl font-semibold mb-2">JobsinApp</h2>
+          <p className="text-white text-sm mb-6 text-center"></p>
+          <Button
+            variant="destructive"
+            className="w-full py-2 rounded cursor-pointer"
+          >
+            Cancel Subscription
+          </Button>
+        </div>
+      </div>
     </Container>
   );
 }
