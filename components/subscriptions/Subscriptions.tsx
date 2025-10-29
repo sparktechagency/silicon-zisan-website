@@ -63,12 +63,10 @@ const packeages = [
   },
 ];
 
-export default function Subscriptions({ title }: { title?: string }) {
+export default function Subscriptions() {
   return (
     <Container
-      className={`grid grid-cols-1 ${
-        title ? "xl:grid-cols-3" : " xl:grid-cols-2"
-      } gap-7`}
+      className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-7`}
     >
       {packeages?.map((item, index) => (
         <div
@@ -77,9 +75,6 @@ export default function Subscriptions({ title }: { title?: string }) {
         >
           <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
 
-          {/* <button className="custom-btn w-full py-2 rounded-2xl">
-            {item.subTitle[0]}
-          </button> */}
           <div className="grid grid-cols-3 gap-4 my-4">
             <button
               className={`button-unactive ${

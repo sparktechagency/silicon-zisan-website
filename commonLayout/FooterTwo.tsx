@@ -23,6 +23,7 @@ export default function FooterTwo() {
                 alt="Zasulehry"
                 width={70}
                 height={60}
+                sizes="100vh"
                 className="w-[170px] h-[60px] xl:w-[200px] xl:h-[85px] object-contain"
               />
             </Link>

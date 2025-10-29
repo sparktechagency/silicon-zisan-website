@@ -13,10 +13,10 @@ import karna from "../../../public/invoice-payment/karna.png";
 import paypal from "../../../public/invoice-payment/paypal.png";
 import sofort from "../../../public/invoice-payment/sofort.png";
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import logo from "../../../public/subscription/logo.png";
 import Container from "@/share/Container";
+import CustomBackButton from "@/share/CustomBackButton";
 
 const paymentMethods = [
   { label: "Apple Pay", image: apple, id: 1 },
@@ -90,80 +90,86 @@ export default function PaymentInterface() {
   const [selectedMethod, setSelectedMethod] = useState("Apple Pay");
 
   return (
-    <Container className="grid grid-cols-[35%_auto] my-10 gap-20 px-10">
-      {/* card */}
-      {[packages[0]].map((item, index) => (
-        <div
-          key={index}
-          className="bg-card p-3 rounded border border-gray-300/30 flex flex-col"
-        >
-          <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
+    <Container className="grid lg:grid-cols-[35%_auto] my-10 gap-20 px-10">
+      <div>
+        <div className="flex gap-2 mb-3">
+          <CustomBackButton />
+          <h1 className="text-2xl font-semibold">Subscribe Details</h1>
+        </div>
 
-          <div className="grid grid-cols-3 gap-4">
-            <button
-              className={`button-unactive ${
-                item.title[0] && "custom-btn"
-              } w-full py-2 rounded-2xl`}
-            >
-              Basic
-            </button>
-            <button className="button-unactive w-full py-2 rounded-2xl">
-              Standard
-            </button>
-            <button className="button-unactive w-full py-2 rounded-2xl">
-              Extended
-            </button>
-          </div>
+        {/* card */}
+        {[packages[0]].map((item, index) => (
+          <div
+            key={index}
+            className="bg-card p-3 rounded border border-gray-300/30 flex flex-col"
+          >
+            <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
 
-          <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-            <div className="flex justify-between items-center">
-              <div className="mt-4">
-                <h1 className="text-white text-2xl font-semibold">
-                  {item.subTitle}
-                </h1>
-                <p className="text-white text-sm flex gap-2 mt-2">
-                  {item.price}
-                </p>
+            <div className="grid grid-cols-3 gap-4">
+              <button
+                className={`button-unactive ${
+                  item.title[0] && "custom-btn"
+                } w-full py-2 rounded-2xl`}
+              >
+                Basic
+              </button>
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Standard
+              </button>
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Extended
+              </button>
+            </div>
+
+            <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+              <div className="flex justify-between items-center">
+                <div className="mt-4">
+                  <h1 className="text-white text-2xl font-semibold">
+                    {item.subTitle}
+                  </h1>
+                  <p className="text-white text-sm flex gap-2 mt-2">
+                    {item.price}
+                  </p>
+                </div>
+
+                <div>
+                  <div className="flex justify-end mb-2">
+                    <Image src={logo} className="h-10 w-10" alt="logo" />
+                  </div>
+                  <div className="flex">
+                    <button className="custom-btn py-1 px-4 rounded-none">
+                      {item.active}
+                    </button>
+                    <button className="border border-gray-300/50 px-2">
+                      {item.unactive}
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <div className="flex justify-end mb-2">
-                  <Image src={logo} className="h-10 w-10" alt="logo" />
-                </div>
-                <div className="flex">
-                  <button className="custom-btn py-1 px-4 rounded-none">
-                    {item.active}
-                  </button>
-                  <button className="border border-gray-300/50 px-2">
-                    {item.unactive}
-                  </button>
-                </div>
+              <div className="py-10 px-5">
+                <ul className="list-disc list-inside space-y-1">
+                  {item.features.map((feature, i) => (
+                    <li key={i} className="text-white text-[12px]">
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
-            <div className="py-10 px-5">
-              <ul className="list-disc list-inside space-y-1">
-                {item.features.map((feature, i) => (
-                  <li key={i} className="text-white text-[12px]">
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* <div className="mt-auto">
+            {/* <div className="mt-auto">
             <Link href="/dashboard-payment">
               <Button className="custom-btn py-2 rounded font-semibold w-full">
                 Subscription Now
               </Button>
             </Link>
           </div> */}
-        </div>
-      ))}
-
+          </div>
+        ))}
+      </div>
       {/* payment */}
-      <div className=" text-white p-6 rounded-xl space-y-6 border border-gray-400/30">
+      <div className=" text-white p-6 rounded-xl space-y-6 border border-gray-400/30 lg:mt-10">
         {/* Package Info */}
         <div className="space-y-2">
           {/* <h2 className="text-xl font-semibold">Package Information</h2> */}

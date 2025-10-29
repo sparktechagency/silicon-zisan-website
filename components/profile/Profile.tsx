@@ -8,34 +8,40 @@ import { IoIosLogOut } from "react-icons/io";
 import PersonalInformation from "./PersonalInformation";
 import EditProfile from "./EditProfile";
 import Setting from "./Settings";
+import { useRouter } from "next/navigation";
 
 const buttons = [
   {
     label: "Personal Information",
+    path: "Personal Information",
     icon: <User />,
     bg: "bg-[#1ba1a3]",
     hover: "hover:bg-[#169091]",
   },
   {
     label: "Settings",
+    path: "Settings",
     icon: <Settings />,
     bg: "bg-[#3a4a5a]",
     hover: "hover:bg-[#324250]",
   },
   {
     label: "Log Out",
+    path: "/login",
     icon: <IoIosLogOut size={27} />,
     bg: "bg-[#3a4a5a]",
     hover: "hover:bg-[#324250]",
   },
   {
     label: "Delete Account",
+    path: "/login",
     icon: <Trash />,
     bg: "bg-[#3a4a5a]",
     hover: "hover:bg-[#9e2d2d]",
   },
 ];
 export default function Profile() {
+  const router = useRouter();
   const [status, setStatus] = useState("Personal Information");
   return (
     <div className="flex my-10 gap-10 w-full max-w-[1000px] mx-auto">
@@ -48,12 +54,18 @@ export default function Profile() {
         {/* Buttons */}
         <div className="flex flex-col space-y-4">
           {buttons.map((btn, i) => {
-            const active = status === btn.label;
+            const active = status === btn.path;
             return (
               <button
                 key={i}
-                onClick={() => setStatus(btn.label)}
-                className={`flex items-center pl-7 ${
+                onClick={() => {
+                  if (btn.path === "/login") {
+                    router.push(btn.path);
+                  } else {
+                    setStatus(btn.label);
+                  }
+                }}
+                className={`flex items-center pl-7 cursor-pointer ${
                   active ? "custom-btn" : "bg-card border border-gray-400/50"
                 } ${
                   btn.hover

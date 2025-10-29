@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image from "next/image"; // or <img> if not using Next.js
 import profileMan from "../../public/profile/profile.png";
@@ -17,19 +18,50 @@ export default function PersonalInformation({
 }: {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setPreviewImage(imageUrl);
+    }
+  };
+
+  const handleClick = () => {
+    if (inputRef?.current) {
+      inputRef.current.click();
+    }
+  };
+
   return (
     <div className="w-full max-w-[400px] bg-card p-6 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
         <Image
-          src={profileMan}
+          src={previewImage || profileMan}
+          width={10}
+          height={10}
           alt="Profile"
           className="object-cover w-full h-full"
-          priority
+          sizes="100vh"
+          // priority
         />
         {/* Camera Icon overlay */}
-        <div className="absolute bottom-0.5 right-0.5 bg-[#416383] rounded-full p-1 cursor-pointer hover:bg-[#5881a3] transition">
+        <div
+          className="absolute bottom-0.5 right-0.5 bg-[#416383] rounded-full p-1 cursor-pointer hover:bg-[#5881a3] transition"
+          onClick={handleClick}
+        >
           <Camera />
+
+          <input
+            type="file"
+            className="hidden"
+            onChange={handleImageChange}
+            ref={inputRef}
+          />
         </div>
       </div>
 

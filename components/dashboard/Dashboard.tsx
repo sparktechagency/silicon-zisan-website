@@ -35,7 +35,7 @@ export default function JobCard() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams.toString());
-  let urlName: string = params.get("name") || "";
+  let urlName: string = params.get("name") || "My Posted Jobs";
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -56,7 +56,6 @@ export default function JobCard() {
           const IconComponent = isFunctionIcon ? (icon as IconType) : null;
           const iconSrc = !isFunctionIcon ? (icon as string) : undefined;
 
-          console.log(typeof icon === "string" ? "yes" : "no");
           return (
             <div
               key={index}
@@ -94,6 +93,8 @@ export default function JobCard() {
           );
         })}
       </div>
+
+      {/* conditional rendering */}
 
       <div className="basis-[70%]">
         {urlName === "My Posted Jobs" && <JobPostHomePage />}
