@@ -31,7 +31,9 @@ export default function VerifyAccount() {
     <div>
       {/* upload image */}
       <div>
-        <Label className="text-2xl">Upload Bussiness Documents</Label>
+        <Label className="sm:text-xl md:text-2xl">
+          Upload Bussiness Documents
+        </Label>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <div
