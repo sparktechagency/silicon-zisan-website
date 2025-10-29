@@ -9,6 +9,8 @@ import Container from "@/share/Container";
 import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
 import profile from "../public/profile/profile.png";
+import { PhoneCall } from "lucide-react";
+import call from "../public/call-header.svg";
 
 export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,12 +39,12 @@ export default function HeaderTwo() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-center space-x-8">
               {mainNavigation?.map((item: any) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-2 rounded-md text-md font-medium transition-colors duration-200 ${
+                  className={`px-3 py-2 rounded-md text-[20px] font-medium transition-colors duration-200 ${
                     pathname === item.href
                       ? "custom-btn"
                       : "text-white hover:text-blue-300"
@@ -51,6 +53,9 @@ export default function HeaderTwo() {
                   {item.label}
                 </Link>
               ))}
+              <span className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
+                <Image src={call} alt="Zasulehry" className="w-10 h-10" />
+              </span>
             </div>
           </div>
 

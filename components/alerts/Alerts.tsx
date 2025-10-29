@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Alerts() {
   return (
-    <Container className="my-10">
+    <Container className="my-16">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold">All Alerts</h1>
         <Link href="/alert-setting">

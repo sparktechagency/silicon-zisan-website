@@ -15,7 +15,7 @@ export default function AlertsSettingCreate() {
   const [emailEnabled, setEmailEnabled] = useState(true);
 
   return (
-    <Container className="bg-card p-6 max-w-md mx-auto rounded-lg space-y-6 border border-gray-400/30 my-10">
+    <Container className="bg-card p-6 max-w-md mx-auto rounded-lg space-y-6 border border-gray-400/30 my-16">
       <div className="text-xl font-semibold flex gap-2">
         <CustomBackButton /> Settings
       </div>

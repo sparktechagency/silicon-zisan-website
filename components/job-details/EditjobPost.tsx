@@ -69,7 +69,7 @@ const EditJobPost = ({ title }: { title: string }) => {
   return (
     <Container
       className={`bg-card ${
-        name === "Post Job" ? "w-full" : "w-[50%] mx-auto my-10"
+        name === "Post Job" ? "w-full" : "w-[50%] mx-auto my-16"
       } p-5 border rounded-md`}
     >
       <div className=" text-gray-100 w-full  rounded-xl">

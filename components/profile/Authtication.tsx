@@ -11,7 +11,7 @@ export default function TwoFactorAuth() {
   const [authAppActive, setAuthAppActive] = useState(false);
 
   return (
-    <Container className="px-40  space-y-6 my-10">
+    <Container className="px-40  space-y-6 my-16">
       <div className="flex gap-2">
         <CustomBackButton />
         <h2 className="text-xl font-semibold">2 Factor Authentication</h2>

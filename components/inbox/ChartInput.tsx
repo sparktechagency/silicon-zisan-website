@@ -13,22 +13,20 @@ const ChatInput = ({ message, setMessage, onHandle }: Props) => {
     <div className="flex items-center p-2 space-x-2 ">
       {/* Text Input */}
       <Textarea
-        // type="text"
-
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        className="flex-1 px-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm w-10 resize-none"
+        className="flex-1 items-center shadow-sm rounded-2xl text-sm resize-none"
         placeholder="Type ……"
       />
 
       {/* Image Button */}
-      <button className="p-2  rounded-full shadow hover:bg-gray-500">
+      <button className="p-2  rounded-full shadow hover:bg-gray-500 text-[#0288A6] cursor-pointer">
         <Movie />
       </button>
 
       {/* Send Button */}
       <button
-        className="p-2  rounded-full shadow hover:bg-gray-500"
+        className="p-2  rounded-full shadow hover:bg-gray-500 text-[#0288A6] cursor-pointer"
         onClick={onHandle}
       >
         <SendHorizonal />

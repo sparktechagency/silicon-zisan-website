@@ -90,7 +90,7 @@ export default function PaymentInterface() {
   const [selectedMethod, setSelectedMethod] = useState("Apple Pay");
 
   return (
-    <Container className="grid lg:grid-cols-[35%_auto] my-10 gap-20 px-10">
+    <Container className="grid lg:grid-cols-[35%_auto] my-16 gap-20 px-10">
       <div>
         <div className="flex gap-2 mb-3">
           <CustomBackButton />

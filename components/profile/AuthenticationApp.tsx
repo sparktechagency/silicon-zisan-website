@@ -8,7 +8,7 @@ import { ArrowLeft } from "lucide-react";
 
 export default function AuthenticationApp() {
   return (
-    <div className="bg-card text-white p-6 max-w-xl my-10 mx-auto rounded-lg space-y-6 border border-gray-400/30">
+    <div className="bg-card text-white p-6 max-w-xl my-16 mx-auto rounded-lg space-y-6 border border-gray-400/30">
       <div className="text-xl font-semibold gap-3 flex items-center ">
         <p
           className="bg-card button-unactive rounded-full p-1 h-9 w-9 flex items-center justify-center"

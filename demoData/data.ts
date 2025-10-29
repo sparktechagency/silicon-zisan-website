@@ -1,5 +1,5 @@
 import hotel from "../public/dashboard/hotel.png";
-import { CiCirclePlus } from "react-icons/ci";
+import { CiCirclePlus, CiSettings } from "react-icons/ci";
 import app from "../public/dashboard/sidebar/appoinment.svg";
 import shift from "../public/dashboard/sidebar/shift.svg";
 import hire from "../public/dashboard/sidebar/hire-employee.svg";
@@ -15,7 +15,7 @@ import { MdPodcasts } from "react-icons/md";
 export const data = [
   { title: "My Posted Jobs", icon: CiCirclePlus },
   { title: "Post Job", icon: CiCirclePlus },
-  { title: "AI Tools", icon: app },
+  { title: "AI Tools", icon: CiSettings },
   { title: "Appointments", icon: two },
   { title: "Subscription Plan", icon: MdPodcasts },
   { title: "Hire Employees", icon: hire },

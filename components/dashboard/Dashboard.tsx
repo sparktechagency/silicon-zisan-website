@@ -47,7 +47,7 @@ export default function JobCard() {
     router.push(`?${params.toString()}`);
   };
   return (
-    <Container className="flex flex-col lg:flex-row space-x-10 my-10">
+    <Container className="flex flex-col lg:flex-row space-x-10 my-16">
       <div className="basis-[30%]">
         {data?.map((item: item, index) => {
           const active = urlName === item.title;
@@ -60,7 +60,7 @@ export default function JobCard() {
             <div
               key={index}
               onClick={(e) => handleChangeName(e, item.title)}
-              className={` flex items-center justify-start pl-5 ml-3 mb-5 gap-3 text-[22px] font-medium rounded h-20  w-[370px] cursor-pointer ${
+              className={` flex items-center justify-start pl-5 ml-3 mb-5 gap-3 text-[22px] font-medium rounded h-20 w-full lg:w-[370px] cursor-pointer ${
                 active
                   ? "custom-btn"
                   : "bg-card text-white border border-white/20"

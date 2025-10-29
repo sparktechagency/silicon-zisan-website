@@ -8,7 +8,7 @@ import { EmailModal } from "./EmailModal";
 export default function EmailSetting() {
   const [selectMethod, setSelectMethod] = useState("email");
   return (
-    <Container className="bg-card p-3 border border-gray-400/30 my-10 rounded">
+    <Container className="bg-card p-3 border border-gray-400/30 my-16 rounded">
       <div className="text-xl font-semibold flex gap-2 my-5">
         <CustomBackButton /> Email Setting
       </div>

@@ -123,7 +123,7 @@ const ChatMessages = () => {
 
               <div>
                 <div
-                  className={`whitespace-pre-line px-4 py-1.5 rounded-lg text-[12px] ${
+                  className={`whitespace-pre-line px-4 py-1.5 rounded-lg text-[14px] ${
                     item.sender === "me"
                       ? "custom-btn rounded-tr-none "
                       : "bg-[#5E6C79] rounded border border-gray-400/30"

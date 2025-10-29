@@ -5,7 +5,7 @@ import React from "react";
 
 export default function ContractInformation() {
   return (
-    <div className="bg-white text-gray-700 p-6 max-w-3xl mx-auto rounded-md shadow my-10">
+    <div className="bg-white text-gray-700 p-6 max-w-3xl mx-auto rounded-md shadow my-16">
       <div className="flex items-center gap-3 font-semibold text-xl mb-4">
         <ArrowLeft /> Contract Information
       </div>

@@ -2,7 +2,7 @@ import Subscriptions from "@/components/subscriptions/Subscriptions";
 
 export default function SubscriptionsPage() {
   return (
-    <div className="my-10">
+    <div className="my-16">
       <Subscriptions />
     </div>
   );
