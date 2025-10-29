@@ -57,15 +57,18 @@ export default function HireEmployees() {
       </Link>
 
       {data?.map((item, index) => (
-        <div className="bg-card p-3 rounded border border-gray-500/70 mb-5">
-          <div className="flex items-center justify-between">
+        <div
+          className="bg-card p-3 rounded border border-gray-500/70 mb-5"
+          key={index}
+        >
+          <div className="sm:flex items-center justify-between">
             <div>
               <div className="flex items-center gap-2">
                 <Image src={titleIcon} height={24} width={24} alt="icon" />
-                <h1 className="text-2xl">{item.title}</h1>
+                <h1 className="text-lg sm:text-2xl capitalize">{item.title}</h1>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 mt-3 sm:mt-0">
               <button className="button-unactive p-1 rounded">Full Time</button>
               <div className="flex items-center justify-center h-full">
                 <Link href="/contact-information">
@@ -76,7 +79,7 @@ export default function HireEmployees() {
               </div>
             </div>
           </div>
-          <p className="my-3">
+          <p className="my-3 text-sm sm:text-lg">
             The Senior Business Analyst plays a pivotal role in bridging the gap
             between business needs and technology solutions...
           </p>

@@ -61,7 +61,7 @@ export default function SalaryCalculator() {
 
   return (
     <div className="bg-card text-white p-6 rounded-xl max-w-3xl mx-auto space-y-6">
-      <div className="flex justify-between">
+      <div className="flex justify-between ">
         <HeaderYesNoToggle
           options={["Monthly", "Yearly"]}
           name="monthly"
