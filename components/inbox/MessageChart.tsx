@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // import image from "../../../public/user.png";
 import man from "../../public/inbox/man.png";
 import Image from "next/image";
@@ -74,6 +74,13 @@ const ChatMessages = () => {
   console.log(messages);
   const [userTextMessage, setUserTextMessage] = useState("");
 
+  useEffect(() => {
+    bottomRef.current?.scrollTo({
+      top: bottomRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages]);
+
   const handleMessageSend = () => {
     if (userTextMessage.trim() !== "") {
       const newMessage: Message = {
@@ -84,17 +91,15 @@ const ChatMessages = () => {
       };
 
       setMessages((prev) => [...prev, newMessage]);
-      setTimeout(() => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-      });
+
       setUserTextMessage("");
     }
   };
 
   return (
     <div
-      className="rounded-md flex flex-col"
-      style={{ height: "calc(100vh - 160px)" }}
+      className="rounded-md flex flex-col "
+      style={{ height: "calc(100vh - 150px)" }}
     >
       <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card static">
         <Image src={man} className="w-11 h-11 rounded-full" alt="header" />
@@ -104,7 +109,10 @@ const ChatMessages = () => {
         </div>
       </div>
       {/* Messages container */}
-      <div className="flex-1 flex flex-col overflow-y-auto hide-scrollbar mt-5 bg-card border border-b-0 border-gray-400/30 p-3">
+      <div
+        ref={bottomRef}
+        className="flex-1 flex flex-col  hide-scrollbar mt-5 bg-card border border-b-0 border-gray-400/30 p-3 overflow-y-auto"
+      >
         <div className="space-y-4">
           {messages.map((item) => (
             <div
@@ -137,7 +145,7 @@ const ChatMessages = () => {
               </div>
             </div>
           ))}
-          <div ref={bottomRef} />
+          {/* <div /> */}
         </div>
       </div>
 
