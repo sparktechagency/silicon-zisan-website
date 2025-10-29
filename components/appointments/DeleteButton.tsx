@@ -24,17 +24,19 @@ export default function DeleteButton() {
         </h2>
         <div>
           <DialogFooter>
-            <DialogClose asChild>
-              <Button
-                className="w-[50%] bg-red-600 border-none hover:bg-red-600 cursor-pointer"
-                // variant="outline"
-              >
-                No
+            <div className="flex gap-4">
+              <DialogClose asChild>
+                <Button
+                  className="w-[50%] bg-red-600 border-none hover:bg-red-600 cursor-pointer"
+                  // variant="outline"
+                >
+                  No
+                </Button>
+              </DialogClose>
+              <Button className="w-[50%] btn" type="submit">
+                Yes
               </Button>
-            </DialogClose>
-            <Button className="w-[50%] btn" type="submit">
-              Yes
-            </Button>
+            </div>
           </DialogFooter>
         </div>
       </DialogContent>

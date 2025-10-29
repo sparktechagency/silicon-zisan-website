@@ -43,23 +43,23 @@ export default function AppointmentCardsCancelled() {
           <Image
             src={item.src}
             alt="Md Kamran Khan"
-            className="w-28 h-28 rounded-full object-cover border-2 border-gray-700"
+            className="sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
           />
 
           {/* Info Section */}
           <div className="flex-1">
-            <h3 className="text-xl font-semibold">
+            <h3 className="sm:text-xl font-semibold">
               {item.name} ({item.phone})
             </h3>
 
             <div className=" mt-2 text-sm text-gray-300">
               <div className="flex items-center gap-1">
                 <FaCalendarAlt />
-                <span className="text-xl">{item.date}</span>
+                <span className="sm:text-xl">{item.date}</span>
               </div>
               <div className="flex items-center gap-1 mt-2">
                 <Clock4 size={18} />
-                <span className="text-xl">{item.time}</span>
+                <span className="sm:text-xl">{item.time}</span>
               </div>
             </div>
           </div>

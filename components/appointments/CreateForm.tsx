@@ -51,7 +51,10 @@ export function CreateForm() {
         <div className="flex items-center gap-3">
           <RadioGroupItem value="call" id="call" />
           {/* className="bg-blue-600 text-white data-[state=checked]:bg-blue-700" */}
-          <Label htmlFor="call" className="text-sm leading-relaxed">
+          <Label
+            htmlFor="call"
+            className="text-[12px] sm:text-sm leading-relaxed"
+          >
             An appointment is available for you on 01.02.2025/17:25 Uhr. Kindly
             confirm it in your JobsinApp Account and share your active contact
             number. We will call you.
@@ -60,7 +63,10 @@ export function CreateForm() {
 
         <div className="flex items-center gap-3">
           <RadioGroupItem value="address" id="address" />
-          <Label htmlFor="address" className="text-sm leading-relaxed">
+          <Label
+            htmlFor="address"
+            className="text-[12px] sm:text-sm leading-relaxed"
+          >
             An Appointment Is Available For You On 01.02.2025/17:25 Uhr. Kindly
             Confirm It In Your JobsinApp Account. Please Come To This Address.
           </Label>
@@ -80,11 +86,11 @@ export function CreateForm() {
         placeholder="Type Here Message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        className="bg-card text-white border-white/20"
+        className="bg-card text-white border-white/20 text-sm sm:text-md"
       />
 
       <div className="flex justify-end">
-        <Button className="w-60 custom-btn text-white text-lg">
+        <Button className="w-60 custom-btn text-white sm:text-lg">
           Confirm Appointment
         </Button>
       </div>

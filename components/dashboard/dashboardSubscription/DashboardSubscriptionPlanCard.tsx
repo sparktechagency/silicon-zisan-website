@@ -74,7 +74,9 @@ export default function DashboardSubscriptionPlanCard() {
           key={index}
           className="bg-card p-3 rounded border border-gray-300/30 flex flex-col"
         >
-          <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
+          <h1 className="text-lg sm:text-2xl font-semibold my-2">
+            JobsinApp Plans
+          </h1>
 
           <div className="grid grid-cols-3 gap-4">
             <button
@@ -95,7 +97,7 @@ export default function DashboardSubscriptionPlanCard() {
           <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
             <div className="flex justify-between items-center">
               <div className="mt-4">
-                <h1 className="text-white text-2xl font-semibold">
+                <h1 className="text-white text-lg sm:text-2xl font-semibold">
                   {item.subTitle}
                 </h1>
                 <p className="text-white text-sm flex gap-2 mt-2">
