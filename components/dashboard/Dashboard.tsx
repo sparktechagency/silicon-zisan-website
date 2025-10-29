@@ -47,7 +47,7 @@ export default function JobCard() {
     router.push(`?${params.toString()}`);
   };
   return (
-    <Container className="flex flex-col lg:flex-row gap-9 my-16 px-9 md:px-10 lg:px-0 xl:px-4">
+    <Container className="flex flex-col lg:flex-row gap-9 my-16 px-5 md:px-10 lg:px-0 xl:px-4">
       <div className="basis-[30%]">
         {data?.map((item: item, index) => {
           const active = urlName === item.title;

@@ -5,12 +5,12 @@ export default function Status({ active, setActive }: any) {
 
   return (
     <div className="">
-      <div className="flex  justify-between space-x-4">
+      <div className="grid  grid-cols-2 2xl:grid-cols-4 gap-4">
         {tabs.map((tab) => (
           <button
             key={tab}
             onClick={() => setActive(tab)}
-            className={`px-6 py-3 rounded-md font-medium text-sm transition-all duration-300  xl:text-xl 
+            className={`py-2 px-6 md:py-3 rounded-md font-medium text-sm transition-all duration-300  xl:text-xl 
               ${active === tab ? "btn " : "bg-[#415161] text-white shadow-md"}`}
           >
             {tab}

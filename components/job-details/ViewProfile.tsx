@@ -6,6 +6,7 @@ import personOne from "../../public/dashboard/person-one.png";
 import pdf from "../../public/dashboard/pdf.png";
 import viewOne from "../../public/dashboard/profile-view/one.png";
 import resume from "../../public/dashboard/profile-view/cv.png";
+import ResumeView from "./ResumeView";
 
 export default function ViewProfile() {
   const personalInfo = [
@@ -79,15 +80,13 @@ export default function ViewProfile() {
             </div>
           </div>
           <div className="flex gap-3">
-            <a
-              href={`http://10.10.7.54:3000/${resume.src}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                <EyeIcon className="p-0.5 text-white" />
-              </button>
-            </a>
+            <ResumeView
+              trigger={
+                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                  <EyeIcon className="p-0.5 text-white" />
+                </button>
+              }
+            />
 
             <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
               <DownloadIcon className="p-0.5 text-white" />

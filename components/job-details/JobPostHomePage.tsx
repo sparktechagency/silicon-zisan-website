@@ -12,9 +12,9 @@ export default function JobPostHomePage() {
       {postJobsDetails?.map((item: any, index: number) => (
         <div
           key={index}
-          className="bg-card flex justify-between border border-gray-300/30 p-3 rounded-md mb-6"
+          className="bg-card sm:flex justify-between border border-gray-300/30 p-3 rounded-md mb-6"
         >
-          <div className="flex gap-5">
+          <div className="sm:flex gap-5">
             <div>
               <Image
                 src={logo}
@@ -38,10 +38,10 @@ export default function JobPostHomePage() {
             </div>
           </div>
           {/* view details */}
-          <div className="text-white text-right flex flex-col justify-between">
-            <p className="text-right">{item.postedTime}</p>
+          <div className="text-white  flex flex-col justify-between mt-5 sm:mt-0">
+            <p className="sm:text-right">{item.postedTime}</p>
             <Link href="/view-details-jobs">
-              <button className="custom-btn rounded-md py-2 px-2">
+              <button className="custom-btn rounded-md py-2 px-2 w-full">
                 View Details
               </button>
             </Link>

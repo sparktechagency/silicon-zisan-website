@@ -10,7 +10,7 @@ export default function Appointments() {
   const [status, setStatus] = useState("Confirmed");
 
   return (
-    <div className="w-[90%]">
+    <div className="md:w-[90%]">
       <Status active={status} setActive={setStatus} />
 
       {status === "Confirmed" && <AppointmentCardsConfirmed />}
