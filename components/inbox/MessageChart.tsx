@@ -71,8 +71,9 @@ const timeNow = new Date().toLocaleTimeString([], {
 const ChatMessages = () => {
   const bottomRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
-  console.log(messages);
   const [userTextMessage, setUserTextMessage] = useState("");
+  const [image, setImage] = useState<string | null>(null);
+  console.log(image);
 
   useEffect(() => {
     bottomRef.current?.scrollTo({
@@ -93,6 +94,14 @@ const ChatMessages = () => {
       setMessages((prev) => [...prev, newMessage]);
 
       setUserTextMessage("");
+    }
+  };
+
+  const handleImageUpoad = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl);
     }
   };
 
@@ -152,6 +161,7 @@ const ChatMessages = () => {
       {/* Input at bottom */}
       <div className="bg-card  border border-t-0 border-gray-400/30">
         <ChatInput
+          onChange={handleImageUpoad}
           message={userTextMessage}
           setMessage={setUserTextMessage}
           onHandle={handleMessageSend}

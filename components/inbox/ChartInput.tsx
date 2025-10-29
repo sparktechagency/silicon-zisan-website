@@ -6,9 +6,17 @@ interface Props {
   message: string;
   setMessage: Dispatch<SetStateAction<string>>;
   onHandle: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ChatInput = ({ message, setMessage, onHandle }: Props) => {
+const ChatInput = ({ message, setMessage, onHandle, onChange }: Props) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleClick = () => {
+    if (inputRef?.current) {
+      inputRef.current.click();
+    }
+  };
   return (
     <div className="flex items-center p-2 space-x-2 ">
       {/* Text Input */}
@@ -20,8 +28,19 @@ const ChatInput = ({ message, setMessage, onHandle }: Props) => {
       />
 
       {/* Image Button */}
-      <button className="p-2  rounded-full shadow hover:bg-gray-500 text-[#0288A6] cursor-pointer">
+      <button
+        onClick={handleClick}
+        className="p-2  rounded-full shadow hover:bg-gray-500 text-[#0288A6] cursor-pointer"
+      >
         <Movie />
+
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          ref={inputRef}
+          onChange={onChange}
+        />
       </button>
 
       {/* Send Button */}
