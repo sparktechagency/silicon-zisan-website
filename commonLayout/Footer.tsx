@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="bg-[#056B82] text-white pt-10 px-6 lg:px-20">
-      <div className="flex  justify-between ">
+      <div className="xl:flex  justify-between ">
         {/* Quick Links */}
         <div>
           <h3 className="font-semibold ">Quick Links</h3>

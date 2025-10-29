@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Header from "@/commonLayout/Header";
 import Footer from "@/commonLayout/Footer";
+import HeaderTwo from "@/commonLayout/HeaderTwo";
+import FooterTwo from "@/commonLayout/FooterTwo";
 
 export const metadata: Metadata = {
   title: "Website",
@@ -14,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <main className="">
-      <Header />
+      <HeaderTwo />
       {children}
-      <Footer />
+      <FooterTwo />
     </main>
   );
 }

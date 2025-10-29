@@ -85,17 +85,21 @@ export default function LoginPage() {
                       {...field}
                     />
                   </FormControl>
+                  <Link href="/forgot-password" className="flex justify-end">
+                    <span>Forgot Password</span>
+                  </Link>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <Link href="/">
               <Button className="custom-btn w-full" type="submit">
                 Submit
               </Button>
             </Link>
             <p className="text-center text-white mt-4">
-              Dont't have an account?{" "}
+              Dont't have an account ?{" "}
               <Link className="underline" href="/signup">
                 SignUp
               </Link>

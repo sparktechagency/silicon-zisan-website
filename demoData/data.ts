@@ -1,22 +1,32 @@
 import hotel from "../public/dashboard/hotel.png";
 import { CiCirclePlus } from "react-icons/ci";
 import app from "../public/dashboard/sidebar/appoinment.svg";
+import shift from "../public/dashboard/sidebar/shift.svg";
+import hire from "../public/dashboard/sidebar/hire-employee.svg";
+import two from "../public/dashboard/sidebar/appoinmenttwo.svg";
+import { MdOutlineFileDownload } from "react-icons/md";
+import { MdOutlineVerifiedUser } from "react-icons/md";
+import { TfiHeadphoneAlt } from "react-icons/tfi";
+import { PiNoteThin } from "react-icons/pi";
+import { LuPhone } from "react-icons/lu";
+import { CiCalculator1 } from "react-icons/ci";
+import { MdPodcasts } from "react-icons/md";
 
 export const data = [
   { title: "My Posted Jobs", icon: CiCirclePlus },
   { title: "Post Job", icon: CiCirclePlus },
   { title: "AI Tools", icon: app },
-  // { title: "Appointments", icon: "" },
-  // { title: "Subscription Plan", icon: "" },
-  // { title: "Hire Employees", icon: "" },
-  // { title: "Shift Plan", icon: "" },
-  // { title: "Salary Calculator", icon: "" },
-  // { title: "WhatsApp Support", icon: "" },
-  // { title: "Add WhatsApp Link", icon: "" },
-  // { title: "Invoice & Payments", icon: "" },
-  // { title: "Contact & Support", icon: "" },
-  // { title: "Verify Account", icon: "" },
-  // { title: "Download Center", icon: "" },
+  { title: "Appointments", icon: two },
+  { title: "Subscription Plan", icon: MdPodcasts },
+  { title: "Hire Employees", icon: hire },
+  { title: "Shift Plan", icon: shift },
+  { title: "Salary Calculator", icon: CiCalculator1 },
+  { title: "WhatsApp Support", icon: LuPhone },
+  { title: "Add WhatsApp Link", icon: LuPhone },
+  { title: "Invoice & Payments", icon: PiNoteThin },
+  { title: "Contact & Support", icon: TfiHeadphoneAlt },
+  { title: "Verify Account", icon: MdOutlineVerifiedUser },
+  { title: "Download Center", icon: MdOutlineFileDownload },
 ];
 
 export const postJobsDetails = [

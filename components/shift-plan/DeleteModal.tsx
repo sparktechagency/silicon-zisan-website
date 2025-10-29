@@ -17,7 +17,7 @@ export default function DeleteModal() {
           <Trash2 />
         </button>
       </DialogTrigger>
-      <DialogContent className=" text-white bg-[#3C4751] rounded-lg p-6 w-full max-w-md shadow-lg opacity-90">
+      <DialogContent className=" text-white bg-[#3C4751] rounded-lg p-6 w-full max-w-md shadow-lg opacity-90 border border-gray-400/30">
         <div>
           <h1 className="text-white text-xl capitalize text-center">
             are you sure you want to Delete This <br /> Plan?
