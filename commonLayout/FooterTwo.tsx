@@ -1,7 +1,4 @@
 import Link from "next/link";
-// import { footerSections, socialLinks } from "@/constants/navigation";
-// import { gradientClasses } from "@/styles/gradients";
-// import Container from "@/components/ui/Container";
 import Image from "next/image";
 import logo from "../public/logo.png";
 import Container from "@/share/Container";
@@ -13,18 +10,18 @@ export default function FooterTwo() {
 
   return (
     <footer className={`${gradientClasses.primaryBg} text-white`}>
-      <Container className="py-16">
+      <Container className="py-16 px-5">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {/* JobsinApp Logo */}
-          <div className="md:col-span-1 lg:col-span-1">
-            <Link href="/" className="flex items-start">
+          <div className="">
+            <Link href="/" className="">
               <Image
                 src={logo}
                 alt="Zasulehry"
-                width={70}
-                height={60}
+                width={0}
+                height={20}
                 sizes="100vh"
-                className="w-[170px] h-[60px] xl:w-[200px] xl:h-[85px] object-contain"
+                // className="h-[60px] xl:w-[200px] xl:h-[85px] object-contain"
               />
             </Link>
           </div>

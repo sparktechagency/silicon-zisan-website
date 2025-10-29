@@ -135,13 +135,6 @@ export default function HeaderTwo() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/contact"
-              className="bg-blue-600 hover:bg-blue-700 text-white block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 mt-4"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Get Started
-            </Link>
           </div>
         </div>
       )}
