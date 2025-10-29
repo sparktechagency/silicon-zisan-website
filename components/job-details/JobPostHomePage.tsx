@@ -6,13 +6,13 @@ import Link from "next/link";
 export default function JobPostHomePage() {
   return (
     <div className="basis-[70%]">
-      <h1 className=" p-3 rounded mb-4 bg-card text-white text-2xl">
+      <h1 className=" p-3 rounded font-medium mb-4 bg-card text-white text-2xl border border-white/30">
         My Posts Jobs
       </h1>
       {postJobsDetails?.map((item: any, index: number) => (
         <div
           key={index}
-          className="bg-card flex justify-between border p-3 rounded-md mb-6"
+          className="bg-card flex justify-between border border-gray-300/30 p-3 rounded-md mb-6"
         >
           <div className="flex gap-5">
             <div>

@@ -1,6 +1,7 @@
 "use client";
 import { Switch } from "@/components/ui/switch";
 import Container from "@/share/Container";
+import CustomBackButton from "@/share/CustomBackButton";
 import { Info } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -11,7 +12,10 @@ export default function TwoFactorAuth() {
 
   return (
     <Container className="px-40  space-y-6 my-10">
-      <h2 className="text-xl font-semibold">2 Factor Authentication</h2>
+      <div className="flex gap-2">
+        <CustomBackButton />
+        <h2 className="text-xl font-semibold">2 Factor Authentication</h2>
+      </div>
 
       <div className="space-y-2">
         <div>

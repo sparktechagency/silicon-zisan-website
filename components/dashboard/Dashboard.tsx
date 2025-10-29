@@ -60,10 +60,10 @@ export default function JobCard() {
             <div
               key={index}
               onClick={(e) => handleChangeName(e, item.title)}
-              className={`w-full flex items-center justify-start pl-11 ml-3 gap-2 rounded h-20 mb-7 cursor-pointer ${
+              className={` flex items-center justify-start pl-5 ml-3 mb-5 gap-3 text-[22px] font-medium rounded h-20  w-[370px] cursor-pointer ${
                 active
                   ? "custom-btn"
-                  : "bg-card text-white border border-gray-400/20"
+                  : "bg-card text-white border border-white/20"
               }`}
             >
               {IconComponent ? (

@@ -167,7 +167,7 @@ export default function ContactSupport() {
 
           {/* upload image */}
           <div>
-            <FormLabel>Upload Image</FormLabel>
+            <FormLabel className="mb-2">Upload Image</FormLabel>
             <div
               className="border flex items-center justify-center p-4"
               onClick={handleClick}

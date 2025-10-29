@@ -44,7 +44,7 @@ export default function Profile() {
   const router = useRouter();
   const [status, setStatus] = useState("Personal Information");
   return (
-    <div className="flex my-10 gap-10 w-full max-w-[1000px] mx-auto">
+    <div className="flex flex-col md:flex-row my-10 gap-10 w-full max-w-[1000px] mx-auto px-10 md:px-0">
       <div className="w-88 text-white ">
         {/* Profile Image */}
         <div className="flex justify-center mb-6">
