@@ -93,10 +93,10 @@ const ChatMessages = () => {
 
   return (
     <div
-      className=" rounded-md flex flex-col"
-      style={{ height: "calc(100vh - 88px)" }}
+      className="rounded-md flex flex-col"
+      style={{ height: "calc(100vh - 160px)" }}
     >
-      <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card">
+      <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card static">
         <Image src={man} className="w-11 h-11 rounded-full" alt="header" />
         <div className="font-medium">
           <h1 className="2xl:text-xl">Kamran Khan</h1>
