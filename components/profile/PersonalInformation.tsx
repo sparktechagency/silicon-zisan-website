@@ -37,7 +37,7 @@ export default function PersonalInformation({
   };
 
   return (
-    <div className="w-full max-w-[400px] bg-card p-6 rounded-lg border border-gray-300/30 ">
+    <div className="w-full max-w-[400px] bg-card p-5 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
         <Image
@@ -76,9 +76,9 @@ export default function PersonalInformation({
       </div>
 
       {/* Buttons */}
-      <div className="flex space-x-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <button
-          className="custom-btn text-white px-4 rounded-md"
+          className="custom-btn text-white px-4 py-2 rounded-md"
           onClick={() => setStatus("Edit Profile")}
         >
           Edit Information

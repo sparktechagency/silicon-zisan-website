@@ -9,7 +9,6 @@ import Container from "@/share/Container";
 import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
 import profile from "../public/profile/profile.png";
-import { PhoneCall } from "lucide-react";
 import call from "../public/call-header.svg";
 
 export default function HeaderTwo() {
@@ -23,28 +22,22 @@ export default function HeaderTwo() {
   return (
     <nav className={`${gradientClasses.primaryBg}  sticky top-0 z-50`}>
       <Container>
-        <div className="flex justify-between items-center h-24">
+        <div className="flex justify-between items-center h-24 px-5 lg:px-0">
           {/* Logo */}
           <div className="shrink-0">
             <Link href="/" className="flex items-center">
-              <Image
-                src={logo}
-                alt="Zasulehry"
-                width={120}
-                height={60}
-                className="w-[130px] h-auto"
-              />
+              <Image src={logo} alt="Zasulehry" className="w-24" />
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
+            <div className="ml-10 flex items-center lg:space-x-8">
               {mainNavigation?.map((item: any) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-2 rounded-md text-[20px] font-medium transition-colors duration-200 ${
+                  className={`px-3 py-2 rounded-md text-md lg:text-[20px] font-medium transition-colors duration-200 ${
                     pathname === item.href
                       ? "custom-btn"
                       : "text-white hover:text-blue-300"
@@ -54,7 +47,7 @@ export default function HeaderTwo() {
                 </Link>
               ))}
               <span className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
-                <Image src={call} alt="Zasulehry" className="w-10 h-10" />
+                <Image src={call} alt="Zasulehry" className="lg:w-10 lg:h-10" />
               </span>
             </div>
           </div>
@@ -65,7 +58,7 @@ export default function HeaderTwo() {
               <Image
                 src={profile}
                 alt="Zasulehry"
-                className="h-10 w-10 rounded-full"
+                className="h-12 w-12 rounded-full"
               />
               <p>Kamran</p>
             </div>

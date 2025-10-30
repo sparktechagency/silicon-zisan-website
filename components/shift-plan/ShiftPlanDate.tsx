@@ -63,7 +63,13 @@ export default function ShiftPlanDate({
       <div className="flex justify-end gap-4 mt-4">
         <button className="px-4 py-2  rounded border">Cancel</button>
         <button className="px-4 py-2  rounded border">Ok</button>
-        <button className="px-4 py-2  rounded border">Add</button>
+        <button
+          className={`px-4 py-2  rounded border ${
+            selectedDates.length > 0 ? "custom-btn" : ""
+          }`}
+        >
+          Add
+        </button>
       </div>
     </div>
   );

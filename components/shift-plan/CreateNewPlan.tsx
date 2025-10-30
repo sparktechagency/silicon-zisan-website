@@ -207,7 +207,12 @@ export default function CreateNewPlan({ title }: { title?: string }) {
         </div>
 
         <div>
-          <Button className="custom-btn w-full text-lg">Create Now</Button>
+          <Button
+            className="custom-btn w-full text-lg"
+            onClick={() => history.back()}
+          >
+            Create Now
+          </Button>
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import z from "zod";
 
@@ -41,13 +44,6 @@ export default function EditProfile({ title }: { title?: string }) {
     <div className="bg-[#2f4054] p-6 rounded-lg border border-gray-400/30 w-full">
       {/* Header with Back Arrow */}
       <div className="flex items-center mb-6 space-x-3">
-        <button
-          type="button"
-          className="p-1 rounded hover:bg-gray-600/30 transition"
-          aria-label="Go Back"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
         <h2 className="text-lg font-semibold">
           {title ? "Complete Profile" : "Edit Profile"}
         </h2>

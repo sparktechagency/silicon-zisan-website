@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormInput } from "lucide-react";
@@ -91,9 +96,11 @@ export default function AddEmployeeForm({
           </div>
           {/* Save Button */}
           <div className="flex justify-end">
-            <Button type="submit" className="w-[50%] custom-btn">
-              Save
-            </Button>
+            <DialogClose asChild>
+              <Button type="submit" className="w-[50%] custom-btn">
+                Save
+              </Button>
+            </DialogClose>
           </div>
         </form>
       </DialogContent>

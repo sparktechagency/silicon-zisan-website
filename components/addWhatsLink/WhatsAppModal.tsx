@@ -1,6 +1,12 @@
 import React from "react";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogTrigger,
+} from "../ui/dialog";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 export default function WhatsAppModal({
   title,
@@ -19,9 +25,12 @@ export default function WhatsAppModal({
           </h1>
 
           <Input placeholder="Enter Whatsapp link" />
-
-          <button className="custom-btn mt-5 rounded w-full py-2">Save</button>
         </div>
+        <DialogClose>
+          <Button className="custom-btn rounded w-full py-2 h-10 text-lg">
+            Save
+          </Button>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

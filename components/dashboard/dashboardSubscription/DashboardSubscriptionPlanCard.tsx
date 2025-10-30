@@ -16,7 +16,7 @@ const packages = [
     subTitle: "Basic Free",
     price: "Free",
     info: false,
-    active: "Active",
+    active: " Activeded",
     unactive: "Inactive",
     features: [
       "5 Jobs Posting",
@@ -32,7 +32,7 @@ const packages = [
     subTitle: "Standard",
     price: "€ 2.50 Per Day",
     info: true,
-    active: "Active",
+    active: " Activeded",
     unactive: "Inactive",
     features: [
       "0 € For 30 Days",
@@ -52,7 +52,7 @@ const packages = [
     subTitle: "Booster",
     price: "€ 2.50 Per Day",
     info: true,
-    active: "Active",
+    active: " Activeded",
     unactive: "Inactive",
     features: [
       "0 € For 30 Days",
@@ -141,7 +141,7 @@ export default function DashboardSubscriptionPlanCard() {
 
           <div className="mt-auto">
             <Link href="/dashboard-payment">
-              <Button className="custom-btn py-2 rounded font-semibold w-full">
+              <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
                 Subscription Now
               </Button>
             </Link>
@@ -175,7 +175,7 @@ export default function DashboardSubscriptionPlanCard() {
                 <Button
                   onClick={() => setIsModalOneOpen(true)}
                   variant="destructive"
-                  className="w-full py-2 rounded cursor-pointer"
+                  className="w-full py-2 rounded cursor-pointer text-lg h-10"
                 >
                   Cancel Subscription
                 </Button>

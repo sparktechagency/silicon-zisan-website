@@ -23,6 +23,7 @@ const methods = [
 export default function PaymentSystem() {
   const [cardNumber, setCardNumber] = useState("**** **** **** 4256");
   const [activeMethod, setActiveMethod] = useState("Apple Pay");
+  const [disabled, setDisabled] = useState(false);
 
   const active = methods.find((method) => method.label === activeMethod);
 
@@ -39,8 +40,14 @@ export default function PaymentSystem() {
             <Image src={active.image} alt="method" />
             <span className="font-medium">{active.label}</span>
           </div>
-          <Button className="text-white border-white bg-green-600">
-            Active
+          <Button
+            className={`text-white border-white ${
+              disabled
+                ? "bg-gray-400 cursor-default hover:none"
+                : "bg-[#149235]"
+            }`}
+          >
+            {disabled ? "Deactive" : "Active"}
           </Button>
         </div>
       )}
@@ -87,8 +94,13 @@ export default function PaymentSystem() {
           }
         />
 
-        <Button className="bg-red-600 hover:bg-red-700 text-white w-[45%] h-10">
-          Deactive
+        <Button
+          className={`${
+            disabled ? "bg-green-600" : "bg-red-600"
+          }  text-white w-[45%] h-10 cursor-pointer`}
+          onClick={() => setDisabled(!disabled)}
+        >
+          {disabled ? "Active" : "Deactive"}
         </Button>
       </div>
     </div>

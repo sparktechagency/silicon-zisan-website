@@ -13,8 +13,7 @@ import karna from "../../../public/invoice-payment/karna.png";
 import paypal from "../../../public/invoice-payment/paypal.png";
 import sofort from "../../../public/invoice-payment/sofort.png";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import logo from "../../../public/subscription/logo.png";
+import logo from "../../../public/dashboard/logo.png";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 

@@ -11,7 +11,7 @@ export default function DeleteButton({
   title,
   trigger,
 }: {
-  title: string;
+  title?: string;
   trigger: React.ReactNode;
 }) {
   return (

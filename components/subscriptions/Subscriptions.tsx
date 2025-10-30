@@ -11,7 +11,7 @@ const packeages = [
     subTitle: ["Basic", "Standard", "Booster"],
     price: "Free",
     info: false,
-    active: " Active",
+    active: " Activeded",
     unactive: " inactive",
     features: [
       "5 Jobs Posting",
@@ -27,7 +27,7 @@ const packeages = [
     subTitle: ["Basic", "Standard", "Booster"],
     price: "€ 2.50 Per Day",
     info: true,
-    active: " Active",
+    active: " Activeded",
     unactive: " inactive",
     features: [
       "0 € For 30 Days",
@@ -47,7 +47,7 @@ const packeages = [
     subTitle: ["Basic", "Standard", "Booster"],
     price: "€ 2.50 Per Day",
     info: true,
-    active: " Active",
+    active: " Activeded",
     unactive: " inactive",
     features: [
       "0 € For 30 Days",
@@ -132,7 +132,7 @@ export default function Subscriptions() {
           </div>
 
           <div className="mt-auto">
-            <Button className="custom-btn h-10 rounded font-bold w-full text-md">
+            <Button className="custom-btn h-10 rounded font-bold w-full text-lg">
               Subscription Now
             </Button>
           </div>
