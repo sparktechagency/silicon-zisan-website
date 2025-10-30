@@ -17,8 +17,7 @@ import Container from "@/share/Container";
 import Image from "next/image";
 import logo from "../../public/auth/logo.png";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
 const formSchema = z.object({
   userName: z.string().min(1, "Username is required"),
@@ -52,8 +51,8 @@ export default function SignUpPage() {
         >
           <ArrowLeft />
         </div>
-        <Image src={logo} alt="Logo" width={100} height={24} />
-        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium">
+        <Image src={logo} alt="Logo" width={150} height={24} />
+        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[17px]">
           WHERE DREAM JOB MEETS TOP TALENT
         </h1>
       </div>

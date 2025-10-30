@@ -23,7 +23,7 @@ export default function PaymentModal({
       <DialogContent className="bg-white text-black sm:max-w-2xl">
         <div className="bg-white  p-3 rounded-lg space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold">Manage Payment</h2>
+            <h2 className="text-xl font-semibold">Manage Payments</h2>
             {<Image src={method} alt="method" />}
           </div>
 

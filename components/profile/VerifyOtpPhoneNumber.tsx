@@ -41,7 +41,7 @@ export function VerifyOtpphoneNumber() {
           {/* Resend */}
         </div>
 
-        <Link href="/new-password">
+        <Link href="/factor-authenticaiton">
           <Button className="custom-btn w-[80%] h-12" type="submit">
             Continue
           </Button>

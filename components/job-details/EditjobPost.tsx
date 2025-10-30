@@ -65,6 +65,7 @@ const EditJobPost = ({ title }: { title: string }) => {
   const urlName = new URLSearchParams(searchParams.toString());
   const name = urlName.get("name");
   const hire = urlName.get("type");
+  console.log(hire);
 
   return (
     <Container
@@ -75,7 +76,8 @@ const EditJobPost = ({ title }: { title: string }) => {
       <div className=" text-gray-100 w-full  rounded-xl">
         <div className="text-xl font-semibold mb-4 flex items-center gap-2">
           <CustomBackButton />
-          {title}
+          {/* {title ? title : hire} */}
+          Hire Employee
         </div>
 
         {/* Category & Subcategory */}

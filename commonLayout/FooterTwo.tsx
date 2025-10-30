@@ -21,7 +21,7 @@ export default function FooterTwo() {
                 width={0}
                 height={20}
                 sizes="100vh"
-                // className="h-[60px] xl:w-[200px] xl:h-[85px] object-contain"
+                className="h-[60px] xl:w-[200px] xl:h-[85px] object-contain"
               />
             </Link>
           </div>

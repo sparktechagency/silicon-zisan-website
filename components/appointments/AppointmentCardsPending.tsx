@@ -11,7 +11,7 @@ const data = [
   {
     id: 3,
     name: "Alex Gender",
-    phone: "0133336567",
+
     date: "01.02.2025",
     time: "10:00",
     src: three,
@@ -19,7 +19,7 @@ const data = [
   {
     id: 1,
     name: "Kamran Khan",
-    phone: "01333327633",
+
     date: "01.02.2025",
     time: "10:00",
     src: one,
@@ -27,7 +27,7 @@ const data = [
   {
     id: 2,
     name: "Alex Gender",
-    phone: "01333327986",
+
     date: "01.02.2025",
     time: "10:00",
     src: two,
@@ -48,9 +48,7 @@ export default function AppointmentCardsPending() {
 
           {/* Info Section */}
           <div className="flex-1">
-            <h3 className="sm:text-xl font-semibold">
-              {item.name} ({item.phone})
-            </h3>
+            <h3 className="sm:text-xl font-semibold">{item.name}</h3>
 
             <div className=" mt-2 text-sm text-gray-300">
               <div className="flex items-center gap-1">

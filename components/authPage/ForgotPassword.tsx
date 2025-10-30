@@ -46,7 +46,7 @@ export default function ForgotPasswordPage() {
         >
           <ArrowLeft />
         </div>
-        <Image src={logo} alt="Logo" width={100} height={24} />
+        <Image src={logo} alt="Logo" width={150} height={24} />
         <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium">
           WHERE DREAM JOB MEETS TOP TALENT
         </h1>

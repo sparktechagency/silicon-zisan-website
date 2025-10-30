@@ -30,9 +30,9 @@ export default function HeaderTwo() {
               <Image
                 src={logo}
                 alt="Zasulehry"
-                width={70}
+                width={120}
                 height={60}
-                className="w-auto h-auto"
+                className="w-[130px] h-auto"
               />
             </Link>
           </div>

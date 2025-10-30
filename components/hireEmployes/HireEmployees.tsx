@@ -47,7 +47,7 @@ export default function HireEmployees() {
   return (
     <>
       <Link
-        href={{ pathname: "/edit-job-post", query: { type: "hire" } }}
+        href={{ pathname: "/edit-job-post", query: { type: "Hire Employee" } }}
         className="flex justify-end"
       >
         <button className="custom-btn px-5 py-2 rounded mb-3 flex items-center gap-2 ">

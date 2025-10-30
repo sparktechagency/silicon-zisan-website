@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import auth from "../../public/auth/scan.png";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 export default function AuthenticationApp() {
   return (
@@ -56,7 +57,9 @@ export default function AuthenticationApp() {
         </div>
       </div>
 
-      <Button className="w-full custom-btn h-12 mt-4">Confirm</Button>
+      <Link href="/factor-authenticaiton">
+        <Button className="w-full custom-btn h-12 mt-4">Confirm</Button>
+      </Link>
     </div>
   );
 }

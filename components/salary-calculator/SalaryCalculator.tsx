@@ -8,7 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import YesNoToggle, { HeaderYesNoToggle } from "@/share/YesNoToggle";
+import YesNoToggle, {
+  HeaderYesNoToggle,
+  YesNoToggleMaleFemale,
+} from "@/share/YesNoToggle";
 import CustomSelect from "@/share/CustomSelect";
 import { age, child, position } from "@/demoData/data";
 import HandleInformationButton from "./HandleInformationButton";
@@ -191,7 +194,14 @@ export default function SalaryCalculator() {
       </div>
 
       {/* Gender toggle */}
-      <YesNoToggle
+      {/* <YesNoToggle
+        label="Gender"
+        name="gender"
+        value={formStatus.gender}
+        onChange={handleToggleChange}
+      /> */}
+
+      <YesNoToggleMaleFemale
         label="Gender"
         name="gender"
         value={formStatus.gender}

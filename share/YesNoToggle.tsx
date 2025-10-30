@@ -65,3 +65,36 @@ export default function YesNoToggle({
     </div>
   );
 }
+
+export function YesNoToggleMaleFemale({
+  label,
+  name,
+  value,
+  onChange,
+}: {
+  label?: string;
+  name: string;
+  value: string;
+  onChange: (name: string, val: string) => void;
+}) {
+  return (
+    <div className="grid grid-cols-2 items-center gap-4">
+      <Label>{label}</Label>
+      <div className="flex justify-end">
+        <div className="border p-2 w-44 rounded-3xl  gap-2">
+          {["Male", "Female"].map((status) => (
+            <button
+              key={status}
+              onClick={() => onChange(name, status)}
+              className={`w-auto py-1 px-3 rounded-2xl transition cursor-pointer ${
+                value === status ? "custom-btn" : "bg-transparent"
+              }`}
+            >
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

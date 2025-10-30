@@ -29,7 +29,7 @@ export default function PaymentSystem() {
   return (
     <div className="bg-white text-black p-6 mt-10 rounded-lg space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Manage Payment</h2>
+        <h2 className="text-xl font-semibold">Manage Payments</h2>
         {<Image src={method} alt="method" />}
       </div>
 
@@ -79,9 +79,6 @@ export default function PaymentSystem() {
       </div>
 
       <div className="flex justify-between pt-4">
-        <Button className="bg-red-600 hover:bg-red-700 text-white w-[45%] h-10">
-          Delete
-        </Button>
         <PaymentModal
           trigger={
             <Button className="custom-btn text-white w-[45%] h-10">
@@ -89,6 +86,10 @@ export default function PaymentSystem() {
             </Button>
           }
         />
+
+        <Button className="bg-red-600 hover:bg-red-700 text-white w-[45%] h-10">
+          Deactive
+        </Button>
       </div>
     </div>
   );

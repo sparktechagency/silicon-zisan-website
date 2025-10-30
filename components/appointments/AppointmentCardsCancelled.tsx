@@ -48,9 +48,7 @@ export default function AppointmentCardsCancelled() {
 
           {/* Info Section */}
           <div className="flex-1">
-            <h3 className="sm:text-xl font-semibold">
-              {item.name} ({item.phone})
-            </h3>
+            <h3 className="sm:text-xl font-semibold">{item.name}</h3>
 
             <div className=" mt-2 text-sm text-gray-300">
               <div className="flex items-center gap-1">

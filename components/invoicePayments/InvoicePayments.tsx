@@ -27,7 +27,7 @@ export default function InvoicePayments() {
           }`}
           onClick={() => setSelectedTab("card")}
         >
-          Payment
+          Manage Payments
         </button>
       </div>
       {selectedTab === "invoice" && <Invoice />}

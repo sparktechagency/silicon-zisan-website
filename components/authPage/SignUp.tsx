@@ -38,8 +38,8 @@ export default function SignUp() {
     <Container className="flex flex-col md:flex-col lg:flex-row items-center justify-center h-auto lg:h-screen gap-10 px-4 py-10">
       {/* logo */}
       <div className="bg-[#374859] w-[200px] h-[200px] md:w-[300px] md:h-[300px] xl:w-[32%] xl:h-[400px] flex flex-col items-center justify-center rounded-full border border-[#FFFFFF0D]/50 p-5">
-        <Image src={logo} alt="Logo" width={100} height={24} />
-        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium">
+        <Image src={logo} alt="Logo" width={150} height={24} />
+        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[17px]">
           WHERE DREAM JOB MEETS TOP TALENT
         </h1>
       </div>

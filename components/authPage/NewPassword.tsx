@@ -45,8 +45,8 @@ export default function NewPassword() {
         >
           <ArrowLeft />
         </div>
-        <Image src={logo} alt="Logo" width={100} height={24} />
-        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium">
+        <Image src={logo} alt="Logo" width={150} height={24} />
+        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[17px]">
           WHERE DREAM JOB MEETS TOP TALENT
         </h1>
       </div>
@@ -66,11 +66,11 @@ export default function NewPassword() {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email Address</FormLabel>
+                  <FormLabel>New Password</FormLabel>
                   <FormControl>
                     <Input
                       className="placeholder:text-white text-white"
-                      placeholder="Enter Your Email Address"
+                      placeholder="Enter Your New Password"
                       {...field}
                     />
                   </FormControl>
@@ -84,11 +84,11 @@ export default function NewPassword() {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Repeat Password</FormLabel>
                   <FormControl>
                     <Input
                       className="placeholder:text-white"
-                      placeholder="Enter Your Password"
+                      placeholder="Enter Your Repeat Password"
                       {...field}
                     />
                   </FormControl>
@@ -96,7 +96,7 @@ export default function NewPassword() {
                 </FormItem>
               )}
             />
-            <Link href="/method">
+            <Link href="/login">
               <Button className="custom-btn w-full" type="submit">
                 Submit
               </Button>
