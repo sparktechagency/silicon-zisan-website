@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import CancelModal from "./CancelModal";
 import { useState } from "react";
+import CancelModalTwo from "./CancelModalTwo";
 
 const packages = [
   {
@@ -69,6 +70,7 @@ const packages = [
 
 export default function DashboardSubscriptionPlanCard() {
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
+  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
 
   return (
     <Container
@@ -149,8 +151,6 @@ export default function DashboardSubscriptionPlanCard() {
 
       {/* Active Subscription Card */}
       <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col  ">
-        {/* <h1 className="text-2xl font-semibold my-2"></h1> */}
-
         <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
           <Image
             src={cancel}
@@ -165,19 +165,29 @@ export default function DashboardSubscriptionPlanCard() {
           <p className="text-white text-sm mb-6 text-center"></p>
         </div>
         <div className="mt-auto">
-          <CancelModal
-            isModalOneOpen={isModalOneOpen}
-            setIsModalOneOpen={setIsModalOneOpen}
-            trigger={
-              <Button
-                onClick={() => setIsModalOneOpen(true)}
-                variant="destructive"
-                className="w-full py-2 rounded cursor-pointer"
-              >
-                Cancel Subscription
-              </Button>
-            }
-          />
+          <>
+            {/* First Modal */}
+            <CancelModal
+              isModalOneOpen={isModalOneOpen}
+              setIsModalOneOpen={setIsModalOneOpen}
+              onOpenSecondModal={() => setIsModalTwoOpen(true)}
+              trigger={
+                <Button
+                  onClick={() => setIsModalOneOpen(true)}
+                  variant="destructive"
+                  className="w-full py-2 rounded cursor-pointer"
+                >
+                  Cancel Subscription
+                </Button>
+              }
+            />
+
+            {/* Second Modal */}
+            <CancelModalTwo
+              isModalTwoOpen={isModalTwoOpen}
+              setIsModalTwoOpen={setIsModalTwoOpen}
+            />
+          </>
         </div>
       </div>
     </Container>

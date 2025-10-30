@@ -11,15 +11,15 @@ export default function CancelModalTwo({
   isModalTwoOpen,
   setIsModalTwoOpen,
 }: {
-  trigger: React.ReactNode;
+  trigger?: React.ReactNode;
   isModalTwoOpen: any;
   setIsModalTwoOpen: any;
 }) {
   return (
     <Dialog open={isModalTwoOpen} onOpenChange={setIsModalTwoOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="bg-white text-gray-700 ">
-        <div>
+      <DialogContent className="bg-white text-gray-700">
+        <div className="mt-5">
           <h1 className="capitalize text-2xl font-medium text-center">
             We have a best offer for you 50% discount on your subscription for
             next three months

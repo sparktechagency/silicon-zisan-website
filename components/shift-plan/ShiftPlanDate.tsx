@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   format,
   addDays,
@@ -27,9 +26,9 @@ export default function ShiftPlanDate({
   }
 
   const toggleDate = (date: any) => {
-    const exists = selectedDates.some((d) => isSameDay(d, date));
+    const exists = selectedDates.some((d: any) => isSameDay(d, date));
     if (exists) {
-      setSelectedDates(selectedDates.filter((d) => !isSameDay(d, date)));
+      setSelectedDates(selectedDates.filter((d: any) => !isSameDay(d, date)));
     } else {
       setSelectedDates([...selectedDates, date]);
     }
@@ -44,11 +43,11 @@ export default function ShiftPlanDate({
             {day}
           </div>
         ))}
-        {days.map((date) => {
-          const isSelected = selectedDates.some((d) => isSameDay(d, date));
+        {days.map((date, index) => {
+          const isSelected = selectedDates.some((d: any) => isSameDay(d, date));
           return (
             <button
-              key={date}
+              key={index}
               onClick={() => toggleDate(date)}
               className={`py-2 rounded ${
                 isSelected ? "custom-btn" : "text-gray-200 hover:bg-gray-700"

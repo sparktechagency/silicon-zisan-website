@@ -8,24 +8,23 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import CancelModalTwo from "./CancelModalTwo";
 
 interface CancelModalProps {
   trigger?: React.ReactNode;
   isModalOneOpen: boolean;
   setIsModalOneOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onOpenSecondModal: () => void;
 }
 
 export default function CancelModal({
   trigger,
   isModalOneOpen,
   setIsModalOneOpen,
+  onOpenSecondModal,
 }: CancelModalProps) {
-  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
-
   const handleClickModalTwo = () => {
     setIsModalOneOpen(false);
-    setIsModalTwoOpen(true);
+    onOpenSecondModal(); // trigger second modal from parent
   };
 
   return (
@@ -48,19 +47,13 @@ export default function CancelModal({
               </Button>
             </DialogClose>
 
-            <CancelModalTwo
-              isModalTwoOpen={isModalTwoOpen}
-              setIsModalTwoOpen={setIsModalTwoOpen}
-              trigger={
-                <Button
-                  onClick={handleClickModalTwo}
-                  variant="outline"
-                  className="custom-btn text-white w-1/2 h-12"
-                >
-                  Yes
-                </Button>
-              }
-            />
+            <Button
+              onClick={handleClickModalTwo}
+              variant="outline"
+              className="custom-btn text-white w-1/2 h-12"
+            >
+              Yes
+            </Button>
           </div>
         </div>
       </DialogContent>
