@@ -76,8 +76,8 @@ const EditJobPost = ({ title }: { title: string }) => {
       <div className=" text-gray-100 w-full  rounded-xl">
         <div className="text-xl font-semibold mb-4 flex items-center gap-2">
           <CustomBackButton />
-          {/* {title ? title : hire} */}
-          Hire Employee
+          {hire ? hire : title}
+          {/* Hire Employee */}
         </div>
 
         {/* Category & Subcategory */}

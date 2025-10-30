@@ -1,7 +1,7 @@
-import CustomBackButton from "@/share/CustomBackButton";
-import { HeaderYesNoToggle } from "@/share/YesNoToggle";
-import { Info } from "lucide-react";
 import { useState } from "react";
+import InformationOne from "./InformationOne";
+import { Info } from "lucide-react";
+import InformationTwo from "./informationTwo";
 
 export default function SalaryDetails() {
   const [role, setRole] = useState("Employee");
@@ -30,51 +30,16 @@ export default function SalaryDetails() {
   ];
 
   return (
-    <div className="bg-card text-white p-6 rounded-xl max-w-xl mx-auto space-y-6">
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left border-b border-gray-600">
-              <th className="py-2 flex items-center gap-2">
-                <CustomBackButton />
-                More Information
-              </th>
-              <th className="py-2">Month</th>
-              <th className="py-2">Year</th>
-            </tr>
-          </thead>
-          <tbody className="my-9">
-            {data?.map((item, index) => (
-              <tr
-                key={index}
-                className={`${item.isTotal ? "border-t border-white" : ""}`}
-              >
-                <td className="py-">{item.label}</td>
-                <td className="py-">${item.month}</td>
-                <td className="py-1">${item.year}</td>
-              </tr>
-            ))}
-          </tbody>
-
-          <tbody className="mt-6">
-            <h1 className="mt-7 text-2xl">Taxes</h1>
-            {data2?.map((item, index) => (
-              <tr
-                key={index}
-                className={`${item.isTotal ? "border-b border-white" : ""}`}
-              >
-                <td className="py-">{item.label}</td>
-                <td className="py-">${item.month}</td>
-                <td className="py-1">${item.year}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div>
+      {role === "Employee" && <InformationOne data={data} data2={data2} />}
+      {role === "Employer" && <InformationTwo data={data} />}
 
       {/* Role Toggle */}
-      <div className="flex justify-center gap-4">
+      <div
+        className={`flex justify-center gap-4 my-8 ${
+          role === "Employer" && "pt-40"
+        }`}
+      >
         <div className="border p-2 w-auto rounded-3xl  gap-2">
           {["Employee", "Employer"].map((status: any) => (
             <button

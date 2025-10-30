@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { set } from "zod";
+import { useState } from "react";
 const features = [
   "AI Candidate Matching",
   "CV Screening & Ranking",
@@ -36,7 +35,11 @@ export default function AITools() {
             }`}
           >
             <span
-              className={`inline-block h-5 w-5 transform rounded-full bg-linear-65 from-[#074E5E] to-[#0288A6] transition-transform ${
+              className={`inline-block h-5 w-5 transform rounded-full ${
+                enabled[index]
+                  ? "bg-linear-65 from-[#074E5E] to-[#0288A6]"
+                  : "bg-[#8CBBC6]"
+              } transition-transform ${
                 enabled[index] ? "translate-x-5" : "translate-x-1"
               }`}
             />

@@ -28,39 +28,51 @@ export default function ShiftPlanStatus() {
       <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
         <div>
           <Select>
-            <SelectTrigger className="w-[180px] button-unactive rounded-3xl">
+            <SelectTrigger className="w-[180px] button-unactive rounded-3xl px-7">
               <SelectValue placeholder="Select Plan" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="Evenning">Evenning</SelectItem>
-                <SelectItem value="Morning">Morning</SelectItem>
+                <SelectItem className="pl-14" value="Evenning">
+                  Evenning
+                </SelectItem>
+                <SelectItem className="pl-14" value="Morning">
+                  Morning
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
         <div>
           <Select>
-            <SelectTrigger className="w-[180px] button-unactive rounded-3xl">
+            <SelectTrigger className="w-[180px] button-unactive rounded-3xl px-7">
               <SelectValue placeholder="Select Month" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="january">January</SelectItem>
-                <SelectItem value="february">February</SelectItem>
+                <SelectItem className="pl-14" value="january">
+                  January
+                </SelectItem>
+                <SelectItem className="pl-14" value="february">
+                  February
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
         <div>
           <Select>
-            <SelectTrigger className="w-[180px] button-unactive rounded-3xl ">
-              <SelectValue placeholder="Select Plan" />
+            <SelectTrigger className="w-[180px] button-unactive rounded-3xl px-7">
+              <SelectValue placeholder="Select Year" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
-                <SelectItem value="2025">2025</SelectItem>
-                <SelectItem value="2026">2026</SelectItem>
+              <SelectGroup className=" my-2">
+                <SelectItem className="pl-14" value="2025">
+                  2025
+                </SelectItem>
+                <SelectItem className="pl-14" value="2026">
+                  2026
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
