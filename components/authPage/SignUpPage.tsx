@@ -51,13 +51,19 @@ export default function SignUpPage() {
         >
           <ArrowLeft />
         </div>
-        <Image src={logo} alt="Logo" width={150} height={24} />
+        <Image
+          src={logo}
+          alt="Logo"
+          width={150}
+          height={24}
+          className="w-24 md:w-40"
+        />
         <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[17px]">
           WHERE DREAM JOB MEETS TOP TALENT
         </h1>
       </div>
 
-      <div className="w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
+      <div className="w-[70%] md:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
           Sign Up
         </h1>
