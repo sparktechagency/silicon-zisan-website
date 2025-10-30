@@ -14,7 +14,7 @@ export default function CustomDatePicker() {
   };
 
   return (
-    <div className="w-auto rounded border border-gray-400/30 bg-card shadow-sm">
+    <div className="w-auto rounded button-unactive bg-card shadow-sm">
       {/* <label className="block mb-2 text-sm font-medium text-gray-700">
         Select Time
       </label> */}

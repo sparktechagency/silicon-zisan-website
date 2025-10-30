@@ -65,7 +65,13 @@ export default function AppointmentCardsPending() {
           {/* Cancel Button */}
           <div className="flex flex-col items-end justify-between my-4 space-y-6">
             <MessageSendModal />
-            <DeleteButton />
+            <DeleteButton
+              trigger={
+                <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
+                  Cancel
+                </button>
+              }
+            />
           </div>
         </div>
       ))}

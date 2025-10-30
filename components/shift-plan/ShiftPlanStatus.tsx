@@ -33,12 +33,8 @@ export default function ShiftPlanStatus() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem className="pl-14" value="Evenning">
-                  Evenning
-                </SelectItem>
-                <SelectItem className="pl-14" value="Morning">
-                  Morning
-                </SelectItem>
+                <SelectItem value="Evenning">Evenning</SelectItem>
+                <SelectItem value="Morning">Morning</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -50,12 +46,8 @@ export default function ShiftPlanStatus() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem className="pl-14" value="january">
-                  January
-                </SelectItem>
-                <SelectItem className="pl-14" value="february">
-                  February
-                </SelectItem>
+                <SelectItem value="january">January</SelectItem>
+                <SelectItem value="february">February</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -67,12 +59,8 @@ export default function ShiftPlanStatus() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup className=" my-2">
-                <SelectItem className="pl-14" value="2025">
-                  2025
-                </SelectItem>
-                <SelectItem className="pl-14" value="2026">
-                  2026
-                </SelectItem>
+                <SelectItem value="2025">2025</SelectItem>
+                <SelectItem value="2026">2026</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
