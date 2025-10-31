@@ -35,7 +35,7 @@ export default function JobCard() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams.toString());
-  let urlName: string = params.get("name") || "My Posted Jobs";
+  const urlName: string = params.get("name") || "My Posted Jobs";
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -47,8 +47,8 @@ export default function JobCard() {
     router.push(`?${params.toString()}`);
   };
   return (
-    <Container className="flex flex-col lg:flex-row gap-9 my-16 px-5 md:px-10 lg:px-0 xl:px-4">
-      <div className="basis-[30%]">
+    <Container className="flex flex-col lg:flex-row gap-4 my-12 px-5 md:px-10 lg:px-0 xl:px-4">
+      <div className="basis-[30%] px-4 max-h-[83vh] overflow-y-scroll">
         {data?.map((item: item, index) => {
           const active = urlName === item.title;
           const icon = item.icon;
@@ -60,7 +60,7 @@ export default function JobCard() {
             <div
               key={index}
               onClick={(e) => handleChangeName(e, item.title)}
-              className={` flex items-center pl-5 mx-auto mb-3 gap-3 md:text-[18px] font-medium rounded py-2 w-full lg:w-[370px] cursor-pointer ${
+              className={` flex items-center pl-5 mx-auto mb-3 gap-3 md:text-[18px] font-medium rounded py-2 w-full cursor-pointer ${
                 active
                   ? "custom-btn"
                   : "bg-card text-white border border-white/20"
@@ -95,7 +95,7 @@ export default function JobCard() {
 
       {/* conditional rendering */}
 
-      <div className="basis-[70%] ">
+      <div className="flex-1 px-4 max-h-[83vh] overflow-y-scroll">
         {urlName === "My Posted Jobs" && <JobPostHomePage />}
         {urlName === "Post Job" && <EditJobPost title="Post Job" />}
         {urlName === "AI Tools" && <AITools />}
