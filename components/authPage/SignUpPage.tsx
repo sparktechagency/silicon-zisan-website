@@ -22,8 +22,6 @@ import { ArrowLeft } from "lucide-react";
 const formSchema = z.object({
   userName: z.string().min(1, "Username is required"),
   email: z.string().min(1, "Username is required"),
-  contactNumber: z.string().min(1, "Phone is required"),
-  address: z.string().min(1, "Address is required"),
   password: z.string().min(1, "Email is required"),
   confirmPassword: z.string().min(1, "Confirm Password is required"),
 });
@@ -70,7 +68,7 @@ export default function SignUpPage() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 w-full "
+            className="space-y-4 w-full "
           >
             {/* full name */}
             <FormField
@@ -101,42 +99,6 @@ export default function SignUpPage() {
                     <Input
                       className="placeholder:text-white text-white"
                       placeholder="Enter Your Email Address"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* contact */}
-            <FormField
-              control={form.control}
-              name="contactNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Contact Number</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="placeholder:text-white text-white"
-                      placeholder="Enter Your Contact Number"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* contact */}
-            <FormField
-              control={form.control}
-              name="address"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="placeholder:text-white text-white"
-                      placeholder="Enter Your Address"
                       {...field}
                     />
                   </FormControl>
