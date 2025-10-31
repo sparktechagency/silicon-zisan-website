@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import cancel from "../../../public/dashboard/cancel.png";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import CancelModal from "./CancelModal";
+import CancelModalTwo from "./CancelModalTwo";
 
 const packages = [
   {
@@ -78,6 +81,8 @@ const packages = [
 
 export default function CaruselCard() {
   const swiperRef = useRef<null | any>(null);
+  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
+  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
 
   return (
     <div className="relative">
@@ -92,70 +97,114 @@ export default function CaruselCard() {
         className="mySwiper"
       >
         {[packages[0], packages[1], packages[2]].map((item, index) => (
-          <SwiperSlide key={index}>
-            <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full px-">
-              <h1 className="text-lg sm:text-2xl font-semibold my-2">
-                JobsinApp Plans
-              </h1>
-              <div className="grid grid-cols-3 gap-4">
-                {item.title.map((label, i) => (
-                  <button
-                    key={i}
-                    className={`button-unactive ${
-                      item.all === label ? "custom-btn" : ""
-                    } w-full py-2 rounded-2xl`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+          <>
+            {" "}
+            <SwiperSlide key={index}>
+              <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full px-">
+                <h1 className="text-lg sm:text-2xl font-semibold my-2">
+                  JobsinApp Plans
+                </h1>
+                <div className="grid grid-cols-3 gap-4">
+                  {item.title.map((label, i) => (
+                    <button
+                      key={i}
+                      className={`button-unactive ${
+                        item.all === label ? "custom-btn" : ""
+                      } w-full py-2 rounded-2xl`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
 
-              <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-                <div className="flex justify-between items-center">
-                  <div className="mt-4">
-                    <h1 className="text-white text-lg sm:text-2xl font-semibold">
-                      {item.subTitle}
-                    </h1>
-                    <p className="text-white text-sm flex gap-2 mt-2">
-                      {item.price}
-                    </p>
+                <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+                  <div className="flex justify-between items-center">
+                    <div className="mt-4">
+                      <h1 className="text-white text-lg sm:text-2xl font-semibold">
+                        {item.subTitle}
+                      </h1>
+                      <p className="text-white text-sm flex gap-2 mt-2">
+                        {item.price}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex justify-end mb-2">
+                        <Image src={logo} className="h-10 w-10" alt="logo" />
+                      </div>
+                      <div className="flex">
+                        <button className="custom-btn py-1 px-4 rounded-none">
+                          {item.active}
+                        </button>
+                        <button className="border border-gray-300/50 px-2">
+                          {item.unactive}
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
-                  <div>
-                    <div className="flex justify-end mb-2">
-                      <Image src={logo} className="h-10 w-10" alt="logo" />
-                    </div>
-                    <div className="flex">
-                      <button className="custom-btn py-1 px-4 rounded-none">
-                        {item.active}
-                      </button>
-                      <button className="border border-gray-300/50 px-2">
-                        {item.unactive}
-                      </button>
-                    </div>
+                  <div className="py-10 px-5">
+                    <ul className="list-disc list-inside space-y-1">
+                      {item.features.map((feature, i) => (
+                        <li key={i} className="text-white text-[12px]">
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
 
-                <div className="py-10 px-5">
-                  <ul className="list-disc list-inside space-y-1">
-                    {item.features.map((feature, i) => (
-                      <li key={i} className="text-white text-[12px]">
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="mt-auto">
+                  <Link href="/dashboard-payment">
+                    <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
+                      Subscription Now
+                    </Button>
+                  </Link>
                 </div>
               </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              {" "}
+              <div className="bg-card h-[570px] p-3 rounded border border-gray-300/30 flex flex-col  ">
+                <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
+                  <Image
+                    src={cancel}
+                    alt="JobsinApp Logo"
+                    width={150}
+                    height={24}
+                    sizes="100vh"
+                  />
+                  <h2 className="text-white text-3xl  xl:text-5xl font-semibold my-2">
+                    JobsinApp
+                  </h2>
+                  <p className="text-white text-sm mb-6 text-center"></p>
+                </div>
+                <div className="mt-auto">
+                  <>
+                    <CancelModal
+                      isModalOneOpen={isModalOneOpen}
+                      setIsModalOneOpen={setIsModalOneOpen}
+                      onOpenSecondModal={() => setIsModalTwoOpen(true)}
+                      trigger={
+                        <Button
+                          onClick={() => setIsModalOneOpen(true)}
+                          variant="destructive"
+                          className="w-full py-2 rounded cursor-pointer text-lg h-10"
+                        >
+                          Cancel Subscription
+                        </Button>
+                      }
+                    />
 
-              <div className="mt-auto">
-                <Link href="/dashboard-payment">
-                  <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                    Subscription Now
-                  </Button>
-                </Link>
+                    <CancelModalTwo
+                      isModalTwoOpen={isModalTwoOpen}
+                      setIsModalTwoOpen={setIsModalTwoOpen}
+                    />
+                  </>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          </>
         ))}
       </Swiper>
 

@@ -64,7 +64,7 @@ export default function AppointmentCardsCancelled() {
 
           {/* Cancel Button */}
           <div className="flex flex-col items-end justify-between my-4 space-y-6">
-            <MessageSendModal />
+            {/* <MessageSendModal /> */}
             <DeleteButton
               trigger={
                 <button className=" text-white text-sm px-3 py-1 rounded-md">
