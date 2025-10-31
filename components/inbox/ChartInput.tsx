@@ -23,7 +23,7 @@ const ChatInput = ({ message, setMessage, onHandle, onChange }: Props) => {
       <Textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        className="flex-1 items-center shadow-sm rounded-2xl text-sm resize-none"
+        className="flex-1 items-center shadow-sm rounded-2xl text-sm resize-none break-all"
         placeholder="Type ……"
       />
 
