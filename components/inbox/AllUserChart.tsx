@@ -95,7 +95,7 @@ const AllUserChart = () => {
   return (
     <div
       className="max-w-md mx-auto  pr-2 flex flex-col"
-      style={{ height: "calc(100vh - 88px)" }}
+      style={{ height: "calc(100vh - 150px)" }}
     >
       <div>
         <h1 className="text-lg font-semibold">Message</h1>
