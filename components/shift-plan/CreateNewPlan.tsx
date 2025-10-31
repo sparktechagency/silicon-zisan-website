@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import AddEmployeeForm from "./AddEmployeeModal";
 import CustomDatePicker from "../appointments/CustomDatePicker";
 import ShiftPlanDate from "./ShiftPlanDate";
+import Container from "@/share/Container";
 
 export default function CreateNewPlan({ title }: { title?: string }) {
   const [employee, setEmployee] = useState("Kamran");
@@ -49,7 +50,7 @@ export default function CreateNewPlan({ title }: { title?: string }) {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-6">
+    <Container className="grid grid-cols-2 gap-6">
       {/* date */}
       <div className="mt-10">
         <h2 className="text-2xl font-semibold mb-4">Create Shift Plan</h2>
@@ -113,48 +114,6 @@ export default function CreateNewPlan({ title }: { title?: string }) {
           </div>
         </div>
 
-        {/* Shift Time */}
-
-        <div className="space-y-2">
-          <Label className="block font-semibold">Shift Time</Label>
-          <div className="flex items-center gap-4">
-            <div className="flex-1">
-              {/* <Label className="block mb-2">From</Label>
-            <Input
-              type="time"
-              value={fromTime}
-              onChange={(e) => setFromTime(e.target.value)}
-              className="button-unactive text-white p-2 rounded-lg w-full border-none [&::-webkit-calendar-picker-indicator]:invert"
-            /> */}
-              <Label className="block mb-2">From</Label>
-              <CustomDatePicker />
-              {selectedDates.length > 0 && (
-                <div className="text-sm text-white mt-2">
-                  {selectedDates[0].toLocaleDateString()} -{" "}
-                  {selectedDates[selectedDates.length - 1].toLocaleDateString()}
-                </div>
-              )}
-            </div>
-
-            <div className="flex-1">
-              <Label className="block mb-2">To</Label>
-              <CustomDatePicker />
-              {selectedDates.length > 0 && (
-                <div className="text-sm text-white mt-2">
-                  {selectedDates.length} Days Plan
-                </div>
-              )}
-
-              {/* <Input
-              type="time"
-              value={toTime}
-              onChange={(e) => setToTime(e.target.value)}
-              className="button-unactive text-white p-2 rounded-lg w-full border-none [&::-webkit-calendar-picker-indicator]:invert"
-            /> */}
-            </div>
-          </div>
-        </div>
-
         {/* Task Section */}
         <div className="space-y-2">
           <label className="block font-semibold">Task</label>
@@ -215,6 +174,6 @@ export default function CreateNewPlan({ title }: { title?: string }) {
           </Button>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

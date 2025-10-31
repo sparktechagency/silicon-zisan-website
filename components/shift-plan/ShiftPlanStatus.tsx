@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ShiftPlanStatus() {
@@ -66,12 +67,14 @@ export default function ShiftPlanStatus() {
           </Select>
         </div>
         <div>
-          <button
-            className="button-active w-44 py-3 rounded-3xl"
-            onClick={(e) => handleChangeName(e, "Create New Plan")}
-          >
-            Create New Plan
-          </button>
+          <Link href="/create-new-plan">
+            <button
+              className="button-active w-44 py-3 rounded-3xl"
+              // onClick={(e) => handleChangeName(e, "Create New Plan")}
+            >
+              Create New Plan
+            </button>
+          </Link>
         </div>
       </div>
     </div>
