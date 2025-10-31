@@ -132,8 +132,9 @@ export default function ContactSupport() {
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input
-                      className="placeholder:text-white"
+                    <Textarea
+                      rows={3}
+                      className="placeholder:text-white min-h-10 py-3"
                       placeholder="Enter Your address"
                       {...field}
                     />

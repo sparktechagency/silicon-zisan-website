@@ -1,19 +1,19 @@
 import hotel from "../public/dashboard/hotel.png";
 import { CiCirclePlus, CiSettings } from "react-icons/ci";
-import app from "../public/dashboard/sidebar/appoinment.svg";
 import shift from "../public/dashboard/sidebar/shift.svg";
 import hire from "../public/dashboard/sidebar/hire-employee.svg";
 import two from "../public/dashboard/sidebar/appoinmenttwo.svg";
+import jobIcon from "../public/dashboard/sidebar/job-icon.svg";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { PiNoteThin } from "react-icons/pi";
-import { LuPhone } from "react-icons/lu";
 import { CiCalculator1 } from "react-icons/ci";
 import { MdPodcasts } from "react-icons/md";
+import { FaWhatsapp } from "react-icons/fa";
 
 export const data = [
-  { title: "My Posted Jobs", icon: CiCirclePlus },
+  { title: "My Posted Jobs", icon: jobIcon },
   { title: "Post Job", icon: CiCirclePlus },
   { title: "AI Tools", icon: CiSettings },
   { title: "Appointments", icon: two },
@@ -21,8 +21,8 @@ export const data = [
   { title: "Hire Employees", icon: hire },
   { title: "Shift Plan", icon: shift },
   { title: "Salary Calculator", icon: CiCalculator1 },
-  { title: "WhatsApp Support", icon: LuPhone },
-  { title: "Add WhatsApp Link", icon: LuPhone },
+  { title: "WhatsApp Support", icon: FaWhatsapp },
+  { title: "Add WhatsApp Link", icon: FaWhatsapp },
   { title: "Invoice & Payments", icon: PiNoteThin },
   { title: "Contact & Support", icon: TfiHeadphoneAlt },
   { title: "Verify Account", icon: MdOutlineVerifiedUser },
