@@ -287,7 +287,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <EmailIcon />
-                <span className="ml-2">JobsinApp.Com</span>
+                <span className="ml-2">hello@jobsin.com</span>
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <ContactIcon />
@@ -295,7 +295,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <WhatsAppIcon />
-                <span className="ml-2">JobsinApp</span>
+                <span className="ml-2">+8802563565652</span>
               </li>
             </ul>
           </div>
@@ -307,7 +307,8 @@ export default function Footer() {
             </h3>
             <div className="space-y-3">
               <Link
-                href="#"
+                href="https://play.google.com/store/games?hl=en"
+                target="_blank"
                 className="flex items-center bg-white text-black  px-4 py-2 rounded-lg transition-colors duration-200"
               >
                 <GooglePlayIcon />
@@ -317,7 +318,8 @@ export default function Footer() {
                 </div>
               </Link>
               <Link
-                href="#"
+                href="https://www.apple.com/store"
+                target="_blank"
                 className="flex items-center bg-white text-black px-4 py-2 rounded-lg transition-colors duration-200"
               >
                 <AppleStoreIcon />
