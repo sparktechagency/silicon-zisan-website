@@ -94,7 +94,7 @@ const chats = [
 const AllUserChart = () => {
   return (
     <div
-      className="max-w-md mx-auto  pr-2 flex flex-col"
+      className=" pr-2 flex flex-col"
       style={{ height: "calc(100vh - 150px)" }}
     >
       <div>
@@ -116,7 +116,7 @@ const AllUserChart = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto space-y-2 hide-scrollbar">
-        <div className="mr-4">
+        <div className="xl:mr-4">
           {chats.map((chat, index) => (
             <ChatCard key={index} card={chat} />
           ))}

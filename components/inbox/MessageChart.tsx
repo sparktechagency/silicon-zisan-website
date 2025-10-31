@@ -107,7 +107,7 @@ const ChatMessages = () => {
 
   return (
     <div
-      className="rounded-md flex flex-col "
+      className="rounded-md flex flex-col"
       style={{ height: "calc(100vh - 150px)" }}
     >
       <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card static">
