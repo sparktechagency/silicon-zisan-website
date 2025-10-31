@@ -185,3 +185,24 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* scrollbar styles */
+
+/* For Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #395067;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4f6f90;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #067088;
+}
