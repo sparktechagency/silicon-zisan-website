@@ -22,23 +22,23 @@ export const footerSections: FooterSection[] = [
     links: [
       { label: "Profile", href: "/profile" },
       { label: "Home", href: "/" },
-      { label: "Jobs", href: "/jobs" },
-      { label: "For Employer", href: "/employer-services" },
+      { label: "Jobs", href: "/?name=My+Posted+Jobs" },
+      { label: "For Employer", href: "/?name=Hire+Employees" },
     ],
   },
   {
     title: "Quick Links",
     links: [
-      { label: "Jobs Posting", href: "/jobs-posting" },
-      { label: "Subscription Plan", href: "/subscription-plan" },
-      { label: "Salary Calculator", href: "/salary-calculator" },
-      { label: "Download Center", href: "/download-center" },
+      { label: "Jobs Posting", href: "/?name=Post+Job" },
+      { label: "Subscription Plan", href: "/?name=Subscription+Plan" },
+      { label: "Salary Calculator", href: "/?name=Salary+Calculator" },
+      { label: "Download Center", href: "/?name=Download+Center" },
     ],
   },
   {
     title: "Legal Info",
     links: [
-      { label: "Terms & Conditions", href: "/terms-and-conditions" },
+      { label: "Terms & Conditions", href: "/terms-condition" },
       { label: "Privacy Policy", href: "/privacy-policy" },
       { label: "Impressum", href: "/impressum" },
       { label: "About Us", href: "/about-us" },

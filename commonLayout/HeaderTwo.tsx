@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -46,9 +47,17 @@ export default function HeaderTwo() {
                   {item.label}
                 </Link>
               ))}
-              <span className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
-                <Image src={call} alt="Zasulehry" className="lg:w-10 lg:h-10" />
-              </span>
+              <Link
+                href="https://wa.me/+88017123465678?text=Hello%20I%20need%20a%20consultation"
+                target="_blank"
+                className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]"
+              >
+                <Image
+                  src={call}
+                  alt="Zasulehry"
+                  className="lg:w-8 lg:h-8 rotate-90"
+                />
+              </Link>
             </div>
           </div>
 
