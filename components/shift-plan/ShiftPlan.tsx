@@ -13,6 +13,7 @@ import DeleteModal from "./DeleteModal";
 import pdf from "../../public/shift-plan/details.png";
 import ShiftPlanStatus from "./ShiftPlanStatus";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const tableData = [
   {
@@ -87,12 +88,11 @@ export default function ShiftPlan() {
                 <TableCell>{item.time}</TableCell>
                 <TableCell className="">
                   <div className="flex space-x-3">
-                    <button
-                      className="custom-btn rounded p-1.5"
-                      onClick={(e) => handleChangeName(e, "Edit Plan")}
-                    >
-                      <Pencil />
-                    </button>
+                    <Link href="/create-new-plan?name=edit">
+                      <button className="custom-btn rounded p-1.5">
+                        <Pencil />
+                      </button>
+                    </Link>
                     <a
                       href={`http://10.10.7.54:3000/${pdf.src}`}
                       target="_blank"

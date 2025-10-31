@@ -1,27 +1,27 @@
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import Image from "next/image";
+import card from "../../public/invoice-payment/credit-card.png";
 import method from "../../public/invoice-payment/method.png";
 import apple from "../../public/invoice-payment/apple.png";
 import google from "../../public/invoice-payment/google.png";
 import bank from "../../public/invoice-payment/bank.png";
 import klarna from "../../public/invoice-payment/karna.png";
 import paypal from "../../public/invoice-payment/paypal.png";
-import sofort from "../../public/invoice-payment/sofort.png";
+// import sofort from "../../public/invoice-payment/sofort.png";
 import PaymentModal from "./PaymentModal";
 
 const methods = [
-  { id: 1, label: "Google Pay", image: google },
+  { id: 9, label: "Credit Card", image: card },
   { id: 2, label: "Apple Pay", image: apple },
-  { id: 3, label: "Bank Transfers", image: bank },
+  { id: 1, label: "Google Pay", image: google },
   { id: 4, label: "Klarna", image: klarna },
   { id: 5, label: "PayPal", image: paypal },
-  { id: 6, label: "Sofort", image: sofort },
+  { id: 3, label: "Bank Transfers", image: bank },
+  // { id: 6, label: "Sofort", image: sofort },
 ];
 
 export default function PaymentSystem() {
-  const [cardNumber, setCardNumber] = useState("**** **** **** 4256");
   const [activeMethod, setActiveMethod] = useState("Apple Pay");
   const [disabled, setDisabled] = useState(false);
 
@@ -52,7 +52,7 @@ export default function PaymentSystem() {
         </div>
       )}
 
-      <div>
+      {/* <div>
         <label className="block mb-1 font-medium">Card Number</label>
         <div className="relative">
           <Input
@@ -64,7 +64,7 @@ export default function PaymentSystem() {
             Visa
           </span>
         </div>
-      </div>
+      </div> */}
 
       <div className="space-y-2">
         {methods.map((method) => (
