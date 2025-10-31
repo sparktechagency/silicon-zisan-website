@@ -2,18 +2,28 @@
 import { Switch } from "@/components/ui/switch";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
-import { Info } from "lucide-react";
+import { ArrowLeft, Info } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 export default function TwoFactorAuth() {
   const [smsActive, setSmsActive] = useState(true);
   const [authAppActive, setAuthAppActive] = useState(false);
+  const router = useRouter();
 
   return (
     <Container className="px-40  space-y-6 my-16">
       <div className="flex gap-2">
-        <CustomBackButton />
+        <div>
+          <button
+            className="bg-card rounded-full button-unactive w-8 h-8 flex items-center justify-center cursor-pointer"
+            onClick={() => router.push("/profile")}
+          >
+            <ArrowLeft />
+          </button>
+        </div>
         <h2 className="text-xl font-semibold">2 Factor Authentication</h2>
       </div>
 
