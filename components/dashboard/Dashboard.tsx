@@ -20,6 +20,7 @@ import CreateNewPlan from "../shift-plan/CreateNewPlan";
 import SalaryCalculator from "../salary-calculator/SalaryCalculator";
 import SalaryDetails from "../salary-calculator/SalarayDetails";
 import Image from "next/image";
+import CaruselCard from "./dashboardSubscription/CaruselCard";
 
 type item =
   | {
@@ -31,7 +32,7 @@ type item =
       icon: string;
     };
 
-export default function JobCard() {
+export default function Dashboard() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams.toString());
@@ -47,8 +48,8 @@ export default function JobCard() {
     router.push(`?${params.toString()}`);
   };
   return (
-    <Container className="flex flex-col lg:flex-row gap-4 my-12 px-5 md:px-10 lg:px-0 xl:px-4">
-      <div className="basis-[30%] px-4 max-h-[83vh] overflow-y-scroll">
+    <Container className="flex flex-col lg:flex-row gap-4 my-12 px-5 md:px-10 lg:px-0 xl:px-">
+      <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">
         {data?.map((item: item, index) => {
           const active = urlName === item.title;
           const icon = item.icon;
@@ -107,7 +108,8 @@ export default function JobCard() {
         {urlName === "Contact & Support" && <ContactSupportPage />}
         {urlName === "Verify Account" && <VerifyAccountPage />}
         {urlName === "Download Center" && <DownloadCenterPage />}
-        {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />}
+        {/* {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />} */}
+        {urlName === "Subscription Plan" && <CaruselCard />}
         {urlName === "Create New Plan" && <CreateNewPlan />}
         {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
         {urlName === "Salary Calculator" && <SalaryCalculator />}

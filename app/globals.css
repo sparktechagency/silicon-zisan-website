@@ -206,3 +206,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #067088;
 }
+
+/* pagination bullect point hide */
+.swiper-pagination-bullets {
+  display: none;
+}

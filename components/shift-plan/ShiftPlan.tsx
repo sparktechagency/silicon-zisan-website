@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import DeleteModal from "./DeleteModal";
-import pdf from "../../public/shift-plan/details.png";
+
 import ShiftPlanStatus from "./ShiftPlanStatus";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -93,15 +93,12 @@ export default function ShiftPlan() {
                         <Pencil />
                       </button>
                     </Link>
-                    <a
-                      href={`http://10.10.7.54:3000/${pdf.src}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+
+                    <Link href="/shift-plan-view-details">
                       <button className="custom-btn rounded p-1.5 flex items-center justify-center">
                         <Eye />
                       </button>
-                    </a>
+                    </Link>
 
                     <DeleteModal />
                   </div>

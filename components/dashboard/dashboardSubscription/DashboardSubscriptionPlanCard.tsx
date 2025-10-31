@@ -73,10 +73,7 @@ export default function DashboardSubscriptionPlanCard() {
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
 
   return (
-    <Container
-      className={`grid grid-cols-1 xl:grid-cols-2
-      gap-7`}
-    >
+    <Container className="grid grid-cols-1 xl:grid-cols-2 gap-7">
       {packages.map((item, index) => (
         <div
           key={index}
@@ -148,48 +145,51 @@ export default function DashboardSubscriptionPlanCard() {
           </div>
         </div>
       ))}
-
-      {/* Active Subscription Card */}
-      <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col  ">
-        <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
-          <Image
-            src={cancel}
-            alt="JobsinApp Logo"
-            width={150}
-            height={24}
-            sizes="100vh"
-          />
-          <h2 className="text-white text-3xl  xl:text-5xl font-semibold my-2">
-            JobsinApp
-          </h2>
-          <p className="text-white text-sm mb-6 text-center"></p>
-        </div>
-        <div className="mt-auto">
-          <>
-            {/* First Modal */}
-            <CancelModal
-              isModalOneOpen={isModalOneOpen}
-              setIsModalOneOpen={setIsModalOneOpen}
-              onOpenSecondModal={() => setIsModalTwoOpen(true)}
-              trigger={
-                <Button
-                  onClick={() => setIsModalOneOpen(true)}
-                  variant="destructive"
-                  className="w-full py-2 rounded cursor-pointer text-lg h-10"
-                >
-                  Cancel Subscription
-                </Button>
-              }
-            />
-
-            {/* Second Modal */}
-            <CancelModalTwo
-              isModalTwoOpen={isModalTwoOpen}
-              setIsModalTwoOpen={setIsModalTwoOpen}
-            />
-          </>
-        </div>
-      </div>
     </Container>
   );
+}
+
+{
+  /* Active Subscription Card */
+}
+{
+  /* <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col  ">
+  <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
+    <Image
+      src={cancel}
+      alt="JobsinApp Logo"
+      width={150}
+      height={24}
+      sizes="100vh"
+    />
+    <h2 className="text-white text-3xl  xl:text-5xl font-semibold my-2">
+      JobsinApp
+    </h2>
+    <p className="text-white text-sm mb-6 text-center"></p>
+  </div>
+  <div className="mt-auto">
+    <>
+  
+      <CancelModal
+        isModalOneOpen={isModalOneOpen}
+        setIsModalOneOpen={setIsModalOneOpen}
+        onOpenSecondModal={() => setIsModalTwoOpen(true)}
+        trigger={
+          <Button
+            onClick={() => setIsModalOneOpen(true)}
+            variant="destructive"
+            className="w-full py-2 rounded cursor-pointer text-lg h-10"
+          >
+            Cancel Subscription
+          </Button>
+        }
+      />
+
+      <CancelModalTwo
+        isModalTwoOpen={isModalTwoOpen}
+        setIsModalTwoOpen={setIsModalTwoOpen}
+      />
+    </>
+  </div>
+</div>; */
 }

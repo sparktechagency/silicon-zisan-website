@@ -34,8 +34,9 @@ export default function ShiftPlanStatus() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="Evenning">Evenning</SelectItem>
                 <SelectItem value="Morning">Morning</SelectItem>
+                <SelectItem value="Evenning">Evenning</SelectItem>
+                <SelectItem value="Night">Night</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
