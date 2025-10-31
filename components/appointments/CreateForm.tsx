@@ -38,12 +38,7 @@ export function CreateForm() {
           type="date"
           className="bg-card text-white border border-white/20 [&::-webkit-calendar-picker-indicator]:invert"
         />
-        {/* <Input
-          type="time"
-          min="12:00"
-          max="23:59"
-          className="bg-card text-white border border-white/20 [&::-webkit-calendar-picker-indicator]:invert"
-        /> */}
+
         <HourMinutePicker />
       </div>
 

@@ -5,7 +5,7 @@ import two from "../../public/appartments/two.png";
 import three from "../../public/appartments/three.png";
 import { Clock4, Eye } from "lucide-react";
 import DeleteButton from "./DeleteButton";
-import MessageSendModal from "./MessageSendModal";
+import MessageSendModal from "./EmployeeDetailsModal";
 
 const data = [
   {
