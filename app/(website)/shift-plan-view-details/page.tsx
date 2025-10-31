@@ -5,6 +5,8 @@ import { ArrowLeft } from "lucide-react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useRef } from "react";
+import Image from "next/image";
+import logo from "../../../public/shift-plan/logo.png";
 
 const schedule = [
   {
@@ -47,18 +49,22 @@ export default function ShiftPlanDetailsPage() {
         ref={contentRef}
         className="bg-white p-6 rounded-md shadow-md border border-gray-200 text-gray-900 my-10"
       >
-        <div className="mb-6 flex items-center gap-3">
-          <button
-            className="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
-            onClick={() => history.back()}
-          >
-            <ArrowLeft />
-          </button>
-          <p className="text-xl capitalize">shift plan view</p>
+        <div className="flex justify-between items-center">
+          <div className="mb-6 flex items-center gap-3">
+            <button
+              className="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+              onClick={() => history.back()}
+            >
+              <ArrowLeft />
+            </button>
+            <p className="text-xl capitalize">shift plan view</p>
+          </div>
+          <div>
+            <Image src={logo} alt="logo" />
+          </div>
         </div>
-
         {/* Personal Info */}
-        <div className="grid grid-cols-2 gap-1">
+        <div className="grid grid-cols-2 gap-1 mt-7 ">
           <p>Name: Kamran Khan</p>
           <p>Email: Kk4038423@Gmail.Com</p>
           <p>Address: Dhaka Bangladesh</p>

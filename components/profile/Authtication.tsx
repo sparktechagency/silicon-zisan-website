@@ -1,7 +1,6 @@
 "use client";
 import { Switch } from "@/components/ui/switch";
 import Container from "@/share/Container";
-import CustomBackButton from "@/share/CustomBackButton";
 import { ArrowLeft, Info } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
