@@ -11,7 +11,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Dashboard | Jobsin App",
+  title: "Jobsin",
   description: "Job circular application",
 };
 
