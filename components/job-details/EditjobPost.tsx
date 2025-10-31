@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
@@ -182,9 +183,11 @@ const EditJobPost = ({ title }: { title: string }) => {
           </div>
           {addInput?.map((item: any, index: number) => (
             <div className="flex items-center gap-3" key={index}>
-              <Input
+              <Textarea
+                key={index}
+                rows={3}
                 placeholder="Type here"
-                className="w-full px-3 py-2 text-gray-200 my-2"
+                className="w-full px-3 py-3 text-gray-200 my-2 min-h-10"
               />
               <Minus
                 className="text-red-500 cursor-pointer"
@@ -205,10 +208,11 @@ const EditJobPost = ({ title }: { title: string }) => {
           </div>
           {addInput2?.map((item: any, index: number) => (
             <div className="flex items-center gap-3" key={index}>
-              <Input
+              <Textarea
                 key={index}
+                rows={3}
                 placeholder="Type here"
-                className="w-full px-3 py-2 text-gray-200 my-2"
+                className="w-full px-3 py-3 text-gray-200 my-2 min-h-10"
               />
               <Minus
                 className="text-red-500 cursor-pointer"
