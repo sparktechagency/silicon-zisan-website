@@ -51,7 +51,7 @@ const packeages = [
     unactive: " inactive",
     features: [
       "0 € For 30 Days",
-      "Activated For 30 Days",
+      "Activated For 90 Days",
       "Unlimited Jobs Posting",
       "Unlimited Candidate Search",
       "Unlimited Candidate Alerts",
