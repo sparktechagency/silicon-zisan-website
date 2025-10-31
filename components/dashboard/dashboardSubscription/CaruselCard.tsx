@@ -159,7 +159,7 @@ export default function CaruselCard() {
             <div className="mt-auto">
               <Link href="/dashboard-payment">
                 <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                  Subscription Now
+                  Subscribe Now
                 </Button>
               </Link>
             </div>
@@ -241,7 +241,7 @@ export default function CaruselCard() {
             <div className="mt-auto">
               <Link href="/dashboard-payment">
                 <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                  Subscription Now
+                  Subscribe Now
                 </Button>
               </Link>
             </div>
@@ -287,7 +287,7 @@ export default function CaruselCard() {
                 </div>
               </div>
 
-              <ul className="py-10 px-5 list-disc  space-y-1 text-white text-[12px]">
+              <ul className="py-10 px-5 list-disc list-inside space-y-1 text-white text-[12px]">
                 <li>0 € For 30 Days</li>
                 <li>Activated For 90 Days</li>
                 <li>Unlimited Jobs Posting</li>
@@ -303,7 +303,7 @@ export default function CaruselCard() {
             <div className="mt-auto">
               <Link href="/dashboard-payment">
                 <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                  Subscription Now
+                  Subscribe Now
                 </Button>
               </Link>
             </div>

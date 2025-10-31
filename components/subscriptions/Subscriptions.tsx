@@ -129,7 +129,7 @@ export default function Subscriptions() {
 
           <div className="mt-auto">
             <Button className="custom-btn h-10 rounded font-bold w-full text-lg">
-              Subscription Now
+              Subscribe Now
             </Button>
           </div>
         </div>

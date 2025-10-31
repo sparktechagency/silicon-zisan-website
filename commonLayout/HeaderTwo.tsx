@@ -137,6 +137,24 @@ export default function HeaderTwo() {
                 {item.label}
               </Link>
             ))}
+
+            {/* CTA Button */}
+            <Link
+              href="/profile"
+              className="block  px-3 py-2 rounded-md hover:bg-gray-50 transition"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <div className="flex items-center space-x-3">
+                <Image
+                  src={profile}
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="rounded-full"
+                />
+                <p className="text-gray-800 font-medium">Kamran</p>
+              </div>
+            </Link>
           </div>
         </div>
       )}
