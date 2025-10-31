@@ -1,4 +1,5 @@
 // components/EmailModal.tsx
+"use client";
 import {
   Dialog,
   DialogContent,
@@ -9,11 +10,18 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { use, useState } from "react";
 import { DialogTrigger } from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
 
 export function EmailModal({ trigger }: { trigger: React.ReactNode }) {
   const [email, setEmail] = useState("");
+  const router = useRouter();
+
+  const handleEmailSubmit = () => {
+    // Handle email submission logic here
+    router.push(`/alert-setting`);
+  };
 
   return (
     <Dialog>
@@ -33,7 +41,9 @@ export function EmailModal({ trigger }: { trigger: React.ReactNode }) {
         />
 
         <DialogFooter>
-          <Button className="w-full custom-btn">Submit</Button>
+          <Button onClick={handleEmailSubmit} className="w-full custom-btn">
+            Submit
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -68,27 +68,23 @@ export default function Subscriptions() {
     <Container
       className={`grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3 gap-7`}
     >
-      {packeages?.map((item, index) => (
+      {[packeages[0], packeages[1], packeages[2]]?.map((item, index) => (
         <div
           key={index}
           className="bg-card p-3 rounded border border-gray-300/30 flex flex-col"
         >
           <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
-
-          <div className="grid grid-cols-3 gap-4 my-4">
-            <button
-              className={`button-unactive ${
-                item.title[0] && "custom-btn"
-              } w-full py-2 rounded-2xl`}
-            >
-              Basic
-            </button>
-            <button className="button-unactive w-full py-2 rounded-2xl">
-              Standard
-            </button>
-            <button className="button-unactive w-full py-2 rounded-2xl">
-              Extended
-            </button>
+          <div className="grid grid-cols-3 gap-4">
+            {item?.subTitle?.map((label, i) => (
+              <button
+                key={i}
+                className={`button-unactive ${
+                  item.title === label ? "custom-btn" : ""
+                } w-full py-2 rounded-2xl`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
 
           <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">

@@ -96,116 +96,261 @@ export default function CaruselCard() {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {[packages[0], packages[1], packages[2]].map((item, index) => (
-          <>
-            {" "}
-            <SwiperSlide key={index}>
-              <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full px-">
-                <h1 className="text-lg sm:text-2xl font-semibold my-2">
-                  JobsinApp Plans
-                </h1>
-                <div className="grid grid-cols-3 gap-4">
-                  {item.title.map((label, i) => (
-                    <button
-                      key={i}
-                      className={`button-unactive ${
-                        item.all === label ? "custom-btn" : ""
-                      } w-full py-2 rounded-2xl`}
-                    >
-                      {label}
+        {/* Slide 1: Basic */}
+        <SwiperSlide>
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <h1 className="text-lg sm:text-2xl font-semibold my-2">
+              JobsinApp Plans
+            </h1>
+            <div className="grid grid-cols-3 gap-4">
+              <button className="custom-btn w-full py-2 rounded-2xl">
+                Basic
+              </button>
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Standard
+              </button>
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Extended
+              </button>
+            </div>
+
+            <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+              <div className="flex justify-between items-center">
+                <div className="mt-4">
+                  <h1 className="text-white text-lg sm:text-2xl font-semibold">
+                    Basic Free
+                  </h1>
+                  <p className="text-white text-sm mt-2">Free</p>
+                </div>
+                <div>
+                  <div className="flex justify-end mb-2">
+                    <Image src={logo} className="h-10 w-10" alt="logo" />
+                  </div>
+                  <div className="flex">
+                    <button className="custom-btn py-1 px-4 rounded-none">
+                      Activeded
                     </button>
-                  ))}
-                </div>
-
-                <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-                  <div className="flex justify-between items-center">
-                    <div className="mt-4">
-                      <h1 className="text-white text-lg sm:text-2xl font-semibold">
-                        {item.subTitle}
-                      </h1>
-                      <p className="text-white text-sm flex gap-2 mt-2">
-                        {item.price}
-                      </p>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-end mb-2">
-                        <Image src={logo} className="h-10 w-10" alt="logo" />
-                      </div>
-                      <div className="flex">
-                        <button className="custom-btn py-1 px-4 rounded-none">
-                          {item.active}
-                        </button>
-                        <button className="border border-gray-300/50 px-2">
-                          {item.unactive}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="py-10 px-5">
-                    <ul className="list-disc list-inside space-y-1">
-                      {item.features.map((feature, i) => (
-                        <li key={i} className="text-white text-[12px]">
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+                    <button className="border border-gray-300/50 px-2">
+                      Inactive
+                    </button>
                   </div>
                 </div>
+              </div>
 
-                <div className="mt-auto">
-                  <Link href="/dashboard-payment">
-                    <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                      Subscription Now
+              <ul className="py-10 px-5 space-y-1 ">
+                <li className="text-white text-[12px] list-disc">
+                  5 Jobs Posting
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Limited Candidate Alerts
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Limited Candidate Search
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Limited Access To AI Tools
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Activated For Every Registered Account
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-auto">
+              <Link href="/dashboard-payment">
+                <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
+                  Subscription Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </SwiperSlide>
+
+        {/* Slide 2: Standard */}
+        <SwiperSlide>
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <h1 className="text-lg sm:text-2xl font-semibold my-2">
+              JobsinApp Plans
+            </h1>
+            <div className="grid grid-cols-3 gap-4">
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Basic
+              </button>
+              <button className="custom-btn w-full py-2 rounded-2xl">
+                Standard
+              </button>
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Extended
+              </button>
+            </div>
+
+            <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+              <div className="flex justify-between items-center">
+                <div className="mt-4">
+                  <h1 className="text-white text-lg sm:text-2xl font-semibold">
+                    Standard
+                  </h1>
+                  <p className="text-white text-sm mt-2">€ 2.50 Per Day</p>
+                </div>
+                <div>
+                  <div className="flex justify-end mb-2">
+                    <Image src={logo} className="h-10 w-10" alt="logo" />
+                  </div>
+                  <div className="flex">
+                    <button className="custom-btn py-1 px-4 rounded-none">
+                      Activeded
+                    </button>
+                    <button className="border border-gray-300/50 px-2">
+                      Inactive
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <ul className="py-10 px-5 space-y-1">
+                <li className="text-white text-[12px] list-disc">
+                  0 € For 30 Days
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Activated For 30 Days
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Unlimited Jobs Posting
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Unlimited Candidate Search
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Unlimited Candidate Alerts
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Move Up After 7 Days
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Full Access AI Tools
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  Exclusive Features
+                </li>
+                <li className="text-white text-[12px] list-disc">
+                  24/7 Support
+                </li>
+              </ul>
+            </div>
+
+            <div className="mt-auto">
+              <Link href="/dashboard-payment">
+                <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
+                  Subscription Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </SwiperSlide>
+
+        {/* Slide 3: Extended */}
+        <SwiperSlide>
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <h1 className="text-lg sm:text-2xl font-semibold my-2">
+              JobsinApp Plans
+            </h1>
+            <div className="grid grid-cols-3 gap-4">
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Basic
+              </button>
+              <button className="w-full py-2 rounded-2xl">Standard</button>
+              <button className="button-unactive custom-btn  w-full py-2 rounded-2xl">
+                Extended
+              </button>
+            </div>
+
+            <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+              <div className="flex justify-between items-center">
+                <div className="mt-4">
+                  <h1 className="text-white text-lg sm:text-2xl font-semibold">
+                    Extended
+                  </h1>
+                  <p className="text-white text-sm mt-2">€ 2.50 Per Day</p>
+                </div>
+                <div>
+                  <div className="flex justify-end mb-2">
+                    <Image src={logo} className="h-10 w-10" alt="logo" />
+                  </div>
+                  <div className="flex">
+                    <button className="custom-btn py-1 px-4 rounded-none">
+                      Activeded
+                    </button>
+                    <button className="border border-gray-300/50 px-2">
+                      Inactive
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <ul className="py-10 px-5 list-disc  space-y-1 text-white text-[12px]">
+                <li>0 € For 30 Days</li>
+                <li>Activated For 90 Days</li>
+                <li>Unlimited Jobs Posting</li>
+                <li>Unlimited Candidate Search</li>
+                <li>Unlimited Candidate Alerts</li>
+                <li>Move Up After 7 Days</li>
+                <li>Full Access AI Tools</li>
+                <li>Exclusive Features</li>
+                <li>24/7 Support</li>
+              </ul>
+            </div>
+
+            <div className="mt-auto">
+              <Link href="/dashboard-payment">
+                <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
+                  Subscription Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </SwiperSlide>
+
+        {/* cancel */}
+        <SwiperSlide>
+          <div className="bg-card h-[570px] p-3 rounded border border-gray-300/30 flex flex-col  ">
+            <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
+              <Image
+                src={cancel}
+                alt="JobsinApp Logo"
+                width={150}
+                height={24}
+                sizes="100vh"
+              />
+              <h2 className="text-white text-3xl  xl:text-5xl font-semibold my-2">
+                JobsinApp
+              </h2>
+              <p className="text-white text-sm mb-6 text-center"></p>
+            </div>
+            <div className="mt-auto">
+              <>
+                <CancelModal
+                  isModalOneOpen={isModalOneOpen}
+                  setIsModalOneOpen={setIsModalOneOpen}
+                  onOpenSecondModal={() => setIsModalTwoOpen(true)}
+                  trigger={
+                    <Button
+                      onClick={() => setIsModalOneOpen(true)}
+                      variant="destructive"
+                      className="w-full py-2 rounded cursor-pointer text-lg h-10"
+                    >
+                      Cancel Subscription
                     </Button>
-                  </Link>
-                </div>
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              {" "}
-              <div className="bg-card h-[570px] p-3 rounded border border-gray-300/30 flex flex-col  ">
-                <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
-                  <Image
-                    src={cancel}
-                    alt="JobsinApp Logo"
-                    width={150}
-                    height={24}
-                    sizes="100vh"
-                  />
-                  <h2 className="text-white text-3xl  xl:text-5xl font-semibold my-2">
-                    JobsinApp
-                  </h2>
-                  <p className="text-white text-sm mb-6 text-center"></p>
-                </div>
-                <div className="mt-auto">
-                  <>
-                    <CancelModal
-                      isModalOneOpen={isModalOneOpen}
-                      setIsModalOneOpen={setIsModalOneOpen}
-                      onOpenSecondModal={() => setIsModalTwoOpen(true)}
-                      trigger={
-                        <Button
-                          onClick={() => setIsModalOneOpen(true)}
-                          variant="destructive"
-                          className="w-full py-2 rounded cursor-pointer text-lg h-10"
-                        >
-                          Cancel Subscription
-                        </Button>
-                      }
-                    />
+                  }
+                />
 
-                    <CancelModalTwo
-                      isModalTwoOpen={isModalTwoOpen}
-                      setIsModalTwoOpen={setIsModalTwoOpen}
-                    />
-                  </>
-                </div>
-              </div>
-            </SwiperSlide>
-          </>
-        ))}
+                <CancelModalTwo
+                  isModalTwoOpen={isModalTwoOpen}
+                  setIsModalTwoOpen={setIsModalTwoOpen}
+                />
+              </>
+            </div>
+          </div>
+        </SwiperSlide>
       </Swiper>
 
       {/* Navigation Arrows */}

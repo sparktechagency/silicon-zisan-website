@@ -4,6 +4,7 @@ import Image from "next/image";
 import one from "../../public/appartments/one.png";
 import two from "../../public/appartments/two.png";
 import { Button } from "../ui/button";
+import { position } from "@/demoData/data";
 interface CancelModalProps {
   trigger?: React.ReactNode;
   isModalOneOpen: boolean;
@@ -15,6 +16,7 @@ const data = [
   {
     id: 1,
     name: "Kamran Khan",
+    position: "Employer",
     phone: "01333327633",
     date: "01.02.2025",
     time: "10:00",
@@ -25,6 +27,7 @@ const data = [
   {
     id: 3,
     name: "Alex Gender",
+    position: "Employee",
     phone: "0133336567",
     date: "01.02.2025",
     time: "10:00",
@@ -62,7 +65,7 @@ export default function EmployeeDetailsModal({
               {/* Info Section */}
               <div>
                 <h3 className="sm:text-xl font-semibold">
-                  {item.name} (Employee)
+                  {item.name} ({item.position})
                 </h3>
 
                 <div className="text-sm flex items-center gap-2">
