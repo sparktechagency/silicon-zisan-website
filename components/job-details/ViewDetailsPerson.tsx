@@ -52,8 +52,8 @@ export default function ViewDetailsPerson() {
                 View Profile
               </Button>
             </Link>
-            <Link href="/">
-              <Button className="custom-btn mt-5 h-10">Contact Us</Button>
+            <Link href="/inbox">
+              <Button className="custom-btn mt-5 h-10 ">Contact</Button>
             </Link>
           </div>
         </div>

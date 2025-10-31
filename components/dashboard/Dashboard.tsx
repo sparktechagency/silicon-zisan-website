@@ -60,7 +60,7 @@ export default function JobCard() {
             <div
               key={index}
               onClick={(e) => handleChangeName(e, item.title)}
-              className={` flex items-center pl-5 mx-auto mb-5 gap-3 md:text-[22px] font-medium rounded h-20 w-full lg:w-[370px] cursor-pointer ${
+              className={` flex items-center pl-5 mx-auto mb-3 gap-3 md:text-[18px] font-medium rounded py-2 w-full lg:w-[370px] cursor-pointer ${
                 active
                   ? "custom-btn"
                   : "bg-card text-white border border-white/20"
@@ -70,10 +70,9 @@ export default function JobCard() {
                 <IconComponent
                   className={`${
                     active
-                      ? "rounded-full button-active p-1"
-                      : "bg-[#505E6E] button-unactive rounded-full p-1"
+                      ? "rounded-full button-active p-1 size-10"
+                      : "bg-[#505E6E] button-unactive rounded-full p-1 size-10"
                   }`}
-                  size={44}
                 />
               ) : (
                 <Image
@@ -84,7 +83,7 @@ export default function JobCard() {
                   className={`${
                     active
                       ? "rounded-full button-active p-1"
-                      : "bg-[#505E6E] button-unactive rounded-full p-1"
+                      : "bg-[#505E6E] button-unactive rounded-full p-1 size-10"
                   }`}
                 />
               )}

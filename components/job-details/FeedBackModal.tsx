@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import React from "react";
+import feedback from "../../public/dashboard/feedback.png";
+import Image from "next/image";
+import { Label } from "../ui/label";
 
 export default function FeedBackModal() {
   return (
@@ -11,15 +13,19 @@ export default function FeedBackModal() {
           Feedback
         </button>
       </DialogTrigger>
-      <DialogContent className=" text-white bg-[#3C4751] rounded-lg p-6 w-full max-w-md shadow-lg opacity-80">
+      <DialogContent className=" text-white bg-[#3C4751] rounded-lg p-6 w-full sm:max-w-xl shadow-lg opacity-90 border border-gray-400/40">
         <div>
-          <h1 className="text-white text-xl">Give Your FeedBack</h1>
+          <h1 className="text-white text-2xl xl:text-[28px]">
+            Give Your Feedback
+          </h1>
+          <Image src={feedback} alt="feedback" className="w-52" />
           <form>
+            <Label className="mt-4 text-xl">Review</Label>
             <Textarea
-              className="my-5 h-40 placeholder:text-white"
+              className=" h-40 placeholder:text-white mt-3"
               placeholder="Type Your Review"
             />
-            <Button className="custom-btn w-full">Submit</Button>
+            <Button className="custom-btn w-full my-4">Submit</Button>
           </form>
         </div>
       </DialogContent>

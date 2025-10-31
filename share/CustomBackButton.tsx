@@ -5,7 +5,7 @@ export default function CustomBackButton() {
   return (
     <div>
       <button
-        className="bg-card rounded-full button-unactive w-8 h-8 flex items-center justify-center"
+        className="bg-card rounded-full button-unactive w-8 h-8 flex items-center justify-center cursor-pointer"
         onClick={() => history.back()}
       >
         <ArrowLeft />

@@ -67,8 +67,8 @@ export default function AppointmentCardsCancelled() {
             <MessageSendModal />
             <DeleteButton
               trigger={
-                <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
-                  Cancel
+                <button className=" text-white text-sm px-3 py-1 rounded-md">
+                  Canceled
                 </button>
               }
             />
