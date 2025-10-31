@@ -18,6 +18,7 @@ import Image from "next/image";
 import logo from "../../public/auth/logo.png";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
 
 const formSchema = z.object({
   email: z.string().min(1, "Username is required"),
@@ -64,7 +65,7 @@ export default function LoginPage() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 w-full "
+            className="space-y-4 w-full "
           >
             {/* email */}
             <FormField
@@ -108,10 +109,31 @@ export default function LoginPage() {
 
             <Link href="/">
               <Button className="custom-btn w-full" type="submit">
-                Submit
+                Login
               </Button>
             </Link>
-            <p className="text-center text-white mt-4">
+            <p className="text-center my-4">Or Continue With</p>
+            <div className="flex justify-center gap-4">
+              <Button
+                type="button"
+                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+              >
+                <FaGoogle />
+              </Button>
+              <Button
+                type="button"
+                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+              >
+                <FaApple />
+              </Button>
+              <Button
+                type="button"
+                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+              >
+                <FaFacebookF />
+              </Button>
+            </div>
+            <p className="text-center text-white mt-8">
               Dont't have an account ?{" "}
               <Link className="underline" href="/signup">
                 SignUp
