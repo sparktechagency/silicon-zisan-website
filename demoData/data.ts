@@ -4,6 +4,7 @@ import shift from "../public/dashboard/sidebar/shift.svg";
 import hire from "../public/dashboard/sidebar/hire-employee.svg";
 import two from "../public/dashboard/sidebar/appoinmenttwo.svg";
 import jobIcon from "../public/dashboard/sidebar/job-icon.svg";
+import aiIcon from "../public/dashboard/sidebar/ai-icon.svg";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
@@ -15,7 +16,7 @@ import { FaWhatsapp } from "react-icons/fa";
 export const data = [
   { title: "My Posted Jobs", icon: jobIcon },
   { title: "Post Job", icon: CiCirclePlus },
-  { title: "AI Tools", icon: CiSettings },
+  { title: "AI Tools", icon: aiIcon },
   { title: "Appointments", icon: two },
   { title: "Subscription Plan", icon: MdPodcasts },
   { title: "Hire Employees", icon: hire },
