@@ -3,29 +3,39 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../ui/button";
 import { useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 export default function ContractInformation() {
-  const pdfRef = useRef<HTMLDivElement>(null);
+  const printRef = useRef<HTMLDivElement | null>(null);
 
-  // const handleDownloadPdf = () => {
-  //   if (pdfRef.current) {
-  //     html2pdf()
-  //       .set({
-  //         margin: 0.5,
-  //         filename: "Personnel_Placement_Agreement.pdf",
-  //         image: { type: "jpeg", quality: 0.98 },
-  //         html2canvas: { scale: 2 },
-  //         jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-  //       })
-  //       .from(pdfRef.current)
-  //       .save();
-  //   }
-  // };
+  const handleUploadPdf = async () => {
+    const element = printRef.current;
+
+    if (!element) return;
+    element.style.color = "rgb(0, 0, 0)";
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "a4",
+    });
+
+    const imgProps = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+    pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("agreement.pdf");
+  };
+
   return (
     <div className="max-w-3xl mx-auto">
       <div
-        ref={pdfRef}
         className="bg-white text-gray-700 p-6  rounded-md shadow"
+        ref={printRef}
       >
         <div className="flex items-center gap-3 font-semibold text-lg md:text-3xl mb-4 text-gray-700">
           <ArrowLeft onClick={() => history.back()} /> Personnel Placement
@@ -146,7 +156,9 @@ export default function ContractInformation() {
 
       {/* download */}
       <div className="mt-4 flex gap-7">
-        <Button className="w-[48%] custom-btn">Download Pdf</Button>
+        <Button className="w-[48%] custom-btn" onClick={handleUploadPdf}>
+          Download Pdf
+        </Button>
         <Button className="w-[48%] custom-btn">Send</Button>
       </div>
     </div>
