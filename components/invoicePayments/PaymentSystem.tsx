@@ -70,7 +70,7 @@ export default function PaymentSystem() {
         {methods.map((method) => (
           <div
             key={method.id}
-            className="flex items-center gap-2 cursor-pointer mb-4"
+            className="flex items-center gap-2 cursor-pointer hover:bg-gray-300 rounded-md p-2"
             onClick={() => setActiveMethod(method.label)}
           >
             {method.image && (

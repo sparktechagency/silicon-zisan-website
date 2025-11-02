@@ -1,8 +1,9 @@
 import React from "react";
 
 import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import { ChatCard } from "./ChartCard";
+import CustomBackButton from "@/share/CustomBackButton";
 
 const chats = [
   {
@@ -98,7 +99,11 @@ const AllUserChart = () => {
       style={{ height: "calc(100vh - 150px)" }}
     >
       <div>
-        <h1 className="text-lg font-semibold">Message</h1>
+        <div className="flex items-center gap-4">
+          <CustomBackButton />
+
+          <h1 className="text-lg font-semibold">Message</h1>
+        </div>
         <hr className="my-3 w-[97%]" />
       </div>
       <div className="mb-4 mr-3">

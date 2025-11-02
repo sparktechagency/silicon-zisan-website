@@ -9,7 +9,7 @@ import Image from "next/image";
 import Container from "@/share/Container";
 import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
-import profile from "../public/profile/profile.png";
+import profile from "../public/profile/avatar.png";
 import call from "../public/call-header.svg";
 
 export default function HeaderTwo() {
