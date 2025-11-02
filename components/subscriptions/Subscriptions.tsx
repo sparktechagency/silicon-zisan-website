@@ -3,6 +3,7 @@ import Container from "@/share/Container";
 import { Info } from "lucide-react";
 import Image from "next/image";
 import logo from "../../public/dashboard/logo.png";
+import Link from "next/link";
 
 const packeages = [
   {
@@ -128,9 +129,11 @@ export default function Subscriptions() {
           </div>
 
           <div className="mt-auto">
-            <Button className="custom-btn h-10 rounded font-bold w-full text-lg">
-              Subscribe Now
-            </Button>
+            <Link href="/dashboard-payment">
+              <Button className="custom-btn h-10 rounded font-bold w-full text-lg">
+                Subscribe Now
+              </Button>
+            </Link>
           </div>
         </div>
       ))}

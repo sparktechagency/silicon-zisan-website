@@ -21,6 +21,8 @@ import SalaryCalculator from "../salary-calculator/SalaryCalculator";
 import SalaryDetails from "../salary-calculator/SalarayDetails";
 import Image from "next/image";
 import CaruselCard from "./dashboardSubscription/CaruselCard";
+import ContractInformationHomePage from "@/app/(website)/contact-information/page";
+import ContractInformation from "../hireEmployes/ContactInformation";
 
 type item =
   | {
@@ -37,6 +39,7 @@ export default function Dashboard() {
   const router = useRouter();
   const params = new URLSearchParams(searchParams.toString());
   const urlName: string = params.get("name") || "My Posted Jobs";
+  console.log(urlName);
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -101,7 +104,7 @@ export default function Dashboard() {
         {urlName === "Post Job" && <EditJobPost title="Post Job" />}
         {urlName === "AI Tools" && <AITools />}
         {urlName === "Appointments" && <Appointments />}
-        {urlName === "Hire Employees" && <HireEmployees />}
+        {/* {urlName === "Hire Employees" && <HireEmployees />} */}
         {urlName === "Shift Plan" && <ShiftPlanpage />}
         {urlName === "Add WhatsApp Link" && <AddWhatsLinkPage />}
         {urlName === "Invoice & Payments" && <InvoicePaymentspage />}
@@ -114,6 +117,8 @@ export default function Dashboard() {
         {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
         {urlName === "Salary Calculator" && <SalaryCalculator />}
         {urlName === "Information" && <SalaryDetails />}
+        {urlName === "Hire Employees" && <EditJobPost title="Hire Employee" />}
+        {urlName === "hire-employee-details" && <ContractInformation />}
       </div>
     </Container>
   );

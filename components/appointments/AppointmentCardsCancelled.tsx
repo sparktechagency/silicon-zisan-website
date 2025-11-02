@@ -68,7 +68,7 @@ export default function AppointmentCardsCancelled() {
             <DeleteButton
               trigger={
                 <button className=" text-white text-sm px-3 py-1 rounded-md">
-                  Canceled
+                  Cancelled
                 </button>
               }
             />

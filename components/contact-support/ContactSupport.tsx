@@ -112,11 +112,11 @@ export default function ContactSupport() {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone number</FormLabel>
+                  <FormLabel>Contact Number</FormLabel>
                   <FormControl>
                     <Input
                       className="placeholder:text-white"
-                      placeholder="Enter Your phone"
+                      placeholder="Enter Your contact number"
                       {...field}
                     />
                   </FormControl>

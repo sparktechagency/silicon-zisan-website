@@ -1,27 +1,37 @@
 "use client";
 import { contractSections } from "@/demoData/data";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
+import logo from "../../public/contact-information.png";
 
 export default function ContractInformation() {
   return (
-    <div className="bg-white text-gray-700 p-6 max-w-3xl mx-auto rounded-md shadow my-16">
-      <div className="flex items-center gap-3 font-semibold text-xl mb-4">
-        <ArrowLeft onClick={() => history.back()} /> Contract Information
+    <div className="bg-white text-gray-700 p-6 max-w-3xl mx-auto rounded-md shadow">
+      <div className="flex items-center gap-3 font-semibold text-lg md:text-3xl mb-4">
+        <ArrowLeft onClick={() => history.back()} /> Personnel Placement
+        Agreement
       </div>
 
-      <div className="space-y-6">
-        {/* Static Client Info */}
-        <div>
-          <h3 className="font-bold text-gray-700">Client</h3>
-          <p>Client: Tech Agency</p>
-          <p>Brandon Corporation</p>
-          <p>+880132345222</p>
-        </div>
-        <div>
-          <h3 className="font-bold text-gray-700">Recruiter</h3>
-          <p>JobsinApp</p>
-          <p>Dhaka , Bangladesh</p>
-          <p>+880132345222</p>
+      <div className="space-y-3">
+        <div className="flex justify-between items-start">
+          <div>
+            <div>
+              <h3 className="font-bold text-gray-700">Client</h3>
+              <p>Client: Tech Agency</p>
+              <p>Brandon Corporation</p>
+              <p>+880132345222</p>
+            </div>
+            <div className="mt-1">
+              <h3 className="font-bold text-gray-700">Recruiter</h3>
+              <p>JobsinApp</p>
+              <p>Dhaka , Bangladesh</p>
+              <p>+880132345222</p>
+            </div>
+          </div>
+          {/* image part */}
+          <div>
+            <Image src={logo} alt="logo" className="w-52" />
+          </div>
         </div>
 
         {/* Map Contract Sections */}
@@ -73,6 +83,30 @@ export default function ContractInformation() {
               <li>Maintain Records.</li>
               <li>
                 Coordinate With Recruiter Team For The Job Description Posting.
+              </li>
+            </ul>
+          </div>
+
+          {/* resposibility */}
+          <div className="mt-4">
+            <h5 className="font-semibold">Responsibilities</h5>
+            <ul className="list-disc ml-6 text-sm text-gray-700 space-y-1">
+              <li>
+                Patient Care: Provide direct care to patients, monitor vital
+                signs, administer medications, etc.
+              </li>
+              <li>
+                Documentation: Maintain patient records and ensure they are up
+                to date.
+              </li>
+              <li>
+                Collaboration: Work closely with doctors, nurses, and healthcare
+                teams.
+              </li>
+              <li>Maintain Records.</li>
+              <li>
+                Emergency Response: Respond quickly to patient needs and
+                emergencies.
               </li>
             </ul>
           </div>
