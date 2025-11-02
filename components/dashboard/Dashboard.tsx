@@ -48,7 +48,7 @@ export default function Dashboard() {
     router.push(`?${params.toString()}`);
   };
   return (
-    <Container className="flex flex-col lg:flex-row gap-4 my-12 px-5 md:px-10 lg:px-0 xl:px-">
+    <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
       <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">
         {data?.map((item: item, index) => {
           const active = urlName === item.title;

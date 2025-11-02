@@ -95,6 +95,20 @@ export default function CaruselCard() {
         navigation={false}
         modules={[Pagination, Navigation]}
         className="mySwiper"
+        breakpoints={{
+          // when window width is >= 0px
+          0: {
+            slidesPerView: 1,
+          },
+          // when window width is >= 768px (medium devices)
+          848: {
+            slidesPerView: 2,
+          },
+          // when window width is >= 1024px (large devices)
+          1180: {
+            slidesPerView: 2,
+          },
+        }}
       >
         {/* Slide 1: Basic */}
         <SwiperSlide>
@@ -117,7 +131,7 @@ export default function CaruselCard() {
             <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
-                  <h1 className="text-white text-lg sm:text-2xl font-semibold">
+                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
                     Basic Free
                   </h1>
                   <p className="text-white text-sm mt-2">Free</p>
@@ -127,10 +141,10 @@ export default function CaruselCard() {
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
                   <div className="flex">
-                    <button className="custom-btn py-1 px-4 rounded-none">
+                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
                       Activeded
                     </button>
-                    <button className="border border-gray-300/50 px-2">
+                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
                       Inactive
                     </button>
                   </div>
@@ -187,7 +201,7 @@ export default function CaruselCard() {
             <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
-                  <h1 className="text-white text-lg sm:text-2xl font-semibold">
+                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
                     Standard
                   </h1>
                   <p className="text-white text-sm mt-2">€ 2.50 Per Day</p>
@@ -197,10 +211,10 @@ export default function CaruselCard() {
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
                   <div className="flex">
-                    <button className="custom-btn py-1 px-4 rounded-none">
+                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
                       Activeded
                     </button>
-                    <button className="border border-gray-300/50 px-2">
+                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
                       Inactive
                     </button>
                   </div>
@@ -267,7 +281,7 @@ export default function CaruselCard() {
             <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
-                  <h1 className="text-white text-lg sm:text-2xl font-semibold">
+                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
                     Extended
                   </h1>
                   <p className="text-white text-sm mt-2">€ 2.50 Per Day</p>
@@ -277,10 +291,10 @@ export default function CaruselCard() {
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
                   <div className="flex">
-                    <button className="custom-btn py-1 px-4 rounded-none">
+                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
                       Activeded
                     </button>
-                    <button className="border border-gray-300/50 px-2">
+                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
                       Inactive
                     </button>
                   </div>
