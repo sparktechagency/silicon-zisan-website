@@ -15,13 +15,11 @@ import InvoicePaymentspage from "@/app/(website)/invoice-payments/page";
 import ContactSupportPage from "@/app/(website)/contact-support/page";
 import VerifyAccountPage from "@/app/(website)/verify-account/page";
 import DownloadCenterPage from "@/app/(website)/download-center/page";
-import DashboardSubscriptionPlanCard from "./dashboardSubscription/DashboardSubscriptionPlanCard";
 import CreateNewPlan from "../shift-plan/CreateNewPlan";
 import SalaryCalculator from "../salary-calculator/SalaryCalculator";
 import SalaryDetails from "../salary-calculator/SalarayDetails";
 import Image from "next/image";
 import CaruselCard from "./dashboardSubscription/CaruselCard";
-import ContractInformationHomePage from "@/app/(website)/contact-information/page";
 import ContractInformation from "../hireEmployes/ContactInformation";
 
 type item =
@@ -104,7 +102,7 @@ export default function Dashboard() {
         {urlName === "Post Job" && <EditJobPost title="Post Job" />}
         {urlName === "AI Tools" && <AITools />}
         {urlName === "Appointments" && <Appointments />}
-        {/* {urlName === "Hire Employees" && <HireEmployees />} */}
+        {urlName === "Hire Employees" && <HireEmployees />}
         {urlName === "Shift Plan" && <ShiftPlanpage />}
         {urlName === "Add WhatsApp Link" && <AddWhatsLinkPage />}
         {urlName === "Invoice & Payments" && <InvoicePaymentspage />}
@@ -117,7 +115,9 @@ export default function Dashboard() {
         {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
         {urlName === "Salary Calculator" && <SalaryCalculator />}
         {urlName === "Information" && <SalaryDetails />}
-        {urlName === "Hire Employees" && <EditJobPost title="Hire Employee" />}
+        {urlName === "hire-employee-form" && (
+          <EditJobPost title="Hire Employee" />
+        )}
         {urlName === "hire-employee-details" && <ContractInformation />}
       </div>
     </Container>
