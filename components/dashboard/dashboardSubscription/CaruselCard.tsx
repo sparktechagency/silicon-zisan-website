@@ -25,7 +25,7 @@ const packages = [
     all: "Basic",
     price: "Free",
     info: false,
-    active: "Activeded",
+    active: "Activated",
     unactive: "Inactive",
     features: [
       "5 Jobs Posting",
@@ -42,7 +42,7 @@ const packages = [
     all: "Standard",
     price: "€ 2.50 Per Day",
     info: true,
-    active: "Activeded",
+    active: "Activated",
     unactive: "Inactive",
     features: [
       "0 € For 30 Days",
@@ -63,7 +63,7 @@ const packages = [
     all: "Booster",
     price: "€ 2.50 Per Day",
     info: true,
-    active: "Activeded",
+    active: "Activated",
     unactive: "Inactive",
     features: [
       "0 € For 30 Days",
@@ -142,7 +142,7 @@ export default function CaruselCard() {
                   </div>
                   <div className="flex">
                     <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
-                      Activeded
+                      Activated
                     </button>
                     <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
                       Inactive
@@ -212,7 +212,7 @@ export default function CaruselCard() {
                   </div>
                   <div className="flex">
                     <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
-                      Activeded
+                      Activated
                     </button>
                     <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
                       Inactive
@@ -292,7 +292,7 @@ export default function CaruselCard() {
                   </div>
                   <div className="flex">
                     <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
-                      Activeded
+                      Activated
                     </button>
                     <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
                       Inactive

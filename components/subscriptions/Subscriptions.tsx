@@ -12,7 +12,7 @@ const packeages = [
     subTitle: ["Basic", "Standard", "Booster"],
     price: "Free",
     info: false,
-    active: " Activeded",
+    active: " Activated",
     unactive: " inactive",
     features: [
       "5 Jobs Posting",
@@ -28,7 +28,7 @@ const packeages = [
     subTitle: ["Basic", "Standard", "Booster"],
     price: "€ 2.50 Per Day",
     info: true,
-    active: " Activeded",
+    active: " Activated",
     unactive: " inactive",
     features: [
       "0 € For 30 Days",
@@ -48,7 +48,7 @@ const packeages = [
     subTitle: ["Basic", "Standard", "Booster"],
     price: "€ 2.50 Per Day",
     info: true,
-    active: " Activeded",
+    active: " Activated",
     unactive: " inactive",
     features: [
       "0 € For 30 Days",

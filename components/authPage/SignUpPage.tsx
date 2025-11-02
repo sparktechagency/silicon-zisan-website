@@ -18,6 +18,7 @@ import Image from "next/image";
 import logo from "../../public/auth/logo.png";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
 
 const formSchema = z.object({
   userName: z.string().min(1, "Username is required"),
@@ -147,8 +148,30 @@ export default function SignUpPage() {
                 Sign Up
               </Button>
             </Link>
+
+            <p className="text-center my-4">Or Continue With</p>
+            <div className="flex justify-center gap-4">
+              <Button
+                type="button"
+                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+              >
+                <FaGoogle />
+              </Button>
+              <Button
+                type="button"
+                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+              >
+                <FaApple />
+              </Button>
+              <Button
+                type="button"
+                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+              >
+                <FaFacebookF />
+              </Button>
+            </div>
             <p className="text-center text-white mt-4">
-              Already have an account?{" "}
+              Already Have An Account?{" "}
               <Link className="underline" href="/login">
                 Login
               </Link>
