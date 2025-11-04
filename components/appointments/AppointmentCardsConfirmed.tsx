@@ -47,7 +47,10 @@ export default function AppointmentCardsConfirmed() {
   return (
     <>
       {data?.map((item, index) => (
-        <div className="bg-card text-white p-4 rounded-xl  shadow-lg flex items-center gap-4 mt-5">
+        <div
+          className="bg-card text-white p-4 rounded-xl  shadow-lg flex items-center gap-4 mt-5"
+          key={index}
+        >
           {/* Profile Image */}
           <Image
             src={item.src}
