@@ -88,7 +88,7 @@ export default function CaruselCard() {
     <div className="relative">
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
-        slidesPerView={2}
+        slidesPerView={1}
         spaceBetween={20}
         loop={true}
         pagination={{ clickable: true }}
@@ -102,11 +102,11 @@ export default function CaruselCard() {
           },
           // when window width is >= 768px (medium devices)
           848: {
-            slidesPerView: 2,
+            slidesPerView: 1,
           },
           // when window width is >= 1024px (large devices)
           1180: {
-            slidesPerView: 2,
+            slidesPerView: 1,
           },
         }}
       >
@@ -128,7 +128,7 @@ export default function CaruselCard() {
               </button>
             </div>
 
-            <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+            <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
                   <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
@@ -140,33 +140,23 @@ export default function CaruselCard() {
                   <div className="flex justify-end mb-2">
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
-                  <div className="flex">
-                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
+                  <div className="flex flex-col sm:flex-row">
+                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                       Activated
                     </button>
-                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
+                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                       Inactive
                     </button>
                   </div>
                 </div>
               </div>
 
-              <ul className="py-10 px-5 space-y-1 ">
-                <li className="text-white text-[12px] list-disc">
-                  5 Jobs Posting
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Limited Candidate Alerts
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Limited Candidate Search
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Limited Access To AI Tools
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Activated For Every Registered Account
-                </li>
+              <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                <li>5 Jobs Posting</li>
+                <li>Limited Candidate Alerts</li>
+                <li>Limited Candidate Search</li>
+                <li>Limited Access To AI Tools</li>
+                <li>Activated For Every Registered Account</li>
               </ul>
             </div>
 
@@ -198,7 +188,7 @@ export default function CaruselCard() {
               </button>
             </div>
 
-            <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+            <div className="bg-[#304150] h-[450px] rounded py-6 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
                   <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
@@ -210,45 +200,27 @@ export default function CaruselCard() {
                   <div className="flex justify-end mb-2">
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
-                  <div className="flex">
-                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
+                  <div className="flex flex-col sm:flex-row">
+                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                       Activated
                     </button>
-                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
+                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                       Inactive
                     </button>
                   </div>
                 </div>
               </div>
 
-              <ul className="py-10 px-5 space-y-1">
-                <li className="text-white text-[12px] list-disc">
-                  0 € For 30 Days
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Activated For 30 Days
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Unlimited Jobs Posting
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Unlimited Candidate Search
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Unlimited Candidate Alerts
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Move Up After 7 Days
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Full Access AI Tools
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  Exclusive Features
-                </li>
-                <li className="text-white text-[12px] list-disc">
-                  24/7 Support
-                </li>
+              <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                <li className="">0 € For 30 Days</li>
+                <li className="">Activated For 30 Days</li>
+                <li className="">Unlimited Jobs Posting</li>
+                <li className="">Unlimited Candidate Search</li>
+                <li className="">Unlimited Candidate Alerts</li>
+                <li className="">Move Up After 7 Days</li>
+                <li className="">Full Access AI Tools</li>
+                <li className="">Exclusive Features</li>
+                <li className="">24/7 Support</li>
               </ul>
             </div>
 
@@ -272,13 +244,15 @@ export default function CaruselCard() {
               <button className="button-unactive w-full py-2 rounded-2xl">
                 Basic
               </button>
-              <button className="w-full py-2 rounded-2xl">Standard</button>
+              <button className="button-unactive w-full py-2 rounded-2xl">
+                Standard
+              </button>
               <button className="button-unactive custom-btn  w-full py-2 rounded-2xl">
                 Extended
               </button>
             </div>
 
-            <div className="bg-[#304150] h-96 rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+            <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
                   <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
@@ -290,18 +264,18 @@ export default function CaruselCard() {
                   <div className="flex justify-end mb-2">
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
-                  <div className="flex">
-                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md">
+                  <div className="flex flex-col sm:flex-row">
+                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                       Activated
                     </button>
-                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md">
+                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                       Inactive
                     </button>
                   </div>
                 </div>
               </div>
 
-              <ul className="py-10 px-5 list-disc list-inside space-y-1 text-white text-[12px]">
+              <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
                 <li>0 € For 30 Days</li>
                 <li>Activated For 90 Days</li>
                 <li>Unlimited Jobs Posting</li>
@@ -326,7 +300,7 @@ export default function CaruselCard() {
 
         {/* cancel */}
         <SwiperSlide>
-          <div className="bg-card h-[570px] p-3 rounded border border-gray-300/30 flex flex-col  ">
+          <div className="bg-card h-[620px] p-3 rounded border border-gray-300/30 flex flex-col  ">
             <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
               <Image
                 src={cancel}
