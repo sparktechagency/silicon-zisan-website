@@ -129,12 +129,12 @@ export default function ContactSupport() {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>Location</FormLabel>
                   <FormControl>
                     <Textarea
                       rows={3}
                       className="placeholder:text-white min-h-10 py-3"
-                      placeholder="Enter Your address"
+                      placeholder="Enter Your location"
                       {...field}
                     />
                   </FormControl>
