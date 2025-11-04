@@ -34,7 +34,6 @@ export default function ContactSupport() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  console.log(imagePreview);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -66,7 +65,7 @@ export default function ContactSupport() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full "
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* name */}
             <FormField
               control={form.control}
@@ -105,7 +104,7 @@ export default function ContactSupport() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {/* phone */}
             <FormField
               control={form.control}
@@ -201,7 +200,7 @@ export default function ContactSupport() {
 
           {/* submit */}
           <div className="flex justify-end">
-            <Button className="custom-btn w-[20%]" type="submit">
+            <Button className="custom-btn sm:w-[20%]" type="submit">
               Send
             </Button>
           </div>
