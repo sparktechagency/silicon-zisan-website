@@ -5,7 +5,7 @@ import two from "../../public/appartments/two.png";
 import three from "../../public/appartments/three.png";
 import { Clock4, Eye } from "lucide-react";
 import DeleteButton from "./DeleteButton";
-import MessageSendModal from "./MessageSendModal";
+import MessageSendModal from "./EmployeeDetailsModal";
 
 const data = [
   {
@@ -64,14 +64,10 @@ export default function AppointmentCardsCancelled() {
 
           {/* Cancel Button */}
           <div className="flex flex-col items-end justify-between my-4 space-y-6">
-            <MessageSendModal />
-            <DeleteButton
-              trigger={
-                <button className=" text-white text-sm px-3 py-1 rounded-md">
-                  Canceled
-                </button>
-              }
-            />
+            {/* <MessageSendModal /> */}
+            <button className=" text-white text-sm px-3 py-1 rounded-md">
+              Cancelled
+            </button>
           </div>
         </div>
       ))}

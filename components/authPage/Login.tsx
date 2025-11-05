@@ -53,8 +53,8 @@ export default function LoginPage() {
           height={24}
           className="w-24 md:w-40"
         />
-        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium">
-          WHERE DREAM JOB MEETS TOP TALENT
+        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium capitalize">
+          where dream job meets top talent
         </h1>
       </div>
 
@@ -134,8 +134,8 @@ export default function LoginPage() {
               </Button>
             </div>
             <p className="text-center text-white mt-8">
-              Dont't have an account ?{" "}
-              <Link className="underline" href="/signup">
+              Dont't Have An Account?{" "}
+              <Link className="underline" href="/method">
                 SignUp
               </Link>
             </p>

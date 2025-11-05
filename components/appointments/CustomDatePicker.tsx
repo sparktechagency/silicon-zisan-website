@@ -1,7 +1,12 @@
 import { useState } from "react";
-
-const hours = Array.from({ length: 23 }, (_, i) => i + 1); // [1–23]
-const minutes = Array.from({ length: 59 }, (_, i) => i + 1); // [1–59]
+const hours = [
+  ...Array.from({ length: 23 }, (_, i) => String(i + 1).padStart(2, "0")),
+  "00",
+];
+const minutes = [
+  ...Array.from({ length: 59 }, (_, i) => String(i + 1).padStart(2, "0")),
+  "00",
+];
 
 export default function CustomDatePicker() {
   const [selectedHour, setSelectedHour] = useState<null | number>(null);
@@ -27,7 +32,7 @@ export default function CustomDatePicker() {
             onChange={(e) => setSelectedHour(Number(e.target.value))}
             className="w-full appearance-none rounded-lg border-none bg-card px-4 py-2 text-center text-white outline-none transition  focus:border-none"
           >
-            <option value="">HH</option>
+            <option value="">Hours</option>
             {hours.map((h) => (
               <option key={h} value={h}>
                 {String(h).padStart(2, "0")}
@@ -46,7 +51,7 @@ export default function CustomDatePicker() {
             onChange={(e) => setSelectedMinute(Number(e.target.value))}
             className="w-full appearance-none rounded-lg border-none bg-card px-4 py-2 text-center text-white outline-none transition  focus:border-none"
           >
-            <option value="">MM</option>
+            <option value="">Minutes </option>
             {minutes.map((m) => (
               <option key={m} value={m}>
                 {String(m).padStart(2, "0")}

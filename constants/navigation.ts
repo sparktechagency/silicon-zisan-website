@@ -41,7 +41,7 @@ export const footerSections: FooterSection[] = [
       { label: "Terms & Conditions", href: "/terms-condition" },
       { label: "Privacy Policy", href: "/privacy-policy" },
       { label: "Impressum", href: "/impressum" },
-      { label: "About Us", href: "/about-us" },
+      { label: "About Us", href: "#" },
     ],
   },
 ];

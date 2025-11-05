@@ -15,11 +15,12 @@ import InvoicePaymentspage from "@/app/(website)/invoice-payments/page";
 import ContactSupportPage from "@/app/(website)/contact-support/page";
 import VerifyAccountPage from "@/app/(website)/verify-account/page";
 import DownloadCenterPage from "@/app/(website)/download-center/page";
-import DashboardSubscriptionPlanCard from "./dashboardSubscription/DashboardSubscriptionPlanCard";
 import CreateNewPlan from "../shift-plan/CreateNewPlan";
 import SalaryCalculator from "../salary-calculator/SalaryCalculator";
 import SalaryDetails from "../salary-calculator/SalarayDetails";
 import Image from "next/image";
+import CaruselCard from "./dashboardSubscription/CaruselCard";
+import ContractInformation from "../hireEmployes/ContactInformation";
 
 type item =
   | {
@@ -31,11 +32,12 @@ type item =
       icon: string;
     };
 
-export default function JobCard() {
+export default function Dashboard() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const params = new URLSearchParams(searchParams.toString());
   const urlName: string = params.get("name") || "My Posted Jobs";
+  console.log(urlName);
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -47,8 +49,8 @@ export default function JobCard() {
     router.push(`?${params.toString()}`);
   };
   return (
-    <Container className="flex flex-col lg:flex-row gap-4 my-12 px-5 md:px-10 lg:px-0 xl:px-4">
-      <div className="basis-[30%] px-4 max-h-[83vh] overflow-y-scroll">
+    <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
+      <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">
         {data?.map((item: item, index) => {
           const active = urlName === item.title;
           const icon = item.icon;
@@ -102,16 +104,21 @@ export default function JobCard() {
         {urlName === "Appointments" && <Appointments />}
         {urlName === "Hire Employees" && <HireEmployees />}
         {urlName === "Shift Plan" && <ShiftPlanpage />}
+        {urlName === "Create New Plan" && <CreateNewPlan />}
         {urlName === "Add WhatsApp Link" && <AddWhatsLinkPage />}
         {urlName === "Invoice & Payments" && <InvoicePaymentspage />}
         {urlName === "Contact & Support" && <ContactSupportPage />}
         {urlName === "Verify Account" && <VerifyAccountPage />}
         {urlName === "Download Center" && <DownloadCenterPage />}
-        {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />}
-        {urlName === "Create New Plan" && <CreateNewPlan />}
+        {/* {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />} */}
+        {urlName === "Subscription Plan" && <CaruselCard />}
         {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
         {urlName === "Salary Calculator" && <SalaryCalculator />}
         {urlName === "Information" && <SalaryDetails />}
+        {urlName === "hire-employee-form" && (
+          <EditJobPost title="Hire Employee" />
+        )}
+        {urlName === "hire-employee-details" && <ContractInformation />}
       </div>
     </Container>
   );

@@ -34,7 +34,6 @@ export default function ContactSupport() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  console.log(imagePreview);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -66,7 +65,7 @@ export default function ContactSupport() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full "
         >
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* name */}
             <FormField
               control={form.control}
@@ -105,18 +104,18 @@ export default function ContactSupport() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {/* phone */}
             <FormField
               control={form.control}
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone number</FormLabel>
+                  <FormLabel>Contact Number</FormLabel>
                   <FormControl>
                     <Input
                       className="placeholder:text-white"
-                      placeholder="Enter Your phone"
+                      placeholder="Enter Your contact number"
                       {...field}
                     />
                   </FormControl>
@@ -130,12 +129,12 @@ export default function ContactSupport() {
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>Location</FormLabel>
                   <FormControl>
                     <Textarea
                       rows={3}
                       className="placeholder:text-white min-h-10 py-3"
-                      placeholder="Enter Your address"
+                      placeholder="Enter Your location"
                       {...field}
                     />
                   </FormControl>
@@ -201,7 +200,7 @@ export default function ContactSupport() {
 
           {/* submit */}
           <div className="flex justify-end">
-            <Button className="custom-btn w-[20%]" type="submit">
+            <Button className="custom-btn sm:w-[20%]" type="submit">
               Send
             </Button>
           </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
 import one from "../../public/appartments/one.png";
@@ -5,7 +7,11 @@ import two from "../../public/appartments/two.png";
 import three from "../../public/appartments/three.png";
 import { Clock4, Eye } from "lucide-react";
 import DeleteButton from "./DeleteButton";
-import MessageSendModal from "./MessageSendModal";
+import MessageSendModal from "./EmployeeDetailsModal";
+import { useState } from "react";
+import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
+import EmployeeDetailsModal from "./EmployeeDetailsModal";
+import SendMessageModal from "./SendMessageModal";
 
 const data = [
   {
@@ -36,10 +42,15 @@ const data = [
 ];
 
 export default function AppointmentCardsConfirmed() {
+  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
+  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
   return (
     <>
       {data?.map((item, index) => (
-        <div className="bg-card text-white p-4 rounded-xl  shadow-lg flex items-center gap-4 mt-5">
+        <div
+          className="bg-card text-white p-4 rounded-xl  shadow-lg flex items-center gap-4 mt-5"
+          key={index}
+        >
           {/* Profile Image */}
           <Image
             src={item.src}
@@ -67,7 +78,27 @@ export default function AppointmentCardsConfirmed() {
 
           {/* Cancel Button */}
           <div className="flex flex-col items-end justify-between my-4 space-y-6">
-            <MessageSendModal />
+            <>
+              <EmployeeDetailsModal
+                isModalOneOpen={isModalOneOpen}
+                setIsModalOneOpen={setIsModalOneOpen}
+                onOpenSecondModal={() => setIsModalTwoOpen(true)}
+                trigger={
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => setIsModalOneOpen(true)}
+                  >
+                    <Eye />
+                  </button>
+                }
+              />
+
+              {/* Second Modal */}
+              <SendMessageModal
+                isModalTwoOpen={isModalTwoOpen}
+                setIsModalTwoOpen={setIsModalTwoOpen}
+              />
+            </>
             <DeleteButton
               trigger={
                 <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">

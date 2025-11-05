@@ -1,76 +1,99 @@
-import {
-  format,
-  addDays,
-  startOfMonth,
-  endOfMonth,
-  startOfWeek,
-  endOfWeek,
-  isSameDay,
-} from "date-fns";
+"use client";
+
+import { isSameDay } from "date-fns";
+import { useState } from "react";
+import { Label } from "../ui/label";
+import CustomDatePicker from "../appointments/CustomDatePicker";
+import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
+import Container from "@/share/Container";
 
 export default function ShiftPlanDate({
   selectedDates,
   setSelectedDates,
 }: any) {
-  const currentMonth = new Date(2026, 0); // January 2026
-  const startDate = startOfWeek(startOfMonth(currentMonth), {
-    weekStartsOn: 0,
-  });
-  const endDate = endOfWeek(endOfMonth(currentMonth), { weekStartsOn: 0 });
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [open, setOpen] = useState(false);
 
-  const days = [];
-  let day = startDate;
-  while (day <= endDate) {
-    days.push(day);
-    day = addDays(day, 1);
-  }
-
-  const toggleDate = (date: any) => {
-    const exists = selectedDates.some((d: any) => isSameDay(d, date));
-    if (exists) {
-      setSelectedDates(selectedDates.filter((d: any) => !isSameDay(d, date)));
-    } else {
-      setSelectedDates([...selectedDates, date]);
-    }
-  };
+  const handleCancel = () => setSelectedDates([]);
+  const handleOk = () => setOpen(false);
 
   return (
-    <div className="bg-card text-white p-4 rounded-lg w-full max-w-xl mx-auto">
-      <h2 className="text-lg font-semibold mb-3">November 2026 </h2>
-      <div className="grid grid-cols-7 gap-2 text-center text-sm mb-4">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-          <div key={day} className="font-medium text-gray-300">
-            {day}
+    <Container className="max-w-2xl mx-auto">
+      <div className="flex flex-col items-center md:items-stretch">
+        <div className="flex flex-col bg-card text-white items-center w-full  rounded-xl ">
+          {/* Calendar */}
+          <div className="p-3 ">
+            <Calendar
+              mode="multiple"
+              selected={selectedDates}
+              onSelect={setSelectedDates}
+              month={date}
+              onMonthChange={setDate}
+              captionLayout="dropdown"
+              className="bg-card sm:w-[400px] dropdown:text-black calendar-dropdown"
+              modifiers={{
+                selected: (date) =>
+                  selectedDates.some((selected: Date) =>
+                    isSameDay(selected, date)
+                  ),
+              }}
+              modifiersStyles={{
+                selected: {
+                  backgroundColor: "var(--custom-btn-bg)",
+                  color: "var(--text-black)",
+                },
+              }}
+            />
           </div>
-        ))}
-        {days.map((date, index) => {
-          const isSelected = selectedDates.some((d: any) => isSameDay(d, date));
-          return (
-            <button
-              key={index}
-              onClick={() => toggleDate(date)}
-              className={`py-2 rounded ${
-                isSelected ? "custom-btn" : "text-gray-200 hover:bg-gray-700"
-              }`}
-            >
-              {format(date, "d")}
-            </button>
-          );
-        })}
-      </div>
 
-      {/* Action Buttons */}
-      <div className="flex justify-end gap-4 mt-4">
-        <button className="px-4 py-2  rounded border">Cancel</button>
-        <button className="px-4 py-2  rounded border">Ok</button>
-        <button
-          className={`px-4 py-2  rounded border ${
-            selectedDates.length > 0 ? "custom-btn" : ""
-          }`}
-        >
-          Add
-        </button>
+          {/* Footer Buttons */}
+          <div className="flex justify-end space-x-2 px-4 py-2">
+            <Button
+              className="border border-gray-400/400 bg-card"
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              className={`${
+                selectedDates.length > 0
+                  ? "custom-btn"
+                  : "bg-card border border-gray-400/400"
+              }`}
+              onClick={handleOk}
+            >
+              Add
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+      {/* Shift Time */}
+      <div className="space-y-2 px- mt-6 ">
+        <Label className="block font-semibold">Shift Time</Label>
+        <div className="grid sm:grid-cols-2 gap-4 mx-auto w-full ">
+          <div className="flex-1">
+            <Label className="block mb-2">From</Label>
+            <CustomDatePicker />
+            {selectedDates.length > 0 && (
+              <div className="text-sm text-white mt-2">
+                {selectedDates[0].toLocaleDateString()} -{" "}
+                {selectedDates[selectedDates.length - 1].toLocaleDateString()}
+              </div>
+            )}
+          </div>
+
+          <div className="flex-1">
+            <Label className="block mb-2">To</Label>
+            <CustomDatePicker />
+            {selectedDates.length > 0 && (
+              <div className="text-sm text-white mt-2">
+                {selectedDates.length} Days Plan
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </Container>
   );
 }

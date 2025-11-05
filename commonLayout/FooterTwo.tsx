@@ -236,7 +236,7 @@ export default function Footer() {
 
   return (
     <footer className={`${gradientClasses.primaryBg} text-white`}>
-      <Container className="py-16 px-6 md:px-0">
+      <Container className="py-16 px-6 lg:px-0">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {/* JobsinApp Logo */}
           <div className="md:col-span-3 lg:col-span-1">
@@ -244,7 +244,7 @@ export default function Footer() {
               <Image
                 src={logo}
                 alt="Zasulehry"
-                className="w-52"
+                className="md:w-52"
                 sizes="100vh"
                 unoptimized
               />

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { useState } from "react";
 import HourMinutePicker from "./CustomDatePicker";
+import { DatePicker } from "@/share/DatePicker";
 
 export function CreateForm() {
   const [selectedOption, setSelectedOption] = useState("call");
@@ -34,16 +35,12 @@ export function CreateForm() {
       </Select>
 
       <div className="grid grid-cols-2 gap-4">
-        <Input
+        {/* <Input
           type="date"
           className="bg-card text-white border border-white/20 [&::-webkit-calendar-picker-indicator]:invert"
-        />
-        {/* <Input
-          type="time"
-          min="12:00"
-          max="23:59"
-          className="bg-card text-white border border-white/20 [&::-webkit-calendar-picker-indicator]:invert"
         /> */}
+        <DatePicker />
+
         <HourMinutePicker />
       </div>
 

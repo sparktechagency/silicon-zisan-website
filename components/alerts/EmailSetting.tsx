@@ -4,6 +4,7 @@ import CustomBackButton from "@/share/CustomBackButton";
 import { ChevronRight, Settings } from "lucide-react";
 import { useState } from "react";
 import { EmailModal } from "./EmailModal";
+import Link from "next/link";
 
 export default function EmailSetting() {
   const [selectMethod, setSelectMethod] = useState("email");
@@ -26,16 +27,18 @@ export default function EmailSetting() {
           >
             Email
           </button>
-          <button
-            className={`py-2 px-4 ${
-              selectMethod === "push"
-                ? "custom-btn rounded"
-                : "  rounded border"
-            }`}
-            onClick={() => setSelectMethod("push")}
-          >
-            Push Message
-          </button>
+          <Link href="/alerts">
+            <button
+              className={`py-2 cursor-pointer px-4 ${
+                selectMethod === "push"
+                  ? "custom-btn rounded"
+                  : "  rounded border"
+              }`}
+              onClick={() => setSelectMethod("push")}
+            >
+              Push Message
+            </button>
+          </Link>
         </div>
       </div>
 

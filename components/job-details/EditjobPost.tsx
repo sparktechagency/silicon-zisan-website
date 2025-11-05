@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import PackeageType from "./PackeageType";
 import { Minus, Plus } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import CustomBackButton from "@/share/CustomBackButton";
 
 export const jobRoles = [
@@ -38,11 +38,13 @@ export const jobTypes = [
   "Career Changer",
 ];
 
-const EditJobPost = ({ title }: { title: string }) => {
+const EditJobPost = ({ title }: { title?: string }) => {
   const searchParams = useSearchParams();
   const [type, setType] = useState("day");
   const [addInput, setAddInput] = useState([{ id: 1, value: "" }]);
   const [addInput2, setAddInput2] = useState([{ id: 1, value: "" }]);
+  const params = new URLSearchParams(searchParams.toString());
+  const router = useRouter();
 
   const handleAddInput = () => {
     const newId = addInput.length + 1;
@@ -68,10 +70,15 @@ const EditJobPost = ({ title }: { title: string }) => {
   const hire = urlName.get("type");
   console.log(hire);
 
+  const handleParamsSet = (name: string) => {
+    params.set("name", name);
+    router.push(`?${params.toString()}`);
+  };
+
   return (
     <Container
       className={`bg-card ${
-        name === "Post Job" ? "w-full" : "w-[50%] mx-auto my-16"
+        name === "Post Job" ? "w-full" : "w-[50%] mx-auto"
       } p-5 border rounded-md`}
     >
       <div className=" text-gray-100 w-full  rounded-xl">
@@ -263,7 +270,10 @@ const EditJobPost = ({ title }: { title: string }) => {
 
         {/* Confirm Button */}
         <div className="flex justify-end mt-6">
-          <button className="custom-btn text-white font-medium px-6 py-2 rounded-md hover:opacity-90 transition w-[30%]">
+          <button
+            className="custom-btn text-white font-medium px-6 py-2 rounded-md hover:opacity-90 transition w-[30%]"
+            onClick={(e) => handleParamsSet("hire-employee-details")}
+          >
             Confirm
           </button>
         </div>
