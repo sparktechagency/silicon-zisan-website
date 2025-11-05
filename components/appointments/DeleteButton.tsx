@@ -17,7 +17,9 @@ export default function DeleteButton({
   return (
     <Dialog>
       {/* Trigger Button */}
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+      <DialogTrigger className="cursor-pointer" asChild>
+        {trigger}
+      </DialogTrigger>
 
       {/* Dialog Content */}
       <DialogContent className="bg-gray-500/40 backdrop-blur-sm text-white p-6 rounded-lg  text-center border border-white/10 shadow-lg">
