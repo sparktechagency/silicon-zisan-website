@@ -18,7 +18,6 @@ export function CreateForm() {
   const [selectedOption, setSelectedOption] = useState("call");
   const [meetingAddress, setMeetingAddress] = useState("");
   const [message, setMessage] = useState("");
-  const [time, setTime] = useState("15:30");
 
   return (
     <div className=" bg-[#334455] text-white rounded-md space-y-6 border border-gray-300/30 p-5 mt-5">
@@ -35,10 +34,6 @@ export function CreateForm() {
       </Select>
 
       <div className="grid grid-cols-2 gap-4">
-        {/* <Input
-          type="date"
-          className="bg-card text-white border border-white/20 [&::-webkit-calendar-picker-indicator]:invert"
-        /> */}
         <DatePicker />
 
         <HourMinutePicker />

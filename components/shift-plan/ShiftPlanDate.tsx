@@ -23,7 +23,7 @@ export default function ShiftPlanDate({
       <div className="flex flex-col items-center md:items-stretch">
         <div className="flex flex-col bg-card text-white items-center w-full  rounded-xl ">
           {/* Calendar */}
-          <div className="p-3 ">
+          <div className="">
             <Calendar
               mode="multiple"
               selected={selectedDates}
@@ -37,12 +37,6 @@ export default function ShiftPlanDate({
                   selectedDates.some((selected: Date) =>
                     isSameDay(selected, date)
                   ),
-              }}
-              modifiersStyles={{
-                selected: {
-                  backgroundColor: "var(--custom-btn-bg)",
-                  color: "var(--text-black)",
-                },
               }}
             />
           </div>
