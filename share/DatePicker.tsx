@@ -12,19 +12,22 @@ export function DatePicker() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
   const [open, setOpen] = React.useState(false);
 
-  const handleCancel = () => setOpen(false);
+  const handleCancel = () => {
+    setDate(undefined);
+    setOpen(false);
+  };
   const handleOk = () => setOpen(false);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center bg-card">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button className="button-unactive bg-card text-white w-full">
             {date ? format(date, "EEE, MMM d") : "Select date"}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[320px] rounded-xl p-0">
-          <div className="flex flex-col bg-white rounded-xl overflow-hidden">
+        <PopoverContent className=" rounded-xl p-0 bg-card text-white">
+          <div className="flex flex-col  rounded-xl overflow-hidden">
             {/* Header */}
             <div className="p-4 border-b text-center">
               <p className="text-gray-500 text-sm">Select date</p>
@@ -42,23 +45,25 @@ export function DatePicker() {
                 month={date}
                 onMonthChange={setDate}
                 captionLayout="dropdown"
+                className="w-full"
               />
             </div>
 
             {/* Footer Buttons */}
             <div className="flex justify-end space-x-2 border-t px-4 py-2">
               <Button
-                variant="ghost"
-                className="text-yellow-500 hover:text-yellow-600"
+                className="border border-gray-400/30 bg-card"
                 onClick={handleCancel}
               >
                 Cancel
               </Button>
               <Button
-                className="bg-yellow-500 hover:bg-yellow-600 text-white"
+                className={`border border-gray-400/30 bg-card ${
+                  date ? "custom-btn" : ""
+                }`}
                 onClick={handleOk}
               >
-                OK
+                Add
               </Button>
             </div>
           </div>
