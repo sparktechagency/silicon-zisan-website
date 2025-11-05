@@ -55,7 +55,7 @@ export default function CreateNewPlan({ title }: { title?: string }) {
         <CustomBackButton />
         <h2 className="text-2xl font-semibold px-5">Create Shift Plan</h2>
       </div>
-      <div className="grid lg:grid-cols-2 gap-6 px-4 mb-8">
+      <div className="grid lg:grid-cols-2 gap-6 px-4 mb-12 ">
         {/* date */}
         <div className="">
           <ShiftPlanDate
@@ -65,7 +65,7 @@ export default function CreateNewPlan({ title }: { title?: string }) {
         </div>
 
         {/* form details */}
-        <div className=" text-white rounded-xl max-w-2xl mx-auto space-y-6">
+        <div className=" text-white rounded-xl  space-y-6 mt-10 sm:mt-0">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-semibold">
               {title ? "Edit Plan" : ""}

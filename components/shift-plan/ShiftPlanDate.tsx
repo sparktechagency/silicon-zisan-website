@@ -12,11 +12,22 @@ import {
 import { useState, useMemo } from "react";
 import { Label } from "../ui/label";
 import CustomDatePicker from "../appointments/CustomDatePicker";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
+import { Calendar } from "../ui/calendar";
+import Container from "@/share/Container";
+import { set } from "zod";
 
 export default function ShiftPlanDate({
   selectedDates,
   setSelectedDates,
 }: any) {
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [open, setOpen] = useState(false);
+
+  const handleCancel = () => setOpen(false);
+  const handleOk = () => setOpen(false);
+
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   // ✅ Compute start and end dates dynamically when month changes
@@ -47,94 +58,52 @@ export default function ShiftPlanDate({
   };
 
   return (
-    <>
-      <div className="bg-card text-white p-4 rounded-lg w-full max-w-xl mx-auto">
-        {/* Header: Month + Year */}
-        <div className="flex justify-between items-center mb-3">
-          <button
-            onClick={() =>
-              setCurrentMonth(
-                (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1)
-              )
-            }
-            className="px-2 py-1 border rounded hover:bg-gray-700"
-          >
-            ◀
-          </button>
+    <Container className="max-w-2xl mx-auto">
+      <div className="flex flex-col items-center md:items-stretch">
+        <div className="flex flex-col bg-white items-center w-full  rounded-xl ">
+          {/* Header */}
+          <div className="p-4 border-b text-center">
+            <p className="text-gray-500 text-sm">Select date</p>
+            <p className="text-2xl font-medium mt-1">
+              {date ? format(date, "EEE, MMM d") : "Select date"}
+            </p>
+          </div>
 
-          <h2 className="text-lg font-semibold">
-            {format(currentMonth, "MMMM yyyy")}
-          </h2>
+          {/* Calendar */}
+          <div className="p-3 ">
+            <Calendar
+              mode="multiple"
+              selected={selectedDates}
+              onSelect={setSelectedDates}
+              month={date}
+              onMonthChange={setDate}
+              captionLayout="dropdown"
+              className="bg-white text-black sm:w-[400px]"
+            />
+          </div>
 
-          <button
-            onClick={() =>
-              setCurrentMonth(
-                (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1)
-              )
-            }
-            className="px-2 py-1 border rounded hover:bg-gray-700"
-          >
-            ▶
-          </button>
-        </div>
-
-        {/* Days of the week */}
-        <div className="grid grid-cols-7 gap-2 text-center text-sm mb-4">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-            <div key={day} className="font-medium text-gray-300">
-              {day}
-            </div>
-          ))}
-
-          {/* Dates grid */}
-          {days.map((date, index) => {
-            const isSelected = selectedDates.some((d: any) =>
-              isSameDay(d, date)
-            );
-
-            // dim non-current-month days
-            const isCurrentMonth = date.getMonth() === currentMonth.getMonth();
-
-            return (
-              <button
-                key={index}
-                onClick={() => toggleDate(date)}
-                className={`py-2 rounded ${
-                  isSelected
-                    ? "custom-btn"
-                    : isCurrentMonth
-                    ? "text-gray-200 hover:bg-gray-700"
-                    : "text-gray-500"
-                }`}
-              >
-                {format(date, "d")}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Action Buttons */}
-        <div className="flex justify-end gap-4 mt-4">
-          <button
-            className="px-4 py-2 rounded border"
-            onClick={() => setSelectedDates([])}
-          >
-            Cancel
-          </button>
-
-          <button
-            className={`px-4 py-2 rounded border ${
-              selectedDates.length > 0 ? "custom-btn" : ""
-            }`}
-          >
-            Add
-          </button>
+          {/* Footer Buttons */}
+          <div className="flex justify-end space-x-2 border-t px-4 py-2">
+            <Button
+              variant="ghost"
+              className="text-yellow-500 hover:text-yellow-600"
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="bg-yellow-500 hover:bg-yellow-600 text-white"
+              onClick={handleOk}
+            >
+              OK
+            </Button>
+          </div>
         </div>
       </div>
       {/* Shift Time */}
-      <div className="space-y-2 px- mt-6 max-w-xl mx-auto">
+      <div className="space-y-2 px- mt-6 ">
         <Label className="block font-semibold">Shift Time</Label>
-        <div className="grid grid-cols-2 gap-4 mx-auto w-full ">
+        <div className="grid sm:grid-cols-2 gap-4 mx-auto w-full ">
           <div className="flex-1">
             <Label className="block mb-2">From</Label>
             <CustomDatePicker />
@@ -157,6 +126,6 @@ export default function ShiftPlanDate({
           </div>
         </div>
       </div>
-    </>
+    </Container>
   );
 }

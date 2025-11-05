@@ -104,6 +104,7 @@ export default function Dashboard() {
         {urlName === "Appointments" && <Appointments />}
         {urlName === "Hire Employees" && <HireEmployees />}
         {urlName === "Shift Plan" && <ShiftPlanpage />}
+        {urlName === "Create New Plan" && <CreateNewPlan />}
         {urlName === "Add WhatsApp Link" && <AddWhatsLinkPage />}
         {urlName === "Invoice & Payments" && <InvoicePaymentspage />}
         {urlName === "Contact & Support" && <ContactSupportPage />}
@@ -111,7 +112,6 @@ export default function Dashboard() {
         {urlName === "Download Center" && <DownloadCenterPage />}
         {/* {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />} */}
         {urlName === "Subscription Plan" && <CaruselCard />}
-        {urlName === "Create New Plan" && <CreateNewPlan />}
         {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
         {urlName === "Salary Calculator" && <SalaryCalculator />}
         {urlName === "Information" && <SalaryDetails />}
