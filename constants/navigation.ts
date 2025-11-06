@@ -29,7 +29,7 @@ export const footerSections: FooterSection[] = [
   {
     title: "Quick Links",
     links: [
-      { label: "Jobs Posting", href: "/?name=Post+Job" },
+      { label: "Job Posting", href: "/?name=Post+Job" },
       { label: "Subscription Plan", href: "/?name=Subscription+Plan" },
       { label: "Salary Calculator", href: "/?name=Salary+Calculator" },
       { label: "Download Center", href: "/?name=Download+Center" },
