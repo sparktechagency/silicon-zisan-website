@@ -6,14 +6,17 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import cancel from "../../public/dashboard/cancel.png";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Container from "@/share/Container";
+import CancelModal from "../dashboard/dashboardSubscription/CancelModal";
+import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
 
 const packages = [
   {
@@ -79,13 +82,15 @@ const packages = [
 
 export default function Subscriptions() {
   const swiperRef = useRef<null | any>(null);
+  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
+  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
 
   return (
     <Container className="px-5">
       <div className="relative max-w-7xl mx-auto">
         <Swiper
           onSwiper={(swiper) => (swiperRef.current = swiper)}
-          slidesPerView={1}
+          slidesPerView={2}
           spaceBetween={20}
           loop={true}
           pagination={{ clickable: true }}
@@ -99,17 +104,17 @@ export default function Subscriptions() {
             },
             // when window width is >= 768px (medium devices)
             848: {
-              slidesPerView: 1,
+              slidesPerView: 2,
             },
             // when window width is >= 1024px (large devices)
             1180: {
-              slidesPerView: 1,
+              slidesPerView: 2,
             },
           }}
         >
           {/* Slide 1: Basic */}
           <SwiperSlide>
-            <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <div className="bg-card w-[90%] p-3 rounded border border-gray-300/30 flex flex-col h-full">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
                 JobsinApp Plans
               </h1>
@@ -121,7 +126,7 @@ export default function Subscriptions() {
                   Standard
                 </button>
                 <button className="button-unactive w-full py-2 rounded-2xl">
-                  Extended
+                  Booster
                 </button>
               </div>
 
@@ -169,7 +174,7 @@ export default function Subscriptions() {
 
           {/* Slide 2: Standard */}
           <SwiperSlide>
-            <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <div className="bg-card w-[90%]  p-3 rounded border border-gray-300/30 flex flex-col h-full">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
                 JobsinApp Plans
               </h1>
@@ -181,7 +186,7 @@ export default function Subscriptions() {
                   Standard
                 </button>
                 <button className="button-unactive w-full py-2 rounded-2xl">
-                  Extended
+                  Booster
                 </button>
               </div>
 
@@ -231,9 +236,9 @@ export default function Subscriptions() {
             </div>
           </SwiperSlide>
 
-          {/* Slide 3: Extended */}
+          {/* Slide 3: Booster */}
           <SwiperSlide>
-            <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <div className="bg-card w-[90%]  p-3 rounded border border-gray-300/30 flex flex-col h-full">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
                 JobsinApp Plans
               </h1>
@@ -245,7 +250,7 @@ export default function Subscriptions() {
                   Standard
                 </button>
                 <button className="button-unactive custom-btn  w-full py-2 rounded-2xl">
-                  Extended
+                  Booster
                 </button>
               </div>
 
@@ -253,7 +258,7 @@ export default function Subscriptions() {
                 <div className="flex justify-between items-center">
                   <div className="mt-4">
                     <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
-                      Extended
+                      Booster
                     </h1>
                     <p className="text-white text-sm mt-2">€ 2.50 Per Day</p>
                   </div>
@@ -294,6 +299,48 @@ export default function Subscriptions() {
               </div>
             </div>
           </SwiperSlide>
+
+          {/* cancel */}
+          <SwiperSlide>
+            <div className="bg-card w-[90%]  p-3 rounded border border-gray-300/30 flex flex-col h-[630px]">
+              <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
+                <Image
+                  src={cancel}
+                  alt="JobsinApp Logo"
+                  width={150}
+                  height={24}
+                  sizes="100vh"
+                />
+                <h2 className="text-white text-3xl  xl:text-5xl font-semibold my-2">
+                  JobsinApp
+                </h2>
+                <p className="text-white text-sm mb-6 text-center"></p>
+              </div>
+              <div className="mt-auto">
+                <>
+                  <CancelModal
+                    isModalOneOpen={isModalOneOpen}
+                    setIsModalOneOpen={setIsModalOneOpen}
+                    onOpenSecondModal={() => setIsModalTwoOpen(true)}
+                    trigger={
+                      <Button
+                        onClick={() => setIsModalOneOpen(true)}
+                        variant="destructive"
+                        className="w-full py-2 rounded cursor-pointer text-lg h-10"
+                      >
+                        Cancel Subscription
+                      </Button>
+                    }
+                  />
+
+                  <CancelModalTwo
+                    isModalTwoOpen={isModalTwoOpen}
+                    setIsModalTwoOpen={setIsModalTwoOpen}
+                  />
+                </>
+              </div>
+            </div>
+          </SwiperSlide>
         </Swiper>
 
         {/* Navigation Arrows */}
@@ -309,7 +356,7 @@ export default function Subscriptions() {
         <button
           onClick={() => swiperRef.current?.slideNext()}
           style={{ boxShadow: "0 0 10px 0 #B1F1FF inset" }}
-          className="custom-btn absolute right-2 cursor-pointer top-1/2 -translate-y-1/2 -mr-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
+          className="custom-btn absolute right-16 cursor-pointer top-1/2 -translate-y-1/2 -mr-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
           aria-label="Next slide"
         >
           <FaChevronRight />
