@@ -384,7 +384,7 @@ export default function ContractInformation() {
 
             {/* last section */}
             <div className="border rounded p-3">
-              <div className="flex items-center space-x-80 font-bold ">
+              <div className="sm:flex items-center space-x-80 font-bold ">
                 <p>Place</p>
                 <p>Date</p>
               </div>
@@ -398,11 +398,14 @@ export default function ContractInformation() {
       </div>
 
       {/* download */}
-      <div className="mt-4 flex gap-7">
-        <Button className="w-[48%] custom-btn" onClick={handleDownloadPdf}>
+      <div className="mt-7 flex flex-col sm:flex-col gap-7">
+        <Button
+          className="w-full sm:w-[48%] custom-btn"
+          onClick={handleDownloadPdf}
+        >
           Download Pdf
         </Button>
-        <Button className="w-[48%] custom-btn">Send</Button>
+        <Button className="w-full sm:w-[48%] custom-btn">Send</Button>
       </div>
     </div>
   );

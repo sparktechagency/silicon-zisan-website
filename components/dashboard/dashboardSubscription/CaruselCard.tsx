@@ -86,7 +86,7 @@ export default function CaruselCard() {
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative px-2 md:px-0">
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         slidesPerView={1}
@@ -113,7 +113,7 @@ export default function CaruselCard() {
       >
         {/* Slide 1: Basic */}
         <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] w-[50%] mx-auto">
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
             <h1 className="text-lg sm:text-2xl font-semibold my-2">
               JobsinApp Plans
             </h1>
@@ -178,7 +178,7 @@ export default function CaruselCard() {
 
         {/* Slide 2: Standard */}
         <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] w-[50%] mx-auto">
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
             <h1 className="text-lg sm:text-2xl font-semibold my-2">
               JobsinApp Plans
             </h1>
@@ -247,7 +247,7 @@ export default function CaruselCard() {
 
         {/* Slide 3: Booster */}
         <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] w-[50%] mx-auto">
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
             <h1 className="text-lg sm:text-2xl font-semibold my-2">
               JobsinApp Plans
             </h1>
@@ -316,7 +316,7 @@ export default function CaruselCard() {
 
         {/* cancel */}
         <SwiperSlide>
-          <div className="bg-card  p-3 rounded border border-gray-300/30 flex flex-col  h-[630px] w-[50%] mx-auto">
+          <div className="bg-card  p-3 rounded border border-gray-300/30 flex flex-col  h-[630px] md:w-[50%] mx-auto">
             <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
               <Image
                 src={cancel}
@@ -361,7 +361,7 @@ export default function CaruselCard() {
       <button
         onClick={() => swiperRef.current?.slidePrev()}
         style={{ boxShadow: "0 0 10px 0 #B1F1FF inset" }}
-        className="custom-btn absolute left-52 cursor-pointer top-1/2 -translate-y-1/2 -ml-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
+        className="custom-btn absolute md:left-[20%] lg:left-[25%] cursor-pointer top-1/2 -translate-y-1/2 -ml-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
         aria-label="Previous slide"
       >
         <FaChevronLeft />
@@ -370,7 +370,7 @@ export default function CaruselCard() {
       <button
         onClick={() => swiperRef.current?.slideNext()}
         style={{ boxShadow: "0 0 10px 0 #B1F1FF inset" }}
-        className="custom-btn absolute right-52 cursor-pointer top-1/2 -translate-y-1/2 -mr-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
+        className="custom-btn absolute right-2 md:right-[20%] lg:right-[25%] cursor-pointer top-1/2 -translate-y-1/2 -mr-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
         aria-label="Next slide"
       >
         <FaChevronRight />

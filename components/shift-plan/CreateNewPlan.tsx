@@ -20,6 +20,7 @@ import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { useSearchParams } from "next/navigation";
 import DeleteModal from "./DeleteModal";
+import DeleteModalUsers from "./DeleteModalUsers";
 
 export default function CreateNewPlan({ title }: { title?: string }) {
   console.log(title);
@@ -84,8 +85,10 @@ export default function CreateNewPlan({ title }: { title?: string }) {
 
             {findName && (
               <div>
-                <DeleteModal
-                  trigger={<Trash2 className="text-red-400 cursor-pointer" />}
+                <DeleteModalUsers
+                  trigger={
+                    <Button className="bg-red-600">Delete Employee</Button>
+                  }
                 />
               </div>
             )}

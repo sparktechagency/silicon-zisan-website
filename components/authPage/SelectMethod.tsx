@@ -20,10 +20,10 @@ export default function SelectMethod() {
   }, [selected]);
 
   return (
-    <Container className="flex flex-col md:flex-col lg:flex-row items-center justify-center h-auto lg:h-screen gap-10 px-4 py-10">
+    <Container className="flex flex-col md:flex-col lg:flex-row items-center justify-center h-auto lg:h-screen gap-10 py-10">
       <div className="bg-[#374859] w-[200px] h-[200px] md:w-[300px] md:h-[300px] xl:w-[400px] xl:h-[400px] flex flex-col items-center justify-center rounded-full border border-[#FFFFFF0D]/50 p-5 relative">
         <div
-          className="absolute top-0  lg:-top-20 xl:-top-10 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer"
+          className="absolute -top-9  lg:-top-20 xl:-top-10 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer"
           onClick={() => history.back()}
         >
           <ArrowLeft />
@@ -39,7 +39,7 @@ export default function SelectMethod() {
           where dream job meets top talent
         </h1>
       </div>
-      <div className="w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
+      <div className="w-[70%] sm:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <div
           className={`${
             selected === "sekker"

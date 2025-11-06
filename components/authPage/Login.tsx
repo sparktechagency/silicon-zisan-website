@@ -41,7 +41,7 @@ export default function LoginPage() {
       {/* logo */}
       <div className="bg-[#374859] w-[200px] h-[200px] md:w-[300px] md:h-[300px] xl:w-[400px] xl:h-[400px] flex flex-col items-center justify-center rounded-full border border-[#FFFFFF0D]/50 p-5 relative">
         <div
-          className="absolute top-0  lg:-top-36 xl:-top-24 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer"
+          className="absolute -top-9  lg:-top-36 xl:-top-24 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer"
           onClick={() => history.back()}
         >
           <ArrowLeft />

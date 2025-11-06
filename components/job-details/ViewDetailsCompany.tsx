@@ -21,7 +21,7 @@ export default function ViewDetailsCompany() {
       </div>
 
       {/* Image */}
-      <div className="flex gap-4">
+      <div className="sm:flex gap-4">
         <Image
           src={logo} // Replace with actual image path
           alt="Office"
@@ -30,7 +30,7 @@ export default function ViewDetailsCompany() {
           className="rounded-md object-cover w-80 h-48"
         />
 
-        <div className="t">
+        <div className="mt-4 sm:mt-0">
           <p className="text-lg font-semibold">Sparktech Agency</p>
           <p className="text-sm text-gray-300">California, USA</p>
           <p className="text-md mt-1">Senior Business Analysis</p>

@@ -271,7 +271,7 @@ const EditJobPost = ({ title }: { title?: string }) => {
         {/* Confirm Button */}
         <div className="flex justify-end mt-6">
           <button
-            className="custom-btn text-white font-medium px-6 py-2 rounded-md hover:opacity-90 transition w-[30%]"
+            className="custom-btn text-white font-medium sm:px-6 py-2 rounded-md hover:opacity-90 transition w-[30%]"
             // onClick={(e) => handleParamsSet("hire-employee-details")}
             onClick={(e) => {
               e.preventDefault();

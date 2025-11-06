@@ -103,7 +103,7 @@ export default function Subscriptions() {
               slidesPerView: 1,
             },
             // when window width is >= 768px (medium devices)
-            848: {
+            1024: {
               slidesPerView: 2,
             },
             // when window width is >= 1024px (large devices)
@@ -114,15 +114,15 @@ export default function Subscriptions() {
         >
           {/* Slide 1: Basic */}
           <SwiperSlide>
-            <div className="bg-card w-[90%] p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
                 JobsinApp Plans
               </h1>
-              <div className="grid grid-cols-3 gap-4">
-                <button className="custom-btn w-full py-2 rounded-2xl">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                <button className="custom-btn w-full py-2 rounded-2xl ">
                   Basic
                 </button>
-                <button className="button-unactive w-full py-2 rounded-2xl">
+                <button className="button-unactive w-full py-2 rounded-2xl ">
                   Standard
                 </button>
                 <button className="button-unactive w-full py-2 rounded-2xl">
@@ -174,11 +174,11 @@ export default function Subscriptions() {
 
           {/* Slide 2: Standard */}
           <SwiperSlide>
-            <div className="bg-card w-[90%]  p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
                 JobsinApp Plans
               </h1>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 <button className="button-unactive w-full py-2 rounded-2xl">
                   Basic
                 </button>
@@ -238,11 +238,11 @@ export default function Subscriptions() {
 
           {/* Slide 3: Booster */}
           <SwiperSlide>
-            <div className="bg-card w-[90%]  p-3 rounded border border-gray-300/30 flex flex-col h-full">
+            <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
                 JobsinApp Plans
               </h1>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
                 <button className="button-unactive w-full py-2 rounded-2xl">
                   Basic
                 </button>
@@ -302,7 +302,7 @@ export default function Subscriptions() {
 
           {/* cancel */}
           <SwiperSlide>
-            <div className="bg-card w-[90%]  p-3 rounded border border-gray-300/30 flex flex-col h-[630px]">
+            <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-[630px]">
               <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
                 <Image
                   src={cancel}
@@ -347,7 +347,7 @@ export default function Subscriptions() {
         <button
           onClick={() => swiperRef.current?.slidePrev()}
           style={{ boxShadow: "0 0 10px 0 #B1F1FF inset" }}
-          className="custom-btn absolute left-2 cursor-pointer top-1/2 -translate-y-1/2 -ml-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
+          className="custom-btn absolute md:left-[25%] lg:left-[3%] cursor-pointer top-1/2 -translate-y-1/2 -ml-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
           aria-label="Previous slide"
         >
           <FaChevronLeft />
@@ -356,7 +356,7 @@ export default function Subscriptions() {
         <button
           onClick={() => swiperRef.current?.slideNext()}
           style={{ boxShadow: "0 0 10px 0 #B1F1FF inset" }}
-          className="custom-btn absolute right-16 cursor-pointer top-1/2 -translate-y-1/2 -mr-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
+          className="custom-btn absolute right-0 md:right-[25%] lg:right-[3%] cursor-pointer top-1/2 -translate-y-1/2 -mr-5 w-10 h-10 rounded-full text-white flex items-center justify-center shadow-lg z-10 transition-colors"
           aria-label="Next slide"
         >
           <FaChevronRight />
