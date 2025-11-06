@@ -62,7 +62,7 @@ export default function Dashboard() {
             <div
               key={index}
               onClick={(e) => handleChangeName(e, item.title)}
-              className={` flex items-center pl-5 mx-auto mb-3 gap-3 md:text-[18px] font-medium rounded py-2 w-full cursor-pointer ${
+              className={` flex items-center pl-5 mx-auto mb-3 gap-3 md:text-[18px] font-medium rounded py-2 w-full xl:w-[80%] 2xl:w-full cursor-pointer ${
                 active
                   ? "custom-btn"
                   : "bg-card text-white border border-white/20"

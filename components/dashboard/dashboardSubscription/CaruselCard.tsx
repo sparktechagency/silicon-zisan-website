@@ -113,7 +113,7 @@ export default function CaruselCard() {
       >
         {/* Slide 1: Basic */}
         <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[700px] w-[50%] mx-auto">
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] w-[50%] mx-auto">
             <h1 className="text-lg sm:text-2xl font-semibold my-2">
               JobsinApp Plans
             </h1>
@@ -178,7 +178,7 @@ export default function CaruselCard() {
 
         {/* Slide 2: Standard */}
         <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[700px] w-[50%] mx-auto">
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] w-[50%] mx-auto">
             <h1 className="text-lg sm:text-2xl font-semibold my-2">
               JobsinApp Plans
             </h1>
@@ -247,7 +247,7 @@ export default function CaruselCard() {
 
         {/* Slide 3: Booster */}
         <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[700px] w-[50%] mx-auto">
+          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] w-[50%] mx-auto">
             <h1 className="text-lg sm:text-2xl font-semibold my-2">
               JobsinApp Plans
             </h1>
@@ -316,7 +316,7 @@ export default function CaruselCard() {
 
         {/* cancel */}
         <SwiperSlide>
-          <div className="bg-card  p-3 rounded border border-gray-300/30 flex flex-col  h-[700px] w-[50%] mx-auto">
+          <div className="bg-card  p-3 rounded border border-gray-300/30 flex flex-col  h-[630px] w-[50%] mx-auto">
             <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
               <Image
                 src={cancel}
