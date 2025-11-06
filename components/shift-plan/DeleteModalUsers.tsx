@@ -35,6 +35,7 @@ export default function DeleteModalUsers({
             </DialogClose>
 
             <Button
+              onClick={() => setIsModalTwoOpen(false)}
               variant="outline"
               className="custom-btn text-white w-[50%] h-12"
             >

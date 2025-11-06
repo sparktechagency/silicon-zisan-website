@@ -43,10 +43,11 @@ export default function DeleteUsersModalOpen({
           {people.map((person, index) => (
             <div
               key={index}
-              className="flex items-center justify-between hover:bg-gray-400 rounded"
+              className="flex items-center justify-between hover:bg-gray-400 rounded cursor-pointer"
+              onClick={handleClickModalTwo}
             >
               <p className="my-2  p-2 ">{person}</p>
-              <button className="my-2  p-2" onClick={handleClickModalTwo}>
+              <button className="my-2 cursor-pointer p-2">
                 <X size={16} />
               </button>
             </div>
