@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Trash, Trash2, X } from "lucide-react";
+import { Delete, Trash, Trash2, X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import AddEmployeeForm from "./AddEmployeeModal";
@@ -20,10 +20,15 @@ import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { useSearchParams } from "next/navigation";
 import DeleteModal from "./DeleteModal";
+// import DeleteModalUsers from "./DeleteUsersModalOpen";
+import DeleteUsersModalOpen from "./DeleteUsersModalOpen";
 import DeleteModalUsers from "./DeleteModalUsers";
 
 export default function CreateNewPlan({ title }: { title?: string }) {
-  console.log(title);
+  // modal open
+  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
+  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
+
   const [employee, setEmployee] = useState("Kamran");
   const [timeline, setTimeline] = useState("Morning");
   const [taskInput, setTaskInput] = useState("");
@@ -84,13 +89,28 @@ export default function CreateNewPlan({ title }: { title?: string }) {
             />
 
             {findName && (
-              <div>
+              <>
+                <div>
+                  <DeleteUsersModalOpen
+                    isModalOneOpen={isModalOneOpen}
+                    setIsModalOneOpen={setIsModalOneOpen}
+                    onOpenSecondModal={() => setIsModalTwoOpen(true)}
+                    trigger={
+                      <Button
+                        onClick={() => setIsModalOneOpen(true)}
+                        className="bg-red-600"
+                      >
+                        Delete Employee
+                      </Button>
+                    }
+                  />
+                </div>
+
                 <DeleteModalUsers
-                  trigger={
-                    <Button className="bg-red-600">Delete Employee</Button>
-                  }
+                  isModalTwoOpen={isModalTwoOpen}
+                  setIsModalTwoOpen={setIsModalTwoOpen}
                 />
-              </div>
+              </>
             )}
           </div>
 

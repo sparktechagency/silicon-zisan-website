@@ -13,7 +13,7 @@ export default function TwoFactorAuth() {
   const router = useRouter();
 
   return (
-    <Container className="px-40  space-y-6 my-16">
+    <Container className="px-10 md:px-40  space-y-6 my-16">
       <div className="flex gap-2">
         <div>
           <button
