@@ -8,6 +8,14 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { FormInput } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export default function AddEmployeeForm({
   trigger,
@@ -45,14 +53,28 @@ export default function AddEmployeeForm({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block mb-1 font-medium">Employee Name</label>
-              <Input
+              {/* <Input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Enter full name"
                 className="w-full p-2 rounded  text-white placeholder:text-[13px]"
-              />
+              /> */}
+
+              <Select>
+                <SelectTrigger className="w-full border">
+                  <SelectValue placeholder="Select Name" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="John Doe">John Doe</SelectItem>
+                    <SelectItem value="Jane Smith">Jane Smith</SelectItem>
+                    <SelectItem value="Michael Lee">Michael Lee</SelectItem>
+                    <SelectItem value="Sara Khan">Sara Khan</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Email Address */}

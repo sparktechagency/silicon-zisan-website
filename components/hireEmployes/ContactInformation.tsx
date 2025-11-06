@@ -471,7 +471,7 @@ export default function ContractInformation() {
 
             {/* last section */}
             <div className="border rounded p-3">
-              <div className="flex items-center justify-between lg:space-x-80 font-bold ">
+              <div className="sm:flex  sm:space-x-80 font-bold ">
                 <p>Place</p>
                 <p>Date</p>
               </div>
