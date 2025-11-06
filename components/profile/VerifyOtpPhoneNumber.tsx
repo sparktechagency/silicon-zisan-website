@@ -78,7 +78,7 @@ export function VerifyOtpphoneNumber() {
         </div> */}
 
         <div className="mt-4">
-          <Link href="/new-password">
+          <Link href="/factor-authenticaiton">
             <Button className="custom-btn w-[200px] md:w-[420px]" type="submit">
               Continue
             </Button>

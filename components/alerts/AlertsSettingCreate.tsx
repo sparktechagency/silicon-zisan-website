@@ -81,7 +81,7 @@ export default function AlertsSettingCreate() {
       </div>
 
       <div className="flex justify-end">
-        <Button className="w-[15%] custom-btn mt-4">Submit</Button>
+        <Button className="sm:w-[15%] custom-btn mt-4">Submit</Button>
       </div>
     </Container>
   );

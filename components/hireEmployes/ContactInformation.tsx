@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Clock3 } from "lucide-react";
 import { Button } from "../ui/button";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -382,6 +382,93 @@ export default function ContractInformation() {
               </div>
             ))}
 
+            {/* submit information */}
+
+            <div className="w-[90%] mx-auto bg-white  rounded-lg p-3 border border-gray-200">
+              {/* Header */}
+              <div className="mb-4">
+                <h2 className="text-xl font-semibold text-gray-800">
+                  Job Details
+                </h2>
+                <p className="text-sm text-gray-500">California, USA</p>
+                <h3 className="text-lg font-bold  mt-2">
+                  Senior Business Analys
+                </h3>
+                <div className=" mt-2 text-sm text-gray-600">
+                  <p>Full Time</p>
+                  <p>$200–$300/Month</p>
+                  <p className="flex gap-1">
+                    <span>
+                      <Clock3 size={18} />
+                    </span>
+                    20 Jan 2025
+                  </p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="mb-4">
+                <h4 className="text-md font-semibold text-gray-700 mb-1">
+                  Job Description
+                </h4>
+                <p className="text-sm text-gray-600">
+                  We Are Seeking A Compassionate Nurse To Join Our Emergency
+                  Department, Providing Quality Care To Patients In A Fast-Paced
+                  Environment.
+                </p>
+              </div>
+
+              {/* Responsibilities */}
+              <div className="mb-4">
+                <h4 className="text-md font-semibold text-gray-700 mb-1">
+                  Responsibilities
+                </h4>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>
+                    Patient Care: Provide Direct Care To Patients, Monitor Vital
+                    Signs, Administer Medications, Etc.
+                  </li>
+                  <li>
+                    Documentation: Maintain Patient Records And Ensure They Are
+                    Up To Date.
+                  </li>
+                  <li>
+                    Collaboration: Work Closely With Doctors, Nurses, And
+                    Healthcare Teams.
+                  </li>
+                  <li>
+                    Emergency Response: Respond Quickly To Patient Needs And
+                    Emergencies.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Qualifications */}
+              <div>
+                <h4 className="text-md font-semibold text-gray-700 mb-1">
+                  Qualifications
+                </h4>
+                <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+                  <li>
+                    Education: Bachelor's Degree In Nursing (BSN)* Or "Medical
+                    Degree (MD) Required."
+                  </li>
+                  <li>
+                    Certifications: Certified Nursing Assistant (CNA)* Or
+                    "Board-Certified In Pediatrics."
+                  </li>
+                  <li>
+                    Experience: "2+ Years Of Experience In A Hospital Setting
+                    Preferred."
+                  </li>
+                  <li>
+                    Skills: Strong Communication Skills, Attention To Detail,
+                    Critical Thinking."
+                  </li>
+                </ul>
+              </div>
+            </div>
+
             {/* last section */}
             <div className="border rounded p-3">
               <div className="flex items-center justify-between lg:space-x-80 font-bold ">
@@ -398,7 +485,7 @@ export default function ContractInformation() {
       </div>
 
       {/* download */}
-      <div className="mt-7 flex flex-col sm:flex-col gap-7">
+      <div className="mt-7 flex flex-col sm:flex-row gap-7">
         <Button
           className="w-full sm:w-[48%] custom-btn"
           onClick={handleDownloadPdf}

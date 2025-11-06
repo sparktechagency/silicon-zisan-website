@@ -263,7 +263,7 @@ export default function ContractView() {
           </div>
         </div>
         {/* Personal Info */}
-        <div className="grid grid-cols-2 gap-1 mt-7 ">
+        <div className="grid sm:grid-cols-2 gap-1 mt-7 ">
           <p>Name: Kamran Khan</p>
           <p>Email: Kk4038423@Gmail.Com</p>
           <p>Address: Dhaka Bangladesh</p>

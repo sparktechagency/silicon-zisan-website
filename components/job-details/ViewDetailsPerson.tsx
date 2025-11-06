@@ -32,19 +32,19 @@ export default function ViewDetailsPerson() {
       </div>
 
       {/* Image */}
-      <div className="flex gap-4">
+      <div className="sm:flex gap-4">
         <Image
           src={personOne} // Replace with actual image path
           alt="Office"
           className="rounded-md h-44"
         />
 
-        <div className="t">
-          <p className="text-3xl">John Doe</p>
-          <p className="text-2xl mt-1">Senior Business Analysis</p>
+        <div className="mt-4 sm:mt-0">
+          <p className="text-xl sm:text-3xl">John Doe</p>
+          <p className="tex-xl sm:text-2xl mt-1">Senior Business Analysis</p>
 
           <div className="flex gap-4 items-center mt-2 text-sm">
-            <p className="text-2xl gap-2">Applied : 01.02.2025</p>
+            <p className="text-xl sm:text-2xl gap-2">Applied : 01.02.2025</p>
           </div>
           <div className="flex gap-5">
             <Link href="/view-profile">
@@ -108,12 +108,12 @@ export default function ViewDetailsPerson() {
         {/* Qualification */}
         <div className=" pt-4 space-y-2">
           <h3 className="text-lg font-semibold">Qualification</h3>
-          <div className="grid grid-cols-4 gap-4 text-sm text-gray-300">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-gray-300">
             {data?.map((item, index) => (
               <div
                 key={index}
                 className={`${
-                  index !== data.length - 1 && "border-r border-l-white"
+                  index !== data.length - 1 ? "sm:border-r border-l-white" : ""
                 }`}
               >
                 <p>{item.title}</p>

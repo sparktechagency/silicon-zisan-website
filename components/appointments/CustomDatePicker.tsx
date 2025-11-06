@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const hours = [
   ...Array.from({ length: 23 }, (_, i) => String(i + 1).padStart(2, "0")),
   "00",
@@ -18,6 +18,15 @@ export default function CustomDatePicker() {
     setSelectedMinute(now.getMinutes()); // returns 0–59
   };
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="w-auto rounded button-unactive bg-card shadow-sm">
       {/* <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -32,7 +41,7 @@ export default function CustomDatePicker() {
             onChange={(e) => setSelectedHour(Number(e.target.value))}
             className="w-full appearance-none rounded-lg border-none bg-card px-4 py-2 text-center text-white outline-none transition  focus:border-none"
           >
-            <option value="">Hours</option>
+            <option value="">{isMobile ? "H" : "Hours"}</option>
             {hours.map((h) => (
               <option key={h} value={h}>
                 {String(h).padStart(2, "0")}
@@ -51,7 +60,7 @@ export default function CustomDatePicker() {
             onChange={(e) => setSelectedMinute(Number(e.target.value))}
             className="w-full appearance-none rounded-lg border-none bg-card px-4 py-2 text-center text-white outline-none transition  focus:border-none"
           >
-            <option value="">Minutes </option>
+            <option value="">{isMobile ? "M" : "Minutes"}</option>
             {minutes.map((m) => (
               <option key={m} value={m}>
                 {String(m).padStart(2, "0")}

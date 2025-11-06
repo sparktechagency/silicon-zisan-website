@@ -30,7 +30,7 @@ export const footerSections: FooterSection[] = [
     title: "Quick Links",
     links: [
       { label: "Job Posting", href: "/?name=Post+Job" },
-      { label: "Subscription Plan", href: "/?name=Subscription+Plan" },
+      { label: "Subscriptions", href: "/subscriptions" },
       { label: "Salary Calculator", href: "/?name=Salary+Calculator" },
       { label: "Download Center", href: "/?name=Download+Center" },
     ],
