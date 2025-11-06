@@ -9,14 +9,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Trash2 } from "lucide-react";
 
-export default function DeleteModal() {
+export default function DeleteModal({ trigger }: { trigger: React.ReactNode }) {
   return (
     <Dialog>
-      <DialogTrigger>
-        <button className="custom-btn rounded p-1.5">
-          <Trash2 />
-        </button>
-      </DialogTrigger>
+      <DialogTrigger>{trigger}</DialogTrigger>
       <DialogContent className=" text-white bg-[#3C4751] rounded-lg p-6 w-full max-w-md shadow-lg opacity-90 border border-gray-400/30">
         <div>
           <h1 className="text-white text-xl capitalize text-center">

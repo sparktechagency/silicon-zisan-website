@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "../ui/input";
-import { Eye, Pencil, Search } from "lucide-react";
+import { Eye, Pencil, Search, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -100,7 +100,13 @@ export default function ShiftPlan() {
                       </button>
                     </Link>
 
-                    <DeleteModal />
+                    <DeleteModal
+                      trigger={
+                        <button className="custom-btn rounded p-1.5">
+                          <Trash2 />
+                        </button>
+                      }
+                    />
                   </div>
                 </TableCell>
               </TableRow>

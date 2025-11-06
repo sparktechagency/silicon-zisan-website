@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { X } from "lucide-react";
+import { Trash, Trash2, X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import AddEmployeeForm from "./AddEmployeeModal";
@@ -19,8 +19,10 @@ import ShiftPlanDate from "./ShiftPlanDate";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { useSearchParams } from "next/navigation";
+import DeleteModal from "./DeleteModal";
 
 export default function CreateNewPlan({ title }: { title?: string }) {
+  console.log(title);
   const [employee, setEmployee] = useState("Kamran");
   const [timeline, setTimeline] = useState("Morning");
   const [taskInput, setTaskInput] = useState("");
@@ -74,11 +76,19 @@ export default function CreateNewPlan({ title }: { title?: string }) {
               trigger={
                 <div className="flex justify-end">
                   <Button className="custom-btn text-md px-5 py-5">
-                    Add Employee
+                    {findName ? "Edit Employee" : "Add Employee"}
                   </Button>
                 </div>
               }
             />
+
+            {findName && (
+              <div>
+                <DeleteModal
+                  trigger={<Trash2 className="text-red-400 cursor-pointer" />}
+                />
+              </div>
+            )}
           </div>
 
           {/* Employee Selection */}
