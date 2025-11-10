@@ -47,17 +47,13 @@ export default function HeaderTwo() {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="https://wa.me/+88017123465678?text=Hello%20I%20need%20a%20consultation"
-                target="_blank"
-                className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]"
-              >
+              <div className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
                 <Image
                   src={call}
                   alt="Zasulehry"
                   className="lg:w-8 lg:h-8 rotate-90"
                 />
-              </Link>
+              </div>
             </div>
           </div>
 
@@ -138,10 +134,18 @@ export default function HeaderTwo() {
               </Link>
             ))}
 
+            <div className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2] w-10">
+              <Image
+                src={call}
+                alt="Zasulehry"
+                className="lg:w-8 lg:h-8 rotate-90"
+              />
+            </div>
+
             {/* CTA Button */}
             <Link
               href="/profile"
-              className="block  px-3 py-2 rounded-md hover:bg-gray-50 transition"
+              className="block  py-2 rounded-md hover:bg-gray-50 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               <div className="flex items-center space-x-3">

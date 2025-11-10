@@ -64,7 +64,7 @@ export default function SalaryCalculator() {
 
   return (
     <div className="bg-card text-white p-6 rounded-xl max-w-3xl mx-auto space-y-6">
-      <div className="flex justify-between ">
+      <div className="flex justify-between space-x-2">
         <HeaderYesNoToggle
           options={["Monthly", "Yearly"]}
           name="monthly"
@@ -208,7 +208,7 @@ export default function SalaryCalculator() {
         onChange={handleToggleChange}
       />
 
-      <div className="grid grid-cols-2 gap-5">
+      <div className="grid sm:grid-cols-2 gap-5">
         <div className="custom-btn rounded-2xl py-2">Calculate</div>
         <div className="border py-2 text-center">$25622556 (brutto)</div>
       </div>
