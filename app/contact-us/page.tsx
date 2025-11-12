@@ -25,9 +25,7 @@ export default function ContactUs() {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {
-    console.log(values);
-  };
+  const onSubmit: SubmitHandler<FormData> = (values) => {};
 
   return (
     <Form {...form}>

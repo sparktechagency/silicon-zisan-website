@@ -24,7 +24,7 @@ import DeleteModal from "./DeleteModal";
 import DeleteUsersModalOpen from "./DeleteUsersModalOpen";
 import DeleteModalUsers from "./DeleteModalUsers";
 
-export default function CreateNewPlan({ title }: { title?: string }) {
+export default function CreateNewPlan() {
   // modal open
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
@@ -75,10 +75,9 @@ export default function CreateNewPlan({ title }: { title?: string }) {
         {/* form details */}
         <div className=" text-white rounded-xl  space-y-6 mt-10 sm:mt-0">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold">
-              {title ? "Edit Plan" : ""}
-            </h1>
+            <h1 className="text-2xl font-semibold"></h1>
             <AddEmployeeForm
+              title={findName || ""}
               trigger={
                 <div className="flex justify-end">
                   <Button className="custom-btn text-md px-5 py-5">
@@ -133,6 +132,14 @@ export default function CreateNewPlan({ title }: { title?: string }) {
                 </SelectContent>
               </Select>
             </div>
+            {/* {title ? ( */}
+
+            {/* // ) : (
+            //   <div>
+            //     <label className="block font-semibold mb-2">Add Employee</label>
+            //     <Input placeholder="Enter Your Name" />
+            //   </div>
+            // )} */}
 
             {/* Timeline Selection */}
             <div className="space-y-2">

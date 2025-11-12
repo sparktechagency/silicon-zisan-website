@@ -31,9 +31,7 @@ export default function NewPassword() {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {
-    console.log(values);
-  };
+  const onSubmit: SubmitHandler<FormData> = (values) => {};
 
   return (
     <Container className="flex flex-col md:flex-col lg:flex-row items-center justify-center h-auto lg:h-screen gap-10 py-10">

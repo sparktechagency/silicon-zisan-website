@@ -68,7 +68,6 @@ const EditJobPost = ({ title }: { title?: string }) => {
   const urlName = new URLSearchParams(searchParams.toString());
   const name = urlName.get("name");
   const hire = urlName.get("type");
-  console.log(hire);
 
   const handleParamsSet = (name: string) => {
     params.set("name", name);

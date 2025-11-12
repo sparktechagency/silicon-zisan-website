@@ -37,7 +37,6 @@ export default function Dashboard() {
   const router = useRouter();
   const params = new URLSearchParams(searchParams.toString());
   const urlName: string = params.get("name") || "My Posted Jobs";
-  console.log(urlName);
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -112,7 +111,7 @@ export default function Dashboard() {
         {urlName === "Download Center" && <DownloadCenterPage />}
         {/* {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />} */}
         {urlName === "Subscription Plan" && <CaruselCard />}
-        {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
+        {urlName === "Edit Plan" && <CreateNewPlan />}
         {urlName === "Salary Calculator" && <SalaryCalculator />}
         {urlName === "Information" && <SalaryDetails />}
         {urlName === "hire-employee-form" && (

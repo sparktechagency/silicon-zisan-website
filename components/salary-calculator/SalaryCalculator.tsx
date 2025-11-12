@@ -53,7 +53,6 @@ export default function SalaryCalculator() {
   };
 
   const handleCalculate = () => {
-    console.log("Calculating salary with:", form);
     // Add your calculation logic here
   };
 
