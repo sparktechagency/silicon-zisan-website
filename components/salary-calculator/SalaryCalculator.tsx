@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -50,10 +51,6 @@ export default function SalaryCalculator() {
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCalculate = () => {
-    // Add your calculation logic here
   };
 
   //   handle toogle change

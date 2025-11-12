@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import InformationOne from "./InformationOne";
 import { Info } from "lucide-react";

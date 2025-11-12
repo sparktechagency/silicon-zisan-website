@@ -1,9 +1,11 @@
 import Dashboard from "@/components/dashboard/Dashboard";
 
-export default function Home() {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { name: string };
+}) {
+  const filters = (await searchParams).name;
+
+  return <Dashboard searchTerm={filters} />;
 }
