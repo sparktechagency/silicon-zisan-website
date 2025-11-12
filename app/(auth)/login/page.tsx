@@ -1,7 +1,5 @@
 import Container from "@/share/Container";
 import Image from "next/image";
-// import logo from "../../public/auth/logo.png";
-import { ArrowLeft } from "lucide-react";
 import LoginPage from "@/components/authPage/Login";
 import BackButton from "@/share/BackButton";
 
