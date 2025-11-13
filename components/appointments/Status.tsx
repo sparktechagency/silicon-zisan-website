@@ -1,7 +1,7 @@
 "use client";
 
 export default function Status({ active, setActive }: any) {
-  const tabs = ["Confirmed", "Pending", "Cancelled", "Create New"];
+  const tabs = ["Confirmed", "Pending", "Cancelled"];
 
   return (
     <div className="">

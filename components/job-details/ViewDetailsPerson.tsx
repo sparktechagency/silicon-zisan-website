@@ -138,7 +138,12 @@ export default function ViewDetailsPerson() {
 
         {/* Action Buttons */}
         <div className="flex gap-4  pt-4">
-          <FeedBackModal />
+          {/* <FeedBackModal /> */}
+          <Link href="/appointment-create-form">
+            <button className="cursor-pointer border border-white px-4 py-2 rounded text-white hover:bg-white hover:text-[#0F172A] transition">
+              Create Form
+            </button>
+          </Link>
           <button className="cursor-pointer bg-[#149235] px-4 py-2 rounded text-white hover:bg-green-600 transition">
             Approve
           </button>

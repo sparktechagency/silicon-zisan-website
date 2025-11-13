@@ -20,7 +20,7 @@ export default function AlertsSettingCreate() {
         <CustomBackButton /> Settings
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      {/* <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block mb-1 font-medium">Job Title</label>
           <Input placeholder="Type Here" className="" />
@@ -29,7 +29,7 @@ export default function AlertsSettingCreate() {
           <label className="block mb-1 font-medium">City/Post Code</label>
           <Input placeholder="Type Here" className="" />
         </div>
-      </div>
+      </div> */}
 
       <div className="space-y-2">
         <label className="font-medium">Push Message</label>

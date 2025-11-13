@@ -1,3 +1,5 @@
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -23,7 +25,7 @@ export function CreateForm() {
     <div className=" bg-[#334455] text-white rounded-md space-y-6 border border-gray-300/30 p-5 mt-5">
       <h1 className="text-white text-lg">Confirm Appointment</h1>
 
-      <Select>
+      {/* <Select>
         <SelectTrigger className=" text-white border-white/20 w-full bg-card">
           <SelectValue placeholder="Search Job Seeker" />
         </SelectTrigger>
@@ -31,7 +33,7 @@ export function CreateForm() {
           <SelectItem value="seeker1">Seeker 1</SelectItem>
           <SelectItem value="seeker2">Seeker 2</SelectItem>
         </SelectContent>
-      </Select>
+      </Select> */}
 
       <div className="grid grid-cols-2 gap-4">
         <DatePicker />

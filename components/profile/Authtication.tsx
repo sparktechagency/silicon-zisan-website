@@ -27,13 +27,13 @@ export default function TwoFactorAuth() {
       </div>
 
       <div className="space-y-2">
-        <div>
+        {/* <div>
           <Link href="/phone-number-sms">
             <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">
               Sms
             </button>
           </Link>
-        </div>
+        </div> */}
         <div>
           <Link href="/authentication-app">
             <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">

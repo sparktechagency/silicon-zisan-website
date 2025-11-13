@@ -9,8 +9,6 @@ const profileData = [
   { label: "Email", value: "Kamran@Gmail.Com" },
   { label: "Contact", value: "+1524623256656" },
   { label: "Location", value: "Dhaka Bangladesh" },
-  { label: "Role", value: "Employer" },
-  { label: "Role", value: "Employer" },
 ];
 
 export default function PersonalInformation({
@@ -83,12 +81,12 @@ export default function PersonalInformation({
         >
           Edit Information
         </button>
-        <button
+        {/* <button
           className="flex-1 custom-btn text-white py-2 px-4 rounded-md "
           onClick={() => setStatus("Complete Profile")}
         >
           Complete Profile
-        </button>
+        </button> */}
       </div>
     </div>
   );

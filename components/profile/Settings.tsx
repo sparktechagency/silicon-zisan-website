@@ -43,7 +43,7 @@ export default function Setting() {
           </div>
         }
       />
-      <CountryModal
+      {/* <CountryModal
         title="Country"
         trigger={
           <div
@@ -61,7 +61,7 @@ export default function Setting() {
             </p>
           </div>
         }
-      />
+      /> */}
 
       <PasswordModal
         trigger={
