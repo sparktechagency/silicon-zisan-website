@@ -1,6 +1,5 @@
 import Container from "@/share/Container";
 import { ArrowDown, Bell, Settings } from "lucide-react";
-import Link from "next/link";
 
 export default function Alerts() {
   return (

@@ -9,6 +9,15 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -117,7 +126,17 @@ export default function EditProfile({ title }: { title?: string }) {
               <FormItem>
                 <FormLabel>Company Category</FormLabel>
                 <FormControl>
-                  <Input placeholder="Enter Company Category" {...field} />
+                  <Select>
+                    <SelectTrigger className="w-full border" {...field}>
+                      <SelectValue placeholder="Select a fruit" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="it">IT</SelectItem>
+                        <SelectItem value="Security">Security</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>

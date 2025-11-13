@@ -5,7 +5,7 @@ export default async function Home({
 }: {
   searchParams: { name: string };
 }) {
-  const filters = (await searchParams).name;
+  const filters = (await searchParams).name || "My Posted Jobs";
 
   return <Dashboard searchTerm={filters} />;
 }

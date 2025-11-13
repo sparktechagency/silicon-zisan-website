@@ -135,9 +135,6 @@ export default function Profile() {
           <PersonalInformation setStatus={setStatus} />
         )}
         {status === "Edit Profile" && <EditProfile />}
-        {status === "Complete Profile" && (
-          <EditProfile title="Complete Profile" />
-        )}
 
         {status === "Settings" && <Setting />}
       </div>

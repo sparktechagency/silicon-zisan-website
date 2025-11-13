@@ -43,9 +43,16 @@ export default function ViewDetailsCompany() {
               <Clock3 size={20} /> 20 Jun 2025
             </p>
           </div>
-          <Link href="/applied-jobs">
-            <Button className="custom-btn mt-5">8 Applied</Button>
-          </Link>
+          <div className="space-x-2">
+            <Link href="/applied-jobs">
+              <Button className="custom-btn mt-5">8 Applied</Button>
+            </Link>
+            <Link href="/alert-setting" className="">
+              <Button className="custom-btn mt-5">
+                Turn on notification on this job
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 
