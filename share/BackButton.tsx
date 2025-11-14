@@ -9,7 +9,7 @@ export default function BackButton() {
     <div
       className={`${pathname === "/appointment-create-form" && "w-11"} ${
         pathname === "/login" ? "xl:-top-24" : "xl:-top-3"
-      } left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer`}
+      } left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer absolute`}
       onClick={() => history.back()}
     >
       <ArrowLeft />

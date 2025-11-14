@@ -19,7 +19,7 @@ export default function Footer() {
               <Image
                 src={logo}
                 alt="Zasulehry"
-                className="md:w-40"
+                className="md:w-80"
                 sizes="100vh"
                 priority
                 unoptimized
