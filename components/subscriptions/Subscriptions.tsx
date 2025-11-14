@@ -17,6 +17,7 @@ import "swiper/css/navigation";
 import Container from "@/share/Container";
 import CancelModal from "../dashboard/dashboardSubscription/CancelModal";
 import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
+import FreeSubscriptionModal from "../dashboard/dashboardSubscription/FreeSubscriptionModal";
 
 const packages = [
   {
@@ -163,11 +164,13 @@ export default function Subscriptions() {
               </div>
 
               <div className="mt-auto">
-                <Link href="/dashboard-payment">
-                  <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                    Subscribe Now
-                  </Button>
-                </Link>
+                <FreeSubscriptionModal
+                  trigger={
+                    <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
+                      Subscribe Now
+                    </Button>
+                  }
+                />
               </div>
             </div>
           </SwiperSlide>
