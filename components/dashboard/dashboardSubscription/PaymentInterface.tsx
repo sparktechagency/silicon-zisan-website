@@ -6,24 +6,25 @@ const packageInfo = [
   { label: "Per Day:", value: "€ 2.50" },
   { label: "For:", value: "30 Days" },
 ];
-import apple from "../../../public/invoice-payment/apple.png";
-import google from "../../../public/invoice-payment/google.png";
-import bank from "../../../public/invoice-payment/bank.png";
-import karna from "../../../public/invoice-payment/karna.png";
-import paypal from "../../../public/invoice-payment/paypal.png";
-import sofort from "../../../public/invoice-payment/sofort.png";
+
 import Image from "next/image";
 import logo from "../../../public/dashboard/logo.png";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
+import apple from "../../../public/invoice-payment/apple.png";
+import card from "../../../public/invoice-payment/credit-card.png";
+import google from "../../../public/invoice-payment/google.png";
+import bank from "../../../public/invoice-payment/bank.png";
+import klarna from "../../../public/invoice-payment/karna.png";
+import paypal from "../../../public/invoice-payment/paypal.png";
 
-const paymentMethods = [
-  { label: "Apple Pay", image: apple, id: 1 },
-  { label: "Google Pay", image: google, id: 2 },
-  { label: "Bank Transfers", image: bank, id: 3 },
-  { label: "Klarna", image: karna, id: 4 },
-  { label: "Pay Pal", image: paypal, id: 5 },
-  { label: "Sofort", image: sofort, id: 6 },
+const methods = [
+  { id: 9, label: "Credit Card", image: card },
+  { id: 2, label: "Apple Pay", image: apple },
+  { id: 1, label: "Google Pay", image: google },
+  { id: 4, label: "Klarna", image: klarna },
+  { id: 5, label: "PayPal", image: paypal },
+  { id: 3, label: "Bank Transfers", image: bank },
 ];
 
 const packages = [
@@ -90,17 +91,17 @@ export default function PaymentInterface() {
 
   return (
     <Container className="grid lg:grid-cols-[35%_auto] my-16 gap-20 px-10">
-      <div>
+      <div className="">
         <div className="flex gap-2 mb-3">
           <CustomBackButton />
-          <h1 className="text-2xl font-semibold">Subscribe Details</h1>
+          <h1 className="text-2xl font-semibold">Subscription Detail</h1>
         </div>
 
         {/* card */}
         {[packages[0]].map((item, index) => (
           <div
             key={index}
-            className="bg-card p-3 rounded border border-gray-300/30 flex flex-col"
+            className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[99%]"
           >
             <h1 className="text-2xl font-semibold my-2">JobsinApp Plans</h1>
 
@@ -116,7 +117,7 @@ export default function PaymentInterface() {
                 Standard
               </button>
               <button className="button-unactive w-full py-2 rounded-2xl">
-                Extended
+                Booster
               </button>
             </div>
 
@@ -168,7 +169,7 @@ export default function PaymentInterface() {
         ))}
       </div>
       {/* payment */}
-      <div className=" text-white p-6 rounded-xl space-y-6 border border-gray-400/30 lg:mt-10">
+      <div className=" text-white py-1 px-5 rounded-xl space-y-6 border border-gray-400/30 lg:mt-10 h-full">
         {/* Package Info */}
         <div className="space-y-2">
           {/* <h2 className="text-xl font-semibold">Package Information</h2> */}
@@ -194,7 +195,7 @@ export default function PaymentInterface() {
         <div className="space-y-4 bg-card rounded p-2">
           <h2 className="text-xl font-semibold">Payment Method</h2>
           <div className="space-y-3 ">
-            {paymentMethods.map((method) => (
+            {methods?.map((method) => (
               <label
                 key={method.id}
                 className={`flex items-center gap-4  cursor-pointer `}

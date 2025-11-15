@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogTrigger,
@@ -10,12 +12,23 @@ import { Button } from "../ui/button";
 export default function DeleteButton({
   title,
   trigger,
+
+  isModalOneOpen2,
+  setIsModalOneOpen2,
+  onOpenSecondModal2,
 }: {
   title?: string;
-  trigger: React.ReactNode;
+  trigger?: React.ReactNode;
+  isModalOneOpen2?: any;
+  setIsModalOneOpen2?: any;
+  onOpenSecondModal2?: any;
 }) {
+  const handleClickModalTwo = () => {
+    setIsModalOneOpen2(false);
+    onOpenSecondModal2(); // trigger second modal from parent
+  };
   return (
-    <Dialog>
+    <Dialog open={isModalOneOpen2} onOpenChange={setIsModalOneOpen2}>
       {/* Trigger Button */}
       <DialogTrigger className="cursor-pointer" asChild>
         {trigger}
@@ -42,7 +55,11 @@ export default function DeleteButton({
                 No
               </Button>
             </DialogClose>
-            <Button className="w-[50%] btn" type="submit">
+            <Button
+              className="w-[50%] btn"
+              type="submit"
+              onClick={handleClickModalTwo}
+            >
               Yes
             </Button>
           </div>

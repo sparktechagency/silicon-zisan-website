@@ -13,7 +13,7 @@ export default function TwoFactorAuth() {
   const router = useRouter();
 
   return (
-    <Container className="px-40  space-y-6 my-16">
+    <Container className="px-10 md:px-40  space-y-6 my-16">
       <div className="flex gap-2">
         <div>
           <button
@@ -27,13 +27,13 @@ export default function TwoFactorAuth() {
       </div>
 
       <div className="space-y-2">
-        <div>
+        {/* <div>
           <Link href="/phone-number-sms">
             <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">
               Sms
             </button>
           </Link>
-        </div>
+        </div> */}
         <div>
           <Link href="/authentication-app">
             <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">

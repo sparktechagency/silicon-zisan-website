@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import Status from "./Status";
 import AppointmentCardsConfirmed from "./AppointmentCardsConfirmed";
 import AppointmentCardsCancelled from "./AppointmentCardsCancelled";
 import AppointmentCardsPending from "./AppointmentCardsPending";
 import { CreateForm } from "./CreateForm";
+import AppointmentCreateForm from "@/app/(website)/appointment-create-form/page";
 
 export default function Appointments() {
   const [status, setStatus] = useState("Confirmed");
@@ -16,7 +17,6 @@ export default function Appointments() {
       {status === "Confirmed" && <AppointmentCardsConfirmed />}
       {status === "Pending" && <AppointmentCardsPending />}
       {status === "Cancelled" && <AppointmentCardsCancelled />}
-      {status === "Create New" && <CreateForm />}
     </div>
   );
 }

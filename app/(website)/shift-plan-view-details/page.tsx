@@ -1,12 +1,120 @@
+// "use client";
+
+// import { Button } from "@/components/ui/button";
+// import { ArrowLeft } from "lucide-react";
+// import jsPDF from "jspdf";
+// import html2canvas from "html2canvas";
+// import { useRef } from "react";
+// import Image from "next/image";
+// import logo from "../../../public/shift-plan/logo.png";
+
+// export default function ShiftPlanDetailsPage() {
+//   const contentRef = useRef<HTMLDivElement | null>(null);
+
+//   const handleDownload = async () => {
+//     const element = contentRef.current;
+//     if (!element) return;
+//     // Capture the content area as an image
+//     const canvas = await html2canvas(element, { scale: 2 });
+//     const imgData = canvas.toDataURL("image/png");
+//     // Create PDF
+//     const pdf = new jsPDF("p", "mm", "a4");
+//     const pdfWidth = pdf.internal.pageSize.getWidth();
+//     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+//     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+//     pdf.save("shift-plan.pdf");
+//   };
+
+//   return (
+//     <div className="max-w-3xl mx-auto">
+//       {/* PDF content area */}
+//       <div
+//         ref={contentRef}
+//         className="bg-white p-6 rounded-md shadow-md border border-gray-200 text-gray-900 my-10"
+//       >
+//         <div className="flex justify-between items-center">
+//           <div className="mb-6 flex items-center gap-3">
+//             <button
+//               className="bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+//               onClick={() => history.back()}
+//             >
+//               <ArrowLeft />
+//             </button>
+//             <p className="text-xl capitalize">shift plan view</p>
+//           </div>
+//           <div>
+//             <Image src={logo} alt="logo" />
+//           </div>
+//         </div>
+//         {/* Personal Info */}
+//         <div className="grid grid-cols-2 gap-1 mt-7 ">
+//           <p>Name: Kamran Khan</p>
+//           <p>Email: Kk4038423@Gmail.Com</p>
+//           <p>Address: Dhaka Bangladesh</p>
+//           <p>Contact: 01333327633</p>
+//         </div>
+
+//         {/* Plan Info */}
+//         <div className="mt-5">
+//           <h1 className="capitalize text-xl font-medium">
+//             plan for January 2025
+//           </h1>
+//           <p>holiday weekend</p>
+//         </div>
+
+//         {/* Schedule Table */}
+//         <div className="overflow-x-auto mt-5">
+//           <table className="w-full text-sm text-left">
+//             <thead className="text-gray-700 border-b border-gray-300">
+//               <tr>
+//                 <th className="px-4 py-2">Date</th>
+//                 <th className="px-4 py-2">Day</th>
+//                 <th className="px-4 py-2">From</th>
+//                 <th className="px-4 py-2">Until</th>
+//                 <th className="px-4 py-2">Timeline</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {schedule.map((entry, index) => (
+//                 <tr key={index} className="border-b border-gray-100">
+//                   <td className="px-4 py-2">{entry.date}</td>
+//                   <td className="px-4 py-2">{entry.day}</td>
+//                   <td className="px-4 py-2">{entry.from}</td>
+//                   <td className="px-4 py-2">{entry.until}</td>
+//                   <td className="px-4 py-2">{entry.timeline}</td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         </div>
+
+//         {/* Remarks */}
+//         <div className="mt-6 ml-4">
+//           <p className="text-sm">
+//             <strong>Remarks</strong>
+//           </p>
+//         </div>
+//       </div>
+
+//       {/* Action Buttons */}
+//       <div className="flex justify-end mb-6 gap-4">
+//         <Button className="custom-btn">Download Pdf</Button>
+//         <Button className="custom-btn">Send</Button>
+//       </div>
+//     </div>
+//   );
+// }
+
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import { useRef } from "react";
 import Image from "next/image";
 import logo from "../../../public/shift-plan/logo.png";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
+(pdfMake as any).vfs = pdfFonts.vfs;
 
 const schedule = [
   {
@@ -25,28 +133,119 @@ const schedule = [
   }),
 ];
 
-export default function ShiftPlanDetailsPage() {
-  const contentRef = useRef<HTMLDivElement | null>(null);
+export default function ContractView() {
+  const handleDownload = () => {
+    const scheduleTable = {
+      table: {
+        headerRows: 1,
+        widths: ["*", "*", "*", "*", "*"],
+        body: [
+          [
+            { text: "Date", style: "tableHeader" },
+            { text: "Day", style: "tableHeader" },
+            { text: "From", style: "tableHeader" },
+            { text: "Until", style: "tableHeader" },
+            { text: "Timeline", style: "tableHeader" },
+          ],
+          ...schedule.map((entry) => [
+            { text: entry.date, style: "normalText" },
+            { text: entry.day, style: "normalText" },
+            { text: entry.from, style: "normalText" },
+            { text: entry.until, style: "normalText" },
+            { text: entry.timeline, style: "normalText" },
+          ]),
+        ],
+      },
+      layout: "lightHorizontalLines",
+      margin: [0, 10, 0, 15],
+    };
 
-  const handleDownload = async () => {
-    const element = contentRef.current;
-    if (!element) return;
-    // Capture the content area as an image
-    const canvas = await html2canvas(element, { scale: 2 });
-    const imgData = canvas.toDataURL("image/png");
-    // Create PDF
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save("shift-plan.pdf");
+    const docDefinition: any = {
+      pageMargins: [40, 40, 40, 40],
+      content: [
+        // {
+        //   text: "Personnel Placement Agreement",
+        //   style: "header",
+        //   margin: [0, 0, 0, 20],
+        // },
+        {
+          text: "Personal Information",
+          style: "sectionHeader",
+          margin: [0, 10, 0, 5],
+        },
+        {
+          columns: [
+            {
+              width: "50%",
+              stack: [
+                { text: "Name: Kamran Khan", style: "normalText" },
+                { text: "Email: Kk4038423@Gmail.Com", style: "normalText" },
+                { text: "Address: Dhaka Bangladesh", style: "normalText" },
+                { text: "Contact: 01333327633", style: "normalText" },
+              ],
+            },
+          ],
+          margin: [0, 0, 0, 15],
+        },
+        {
+          text: "Plan Information",
+          style: "sectionHeader",
+          margin: [0, 10, 0, 5],
+        },
+        { text: "Plan for January 2025", style: "sectionTitle" },
+        { text: "holiday weekend", style: "normalText", margin: [0, 0, 0, 15] },
+        { text: "Schedule", style: "sectionHeader", margin: [0, 10, 0, 5] },
+        scheduleTable,
+        // {
+        //   text: "The client confirmed the contract by selecting the checkbox, so no signature was required, and the agreement is now in effect.",
+        //   style: "normalText",
+        //   margin: [0, 0, 0, 10],
+        // },
+      ],
+      styles: {
+        header: {
+          fontSize: 20,
+          bold: true,
+          alignment: "center",
+          color: "#333333",
+        },
+        sectionHeader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5],
+          color: "#333333",
+        },
+        sectionTitle: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 5, 0, 5],
+          color: "#333333",
+        },
+        normalText: {
+          fontSize: 12,
+          color: "#555555",
+        },
+        tableHeader: {
+          fontSize: 12,
+          bold: true,
+          fillColor: "#eeeeee",
+          color: "#333333",
+        },
+      },
+      defaultStyle: {
+        fontSize: 11,
+        color: "#444444",
+      },
+    };
+
+    pdfMake.createPdf(docDefinition).download("agreement.pdf");
   };
 
   return (
     <div className="max-w-3xl mx-auto">
       {/* PDF content area */}
       <div
-        ref={contentRef}
+        // ref={contentRef}
         className="bg-white p-6 rounded-md shadow-md border border-gray-200 text-gray-900 my-10"
       >
         <div className="flex justify-between items-center">
@@ -64,7 +263,7 @@ export default function ShiftPlanDetailsPage() {
           </div>
         </div>
         {/* Personal Info */}
-        <div className="grid grid-cols-2 gap-1 mt-7 ">
+        <div className="grid sm:grid-cols-2 gap-1 mt-7 ">
           <p>Name: Kamran Khan</p>
           <p>Email: Kk4038423@Gmail.Com</p>
           <p>Address: Dhaka Bangladesh</p>
@@ -115,7 +314,9 @@ export default function ShiftPlanDetailsPage() {
 
       {/* Action Buttons */}
       <div className="flex justify-end mb-6 gap-4">
-        <Button className="custom-btn">Download Pdf</Button>
+        <Button className="custom-btn" onClick={handleDownload}>
+          Download Pdf
+        </Button>
         <Button className="custom-btn">Send</Button>
       </div>
     </div>

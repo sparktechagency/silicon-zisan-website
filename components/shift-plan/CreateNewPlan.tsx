@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { X } from "lucide-react";
+import { Delete, Trash, Trash2, X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import AddEmployeeForm from "./AddEmployeeModal";
@@ -19,8 +19,16 @@ import ShiftPlanDate from "./ShiftPlanDate";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { useSearchParams } from "next/navigation";
+import DeleteModal from "./DeleteModal";
+// import DeleteModalUsers from "./DeleteUsersModalOpen";
+import DeleteUsersModalOpen from "./DeleteUsersModalOpen";
+import DeleteModalUsers from "./DeleteModalUsers";
 
-export default function CreateNewPlan({ title }: { title?: string }) {
+export default function CreateNewPlan() {
+  // modal open
+  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
+  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
+
   const [employee, setEmployee] = useState("Kamran");
   const [timeline, setTimeline] = useState("Morning");
   const [taskInput, setTaskInput] = useState("");
@@ -67,18 +75,42 @@ export default function CreateNewPlan({ title }: { title?: string }) {
         {/* form details */}
         <div className=" text-white rounded-xl  space-y-6 mt-10 sm:mt-0">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold">
-              {title ? "Edit Plan" : ""}
-            </h1>
+            <h1 className="text-2xl font-semibold"></h1>
             <AddEmployeeForm
+              title={findName || ""}
               trigger={
                 <div className="flex justify-end">
                   <Button className="custom-btn text-md px-5 py-5">
-                    Add Employee
+                    {findName ? "Edit Employee" : "Add Employee"}
                   </Button>
                 </div>
               }
             />
+
+            {findName && (
+              <>
+                <div>
+                  <DeleteUsersModalOpen
+                    isModalOneOpen={isModalOneOpen}
+                    setIsModalOneOpen={setIsModalOneOpen}
+                    onOpenSecondModal={() => setIsModalTwoOpen(true)}
+                    trigger={
+                      <Button
+                        onClick={() => setIsModalOneOpen(true)}
+                        className="bg-red-600"
+                      >
+                        Delete Employee
+                      </Button>
+                    }
+                  />
+                </div>
+
+                <DeleteModalUsers
+                  isModalTwoOpen={isModalTwoOpen}
+                  setIsModalTwoOpen={setIsModalTwoOpen}
+                />
+              </>
+            )}
           </div>
 
           {/* Employee Selection */}
@@ -100,6 +132,14 @@ export default function CreateNewPlan({ title }: { title?: string }) {
                 </SelectContent>
               </Select>
             </div>
+            {/* {title ? ( */}
+
+            {/* // ) : (
+            //   <div>
+            //     <label className="block font-semibold mb-2">Add Employee</label>
+            //     <Input placeholder="Enter Your Name" />
+            //   </div>
+            // )} */}
 
             {/* Timeline Selection */}
             <div className="space-y-2">

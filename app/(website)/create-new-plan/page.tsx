@@ -1,10 +1,11 @@
+import Loading from "@/app/loading";
 import CreateNewPlan from "@/components/shift-plan/CreateNewPlan";
-import React from "react";
+import { Suspense } from "react";
 
 export default function page() {
   return (
-    <div>
+    <Suspense fallback={<Loading />}>
       <CreateNewPlan />
-    </div>
+    </Suspense>
   );
 }

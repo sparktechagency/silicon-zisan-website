@@ -15,7 +15,7 @@ export function HeaderYesNoToggle({
   options: Option[];
 }) {
   return (
-    <div className="flex justify-between gap-4">
+    <div className="">
       <div className="border p-2 w-full rounded-3xl  gap-2">
         {options?.map((status: any) => (
           <button
@@ -45,15 +45,15 @@ export default function YesNoToggle({
   onChange: (name: string, val: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-2 items-center gap-4">
+    <div className="grid grid-cols-2 items-center gap-2">
       <Label>{label}</Label>
       <div className="flex justify-end">
-        <div className="border p-2 w-40 rounded-3xl  gap-2">
+        <div className="border p-2 w-28 sm:w-40 rounded-3xl  gap-2">
           {["yes", "no"].map((status) => (
             <button
               key={status}
               onClick={() => onChange(name, status)}
-              className={`w-16 py-1 px-3 rounded-2xl transition cursor-pointer ${
+              className={`sm:w-16 py-1 px-2 rounded-2xl transition cursor-pointer ${
                 value === status ? "custom-btn" : "bg-transparent"
               }`}
             >
@@ -78,15 +78,15 @@ export function YesNoToggleMaleFemale({
   onChange: (name: string, val: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-2 items-center gap-4">
+    <div className="grid grid-cols-2 items-center gap-4 text-nowrap">
       <Label>{label}</Label>
-      <div className="flex justify-end">
-        <div className="border p-2 w-44 rounded-3xl  gap-2">
+      <div className="flex  justify-end">
+        <div className="border p-2  rounded-3xl  gap-2">
           {["Male", "Female"].map((status) => (
             <button
               key={status}
               onClick={() => onChange(name, status)}
-              className={`w-auto py-1 px-3 rounded-2xl transition cursor-pointer ${
+              className={`py-1 px-3 rounded-2xl transition cursor-pointer ${
                 value === status ? "custom-btn" : "bg-transparent"
               }`}
             >

@@ -4,7 +4,7 @@ import React from "react";
 export default function FactorAuthenticaiton() {
   return (
     <div>
-      <TwoFactorAuth />{" "}
+      <TwoFactorAuth />
     </div>
   );
 }

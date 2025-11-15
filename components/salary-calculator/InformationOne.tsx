@@ -1,7 +1,7 @@
 import CustomBackButton from "@/share/CustomBackButton";
-import { HeaderYesNoToggle } from "@/share/YesNoToggle";
-import { Info } from "lucide-react";
-import { useState } from "react";
+// import { HeaderYesNoToggle } from "@/share/YesNoToggle";
+// import { Info } from "lucide-react";
+// import { useState } from "react";
 
 export default function InformationOne({ data, data2 }: any) {
   return (

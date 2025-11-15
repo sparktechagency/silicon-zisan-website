@@ -12,6 +12,7 @@ import { useState } from "react";
 import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
 import EmployeeDetailsModal from "./EmployeeDetailsModal";
 import SendMessageModal from "./SendMessageModal";
+import SendMessageModal2 from "./SendMessageModal2";
 
 const data = [
   {
@@ -44,6 +45,9 @@ const data = [
 export default function AppointmentCardsConfirmed() {
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
+
+  const [isModalOneOpen2, setIsModalOneOpen2] = useState(false);
+  const [isModalTwoOpen2, setIsModalTwoOpen2] = useState(false);
   return (
     <>
       {data?.map((item, index) => (
@@ -100,11 +104,19 @@ export default function AppointmentCardsConfirmed() {
               />
             </>
             <DeleteButton
+              isModalOneOpen2={isModalOneOpen2}
+              setIsModalOneOpen2={setIsModalOneOpen2}
+              onOpenSecondModal2={() => setIsModalTwoOpen2(true)}
               trigger={
                 <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
                   Cancel
                 </button>
               }
+            />
+
+            <SendMessageModal2
+              isModalTwoOpen2={isModalTwoOpen2}
+              setIsModalTwoOpen2={setIsModalTwoOpen2}
             />
           </div>
         </div>

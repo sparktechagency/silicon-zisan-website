@@ -1,13 +1,12 @@
 import Container from "@/share/Container";
 import { ArrowDown, Bell, Settings } from "lucide-react";
-import Link from "next/link";
 
 export default function Alerts() {
   return (
     <Container className="my-16">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold">All Alerts</h1>
-        <Link href="/alert-setting">
+        {/* <Link href="/alert-setting">
           <button className="flex items-center gap-3 custom-btn rounded px-5 py-3 ">
             <Settings
               size={22}
@@ -15,7 +14,7 @@ export default function Alerts() {
             />
             Settings
           </button>
-        </Link>
+        </Link> */}
       </div>
       {Array.from({ length: 9 }).map((_, index) => (
         <div key={index} className="mb-4">

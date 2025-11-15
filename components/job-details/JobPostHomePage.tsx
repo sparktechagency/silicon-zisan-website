@@ -2,6 +2,7 @@ import { postJobsDetails } from "@/demoData/data";
 import Image from "next/image";
 import logo from "../../public/dashboard/hotel.png";
 import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 export default function JobPostHomePage() {
   return (
@@ -16,13 +17,17 @@ export default function JobPostHomePage() {
         >
           <div className="sm:flex gap-5">
             <div>
-              <Image
-                src={logo}
-                alt="Logo"
-                width={100}
-                height={30}
-                className="h-32 w-32"
-              />
+              {logo ? (
+                <Image
+                  src={logo}
+                  alt="Logo"
+                  width={100}
+                  height={30}
+                  className="h-32 w-32"
+                />
+              ) : (
+                <Skeleton className="h-32 w-32" />
+              )}
             </div>
             {/* company details */}
             <div className="text-white">

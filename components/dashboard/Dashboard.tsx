@@ -1,9 +1,4 @@
-"use client";
-
 import Container from "@/share/Container";
-import { data } from "@/demoData/data";
-import { IconType } from "react-icons";
-import { useRouter, useSearchParams } from "next/navigation";
 import JobPostHomePage from "../job-details/JobPostHomePage";
 import EditJobPost from "../job-details/EditjobPost";
 import AITools from "../ai-tools/AI-Tools";
@@ -18,107 +13,39 @@ import DownloadCenterPage from "@/app/(website)/download-center/page";
 import CreateNewPlan from "../shift-plan/CreateNewPlan";
 import SalaryCalculator from "../salary-calculator/SalaryCalculator";
 import SalaryDetails from "../salary-calculator/SalarayDetails";
-import Image from "next/image";
 import CaruselCard from "./dashboardSubscription/CaruselCard";
 import ContractInformation from "../hireEmployes/ContactInformation";
+import Sidebar from "./Sidebar";
 
-type item =
-  | {
-      title: string;
-      icon: IconType;
-    }
-  | {
-      title: string;
-      icon: string;
-    };
-
-export default function Dashboard() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const params = new URLSearchParams(searchParams.toString());
-  const urlName: string = params.get("name") || "My Posted Jobs";
-  console.log(urlName);
-
-  const handleChangeName = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    name: string
-  ) => {
-    e.preventDefault();
-
-    params.set("name", name);
-    router.push(`?${params.toString()}`);
-  };
+export default function Dashboard({ searchTerm }: any) {
+  console.log(searchTerm);
   return (
     <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
-      <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">
-        {data?.map((item: item, index) => {
-          const active = urlName === item.title;
-          const icon = item.icon;
-          const isFunctionIcon = typeof icon === "function";
-          const IconComponent = isFunctionIcon ? (icon as IconType) : null;
-          const iconSrc = !isFunctionIcon ? (icon as string) : undefined;
-
-          return (
-            <div
-              key={index}
-              onClick={(e) => handleChangeName(e, item.title)}
-              className={` flex items-center pl-5 mx-auto mb-3 gap-3 md:text-[18px] font-medium rounded py-2 w-full cursor-pointer ${
-                active
-                  ? "custom-btn"
-                  : "bg-card text-white border border-white/20"
-              }`}
-            >
-              {IconComponent ? (
-                <IconComponent
-                  className={`${
-                    active
-                      ? "rounded-full button-active p-1 size-10"
-                      : "bg-[#505E6E] button-unactive rounded-full p-1 size-10"
-                  }`}
-                />
-              ) : (
-                <Image
-                  src={iconSrc!}
-                  alt={item.title}
-                  width={40}
-                  height={40}
-                  className={`${
-                    active
-                      ? "rounded-full button-active p-1"
-                      : "bg-[#505E6E] button-unactive rounded-full p-1 size-10"
-                  }`}
-                />
-              )}
-              <span>{item.title}</span>
-            </div>
-          );
-        })}
-      </div>
+      <Sidebar />
 
       {/* conditional rendering */}
-
       <div className="flex-1 px-4 max-h-[83vh] overflow-y-scroll">
-        {urlName === "My Posted Jobs" && <JobPostHomePage />}
-        {urlName === "Post Job" && <EditJobPost title="Post Job" />}
-        {urlName === "AI Tools" && <AITools />}
-        {urlName === "Appointments" && <Appointments />}
-        {urlName === "Hire Employees" && <HireEmployees />}
-        {urlName === "Shift Plan" && <ShiftPlanpage />}
-        {urlName === "Create New Plan" && <CreateNewPlan />}
-        {urlName === "Add WhatsApp Link" && <AddWhatsLinkPage />}
-        {urlName === "Invoice & Payments" && <InvoicePaymentspage />}
-        {urlName === "Contact & Support" && <ContactSupportPage />}
-        {urlName === "Verify Account" && <VerifyAccountPage />}
-        {urlName === "Download Center" && <DownloadCenterPage />}
-        {/* {urlName === "Subscription Plan" && <DashboardSubscriptionPlanCard />} */}
-        {urlName === "Subscription Plan" && <CaruselCard />}
-        {urlName === "Edit Plan" && <CreateNewPlan title="Edit Plan" />}
-        {urlName === "Salary Calculator" && <SalaryCalculator />}
-        {urlName === "Information" && <SalaryDetails />}
-        {urlName === "hire-employee-form" && (
+        {searchTerm === "My Posted Jobs" && <JobPostHomePage />}
+        {searchTerm === "Post Job" && <EditJobPost title="Post Job" />}
+        {searchTerm === "AI Tools" && <AITools />}
+        {searchTerm === "Appointments" && <Appointments />}
+        {searchTerm === "Hire Employees" && <HireEmployees />}
+        {searchTerm === "Shift Plan" && <ShiftPlanpage />}
+        {searchTerm === "Create New Plan" && <CreateNewPlan />}
+        {searchTerm === "Add WhatsApp Link" && <AddWhatsLinkPage />}
+        {searchTerm === "Invoice & Payments" && <InvoicePaymentspage />}
+        {searchTerm === "Contact & Support" && <ContactSupportPage />}
+        {searchTerm === "Verify Account" && <VerifyAccountPage />}
+        {searchTerm === "Download Center" && <DownloadCenterPage />}
+        {/* {searchTerm === "Subscription Plan" && <DashboardSubscriptionPlanCard />} */}
+        {searchTerm === "Subscription Plan" && <CaruselCard />}
+        {searchTerm === "Edit Plan" && <CreateNewPlan />}
+        {searchTerm === "Salary Calculator" && <SalaryCalculator />}
+        {searchTerm === "Information" && <SalaryDetails />}
+        {searchTerm === "hire-employee-form" && (
           <EditJobPost title="Hire Employee" />
         )}
-        {urlName === "hire-employee-details" && <ContractInformation />}
+        {searchTerm === "hire-employee-details" && <ContractInformation />}
       </div>
     </Container>
   );

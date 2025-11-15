@@ -26,7 +26,7 @@ export function DatePicker() {
             {date ? format(date, "EEE, MMM d") : "Select date"}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className=" rounded-xl p-0 bg-card text-white">
+        <PopoverContent className="w-full rounded-xl p-0 bg-card text-white">
           <div className="flex flex-col  rounded-xl overflow-hidden">
             {/* Header */}
             <div className="p-4 border-b text-center">
@@ -45,7 +45,7 @@ export function DatePicker() {
                 month={date}
                 onMonthChange={setDate}
                 captionLayout="dropdown"
-                className="w-full"
+                className="w-full bg-card calendar-dropdown"
               />
             </div>
 

@@ -68,7 +68,6 @@ const EditJobPost = ({ title }: { title?: string }) => {
   const urlName = new URLSearchParams(searchParams.toString());
   const name = urlName.get("name");
   const hire = urlName.get("type");
-  console.log(hire);
 
   const handleParamsSet = (name: string) => {
     params.set("name", name);
@@ -271,8 +270,14 @@ const EditJobPost = ({ title }: { title?: string }) => {
         {/* Confirm Button */}
         <div className="flex justify-end mt-6">
           <button
-            className="custom-btn text-white font-medium px-6 py-2 rounded-md hover:opacity-90 transition w-[30%]"
-            onClick={(e) => handleParamsSet("hire-employee-details")}
+            className="custom-btn text-white font-medium sm:px-6 py-2 rounded-md hover:opacity-90 transition w-[30%]"
+            // onClick={(e) => handleParamsSet("hire-employee-details")}
+            onClick={(e) => {
+              e.preventDefault();
+              if (title === "Hire Employee") {
+                handleParamsSet("hire-employee-details");
+              }
+            }}
           >
             Confirm
           </button>
