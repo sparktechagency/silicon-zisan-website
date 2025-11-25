@@ -1,51 +1,36 @@
-// components/ErrorBoundary.tsx
+// In a new DomErrorBoundary.tsx (client component)
 "use client";
+import { Component, ErrorInfo, ReactNode } from "react";
 
-import { Component, ReactNode } from "react";
+interface Props { children: ReactNode; }
+interface State { hasError: boolean; }
 
-interface Props {
-  children: ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-}
-
-class ErrorBoundary extends Component<Props, State> {
+class DomErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(_: Error): State {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error): State {
+    if (error.message.includes("removeChild")) {
+      return { hasError: true };
+    }
+    return { hasError: false };
   }
 
-  componentDidCatch(error: Error, errorInfo: any) {
-    console.log("Error caught by boundary:", error, errorInfo);
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    if (error.message.includes("removeChild")) {
+      // Log or recover (e.g., force refresh)
+      window.location.reload();
+    }
   }
 
   render() {
     if (this.state.hasError) {
-      return (
-        <div
-          style={{
-            position: "fixed",
-            top: "10px",
-            right: "10px",
-            zIndex: 9999,
-            background: "white",
-            padding: "10px",
-            border: "1px solid #ccc",
-          }}
-        >
-          Language switcher loading...
-        </div>
-      );
+      return <div>Translation sync issue—refreshing...</div>; // Or null
     }
-
     return this.props.children;
   }
 }
 
-export default ErrorBoundary;
+export default DomErrorBoundary;
