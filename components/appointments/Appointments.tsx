@@ -4,8 +4,8 @@ import Status from "./Status";
 import AppointmentCardsConfirmed from "./AppointmentCardsConfirmed";
 import AppointmentCardsCancelled from "./AppointmentCardsCancelled";
 import AppointmentCardsPending from "./AppointmentCardsPending";
-import { CreateForm } from "./CreateForm";
-import AppointmentCreateForm from "@/app/(website)/appointment-create-form/page";
+
+export const dynamic = "dynamic-force";
 
 export default function Appointments() {
   const [status, setStatus] = useState("Confirmed");

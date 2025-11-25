@@ -26,8 +26,8 @@ export default function CustomSelect({
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent className=" text-white">
-          {options.map((option) => (
-            <SelectItem key={option.id} value={option.id.toString()}>
+          {options.map((option, index) => (
+            <SelectItem key={index} value={option.id.toString()}>
               {option.label}
             </SelectItem>
           ))}

@@ -103,7 +103,7 @@ export default function LoginPage() {
           </Button>
         </div>
         <p className="text-center text-white mt-8">
-          Don't Have An Account?{" "}
+          Don&apos;t Have An Account?{" "}
           <Link className="underline" href="/method">
             SignUp
           </Link>

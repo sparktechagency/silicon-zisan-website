@@ -17,8 +17,7 @@ import CaruselCard from "./dashboardSubscription/CaruselCard";
 import ContractInformation from "../hireEmployes/ContactInformation";
 import Sidebar from "./Sidebar";
 
-export default function Dashboard({ searchTerm }: any) {
-  console.log(searchTerm);
+export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
   return (
     <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
       <Sidebar />

@@ -1,4 +1,3 @@
-"use client";
 import {
   Select,
   SelectContent,
@@ -8,22 +7,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+// import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ShiftPlanStatus() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const params = new URLSearchParams(searchParams.toString());
+  // const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const params = new URLSearchParams(searchParams.toString());
 
-  const handleChangeName = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    name: string
-  ) => {
-    e.preventDefault();
+  // const handleChangeName = (
+  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  //   name: string
+  // ) => {
+  //   e.preventDefault();
 
-    params.set("name", name);
-    router.push(`?${params.toString()}`);
-  };
+  //   params.set("name", name);
+  //   router.push(`?${params.toString()}`);
+  // };
   return (
     <div className="mb-7">
       <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">

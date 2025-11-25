@@ -232,3 +232,40 @@ body {
 .button:hover {
   color: #021c22;
 }
+
+/* global languages */
+
+
+body {
+  top: 0 !important;
+}
+
+body > .skiptranslate,
+.goog-logo-link,
+.gskiptranslate,
+.goog-te-gadget span,
+.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+div#goog-gt-tt {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  color: transparent !important;
+  font-size: 0px;
+}
+
+.goog-text-highlight {
+  background: transparent !important;
+  box-shadow: transparent !important;
+}
+
+#google_translate_element select {
+  background: #2b1a12;
+  color: #fff4e4;
+  border: none;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 8px 12px;
+}

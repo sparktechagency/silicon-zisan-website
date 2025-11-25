@@ -19,67 +19,67 @@ import CancelModalTwo from "./CancelModalTwo";
 import { Info } from "lucide-react";
 import FreeSubscriptionModal from "./FreeSubscriptionModal";
 
-const packages = [
-  {
-    id: 1,
-    title: ["Basic", "Standard", "Booster"],
-    subTitle: "Basic Free",
-    all: "Basic",
-    price: "Free",
-    info: false,
-    active: "Activated",
-    unactive: "Inactive",
-    features: [
-      "5 Jobs Posting",
-      "Limited Candidate Alerts",
-      "Limited Candidate Search",
-      "Limited Access To AI Tools",
-      "Activated For Every Registered Account",
-    ],
-  },
-  {
-    id: 2,
-    title: ["Basic", "Standard", "Booster"],
-    subTitle: "Standard",
-    all: "Standard",
-    price: "€ 2.50 Per Day",
-    info: true,
-    active: "Activated",
-    unactive: "Inactive",
-    features: [
-      "0 € For 30 Days",
-      "Activated For 30 Days",
-      "Unlimited Jobs Posting",
-      "Unlimited Candidate Search",
-      "Unlimited Candidate Alerts",
-      "Move Up After 7 Days",
-      "Full Access AI Tools",
-      "Exclusive Features",
-      "24/7 Support",
-    ],
-  },
-  {
-    id: 3,
-    title: ["Basic", "Standard", "Booster"],
-    subTitle: "Booster",
-    all: "Booster",
-    price: "€ 2.50 Per Day",
-    info: true,
-    active: "Activated",
-    unactive: "Inactive",
-    features: [
-      "0 € For 30 Days",
-      "Activated For 90 Days",
-      "Unlimited Jobs Posting",
-      "Unlimited Candidate Search",
-      "Unlimited Candidate Alerts",
-      "Move Up After 7 Days",
-      "Full Access AI Tools",
-      "Exclusive Features",
-      "24/7 Support",
-    ],
-  },
-];
+// const packages = [
+//   {
+//     id: 1,
+//     title: ["Basic", "Standard", "Booster"],
+//     subTitle: "Basic Free",
+//     all: "Basic",
+//     price: "Free",
+//     info: false,
+//     active: "Activated",
+//     unactive: "Inactive",
+//     features: [
+//       "5 Jobs Posting",
+//       "Limited Candidate Alerts",
+//       "Limited Candidate Search",
+//       "Limited Access To AI Tools",
+//       "Activated For Every Registered Account",
+//     ],
+//   },
+//   {
+//     id: 2,
+//     title: ["Basic", "Standard", "Booster"],
+//     subTitle: "Standard",
+//     all: "Standard",
+//     price: "€ 2.50 Per Day",
+//     info: true,
+//     active: "Activated",
+//     unactive: "Inactive",
+//     features: [
+//       "0 € For 30 Days",
+//       "Activated For 30 Days",
+//       "Unlimited Jobs Posting",
+//       "Unlimited Candidate Search",
+//       "Unlimited Candidate Alerts",
+//       "Move Up After 7 Days",
+//       "Full Access AI Tools",
+//       "Exclusive Features",
+//       "24/7 Support",
+//     ],
+//   },
+//   {
+//     id: 3,
+//     title: ["Basic", "Standard", "Booster"],
+//     subTitle: "Booster",
+//     all: "Booster",
+//     price: "€ 2.50 Per Day",
+//     info: true,
+//     active: "Activated",
+//     unactive: "Inactive",
+//     features: [
+//       "0 € For 30 Days",
+//       "Activated For 90 Days",
+//       "Unlimited Jobs Posting",
+//       "Unlimited Candidate Search",
+//       "Unlimited Candidate Alerts",
+//       "Move Up After 7 Days",
+//       "Full Access AI Tools",
+//       "Exclusive Features",
+//       "24/7 Support",
+//     ],
+//   },
+// ];
 
 export default function CaruselCard() {
   const swiperRef = useRef<null | any>(null);
@@ -133,7 +133,7 @@ export default function CaruselCard() {
             <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
-                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
+                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap w-40">
                     Basic Free
                   </h1>
                   <div className="flex gap-3 items-center mt-1">

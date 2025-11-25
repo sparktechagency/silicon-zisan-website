@@ -4,6 +4,7 @@ import { IconType } from "react-icons";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { data } from "@/demoData/data";
+import { useEffect, useState } from "react";
 
 type item =
   | {
@@ -18,22 +19,30 @@ type item =
 export default function Sidebar() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const params = new URLSearchParams(searchParams.toString());
-  const urlName: string = params.get("name") || "My Posted Jobs";
+  const initialName = searchParams.get("name") || "My Posted Jobs";
+  const [selectedName, setSelectedName] = useState(initialName);
+
+  // const params = new URLSearchParams(searchParams.toString());
+  // const urlName: string = params.get("name") || "My Posted Jobs";
+
+  useEffect(() => {
+    setSelectedName(initialName);
+  }, [initialName]);
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     name: string
   ) => {
     e.preventDefault();
-
+    setSelectedName(name);
+    const params = new URLSearchParams(searchParams.toString());
     params.set("name", name);
     router.push(`?${params.toString()}`);
   };
   return (
     <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">
       {data?.map((item: item, index) => {
-        const active = urlName === item.title;
+        const active = selectedName === item.title;
         const icon = item.icon;
         const isFunctionIcon = typeof icon === "function";
         const IconComponent = isFunctionIcon ? (icon as IconType) : null;
