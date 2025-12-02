@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -11,7 +10,6 @@ import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
 import profile from "../public/profile/avatar.png";
 import call from "../public/call-header.svg";
-import Languages from "@/languages/Languages";
 
 export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -160,8 +158,6 @@ export default function HeaderTwo() {
                 <p className="text-gray-800 font-medium">Kamran</p>
               </div>
             </Link>
-
-            {/* labguages component */}
           </div>
         </div>
       )}
