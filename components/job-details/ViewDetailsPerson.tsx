@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import personOne from "../../public/dashboard/person-one.png";
 import pdf from "../../public/dashboard/pdf.png";
-import FeedBackModal from "./FeedBackModal";
-import resume from "../../public/dashboard/profile-view/cv.png";
+// import FeedBackModal from "./FeedBackModal";
+// import resume from "../../public/dashboard/profile-view/cv.png";
 import ResumeView from "./ResumeView";
 
 const data = [
@@ -141,7 +141,7 @@ export default function ViewDetailsPerson() {
           {/* <FeedBackModal /> */}
           <Link href="/appointment-create-form">
             <button className="cursor-pointer border border-white px-4 py-2 rounded text-white hover:bg-white hover:text-[#0F172A] transition">
-              Create Form
+              Create Appointment
             </button>
           </Link>
           <button className="cursor-pointer bg-[#149235] px-4 py-2 rounded text-white hover:bg-green-600 transition">

@@ -10,6 +10,7 @@ import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
 import profile from "../public/profile/avatar.png";
 import call from "../public/call-header.svg";
+import { Label } from "@/components/ui/label";
 
 export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +44,11 @@ export default function HeaderTwo() {
                       : "text-white hover:text-blue-300"
                   }`}
                 >
-                  {item.label}
+                  {item.label === "Dashboard" || item.label === "Alerts" ? (
+                    <span className="notranslate">{item.label}</span>
+                  ) : (
+                    item.label
+                  )}
                 </Link>
               ))}
               <div className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">

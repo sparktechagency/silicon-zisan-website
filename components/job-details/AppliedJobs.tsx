@@ -61,7 +61,7 @@ export default function AppliedJobs() {
 
               {/* Action Button */}
               <Link href="/view-details-person">
-                <Button className="custom-btn w-full mt-4">View</Button>
+                <Button className="custom-btn w-full mt-4">View Profile</Button>
               </Link>
             </div>
           </div>

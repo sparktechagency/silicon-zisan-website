@@ -14,7 +14,7 @@ import { MdPodcasts } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
 export const data = [
-  { title: "My Posted Jobs", icon: jobIcon },
+  { title: "My Jobs", icon: jobIcon },
   { title: "Post Job", icon: CiCirclePlus },
   // { title: "AI Tools", icon: aiIcon },
   { title: "Appointments", icon: two },

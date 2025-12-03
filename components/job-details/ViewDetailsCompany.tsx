@@ -45,7 +45,7 @@ export default function ViewDetailsCompany() {
           </div>
           <div className="space-x-2">
             <Link href="/applied-jobs">
-              <Button className="custom-btn mt-5">8 Applied</Button>
+              <Button className="custom-btn mt-5">Job Applicants</Button>
             </Link>
             <Link href="/alert-setting" className="">
               <Button className="custom-btn mt-5">
@@ -85,7 +85,9 @@ export default function ViewDetailsCompany() {
       <div>
         <h3 className="text-lg font-semibold mb-2">Qualifications</h3>
         <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-          <li>Bachelor's Degree in Nursing (BSN) or Medical Degree required</li>
+          <li>
+            Bachelor&apos;s Degree in Nursing (BSN) or Medical Degree required
+          </li>
           <li>
             Certified Nursing Assistant (CNA) or Board-Certified in Pediatrics
           </li>

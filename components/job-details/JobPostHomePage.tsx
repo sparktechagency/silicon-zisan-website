@@ -8,7 +8,7 @@ export default function JobPostHomePage() {
   return (
     <div className="basis-[70%]">
       <h1 className=" p-3 rounded font-medium mb-4 bg-card text-white text-2xl border border-white/30">
-        My Posts Jobs
+        My Jobs
       </h1>
       {postJobsDetails?.map((item: any, index: number) => (
         <div
