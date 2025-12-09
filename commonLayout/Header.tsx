@@ -10,7 +10,6 @@ import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
 import profile from "../public/profile/avatar.png";
 import call from "../public/call-header.svg";
-import { Label } from "@/components/ui/label";
 
 export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -134,7 +133,11 @@ export default function HeaderTwo() {
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                {item.label}
+                {item.label === "Dashboard" || item.label === "Alerts" ? (
+                  <span className="notranslate">{item.label}</span>
+                ) : (
+                  item.label
+                )}
               </Link>
             ))}
 

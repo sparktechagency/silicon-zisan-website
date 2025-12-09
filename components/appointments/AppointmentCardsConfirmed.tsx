@@ -52,37 +52,41 @@ export default function AppointmentCardsConfirmed() {
     <>
       {data?.map((item, index) => (
         <div
-          className="bg-card text-white p-4 rounded-xl  shadow-lg flex items-center gap-4 mt-5"
+          className="bg-card text-white p-4 rounded-xl  shadow-lg sm:flex items-center gap-4 mt-5"
           key={index}
         >
           {/* Profile Image */}
-          <Image
-            src={item.src}
-            alt="Md Kamran Khan"
-            className="sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
-          />
-
-          {/* Info Section */}
           <div className="flex-1">
-            <h3 className="sm:text-xl font-semibold">
-              {item.name} ({item.phone})
-            </h3>
+            <div className="flex items-center space-x-3">
+              <Image
+                src={item.src}
+                alt="Md Kamran Khan"
+                className="sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
+              />
 
-            <div className=" mt-2 text-sm text-gray-300">
-              <div className="flex items-center gap-1">
-                <FaCalendarAlt />
-                <span className="sm:text-xl">{item.date}</span>
-              </div>
-              <div className="flex items-center gap-1 mt-2">
-                <Clock4 size={18} />
-                <span className="sm:text-xl">{item.time}</span>
+              {/* Info Section */}
+              <div className="">
+                <h3 className="sm:text-xl font-semibold">
+                  {item.name} ({item.phone})
+                </h3>
+
+                <div className=" mt-2 text-sm text-gray-300">
+                  <div className="flex items-center gap-1">
+                    <FaCalendarAlt />
+                    <span className="sm:text-xl">{item.date}</span>
+                  </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    <Clock4 size={18} />
+                    <span className="sm:text-xl">{item.time}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Cancel Button */}
-          <div className="flex flex-col items-end justify-between my-4 space-y-6">
-            <>
+          <div className="flex flex-row sm:flex-col items-center md:items-end space-x-2 my-3">
+            <div>
               <EmployeeDetailsModal
                 isModalOneOpen={isModalOneOpen}
                 setIsModalOneOpen={setIsModalOneOpen}
@@ -102,17 +106,19 @@ export default function AppointmentCardsConfirmed() {
                 isModalTwoOpen={isModalTwoOpen}
                 setIsModalTwoOpen={setIsModalTwoOpen}
               />
-            </>
-            <DeleteButton
-              isModalOneOpen2={isModalOneOpen2}
-              setIsModalOneOpen2={setIsModalOneOpen2}
-              onOpenSecondModal2={() => setIsModalTwoOpen2(true)}
-              trigger={
-                <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
-                  Cancel
-                </button>
-              }
-            />
+            </div>
+            <div>
+              <DeleteButton
+                isModalOneOpen2={isModalOneOpen2}
+                setIsModalOneOpen2={setIsModalOneOpen2}
+                onOpenSecondModal2={() => setIsModalTwoOpen2(true)}
+                trigger={
+                  <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
+                    Cancel
+                  </button>
+                }
+              />
+            </div>
 
             <SendMessageModal2
               isModalTwoOpen2={isModalTwoOpen2}
