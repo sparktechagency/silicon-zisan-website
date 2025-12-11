@@ -42,7 +42,7 @@ export default function DeleteButton({
               Are You Sure You Want To Delete <br /> Whatasapp Link?
             </p>
           ) : (
-            " Are You Sure You Want To Cancel The Appointment?"
+            <p>Are You Sure You Want To Cancel The Appointment?</p>
           )}
         </h2>
         <div>
