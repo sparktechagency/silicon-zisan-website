@@ -18,13 +18,15 @@ import ContractInformation from "../hireEmployes/ContactInformation";
 import Sidebar from "./Sidebar";
 
 export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
+  console.log("JobPostHomePage", JobPostHomePage);
+
   return (
     <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
       <Sidebar />
 
       {/* conditional rendering */}
       <div className="flex-1 px-4 max-h-[83vh] overflow-y-scroll">
-        {searchTerm === "My Posted Jobs" && <JobPostHomePage />}
+        {searchTerm === "My Jobs" && <JobPostHomePage />}
         {searchTerm === "Post Job" && <EditJobPost title="Post Job" />}
         {searchTerm === "AI Tools" && <AITools />}
         {searchTerm === "Appointments" && <Appointments />}
