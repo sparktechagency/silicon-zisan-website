@@ -77,7 +77,11 @@ export default function LoginPage() {
       <Button className="custom-btn w-full" type="submit">
         Login
       </Button>
-
+      <div className="flex justify-end">
+        <Link href="/forgot-password" className="text-white underline ">
+          Forgot Password?
+        </Link>
+      </div>
       <p className="text-center my-4">Or Continue With</p>
       <div className="flex justify-center gap-4">
         <Button
