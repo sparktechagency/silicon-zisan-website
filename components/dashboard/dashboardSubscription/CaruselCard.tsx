@@ -133,7 +133,7 @@ export default function CaruselCard() {
             <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
-                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap w-40">
+                  <h1 className="text-white text-lg lg:text-2xl font-semibold w-40">
                     Basic Free
                   </h1>
                   <div className="flex gap-3 items-center mt-1">

@@ -19,7 +19,7 @@ type item =
 export default function Sidebar() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const initialName = searchParams.get("name") || "My Posted Jobs";
+  const initialName = searchParams.get("name") || "My Jobs";
   const [selectedName, setSelectedName] = useState(initialName);
 
   // const params = new URLSearchParams(searchParams.toString());

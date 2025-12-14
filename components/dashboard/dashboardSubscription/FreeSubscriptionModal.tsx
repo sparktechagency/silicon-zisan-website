@@ -18,7 +18,7 @@ export default function FreeSubscriptionModal({
       <DialogContent className="bg-gray-500/40 backdrop-blur-sm text-white p-6 rounded-lg  text-center border border-white/10 shadow-lg">
         <h2 className="text-lg font-semibold mb-6">
           <p>
-            Are You Want To Free <br /> Subscribe?
+            Do you want to actived <br /> free subscription?
           </p>
         </h2>
         <div>

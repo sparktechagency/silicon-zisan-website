@@ -1,15 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
 import one from "../../public/appartments/one.png";
 import two from "../../public/appartments/two.png";
 import three from "../../public/appartments/three.png";
 import { Clock4, Eye } from "lucide-react";
 import DeleteButton from "./DeleteButton";
-import MessageSendModal from "./EmployeeDetailsModal";
 import { useState } from "react";
-import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
 import EmployeeDetailsModal from "./EmployeeDetailsModal";
 import SendMessageModal from "./SendMessageModal";
 import SendMessageModal2 from "./SendMessageModal2";
@@ -66,9 +64,10 @@ export default function AppointmentCardsConfirmed() {
 
               {/* Info Section */}
               <div className="">
-                <h3 className="sm:text-xl font-semibold">
-                  {item.name} ({item.phone})
-                </h3>
+                <div className="flex flex-col sm:flex-row items-center">
+                  <h3 className="sm:text-xl font-semibold">{item.name}</h3>
+                  <p>({item.phone})</p>
+                </div>
 
                 <div className=" mt-2 text-sm text-gray-300">
                   <div className="flex items-center gap-1">

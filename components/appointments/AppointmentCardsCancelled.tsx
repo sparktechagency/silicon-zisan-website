@@ -1,11 +1,9 @@
 import Image from "next/image";
-import { FaCalendarAlt, FaClock } from "react-icons/fa";
+import { FaCalendarAlt } from "react-icons/fa";
 import one from "../../public/appartments/one.png";
 import two from "../../public/appartments/two.png";
 import three from "../../public/appartments/three.png";
-import { Clock4, Eye } from "lucide-react";
-import DeleteButton from "./DeleteButton";
-import MessageSendModal from "./EmployeeDetailsModal";
+import { Clock4 } from "lucide-react";
 
 const data = [
   {
@@ -38,26 +36,33 @@ export default function AppointmentCardsCancelled() {
   return (
     <>
       {data?.map((item, index) => (
-        <div className="bg-card text-white p-4 rounded-xl  shadow-lg flex items-center gap-4 mt-5">
+        <div
+          className="bg-card text-white p-4 rounded-xl  shadow-lg sm:flex items-center gap-4 mt-5"
+          key={index}
+        >
           {/* Profile Image */}
-          <Image
-            src={item.src}
-            alt="Md Kamran Khan"
-            className="sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
-          />
-
-          {/* Info Section */}
           <div className="flex-1">
-            <h3 className="sm:text-xl font-semibold">{item.name}</h3>
+            <div className="flex items-center">
+              <Image
+                src={item.src}
+                alt="Md Kamran Khan"
+                className="w-20 h-20 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
+              />
 
-            <div className=" mt-2 text-sm text-gray-300">
-              <div className="flex items-center gap-1">
-                <FaCalendarAlt />
-                <span className="sm:text-xl">{item.date}</span>
-              </div>
-              <div className="flex items-center gap-1 mt-2">
-                <Clock4 size={18} />
-                <span className="sm:text-xl">{item.time}</span>
+              {/* Info Section */}
+              <div className="">
+                <h3 className="sm:text-xl font-semibold">{item.name}</h3>
+
+                <div className=" mt-2 text-sm text-gray-300">
+                  <div className="flex items-center gap-1">
+                    <FaCalendarAlt />
+                    <span className="sm:text-xl">{item.date}</span>
+                  </div>
+                  <div className="flex items-center gap-1 mt-2">
+                    <Clock4 size={18} />
+                    <span className="sm:text-xl">{item.time}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

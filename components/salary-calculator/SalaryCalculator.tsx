@@ -170,7 +170,7 @@ export default function SalaryCalculator() {
       {/*Select Child*/}
       <div>
         <CustomSelect
-          label="Child Tax Exemption"
+          label="Child"
           placeholder="Select Child"
           options={child}
         />
@@ -183,8 +183,8 @@ export default function SalaryCalculator() {
       {/*Your position*/}
       <div>
         <CustomSelect
-          label="Your Position"
-          placeholder="Select Position"
+          label="Postal Code"
+          placeholder="Select Code"
           options={position}
         />
       </div>
@@ -205,7 +205,7 @@ export default function SalaryCalculator() {
       />
 
       <div className="grid sm:grid-cols-2 gap-5">
-        <div className="custom-btn rounded-2xl py-2">Calculate</div>
+        <div className="custom-btn text-center rounded-2xl py-2">Calculate</div>
         <div className="border py-2 text-center">$25622556 (brutto)</div>
       </div>
 

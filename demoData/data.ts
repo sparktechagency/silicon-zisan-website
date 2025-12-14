@@ -1,6 +1,6 @@
 import hotel from "../public/dashboard/hotel.png";
-import { CiCirclePlus } from "react-icons/ci";
 import shift from "../public/dashboard/sidebar/shift.svg";
+import postJob from "../public/dashboard/sidebar/post-job.svg";
 import hire from "../public/dashboard/sidebar/hire-employee.svg";
 import two from "../public/dashboard/sidebar/appoinmenttwo.svg";
 import jobIcon from "../public/dashboard/sidebar/job-icon.svg";
@@ -15,7 +15,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 export const data = [
   { title: "My Jobs", icon: jobIcon },
-  { title: "Post Job", icon: CiCirclePlus },
+  { title: "Post Job", icon: postJob },
   // { title: "AI Tools", icon: aiIcon },
   { title: "Appointments", icon: two },
   { title: "Subscription Plan", icon: MdPodcasts },
@@ -186,6 +186,6 @@ export const age = [
 
 // position
 export const position = [
-  { id: 1, label: "Full Time" },
-  { id: 2, label: "Part Time" },
+  { id: 1, label: "232344" },
+  { id: 2, label: "987645" },
 ];
