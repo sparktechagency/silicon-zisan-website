@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Languages from "@/languages/Languages";
+import { Toaster } from "@/components/ui/sonner";
 // export const dynamic = "force-dynamic";
 
 const poppins = Poppins({
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} antialiased`}>
         <Languages />
         {children}
+        <Toaster />
       </body>
     </html>
   );
