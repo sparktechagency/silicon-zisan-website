@@ -1,44 +1,27 @@
 import React from "react";
 
-export default function PackeageType({
-  type,
-  setType,
-}: {
-  type: string;
-  setType: Function;
-}) {
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export default function PackeageType({ value, onChange }: Props) {
   return (
     <div className="flex gap-4">
-      <button
-        className={`${
-          type === "day"
-            ? "custom-btn rounded px-3 py-1"
-            : "border rounded py-1 px-3"
-        }`}
-        onClick={() => setType("day")}
-      >
-        Day
-      </button>
-      <button
-        className={`${
-          type === "month"
-            ? "custom-btn rounded px-3 py-1"
-            : "border rounded py-1 px-3"
-        }`}
-        onClick={() => setType("month")}
-      >
-        Month
-      </button>
-      <button
-        className={`${
-          type === "year"
-            ? "custom-btn rounded px-3 py-1"
-            : "border rounded py-1 px-3"
-        }`}
-        onClick={() => setType("year")}
-      >
-        Year
-      </button>
+      {["day", "month", "year"].map((item) => (
+        <button
+          key={item}
+          type="button"
+          className={`${
+            value === item
+              ? "custom-btn rounded px-3 py-1"
+              : "border rounded py-1 px-3"
+          }`}
+          onClick={() => onChange(item)}
+        >
+          {item.charAt(0).toUpperCase() + item.slice(1)}
+        </button>
+      ))}
     </div>
   );
 }

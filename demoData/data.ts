@@ -189,3 +189,23 @@ export const position = [
   { id: 1, label: "232344" },
   { id: 2, label: "987645" },
 ];
+
+// post job categories
+export const jobRoles = [
+  "Senior Business Analytics",
+  "It & Development",
+  "Photo Editing",
+  "Cleaning",
+  "Plumber",
+  "Electrician",
+  "Driver",
+];
+
+export const jobTypes = [
+  "Full Time",
+  "Part Time",
+  "Mini Job",
+  "Ausbildung",
+  "Temporary Work",
+  "Career Changer",
+];
