@@ -57,9 +57,6 @@ export default function ContactSupport() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("data", data);
-    console.log("file", file);
-
     const formData = new FormData();
 
     Object.entries(data).forEach(([key, value]) => {
@@ -93,7 +90,8 @@ export default function ContactSupport() {
         toast.error(res?.message || "Failed to submit support request");
       }
     } catch (err) {
-      console.log("error", err);
+      const errorMessage = err instanceof Error ? err.message : "An error occurred";
+      toast.error(errorMessage);
     }
   };
 

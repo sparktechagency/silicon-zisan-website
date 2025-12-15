@@ -12,19 +12,19 @@ export default function SelectMethod() {
 
   React.useEffect(() => {
     if (selected) {
-      router.push("/signup");
+      router.push(`/signup?method=${selected}`);
     }
-  }, [selected]);
+  }, [selected, router]);
 
   return (
     <div className="w-[90%] sm:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
       <div
         className={`${
-          selected === "sekker"
+          selected === "Job Seeker"
             ? "custom-btn"
             : "bg-[#425363] py-2 rounded-md text-white"
         } `}
-        onClick={() => setSelected("sekker")}
+        onClick={() => setSelected("Job Seeker")}
       >
         <div className="flex items-center justify-center mt-5">
           <Image src={sekker} alt="Logo" width={100} height={20} className="" />
@@ -33,11 +33,11 @@ export default function SelectMethod() {
       </div>
       <div
         className={`mt-5 ${
-          selected === "employer"
+          selected === "Employer"
             ? "custom-btn"
             : "bg-[#425363] py-2 rounded-md text-white cursor-pointer"
         } `}
-        onClick={() => setSelected("employer")}
+        onClick={() => setSelected("Employer")}
       >
         <div className="flex items-center justify-center mt-5 cursor-pointer">
           <Image
