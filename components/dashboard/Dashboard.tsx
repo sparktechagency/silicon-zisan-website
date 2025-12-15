@@ -1,6 +1,5 @@
 import Container from "@/share/Container";
 import JobPostHomePage from "../job-details/JobPostHomePage";
-import EditJobPost from "../job-details/EditjobPost";
 import AITools from "../ai-tools/AI-Tools";
 import Appointments from "../appointments/Appointments";
 import HireEmployees from "../hireEmployes/HireEmployees";
@@ -16,7 +15,7 @@ import SalaryDetails from "../salary-calculator/SalarayDetails";
 import CaruselCard from "./dashboardSubscription/CaruselCard";
 import ContractInformation from "../hireEmployes/ContactInformation";
 import Sidebar from "./Sidebar";
-import EditJobPost2 from "../job-details/post-job-form/EditjobPost2";
+import EditJobPost from "../job-details/post-job-form/EditjobPost2";
 
 export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
   console.log("JobPostHomePage", JobPostHomePage);
@@ -28,7 +27,7 @@ export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
       {/* conditional rendering */}
       <div className="flex-1 px-4 max-h-[83vh] overflow-y-scroll">
         {searchTerm === "My Jobs" && <JobPostHomePage />}
-        {searchTerm === "Post Job" && <EditJobPost2 title="Post Job" />}
+        {searchTerm === "Post Job" && <EditJobPost title="Post Job" />}
         {searchTerm === "AI Tools" && <AITools />}
         {searchTerm === "Appointments" && <Appointments />}
         {searchTerm === "Hire Employees" && <HireEmployees />}

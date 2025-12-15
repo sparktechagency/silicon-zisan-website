@@ -25,7 +25,7 @@ type FormValues = {
   aboutCompany: string;
 };
 
-const EditJobPost2 = ({ title }: { title?: string }) => {
+const EditJobPost = ({ title }: { title?: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -136,4 +136,4 @@ const EditJobPost2 = ({ title }: { title?: string }) => {
   );
 };
 
-export default EditJobPost2;
+export default EditJobPost;

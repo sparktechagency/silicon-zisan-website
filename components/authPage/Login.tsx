@@ -9,6 +9,8 @@ import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next/client";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 type Inputs = {
   email: string;
@@ -17,6 +19,7 @@ type Inputs = {
 
 export default function LoginPage() {
   const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -62,13 +65,20 @@ export default function LoginPage() {
         <p className="text-red-500">Email is required</p>
       )}
       {/* Password */}
-      <div>
+      <div className="relative">
         <Input
-          type="password"
+          type={showPassword ? "text" : "password"}
           className="placeholder:text-white"
           placeholder="Enter Your Password"
           {...register("password", { required: true })}
         />
+
+        <span
+          className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859]"
+          onClick={() => setShowPassword((prev) => !prev)}
+        >
+          {showPassword ? <Eye /> : <EyeOff />}
+        </span>
       </div>
       {errors.password?.type === "required" && (
         <p className="text-red-500">Password is required</p>

@@ -37,7 +37,7 @@ export function VerifyOtp() {
 
       if (res?.success) {
         toast.success(res.message);
-        router.push("/new-password");
+        router.push(`/new-password?token=${res?.data}`);
       } else {
         toast.error(res?.message || "Invalid OTP");
       }
