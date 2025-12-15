@@ -43,9 +43,7 @@ export default function EditProfile({ title }: { title?: string }) {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {
-    console.log(values);
-  };
+  const onSubmit: SubmitHandler<FormData> = (values) => {};
 
   return (
     <div className="bg-[#2f4054] p-6 rounded-lg border border-gray-400/30 w-full">

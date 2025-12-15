@@ -29,8 +29,6 @@ export default function NewPassword() {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("data", data);
-
     try {
       const res = await myFetch("/auth/reset-password", {
         method: "POST",
@@ -40,7 +38,6 @@ export default function NewPassword() {
         },
         token: token,
       });
-      console.log("res", res);
 
       if (res?.success) {
         toast.success(res.message);

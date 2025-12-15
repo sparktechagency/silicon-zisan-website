@@ -73,7 +73,6 @@ const ChatMessages = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [userTextMessage, setUserTextMessage] = useState("");
   const [image, setImage] = useState<string | null>(null);
-  console.log(image);
 
   useEffect(() => {
     bottomRef.current?.scrollTo({

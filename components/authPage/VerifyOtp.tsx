@@ -20,7 +20,6 @@ export function VerifyOtp() {
 
   const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("otp", otp);
 
     if (otp.length !== 6) {
       toast.error("Please enter a valid 6-digit OTP");
@@ -32,8 +31,6 @@ export function VerifyOtp() {
         method: "POST",
         body: { email, oneTimeCode: Number(otp) },
       });
-
-      console.log("res", res);
 
       if (res?.success) {
         toast.success(res.message);

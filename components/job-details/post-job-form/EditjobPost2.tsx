@@ -72,8 +72,6 @@ const EditJobPost = ({ title }: { title?: string }) => {
   };
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-    console.log("FORM DATA 👉", data);
-
     if (title === "Hire Employee") {
       handleParamsSet("hire-employee-details");
     }

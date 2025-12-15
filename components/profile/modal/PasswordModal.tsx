@@ -48,9 +48,7 @@ export default function PasswordModal({
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {
-    console.log("Form submitted:", values);
-  };
+  const onSubmit: SubmitHandler<FormData> = (values) => {};
 
   return (
     <Dialog>

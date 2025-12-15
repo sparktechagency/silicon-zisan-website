@@ -18,8 +18,6 @@ import Sidebar from "./Sidebar";
 import EditJobPost from "../job-details/post-job-form/EditjobPost2";
 
 export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
-  console.log("JobPostHomePage", JobPostHomePage);
-
   return (
     <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
       <Sidebar />
