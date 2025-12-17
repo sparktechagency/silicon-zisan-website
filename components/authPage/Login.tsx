@@ -104,12 +104,6 @@ export default function LoginPage() {
         >
           <FaApple />
         </Button>
-        <Button
-          type="button"
-          className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
-        >
-          <FaFacebookF />
-        </Button>
       </div>
       <p className="text-center text-white mt-8">
         Don&apos;t Have An Account?{" "}

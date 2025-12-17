@@ -107,7 +107,9 @@ export default function EditJobPost({ data }: any) {
       });
       console.log("edit update", res);
     } catch (err) {
-      toast.error(reset.message);
+      const errorMessage =
+        err instanceof Error ? err.message : "An error occurred";
+      toast.error(errorMessage);
     }
   };
 

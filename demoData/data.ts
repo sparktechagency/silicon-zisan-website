@@ -14,20 +14,36 @@ import { MdPodcasts } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
 export const data = [
-  { title: "My Jobs", icon: jobIcon },
-  { title: "Post Job", icon: postJob },
-  // { title: "AI Tools", icon: aiIcon },
-  { title: "Appointments", icon: two },
-  { title: "Subscription Plan", icon: MdPodcasts },
-  { title: "Hire Employees", icon: hire },
-  { title: "Shift Plan", icon: shift },
-  { title: "Salary Calculator", icon: CiCalculator1 },
-  { title: "WhatsApp Support", icon: FaWhatsapp },
-  { title: "Add WhatsApp Link", icon: FaWhatsapp },
-  { title: "Invoice & Payments", icon: PiNoteThin },
-  { title: "Contact & Support", icon: TfiHeadphoneAlt },
-  { title: "Verify Account", icon: MdOutlineVerifiedUser },
-  { title: "Download Center", icon: MdOutlineFileDownload },
+  { title: "My Jobs", value: "myJobs", icon: jobIcon },
+  { title: "Post Job", value: "postJob", icon: postJob },
+  // { title: "AI Tools", value: "aiTools", icon: aiIcon },
+  { title: "Appointments", value: "appointments", icon: two },
+  { title: "Subscription Plan", value: "subscriptionPlan", icon: MdPodcasts },
+  { title: "Hire Employees", value: "hireEmployees", icon: hire },
+  { title: "Shift Plan", value: "shiftPlan", icon: shift },
+  {
+    title: "Salary Calculator",
+    value: "salaryCalculator",
+    icon: CiCalculator1,
+  },
+  { title: "WhatsApp Support", value: "whatsappSupport", icon: FaWhatsapp },
+  { title: "Add WhatsApp Link", value: "addWhatsappLink", icon: FaWhatsapp },
+  { title: "Invoice & Payments", value: "invoicePayments", icon: PiNoteThin },
+  {
+    title: "Contact & Support",
+    value: "contactSupport",
+    icon: TfiHeadphoneAlt,
+  },
+  {
+    title: "Verify Account",
+    value: "verifyAccount",
+    icon: MdOutlineVerifiedUser,
+  },
+  {
+    title: "Download Center",
+    value: "downloadCenter",
+    icon: MdOutlineFileDownload,
+  },
 ];
 
 export const postJobsDetails = [
