@@ -15,7 +15,8 @@ import SalaryDetails from "../salary-calculator/SalarayDetails";
 import CaruselCard from "./dashboardSubscription/CaruselCard";
 import ContractInformation from "../hireEmployes/ContactInformation";
 import Sidebar from "./Sidebar";
-import EditJobPost from "../job-details/post-job-form/EditjobPost2";
+import EditJobPost from "../job-details/post-job-form/EditjobPost";
+import PostJobForm from "../post-job/PostJobForm";
 
 export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
   return (
@@ -25,7 +26,7 @@ export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
       {/* conditional rendering */}
       <div className="flex-1 px-4 max-h-[83vh] overflow-y-scroll">
         {searchTerm === "My Jobs" && <JobPostHomePage />}
-        {searchTerm === "Post Job" && <EditJobPost title="Post Job" />}
+        {searchTerm === "Post Job" && <PostJobForm />}
         {searchTerm === "AI Tools" && <AITools />}
         {searchTerm === "Appointments" && <Appointments />}
         {searchTerm === "Hire Employees" && <HireEmployees />}

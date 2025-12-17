@@ -1,5 +1,3 @@
-import React from "react";
-
 type Props = {
   value: string;
   onChange: (value: string) => void;
@@ -8,7 +6,7 @@ type Props = {
 export default function PackeageType({ value, onChange }: Props) {
   return (
     <div className="flex gap-4">
-      {["day", "month", "year"].map((item) => (
+      {["Day", "Month", "Year"].map((item) => (
         <button
           key={item}
           type="button"

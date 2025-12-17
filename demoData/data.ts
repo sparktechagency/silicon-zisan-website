@@ -199,6 +199,7 @@ export const jobRoles = [
   "Plumber",
   "Electrician",
   "Driver",
+  "Software",
 ];
 
 export const jobTypes = [

@@ -109,7 +109,7 @@ export default function ViewDetailsPerson({ data }: any) {
         <div className=" pt-4 space-y-2">
           <h3 className="text-lg font-semibold">Qualification</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-gray-300">
-            {data?.map((item, index) => (
+            {/* {data?.map((item: any, index: number) => (
               <div
                 key={index}
                 className={`${
@@ -119,7 +119,7 @@ export default function ViewDetailsPerson({ data }: any) {
                 <p>{item.title}</p>
                 <p className="mt-2">{item.value}</p>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
 

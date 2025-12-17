@@ -33,7 +33,7 @@ export default function AppliedJobs({ data }: any) {
               <p className="text-sm text-gray-400">Applied : 01.02.2025</p>
 
               {/* Action Button */}
-              <Link href={`/view-details-person/${item._id}`}>
+              <Link href={`/view-details-person/${item?.user?._id}`}>
                 <Button className="custom-btn w-full mt-4">View Profile</Button>
               </Link>
             </div>

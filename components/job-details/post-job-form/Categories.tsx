@@ -53,6 +53,9 @@ export default function Categories({ control }: any) {
                   <SelectItem value="senior-business">
                     senior business analytics
                   </SelectItem>
+                  <SelectItem value="Backend Developer">
+                    Backend Developer
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

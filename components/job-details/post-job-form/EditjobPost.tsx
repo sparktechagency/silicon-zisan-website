@@ -1,16 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
-import Container from "@/share/Container";
-import CustomBackButton from "@/share/CustomBackButton";
+import { useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import AddQualificationAndResposibilities from "./AddQualificationAndResposibilities";
-import SalaryDetailsFormValues from "./SalaryDetailsFormValues";
+import Container from "@/share/Container";
+import CustomBackButton from "@/share/CustomBackButton";
 import Categories from "./Categories";
 import JobType from "./JobType";
+import SalaryDetailsFormValues from "./SalaryDetailsFormValues";
+import AddQualificationAndResposibilities from "./AddQualificationAndResposibilities";
+import { toast } from "sonner";
+import { myFetch } from "@/utils/myFetch";
 
 type FormValues = {
   category: string;
@@ -25,11 +26,8 @@ type FormValues = {
   aboutCompany: string;
 };
 
-const EditJobPost = ({ title }: { title?: string }) => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const { register, handleSubmit, control } = useForm<FormValues>({
+export default function EditJobPost({ data }: any) {
+  const { register, control, reset, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       category: "",
       subCategory: "",
@@ -38,14 +36,15 @@ const EditJobPost = ({ title }: { title?: string }) => {
       salaryType: "",
       salaryAmount: "",
       description: "",
-      responsibilities: [],
-      qualifications: [],
+      responsibilities: [{ value: "" }],
+      qualifications: [{ value: "" }],
       aboutCompany: "",
     },
   });
 
   const {
     fields: responsibilities,
+    replace: replaceResponsibilities,
     append: addResponsibility,
     remove: removeResponsibility,
   } = useFieldArray({
@@ -55,6 +54,7 @@ const EditJobPost = ({ title }: { title?: string }) => {
 
   const {
     fields: qualifications,
+    replace: replaceQualifications,
     append: addQualification,
     remove: removeQualification,
   } = useFieldArray({
@@ -62,36 +62,69 @@ const EditJobPost = ({ title }: { title?: string }) => {
     name: "qualifications",
   });
 
-  const name = searchParams.get("name");
-  const hire = searchParams.get("type");
+  useEffect(() => {
+    if (!data) return;
 
-  const handleParamsSet = (name: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("name", name);
-    router.push(`?${params.toString()}`);
-  };
+    reset({
+      category: data.category ?? "",
+      subCategory: data.subCategory ?? "",
+      jobType: data.jobType ?? "",
+      deadline: data.deadline.slice(0, 10),
+      salaryType: data.salaryType ?? "",
+      salaryAmount: data.salaryAmount ?? "",
+      description: data.description ?? "",
+      aboutCompany: data.aboutCompany ?? "",
+    });
 
-  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-    if (title === "Hire Employee") {
-      handleParamsSet("hire-employee-details");
+    replaceResponsibilities(
+      data.responsibilities?.length
+        ? data.responsibilities.map((r: string) => ({ value: r }))
+        : [{ value: "" }]
+    );
+
+    replaceQualifications(
+      data.qualifications?.length
+        ? data.qualifications.map((q: string) => ({ value: q }))
+        : [{ value: "" }]
+    );
+  }, [data, reset, replaceResponsibilities, replaceQualifications]);
+
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    const payload = {
+      ...values,
+      deadline: values.deadline
+        ? new Date(values.deadline).toISOString()
+        : null,
+      responsibilities: values.responsibilities.map((r) => r.value),
+      qualifications: values.qualifications.map((q) => q.value),
+    };
+    console.log("edit ", payload);
+
+    try {
+      const res = await myFetch(`/jobs/update/${data._id}`, {
+        method: "PATCH",
+        body: payload,
+      });
+      console.log("edit update", res);
+    } catch (err) {
+      toast.error(reset.message);
     }
   };
 
   return (
     <Container
-      className={`bg-card ${
-        name === "Post Job" ? "w-full" : "w-[50%] mx-auto"
-      } p-5 border rounded-md`}
+      className={`bg-card w-[50%] mx-auto"
+      p-5 border rounded-md`}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-gray-100 w-full rounded-xl">
           <div className="text-xl font-semibold mb-4 flex items-center gap-2">
             <CustomBackButton />
-            {hire ? hire : title}
+            <p>Edit Job Post</p>
           </div>
 
           {/* Category & Subcategory */}
-          <Categories control={control} />
+          <Categories control={control} register={register} />
 
           {/* Job Type & Deadline */}
           <JobType control={control} register={register} />
@@ -132,6 +165,4 @@ const EditJobPost = ({ title }: { title?: string }) => {
       </form>
     </Container>
   );
-};
-
-export default EditJobPost;
+}
