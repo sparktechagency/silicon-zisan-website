@@ -1,5 +1,4 @@
-import EditJobPost from "@/components/job-details/EditjobPost";
-import React from "react";
+import EditJobPost from "@/components/job-details/post-job-form/EditjobPost2";
 
 export default function page() {
   return (

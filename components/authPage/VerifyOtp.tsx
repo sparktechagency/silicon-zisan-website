@@ -7,9 +7,9 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "../ui/button";
-import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { useSearchParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function VerifyOtp() {
   const [otp, setOtp] = React.useState("");

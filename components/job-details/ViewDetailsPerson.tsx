@@ -17,7 +17,7 @@ const data = [
   { title: "Result", value: "4.06" },
 ];
 
-export default function ViewDetailsPerson() {
+export default function ViewDetailsPerson({ data }: any) {
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6 my-12">
       {/* Header */}

@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "../ui/input";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";

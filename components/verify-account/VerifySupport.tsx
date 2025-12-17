@@ -6,7 +6,6 @@ import { Upload } from "lucide-react";
 import { Input } from "../ui/input";
 
 export default function VerifyAccount() {
-  // multiple file inputs & previews
   const [previews, setPreviews] = useState<(string | null)[]>([null, null]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -26,6 +25,8 @@ export default function VerifyAccount() {
   const handleClick = (index: number) => {
     inputRefs.current[index]?.click();
   };
+
+  console.log("");
 
   return (
     <div>
