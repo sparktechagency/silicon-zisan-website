@@ -33,16 +33,11 @@ export default function SignUpPage() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-    console.log("role", role);
-
     try {
       const res = await myFetch("/users/create-user", {
         method: "POST",
         body: { ...data, role },
       });
-
-      console.log("res", res);
 
       if (res?.success) {
         toast.success(res?.message);

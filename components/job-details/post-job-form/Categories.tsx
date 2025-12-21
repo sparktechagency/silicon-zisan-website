@@ -1,5 +1,5 @@
 import { Label } from "@/components/ui/label";
-import { Controller } from "react-hook-form";
+import { Controller, useWatch } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -8,11 +8,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { jobRoles } from "@/demoData/data";
 
-export default function Categories({ control }: any) {
+type Category = {
+  name: string;
+  subCategories: string[];
+};
+
+interface CategoriesProps {
+  control: any; // React Hook Form control
+  categories: Category[];
+}
+
+export default function Categories({ control, categories }: CategoriesProps) {
+  // Watch selected category
+  const selectedCategory = useWatch({
+    control,
+    name: "category",
+  });
+
+  // Get subcategories for the selected category
+  const subCategories =
+    categories.find((c) => c.name === selectedCategory)?.subCategories || [];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      {/* Category Dropdown */}
       <div>
         <Label className="block text-sm mb-1">Category</Label>
         <Controller
@@ -21,14 +41,13 @@ export default function Categories({ control }: any) {
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
-                <SelectValue placeholder="Select Item" />
+                <SelectValue placeholder="Select Category" />
               </SelectTrigger>
-
               <SelectContent>
                 <SelectGroup>
-                  {jobRoles?.map((item, index) => (
-                    <SelectItem key={index} value={item}>
-                      {item}
+                  {categories.map((item, index) => (
+                    <SelectItem key={`${item.name}-${index}`} value={item.name}>
+                      {item.name}
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -38,6 +57,7 @@ export default function Categories({ control }: any) {
         />
       </div>
 
+      {/* Subcategory Dropdown */}
       <div>
         <Label className="block text-sm mb-1">Sub Category</Label>
         <Controller
@@ -46,16 +66,15 @@ export default function Categories({ control }: any) {
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
-                <SelectValue placeholder="Select Item" />
+                <SelectValue placeholder="Select Subcategory" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="senior-business">
-                    senior business analytics
-                  </SelectItem>
-                  <SelectItem value="Backend Developer">
-                    Backend Developer
-                  </SelectItem>
+                  {subCategories.map((sub, index) => (
+                    <SelectItem key={`${sub}-${index}`} value={sub}>
+                      {sub}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>

@@ -50,7 +50,7 @@ export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
     "Hire Employees": <HireEmployees />,
     "Shift Plan": <ShiftPlanpage />,
     "Create New Plan": <CreateNewPlan />,
-    "Add WhatsApp Link": <AddWhatsLinkPage />,
+    "Add WhatsApp": <AddWhatsLinkPage />,
     "Invoice & Payments": <InvoicePaymentspage />,
     "Contact & Support": <ContactSupportPage />,
     "Verify Account": <VerifyAccountPage />,

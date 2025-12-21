@@ -2,7 +2,7 @@
 "use client";
 
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,6 +11,8 @@ import Categories from "../job-details/post-job-form/Categories";
 import JobType from "../job-details/post-job-form/JobType";
 import SalaryDetailsFormValues from "../job-details/post-job-form/SalaryDetailsFormValues";
 import AddQualificationAndResposibilities from "../job-details/post-job-form/AddQualificationAndResposibilities";
+import { myFetch } from "@/utils/myFetch";
+import { use, useEffect, useState } from "react";
 
 type FormValues = {
   category: string;
@@ -27,6 +29,8 @@ type FormValues = {
 
 const PostJobForm = () => {
   const searchParams = useSearchParams();
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const { register, handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
@@ -63,10 +67,37 @@ const PostJobForm = () => {
 
   const name = searchParams.get("name");
 
-  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-    // if (title === "Hire Employee") {
-    //   handleParamsSet("hire-employee-details");
-    // }
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await myFetch("/categories");
+        setCategories(data?.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    console.log("data", data);
+
+    const payload = {
+      ...data,
+      responsibilities: data.responsibilities.map((item) => item.value),
+      qualifications: data.qualifications.map((item) => item.value),
+      salaryAmount: 5000,
+      experience: "With Experience",
+    };
+
+    const res = await myFetch("/jobs/create", {
+      method: "POST",
+      body: payload,
+    });
+    console.log("res", res);
   };
 
   return (
@@ -83,7 +114,7 @@ const PostJobForm = () => {
           </div>
 
           {/* Category & Subcategory */}
-          <Categories control={control} />
+          <Categories control={control} categories={categories} />
 
           {/* Job Type & Deadline */}
           <JobType control={control} register={register} />

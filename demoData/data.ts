@@ -27,7 +27,7 @@ export const data = [
     icon: CiCalculator1,
   },
   { title: "WhatsApp Support", value: "whatsappSupport", icon: FaWhatsapp },
-  { title: "Add WhatsApp Link", value: "addWhatsappLink", icon: FaWhatsapp },
+  { title: "Add WhatsApp", value: "addWhatsapp", icon: FaWhatsapp },
   { title: "Invoice & Payments", value: "invoicePayments", icon: PiNoteThin },
   {
     title: "Contact & Support",

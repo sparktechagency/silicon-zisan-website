@@ -1,35 +1,66 @@
+"use client";
+import { useEffect } from "react";
 import { Button } from "../ui/button";
-import WhatsAppModal from "./WhatsAppModal";
-import { Pencil, Trash } from "lucide-react";
-import DeleteButton from "../appointments/DeleteButton";
+import { Input } from "../ui/input";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "sonner";
+import { myFetch } from "@/utils/myFetch";
 
-export default function AddWhatsLink() {
+type Inputs = {
+  phone: string;
+};
+
+export default function AddWhatsLink({ phone }: { phone: string }) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: { phone: phone || "" },
+  });
+
+  useEffect(() => {
+    reset({ phone });
+  }, [phone, reset]);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log("Submitted phone:", data.phone);
+
+    try {
+      const res = await myFetch(`/users/profile`, {
+        method: "PATCH",
+        body: data,
+      });
+      console.log("res", res);
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An error occurred";
+      toast.error(errorMessage);
+    }
+  };
+
   return (
-    <div>
-      <div className="flex justify-end">
-        <WhatsAppModal
-          title="Add Whatsapp Link"
-          trigger={
-            <Button className="custom-btn h-12 text-xl">
-              Add WhatsApp Link
-            </Button>
-          }
-        />
-      </div>
-
-      {/* data show here */}
-      <div className="bg-card border border-gray-400/30 p-4 rounded mt-5 flex justify-between">
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium.
-        </p>
-        <div className="flex gap-3 cursor-pointer">
-          <WhatsAppModal trigger={<Pencil />} />
-          <DeleteButton
-            title="Delete Link"
-            trigger={<Trash className="text-red-500" />}
+    <div className="rounded">
+      <h1 className="text-xl">WhatsApp</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mt-3">
+          <Input
+            {...register("phone", {
+              required: "Phone number is required",
+            })}
+            type="tel"
+            placeholder="Enter Number Here"
+            className="border"
           />
+          {errors.phone && (
+            <p className="text-red-500 text-sm">{errors.phone.message}</p>
+          )}
         </div>
-      </div>
+        <div className="flex justify-end">
+          <Button className="custom-btn h-12 text-xl mt-3">Add</Button>
+        </div>
+      </form>
     </div>
   );
 }

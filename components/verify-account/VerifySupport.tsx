@@ -26,8 +26,6 @@ export default function VerifyAccount() {
     inputRefs.current[index]?.click();
   };
 
-  console.log("");
-
   return (
     <div>
       <Label className="sm:text-xl md:text-2xl">

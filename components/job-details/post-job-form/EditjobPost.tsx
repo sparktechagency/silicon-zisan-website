@@ -98,14 +98,12 @@ export default function EditJobPost({ data }: any) {
       responsibilities: values.responsibilities.map((r) => r.value),
       qualifications: values.qualifications.map((q) => q.value),
     };
-    console.log("edit ", payload);
 
     try {
       const res = await myFetch(`/jobs/update/${data._id}`, {
         method: "PATCH",
         body: payload,
       });
-      console.log("edit update", res);
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An error occurred";

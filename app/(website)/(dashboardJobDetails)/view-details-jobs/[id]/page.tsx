@@ -3,7 +3,6 @@ import { myFetch } from "@/utils/myFetch";
 
 export default async function page({ params }: { params: { id: string } }) {
   const id = (await params).id;
-  console.log("id", id);
 
   const res = await myFetch(`/jobs/single/${id}`);
 
