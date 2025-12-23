@@ -46,7 +46,7 @@ const data = [
 export default function HireEmployees() {
   return (
     <>
-      <Link href="?name=hire-employee-form" className="flex justify-end">
+      <Link href="?name=Post Job" className="flex justify-end">
         <button className="custom-btn px-5 py-2 rounded mb-3 flex items-center gap-2 ">
           <CiCirclePlus size={28} />
           <span className="text-lg"> Hire Now</span>

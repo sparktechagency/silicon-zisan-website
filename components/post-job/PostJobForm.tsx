@@ -12,7 +12,7 @@ import JobType from "../job-details/post-job-form/JobType";
 import SalaryDetailsFormValues from "../job-details/post-job-form/SalaryDetailsFormValues";
 import AddQualificationAndResposibilities from "../job-details/post-job-form/AddQualificationAndResposibilities";
 import { myFetch } from "@/utils/myFetch";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type FormValues = {
   category: string;

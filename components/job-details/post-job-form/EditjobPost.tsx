@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Container from "@/share/Container";
@@ -27,10 +27,11 @@ type FormValues = {
 };
 
 export default function EditJobPost({ data }: any) {
+  const [categories, setCategories] = useState<any[]>([]);
   const { register, control, reset, handleSubmit } = useForm<FormValues>({
     defaultValues: {
-      category: "",
-      subCategory: "",
+      category: data?.category || "",
+      subCategory: data?.subCategory || "",
       jobType: "",
       deadline: "",
       salaryType: "",
@@ -89,6 +90,20 @@ export default function EditJobPost({ data }: any) {
     );
   }, [data, reset, replaceResponsibilities, replaceQualifications]);
 
+  // categories get
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await myFetch("/categories");
+        setCategories(data?.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     const payload = {
       ...values,
@@ -104,6 +119,8 @@ export default function EditJobPost({ data }: any) {
         method: "PATCH",
         body: payload,
       });
+
+      console.log("res", res);
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An error occurred";
@@ -124,7 +141,7 @@ export default function EditJobPost({ data }: any) {
           </div>
 
           {/* Category & Subcategory */}
-          <Categories control={control} register={register} />
+          <Categories control={control} categories={categories} />
 
           {/* Job Type & Deadline */}
           <JobType control={control} register={register} />

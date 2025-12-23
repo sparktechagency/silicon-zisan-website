@@ -28,7 +28,10 @@ export default function Categories({ control, categories }: CategoriesProps) {
 
   // Get subcategories for the selected category
   const subCategories =
-    categories.find((c) => c.name === selectedCategory)?.subCategories || [];
+    categories?.find((c) => c.name === selectedCategory)?.subCategories || [];
+  console.log("selectedCategory", selectedCategory);
+
+  console.log("sub", subCategories);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -45,7 +48,7 @@ export default function Categories({ control, categories }: CategoriesProps) {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {categories.map((item, index) => (
+                  {categories?.map((item, index) => (
                     <SelectItem key={`${item.name}-${index}`} value={item.name}>
                       {item.name}
                     </SelectItem>
@@ -70,7 +73,7 @@ export default function Categories({ control, categories }: CategoriesProps) {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {subCategories.map((sub, index) => (
+                  {subCategories?.map((sub, index) => (
                     <SelectItem key={`${sub}-${index}`} value={sub}>
                       {sub}
                     </SelectItem>

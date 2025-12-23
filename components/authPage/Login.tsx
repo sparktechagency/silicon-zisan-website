@@ -107,7 +107,7 @@ export default function LoginPage() {
       </div>
       <p className="text-center text-white mt-8">
         Don&apos;t Have An Account?{" "}
-        <Link className="underline" href="/method">
+        <Link className="underline" href="/signup">
           SignUp
         </Link>
       </p>

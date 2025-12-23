@@ -10,7 +10,7 @@ import Link from "next/link";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { setCookie } from "cookies-next/client";
@@ -23,9 +23,8 @@ type Inputs = {
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const role = searchParams.get("method");
+
   const {
     register,
     handleSubmit,
@@ -36,8 +35,10 @@ export default function SignUpPage() {
     try {
       const res = await myFetch("/users/create-user", {
         method: "POST",
-        body: { ...data, role },
+        body: { ...data, role: "Employer" },
       });
+
+      console.log("res", res);
 
       if (res?.success) {
         toast.success(res?.message);
@@ -45,7 +46,11 @@ export default function SignUpPage() {
         // setCookie("role", role);
         router.push("/login");
       } else {
-        toast.error(res?.message || "Login failed");
+        toast.error(
+          Array.isArray(res?.error)
+            ? res?.error[0]?.message
+            : res?.error ?? "Login failed"
+        );
       }
     } catch (error) {
       const message =
