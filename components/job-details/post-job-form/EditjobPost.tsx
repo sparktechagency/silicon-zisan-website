@@ -10,7 +10,7 @@ import Categories from "./Categories";
 import JobType from "./JobType";
 import SalaryDetailsFormValues from "./SalaryDetailsFormValues";
 import AddQualificationAndResposibilities from "./AddQualificationAndResposibilities";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 
 type FormValues = {
@@ -120,7 +120,11 @@ export default function EditJobPost({ data }: any) {
         body: payload,
       });
 
-      console.log("res", res);
+      if (res?.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An error occurred";
