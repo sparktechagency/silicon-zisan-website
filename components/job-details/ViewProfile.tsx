@@ -2,19 +2,19 @@
 
 import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
-import personOne from "../../public/dashboard/person-one.png";
 import pdf from "../../public/dashboard/pdf.png";
 import viewOne from "../../public/dashboard/profile-view/one.png";
-import resume from "../../public/dashboard/profile-view/cv.png";
 import ResumeView from "./ResumeView";
 
-export default function ViewProfile() {
+export default function ViewProfile({ data }: any) {
+  console.log("data", data);
+
   const personalInfo = [
-    { label: "Name", value: "Jhon Doe" },
-    { label: "Email", value: "Jhondoe@Gamil.Com" },
-    { label: "Contact", value: "+15352832126" },
-    { label: "Location", value: "Dhaka Bangladesh" },
-    { label: "Role", value: "Job Seeker" },
+    { label: "Name", value: data?.user?.name?.trim() || "No Name" },
+    { label: "Email", value: data?.user?.email },
+    { label: "Contact", value: data?.user?.phone },
+    { label: "Location", value: data?.user?.address },
+    // { label: "Role", value: "Job Seeker" },
   ];
 
   const workInfo = [
@@ -49,13 +49,16 @@ export default function ViewProfile() {
       {/* Image */}
       <div className="flex gap-4">
         <Image
-          src={personOne} // Replace with actual image path
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.user?.image}`}
           alt="Office"
-          className="rounded-full h-28 w-28"
+          className="rounded-full h-28 w-28 object-cover"
+          width={10}
+          height={10}
+          unoptimized
         />
 
         <div className="t">
-          <p className="text-3xl">John Doe</p>
+          <p className="text-3xl">{data?.user?.name?.trim() || "No Name"}</p>
           <p className="text-2xl mt-1">Senior Business Analysis</p>
         </div>
       </div>

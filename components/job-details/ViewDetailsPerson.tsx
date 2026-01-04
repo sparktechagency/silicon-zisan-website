@@ -4,20 +4,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import personOne from "../../public/dashboard/person-one.png";
 import pdf from "../../public/dashboard/pdf.png";
-// import FeedBackModal from "./FeedBackModal";
-// import resume from "../../public/dashboard/profile-view/cv.png";
-import ResumeView from "./ResumeView";
 
-const data = [
-  { title: "Exam/Degree Title", value: "Bachelor Of Science BSC" },
-  { title: "Passing Year", value: "2022" },
-  { title: "Result Type", value: "CGPA" },
-  { title: "Result", value: "4.06" },
-];
+import dayjs from "dayjs";
 
 export default function ViewDetailsPerson({ data }: any) {
+  console.log("data", data);
+
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6 my-12">
       {/* Header */}
@@ -34,20 +27,33 @@ export default function ViewDetailsPerson({ data }: any) {
       {/* Image */}
       <div className="sm:flex gap-4">
         <Image
-          src={personOne} // Replace with actual image path
+          src={
+            data?.user?.image
+              ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.user?.image}`
+              : "No Image"
+          }
           alt="Office"
-          className="rounded-md h-44"
+          className="rounded-md w-44 h-44 object-cover"
+          width={10}
+          height={10}
+          unoptimized
         />
 
         <div className="mt-4 sm:mt-0">
-          <p className="text-xl sm:text-3xl">John Doe</p>
-          <p className="tex-xl sm:text-2xl mt-1">Senior Business Analysis</p>
+          <p className="text-xl sm:text-3xl">
+            {data?.usera?.name?.trim() ? data?.user?.name : "No Name"}
+          </p>
+          <p className="tex-xl sm:text-2xl mt-1">
+            {data?.experiences?.subCategory}
+          </p>
 
           <div className="flex gap-4 items-center mt-2 text-sm">
-            <p className="text-xl sm:text-2xl gap-2">Applied : 01.02.2025</p>
+            <p className="text-xl sm:text-2xl gap-2">
+              Applied : {dayjs(data?.createdAt).format("YYYY-MM-DD")}
+            </p>
           </div>
           <div className="flex gap-5">
-            <Link href="/view-profile">
+            <Link href={`/view-profile?profieID=${data?.user?._id}`}>
               <Button className="border border-[#90D7E8] bg-card mt-5 h-10">
                 View Profile
               </Button>
@@ -61,12 +67,7 @@ export default function ViewDetailsPerson({ data }: any) {
 
       <div>
         <h1 className="text-3xl">About Me</h1>
-        <p className="mt-4">
-          Lorem ipsum dolor sit amet consectetur. Ultrices eu vitae bibendum id
-          at. Mattis tortor cursus viverra eget augue condimentum. Facilisi eu
-          vel non scelerisque neque. Massa massa egestas morbi odio nunc
-          sollicitudin. Vitae in r .
-        </p>
+        <p className="mt-4">{data?.about}</p>
       </div>
 
       {/* resume and others */}
@@ -78,27 +79,24 @@ export default function ViewDetailsPerson({ data }: any) {
               <Image src={pdf} alt="Office" width={60} height={50} />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">Jhon Doe Pdf</h2>
-              <p className="text-sm text-gray-300">01.02.2025</p>
+              <h2 className="text-xl font-semibold">
+                {data?.resumeUrl ? `Pdf File` : "No Pdf"}
+              </h2>
+              {/* <p className="text-sm text-gray-300">
+                {dayjs(data?.createdAt).format("YYYY-MM-DD")}
+              </p> */}
             </div>
           </div>
           <div className="flex gap-3">
-            {/* <a
-              href={`http://10.10.7.54:3000/${resume.src}`}
+            <a
+              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl} || #`}
               target="_blank"
               rel="noopener noreferrer"
             >
               <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
                 <EyeIcon className="p-0.5 text-white" />
               </button>
-            </a> */}
-            <ResumeView
-              trigger={
-                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                  <EyeIcon className="p-0.5 text-white" />
-                </button>
-              }
-            />
+            </a>
             <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
               <DownloadIcon className="p-0.5 text-white" />
             </button>
@@ -132,7 +130,11 @@ export default function ViewDetailsPerson({ data }: any) {
           <p className="border-l border-l-white" />
           <div className="">
             <p>Expected Salary</p>
-            <p className="text-white">$500</p>
+            {data?.experiences?.salaryAmount ? (
+              <p className="text-white">${data?.experiences?.salaryAmount}</p>
+            ) : (
+              "No Amount"
+            )}
           </div>
         </div>
 

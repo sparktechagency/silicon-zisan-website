@@ -4,8 +4,11 @@ import personOne from "../../public/dashboard/person-one.png";
 import Container from "@/share/Container";
 import Link from "next/link";
 import CustomBackButton from "@/share/CustomBackButton";
+import dayjs from "dayjs";
 
 export default function AppliedJobs({ data }: any) {
+  console.log("data", data);
+
   return (
     <Container className="my-10">
       <CustomBackButton />
@@ -28,9 +31,13 @@ export default function AppliedJobs({ data }: any) {
 
             {/* Info Section */}
             <div className="">
-              <h2 className="text-xl font-semibold">{item?.user?.name}</h2>
+              <h2 className="text-xl font-semibold">
+                {item?.user?.name?.trim() ? item.user.name : "No Name"}
+              </h2>
               <p className="text-sm text-gray-300">Senior Business Analytics</p>
-              <p className="text-sm text-gray-400">Applied : 01.02.2025</p>
+              <p className="text-sm text-gray-400">
+                Applied : {dayjs(item?.createdAt).format("YYYY-MM-DD")}
+              </p>
 
               {/* Action Button */}
               <Link href={`/view-details-person/${item?.user?._id}`}>
