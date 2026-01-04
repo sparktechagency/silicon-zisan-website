@@ -7,9 +7,35 @@ import Link from "next/link";
 import pdf from "../../public/dashboard/pdf.png";
 
 import dayjs from "dayjs";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { revalidate } from "@/utils/revalidateTag";
 
 export default function ViewDetailsPerson({ data }: any) {
   console.log("data", data);
+
+  const handleApproved = async (id: string) => {
+    console.log("id", id);
+
+    try {
+      const res = await myFetch(`/applications/update/${id}`, {
+        method: "PATCH",
+        body: {
+          status: "Accepted",
+        },
+      });
+      console.log("res", res);
+
+      if (res.success) {
+        toast.success(res.message);
+        await revalidate("job-seeker-details");
+      } else {
+        toast.error((res as any).error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "something went wrong");
+    }
+  };
 
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6 my-12">
@@ -41,11 +67,9 @@ export default function ViewDetailsPerson({ data }: any) {
 
         <div className="mt-4 sm:mt-0">
           <p className="text-xl sm:text-3xl">
-            {data?.usera?.name?.trim() ? data?.user?.name : "No Name"}
+            {data?.user?.name?.trim() ? data?.user?.name : "No Name"}
           </p>
-          <p className="tex-xl sm:text-2xl mt-1">
-            {data?.experiences?.subCategory}
-          </p>
+          <p className="tex-xl sm:text-2xl mt-1">{data?.job?.subCategory}</p>
 
           <div className="flex gap-4 items-center mt-2 text-sm">
             <p className="text-xl sm:text-2xl gap-2">
@@ -89,7 +113,7 @@ export default function ViewDetailsPerson({ data }: any) {
           </div>
           <div className="flex gap-3">
             <a
-              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl} || #`}
+              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -106,20 +130,23 @@ export default function ViewDetailsPerson({ data }: any) {
         {/* Qualification */}
         <div className=" pt-4 space-y-2">
           <h3 className="text-lg font-semibold">Qualification</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-gray-300">
-            {/* {data?.map((item: any, index: number) => (
-              <div
-                key={index}
-                className={`${
-                  index !== data.length - 1 ? "sm:border-r border-l-white" : ""
-                }`}
-              >
-                <p>{item.title}</p>
-                <p className="mt-2">{item.value}</p>
-              </div>
-            ))} */}
+          <div className=" gap-4 text-sm text-gray-300 list-disc">
+            <ul className="list-disc pl-5 text-sm text-gray-300 space-y-2">
+              {data?.job?.qualifications?.map((item: string, index: number) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
           </div>
         </div>
+
+        {/* // <div
+              //   key={index}
+              //   className={`${
+              //     index !== data.length - 1 ? "sm:border-r border-l-white" : ""
+              //   }`}
+              // >
+              //   <p>{item}</p>
+              // </div> */}
 
         {/* Availability & Salary */}
         <div className="flex space-x-10 text-sm text-gray-300">
@@ -130,8 +157,8 @@ export default function ViewDetailsPerson({ data }: any) {
           <p className="border-l border-l-white" />
           <div className="">
             <p>Expected Salary</p>
-            {data?.experiences?.salaryAmount ? (
-              <p className="text-white">${data?.experiences?.salaryAmount}</p>
+            {data?.expectedSalary ? (
+              <p className="text-white">${data?.expectedSalary}</p>
             ) : (
               "No Amount"
             )}
@@ -146,9 +173,14 @@ export default function ViewDetailsPerson({ data }: any) {
               Create Appointment
             </button>
           </Link>
-          <button className="cursor-pointer bg-[#149235] px-4 py-2 rounded text-white hover:bg-green-600 transition">
-            Approve
-          </button>
+          {data?.status !== "Accepted" && (
+            <button
+              className="cursor-pointer bg-[#149235] px-4 py-2 rounded text-white hover:bg-green-600 transition"
+              onClick={() => handleApproved(data?._id)}
+            >
+              Approve
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ type Props = {
   qualifications: any[];
   addQualification: (value: any) => void;
   removeQualification: (index: number) => void;
+  errors: any;
 };
 
 export default function AddQualificationAndResposibilities({
@@ -20,6 +21,7 @@ export default function AddQualificationAndResposibilities({
   qualifications,
   addQualification,
   removeQualification,
+  errors,
 }: Props) {
   return (
     <div>
@@ -32,19 +34,27 @@ export default function AddQualificationAndResposibilities({
             onClick={() => addResponsibility({ value: "" })}
           />
         </div>
-
         {responsibilities.map((item, index) => (
-          <div key={item.id} className="flex items-center gap-3">
-            <Textarea
-              {...register(`responsibilities.${index}.value`)}
-              rows={3}
-              placeholder="Type here"
-              className="w-full px-3 py-3 text-gray-200 my-2 min-h-10"
-            />
-            <Minus
-              className="text-red-500 cursor-pointer"
-              onClick={() => removeResponsibility(index)}
-            />
+          <div key={index}>
+            <div className="flex items-center gap-3">
+              <Textarea
+                {...register(`responsibilities.${index}.value`, {
+                  required: "Responsibility is required",
+                })}
+                rows={3}
+                placeholder="Type here"
+                className="w-full px-3 py-3 text-gray-200 my-2 min-h-10"
+              />
+              <Minus
+                className="text-red-500 cursor-pointer"
+                onClick={() => removeResponsibility(index)}
+              />
+            </div>
+            {errors?.responsibilities?.[index]?.value && (
+              <p className="text-red-400 text-sm">
+                {errors.responsibilities[index].value.message}
+              </p>
+            )}
           </div>
         ))}
       </div>
@@ -58,19 +68,27 @@ export default function AddQualificationAndResposibilities({
             onClick={() => addQualification({ value: "" })}
           />
         </div>
-
         {qualifications.map((item, index) => (
-          <div key={item.id} className="flex items-center gap-3">
-            <Textarea
-              {...register(`qualifications.${index}.value`)}
-              rows={3}
-              placeholder="Type here"
-              className="w-full px-3 py-3 text-gray-200 my-2 min-h-10"
-            />
-            <Minus
-              className="text-red-500 cursor-pointer"
-              onClick={() => removeQualification(index)}
-            />
+          <div key={index}>
+            <div className="flex items-center gap-3">
+              <Textarea
+                {...register(`qualifications.${index}.value`, {
+                  required: "Qualification is required",
+                })}
+                rows={3}
+                placeholder="Type here"
+                className="w-full px-3 py-3 text-gray-200 my-2 min-h-10"
+              />
+              <Minus
+                className="text-red-500 cursor-pointer"
+                onClick={() => removeQualification(index)}
+              />
+            </div>
+            {errors?.qualifications?.[index]?.value && (
+              <p className="text-red-400 text-sm">
+                {errors.qualifications[index].value.message}
+              </p>
+            )}
           </div>
         ))}
       </div>

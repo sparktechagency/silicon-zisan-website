@@ -40,7 +40,7 @@ export default function AppliedJobs({ data }: any) {
               </p>
 
               {/* Action Button */}
-              <Link href={`/view-details-person/${item?.user?._id}`}>
+              <Link href={`/view-details-person/${item?._id}`}>
                 <Button className="custom-btn w-full mt-4">View Profile</Button>
               </Link>
             </div>

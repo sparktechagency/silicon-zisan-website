@@ -9,7 +9,7 @@ export default async function page({
   const { profieID } = await searchParams;
   console.log("profieID", profieID);
 
-  const res = await myFetch(`/applications/single/${profieID}`);
+  const res = await myFetch(`/job-seekers/single/${profieID}`);
 
   return (
     <>

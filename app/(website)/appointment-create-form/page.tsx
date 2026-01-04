@@ -1,7 +1,6 @@
 import { CreateForm } from "@/components/appointments/CreateForm";
 import BackButton from "@/share/BackButton";
 import Container from "@/share/Container";
-import { ArrowLeft } from "lucide-react";
 
 export default function AppointmentCreateForm() {
   return (

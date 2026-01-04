@@ -2,9 +2,10 @@ import Link from "next/link";
 import { myFetch } from "@/utils/myFetch";
 import Image from "next/image";
 import { Skeleton } from "../ui/skeleton";
+import CustomImage from "@/utils/CustomImage";
 
 export default async function JobPostHomePage() {
-  const res = await myFetch("/applications/me");
+  const res = await myFetch("/jobs/me");
   console.log("res", res);
 
   return (
@@ -13,7 +14,9 @@ export default async function JobPostHomePage() {
         My Jobs
       </h1>
       {res?.data?.map((item: any, index: number) => {
-        const { name, email, image, address } = item?.job?.author;
+        const { name, email, image, address } = item?.author;
+        console.log("my jobs", item?.author);
+
         return (
           <div
             key={index}
@@ -21,10 +24,10 @@ export default async function JobPostHomePage() {
           >
             <div className="sm:flex gap-5">
               <div>
-                {image ? (
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_UR}${image}`}
-                    alt="Logo"
+                {item?.author?.image ? (
+                  <CustomImage
+                    src={item?.author?.image}
+                    title="Logo"
                     width={100}
                     height={30}
                     className="h-32 w-32"

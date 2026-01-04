@@ -26,17 +26,7 @@ import SalaryDetails from "../salary-calculator/SalarayDetails";
 import CaruselCard from "./dashboardSubscription/CaruselCard";
 import { JSX } from "react";
 import NotFound from "@/app/not-found";
-
-// --------------------
-// Not Found Component
-// --------------------
-function DashboardNotFound() {
-  return (
-    <div className="flex h-full items-center justify-center text-gray-500">
-      <h2 className="text-lg font-semibold">Page not found</h2>
-    </div>
-  );
-}
+import HireEmployeeForm from "../hireEmployes/HireEmployeeForm";
 
 // --------------------
 // Dashboard Component
@@ -48,6 +38,7 @@ export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
     "AI Tools": <AITools />,
     Appointments: <Appointments />,
     "Hire Employees": <HireEmployees />,
+    HireEmployeeForm: <HireEmployeeForm />,
     "Shift Plan": <ShiftPlanpage />,
     "Create New Plan": <CreateNewPlan />,
     "Add WhatsApp": <AddWhatsLinkPage />,

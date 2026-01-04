@@ -3,7 +3,9 @@ import { myFetch } from "@/utils/myFetch";
 
 export default async function page({ params }: { params: { id: string } }) {
   const id = (await params)?.id;
-  const res = await myFetch(`/applications/single/${id}`);
+  const res = await myFetch(`/applications/single/${id}`, {
+    tags: ["job-seeker-details"],
+  });
 
   return (
     <>

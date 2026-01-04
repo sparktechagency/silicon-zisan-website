@@ -2,7 +2,7 @@
 "use client";
 
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +13,8 @@ import SalaryDetailsFormValues from "../job-details/post-job-form/SalaryDetailsF
 import AddQualificationAndResposibilities from "../job-details/post-job-form/AddQualificationAndResposibilities";
 import { myFetch } from "@/utils/myFetch";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { revalidate } from "@/utils/revalidateTag";
 
 type FormValues = {
   category: string;
@@ -27,10 +29,11 @@ type FormValues = {
   aboutCompany: string;
 };
 
-const PostJobForm = () => {
+const HireEmployeeForm = () => {
   const searchParams = useSearchParams();
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const {
     register,
@@ -96,13 +99,27 @@ const PostJobForm = () => {
       qualifications: data.qualifications.map((item) => item.value),
       salaryAmount: 5000,
       experience: "With Experience",
+      isHiringRequest: true,
     };
+    try {
+      const res = await myFetch("/jobs/create", {
+        method: "POST",
+        body: payload,
+      });
+      console.log("res", res);
 
-    const res = await myFetch("/jobs/create", {
-      method: "POST",
-      body: payload,
-    });
-    console.log("res", res);
+      if (res.success) {
+        toast.success(res.message);
+        await revalidate("hire-employee");
+        setTimeout(() => {
+          router.back();
+        }, 500);
+      } else {
+        toast.error((res as any).error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "something went wrong");
+    }
   };
 
   return (
@@ -126,7 +143,7 @@ const PostJobForm = () => {
           />
 
           {/* Job Type & Deadline */}
-          <JobType control={control} register={register} errors={errors} />
+          <JobType control={control} register={register} />
 
           {/* Salary Type*/}
           <SalaryDetailsFormValues
@@ -178,4 +195,4 @@ const PostJobForm = () => {
   );
 };
 
-export default PostJobForm;
+export default HireEmployeeForm;
