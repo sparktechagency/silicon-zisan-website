@@ -12,11 +12,11 @@ export default function CustomDatePicker() {
   const [selectedHour, setSelectedHour] = useState<null | number>(null);
   const [selectedMinute, setSelectedMinute] = useState<null | number>(null);
 
-  const setNow = () => {
-    const now = new Date();
-    setSelectedHour(now.getHours()); // returns 0–23
-    setSelectedMinute(now.getMinutes()); // returns 0–59
-  };
+  // const setNow = () => {
+  //   const now = new Date();
+  //   setSelectedHour(now.getHours()); // returns 0–23
+  //   setSelectedMinute(now.getMinutes()); // returns 0–59
+  // };
 
   const [isMobile, setIsMobile] = useState(false);
 
