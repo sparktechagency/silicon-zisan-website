@@ -10,6 +10,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import HourMinutePicker from "./CustomDatePicker";
 import { DatePicker } from "@/share/DatePicker";
 import dayjs from "dayjs";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
 
 type FormValues = {
   appointment: dayjs.Dayjs | null;
@@ -18,7 +20,7 @@ type FormValues = {
   message: string;
 };
 
-export function CreateForm() {
+export function CreateForm({ res }: any) {
   const { register, handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
       appointment: dayjs(),
@@ -28,9 +30,32 @@ export function CreateForm() {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    const payload = data.appointment?.toISOString() ?? null;
-    console.log("Form submitted:", payload);
+  const onSubmit = async (data: FormValues) => {
+    const payload = {
+      receiver: res?._id,
+      job: res?.user?._id,
+      scheduledAt: data.appointment?.toISOString() ?? null,
+      address: res?.user?.address,
+      message: data?.message,
+    };
+
+    console.log("payload", payload);
+    try {
+      const res = await myFetch("/appointments/create", {
+        method: "POST",
+        body: payload,
+      });
+
+      console.log("res", res);
+
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? res?.message : "something went wrong");
+    }
   };
 
   return (

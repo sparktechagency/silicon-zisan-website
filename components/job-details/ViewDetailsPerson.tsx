@@ -12,8 +12,6 @@ import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 
 export default function ViewDetailsPerson({ data }: any) {
-  console.log("data", data);
-
   const handleApproved = async (id: string) => {
     console.log("id", id);
 
@@ -168,7 +166,7 @@ export default function ViewDetailsPerson({ data }: any) {
         {/* Action Buttons */}
         <div className="flex gap-4  pt-4">
           {/* <FeedBackModal /> */}
-          <Link href="/appointment-create-form">
+          <Link href={`/appointment-create-form?id=${data?._id}`}>
             <button className="cursor-pointer border border-white px-4 py-2 rounded text-white hover:bg-white hover:text-[#0F172A] transition">
               Create Appointment
             </button>
