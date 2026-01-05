@@ -1,10 +1,10 @@
 import hotel from "../public/dashboard/hotel.png";
-import { CiCirclePlus, CiSettings } from "react-icons/ci";
 import shift from "../public/dashboard/sidebar/shift.svg";
+import postJob from "../public/dashboard/sidebar/post-job.svg";
 import hire from "../public/dashboard/sidebar/hire-employee.svg";
 import two from "../public/dashboard/sidebar/appoinmenttwo.svg";
 import jobIcon from "../public/dashboard/sidebar/job-icon.svg";
-import aiIcon from "../public/dashboard/sidebar/ai-icon.svg";
+// import aiIcon from "../public/dashboard/sidebar/ai-icon.svg";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
@@ -14,20 +14,36 @@ import { MdPodcasts } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
 export const data = [
-  { title: "My Posted Jobs", icon: jobIcon },
-  { title: "Post Job", icon: CiCirclePlus },
-  { title: "AI Tools", icon: aiIcon },
-  { title: "Appointments", icon: two },
-  { title: "Subscription Plan", icon: MdPodcasts },
-  { title: "Hire Employees", icon: hire },
-  { title: "Shift Plan", icon: shift },
-  { title: "Salary Calculator", icon: CiCalculator1 },
-  { title: "WhatsApp Support", icon: FaWhatsapp },
-  { title: "Add WhatsApp Link", icon: FaWhatsapp },
-  { title: "Invoice & Payments", icon: PiNoteThin },
-  { title: "Contact & Support", icon: TfiHeadphoneAlt },
-  { title: "Verify Account", icon: MdOutlineVerifiedUser },
-  { title: "Download Center", icon: MdOutlineFileDownload },
+  { title: "My Jobs", value: "myJobs", icon: jobIcon, path: "/my-jobs" },
+  { title: "Post Job", value: "postJob", icon: postJob },
+  // { title: "AI Tools", value: "aiTools", icon: aiIcon },
+  { title: "Appointments", value: "appointments", icon: two },
+  { title: "Subscription Plan", value: "subscriptionPlan", icon: MdPodcasts },
+  { title: "Hire Employees", value: "hireEmployees", icon: hire },
+  { title: "Shift Plan", value: "shiftPlan", icon: shift },
+  {
+    title: "Salary Calculator",
+    value: "salaryCalculator",
+    icon: CiCalculator1,
+  },
+  { title: "WhatsApp Support", value: "whatsappSupport", icon: FaWhatsapp },
+  { title: "Add WhatsApp", value: "addWhatsapp", icon: FaWhatsapp },
+  { title: "Invoice & Payments", value: "invoicePayments", icon: PiNoteThin },
+  {
+    title: "Contact & Support",
+    value: "contactSupport",
+    icon: TfiHeadphoneAlt,
+  },
+  {
+    title: "Verify Account",
+    value: "verifyAccount",
+    icon: MdOutlineVerifiedUser,
+  },
+  {
+    title: "Download Center",
+    value: "downloadCenter",
+    icon: MdOutlineFileDownload,
+  },
 ];
 
 export const postJobsDetails = [
@@ -186,6 +202,27 @@ export const age = [
 
 // position
 export const position = [
-  { id: 1, label: "Full Time" },
-  { id: 2, label: "Part Time" },
+  { id: 1, label: "232344" },
+  { id: 2, label: "987645" },
+];
+
+// post job categories
+export const jobRoles = [
+  "Senior Business Analytics",
+  "It & Development",
+  "Photo Editing",
+  "Cleaning",
+  "Plumber",
+  "Electrician",
+  "Driver",
+  "Software",
+];
+
+export const jobTypes = [
+  "Full Time",
+  "Part Time",
+  "Mini Job",
+  "Ausbildung",
+  "Temporary Work",
+  "Career Changer",
 ];

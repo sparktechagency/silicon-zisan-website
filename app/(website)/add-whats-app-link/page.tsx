@@ -1,9 +1,13 @@
 import AddWhatsLink from "@/components/addWhatsLink/AddWhatsLink";
+import { myFetch } from "@/utils/myFetch";
 
-export default function AddWhatsLinkPage() {
+export default async function AddWhatsLinkPage() {
+  const res = await myFetch("/users/profile");
+  console.log("res", res);
+
   return (
-    <div>
-      <AddWhatsLink />
-    </div>
+    <>
+      <AddWhatsLink phone={res?.data?.phone} />
+    </>
   );
 }

@@ -4,20 +4,37 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import personOne from "../../public/dashboard/person-one.png";
 import pdf from "../../public/dashboard/pdf.png";
-import FeedBackModal from "./FeedBackModal";
-import resume from "../../public/dashboard/profile-view/cv.png";
-import ResumeView from "./ResumeView";
 
-const data = [
-  { title: "Exam/Degree Title", value: "Bachelor Of Science BSC" },
-  { title: "Passing Year", value: "2022" },
-  { title: "Result Type", value: "CGPA" },
-  { title: "Result", value: "4.06" },
-];
+import dayjs from "dayjs";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { revalidate } from "@/utils/revalidateTag";
 
-export default function ViewDetailsPerson() {
+export default function ViewDetailsPerson({ data }: any) {
+  const handleApproved = async (id: string) => {
+    console.log("id", id);
+
+    try {
+      const res = await myFetch(`/applications/update/${id}`, {
+        method: "PATCH",
+        body: {
+          status: "Accepted",
+        },
+      });
+      console.log("res", res);
+
+      if (res.success) {
+        toast.success(res.message);
+        await revalidate("job-seeker-details");
+      } else {
+        toast.error((res as any).error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "something went wrong");
+    }
+  };
+
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6 my-12">
       {/* Header */}
@@ -34,20 +51,31 @@ export default function ViewDetailsPerson() {
       {/* Image */}
       <div className="sm:flex gap-4">
         <Image
-          src={personOne} // Replace with actual image path
+          src={
+            data?.user?.image
+              ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.user?.image}`
+              : "No Image"
+          }
           alt="Office"
-          className="rounded-md h-44"
+          className="rounded-md w-44 h-44 object-cover"
+          width={10}
+          height={10}
+          unoptimized
         />
 
         <div className="mt-4 sm:mt-0">
-          <p className="text-xl sm:text-3xl">John Doe</p>
-          <p className="tex-xl sm:text-2xl mt-1">Senior Business Analysis</p>
+          <p className="text-xl sm:text-3xl">
+            {data?.user?.name?.trim() ? data?.user?.name : "No Name"}
+          </p>
+          <p className="tex-xl sm:text-2xl mt-1">{data?.job?.subCategory}</p>
 
           <div className="flex gap-4 items-center mt-2 text-sm">
-            <p className="text-xl sm:text-2xl gap-2">Applied : 01.02.2025</p>
+            <p className="text-xl sm:text-2xl gap-2">
+              Applied : {dayjs(data?.createdAt).format("YYYY-MM-DD")}
+            </p>
           </div>
           <div className="flex gap-5">
-            <Link href="/view-profile">
+            <Link href={`/view-profile?profieID=${data?.user?._id}`}>
               <Button className="border border-[#90D7E8] bg-card mt-5 h-10">
                 View Profile
               </Button>
@@ -61,12 +89,7 @@ export default function ViewDetailsPerson() {
 
       <div>
         <h1 className="text-3xl">About Me</h1>
-        <p className="mt-4">
-          Lorem ipsum dolor sit amet consectetur. Ultrices eu vitae bibendum id
-          at. Mattis tortor cursus viverra eget augue condimentum. Facilisi eu
-          vel non scelerisque neque. Massa massa egestas morbi odio nunc
-          sollicitudin. Vitae in r .
-        </p>
+        <p className="mt-4">{data?.about}</p>
       </div>
 
       {/* resume and others */}
@@ -78,27 +101,24 @@ export default function ViewDetailsPerson() {
               <Image src={pdf} alt="Office" width={60} height={50} />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">Jhon Doe Pdf</h2>
-              <p className="text-sm text-gray-300">01.02.2025</p>
+              <h2 className="text-xl font-semibold">
+                {data?.resumeUrl ? `Pdf File` : "No Pdf"}
+              </h2>
+              {/* <p className="text-sm text-gray-300">
+                {dayjs(data?.createdAt).format("YYYY-MM-DD")}
+              </p> */}
             </div>
           </div>
           <div className="flex gap-3">
-            {/* <a
-              href={`http://10.10.7.54:3000/${resume.src}`}
+            <a
+              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
               target="_blank"
               rel="noopener noreferrer"
             >
               <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
                 <EyeIcon className="p-0.5 text-white" />
               </button>
-            </a> */}
-            <ResumeView
-              trigger={
-                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                  <EyeIcon className="p-0.5 text-white" />
-                </button>
-              }
-            />
+            </a>
             <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
               <DownloadIcon className="p-0.5 text-white" />
             </button>
@@ -108,20 +128,23 @@ export default function ViewDetailsPerson() {
         {/* Qualification */}
         <div className=" pt-4 space-y-2">
           <h3 className="text-lg font-semibold">Qualification</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm text-gray-300">
-            {data?.map((item, index) => (
-              <div
-                key={index}
-                className={`${
-                  index !== data.length - 1 ? "sm:border-r border-l-white" : ""
-                }`}
-              >
-                <p>{item.title}</p>
-                <p className="mt-2">{item.value}</p>
-              </div>
-            ))}
+          <div className=" gap-4 text-sm text-gray-300 list-disc">
+            <ul className="list-disc pl-5 text-sm text-gray-300 space-y-2">
+              {data?.job?.qualifications?.map((item: string, index: number) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
           </div>
         </div>
+
+        {/* // <div
+              //   key={index}
+              //   className={`${
+              //     index !== data.length - 1 ? "sm:border-r border-l-white" : ""
+              //   }`}
+              // >
+              //   <p>{item}</p>
+              // </div> */}
 
         {/* Availability & Salary */}
         <div className="flex space-x-10 text-sm text-gray-300">
@@ -132,21 +155,30 @@ export default function ViewDetailsPerson() {
           <p className="border-l border-l-white" />
           <div className="">
             <p>Expected Salary</p>
-            <p className="text-white">$500</p>
+            {data?.expectedSalary ? (
+              <p className="text-white">${data?.expectedSalary}</p>
+            ) : (
+              "No Amount"
+            )}
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="flex gap-4  pt-4">
           {/* <FeedBackModal /> */}
-          <Link href="/appointment-create-form">
+          <Link href={`/appointment-create-form?id=${data?._id}`}>
             <button className="cursor-pointer border border-white px-4 py-2 rounded text-white hover:bg-white hover:text-[#0F172A] transition">
-              Create Form
+              Create Appointment
             </button>
           </Link>
-          <button className="cursor-pointer bg-[#149235] px-4 py-2 rounded text-white hover:bg-green-600 transition">
-            Approve
-          </button>
+          {data?.status !== "Accepted" && (
+            <button
+              className="cursor-pointer bg-[#149235] px-4 py-2 rounded text-white hover:bg-green-600 transition"
+              onClick={() => handleApproved(data?._id)}
+            >
+              Approve
+            </button>
+          )}
         </div>
       </div>
     </div>

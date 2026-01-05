@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import Languages from "@/languages/Languages";
+import { Toaster } from "@/components/ui/sonner";
+// export const dynamic = "force-dynamic";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  display: "swap", // Recommended for better font loading experience
-  variable: "--font-poppins", // Define a CSS variable for easy access
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // Specify desired weights
+  display: "swap",
+  variable: "--font-poppins",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -16,12 +19,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} antialiased`}>{children}</body>
+      <body className={`${poppins.variable} antialiased`}>
+        <Languages />
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

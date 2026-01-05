@@ -33,7 +33,7 @@ export default function CancelModal({
 
       <DialogContent className="bg-white text-gray-700">
         <div>
-          <h1 className="capitalize text-2xl font-medium text-center mt-4">
+          <h1 className="capitalize sm:text-2xl font-medium text-center mt-4">
             Are you sure you want to cancel <br /> this subscription?
           </h1>
 

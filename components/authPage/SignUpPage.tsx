@@ -1,42 +1,62 @@
 "use client";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Container from "@/share/Container";
 import Image from "next/image";
 import logo from "../../public/auth/logo.png";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { setCookie } from "cookies-next/client";
 
-const formSchema = z.object({
-  userName: z.string().min(1, "Username is required"),
-  email: z.string().min(1, "Username is required"),
-  password: z.string().min(1, "Email is required"),
-  confirmPassword: z.string().min(1, "Confirm Password is required"),
-});
-
-type FormData = z.infer<typeof formSchema>;
+type Inputs = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export default function SignUpPage() {
-  // const router = useRouter();
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-  });
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {
-    console.log(values);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      const res = await myFetch("/users/create-user", {
+        method: "POST",
+        body: { ...data, role: "Employer" },
+      });
+
+      console.log("res", res);
+
+      if (res?.success) {
+        toast.success(res?.message);
+        // setCookie("accessToken", res?.data?.accessToken);
+        // setCookie("role", role);
+        router.push("/login");
+      } else {
+        toast.error(
+          Array.isArray(res?.error)
+            ? res?.error[0]?.message
+            : res?.error ?? "Login failed"
+        );
+      }
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "An error occurred";
+      toast.error(message);
+    }
   };
 
   return (
@@ -66,118 +86,85 @@ export default function SignUpPage() {
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
           Sign Up
         </h1>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 w-full "
-          >
-            {/* full name */}
-            <FormField
-              control={form.control}
-              name="userName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Full Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="placeholder:text-white text-white"
-                      placeholder="Enter Your Full Name"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* email */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email Address</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="placeholder:text-white text-white"
-                      placeholder="Enter Your Email Address"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* Password */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="placeholder:text-white"
-                      placeholder="Enter Your Password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* Password */}
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <Input
-                      className="placeholder:text-white"
-                      placeholder="Enter Your Confirm Password"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Link href="/login">
-              <Button className="custom-btn w-full" type="submit">
-                Sign Up
-              </Button>
-            </Link>
 
-            <p className="text-center my-4">Or Continue With</p>
-            <div className="flex justify-center gap-4">
-              <Button
-                type="button"
-                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
-              >
-                <FaGoogle />
-              </Button>
-              <Button
-                type="button"
-                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
-              >
-                <FaApple />
-              </Button>
-              <Button
-                type="button"
-                className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
-              >
-                <FaFacebookF />
-              </Button>
-            </div>
-            <p className="text-center text-white mt-4">
-              Already Have An Account?{" "}
-              <Link className="underline" href="/login">
-                Login
-              </Link>
-            </p>
-          </form>
-        </Form>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full ">
+          {/* name */}
+          <div>
+            <Input
+              type="text"
+              className="placeholder:text-white text-white"
+              placeholder="Enter Your Name"
+              {...register("name", { required: true })}
+            />
+          </div>
+          {errors.name?.type === "required" && (
+            <p className="text-red-500">Email is required</p>
+          )}
+          {/* email */}
+          <div>
+            <Input
+              type="email"
+              className="placeholder:text-white text-white"
+              placeholder="Enter Your Email Address"
+              {...register("email", { required: true })}
+            />
+          </div>
+          {errors.email?.type === "required" && (
+            <p className="text-red-500">Email is required</p>
+          )}
+
+          {/* Password */}
+          <div className="relative">
+            <Input
+              type={showPassword ? "text" : "password"}
+              className="placeholder:text-white"
+              placeholder="Enter Your Password"
+              {...register("password", { required: true })}
+            />
+            {errors.password?.type === "required" && (
+              <p className="text-red-500">Password is required</p>
+            )}
+
+            <span
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859]"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <Eye /> : <EyeOff />}
+            </span>
+          </div>
+
+          <Button className="custom-btn w-full" type="submit">
+            Sign Up
+          </Button>
+
+          <p className="text-center my-4">Or Continue With</p>
+          <div className="flex justify-center gap-4">
+            <Button
+              type="button"
+              className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+            >
+              <FaGoogle />
+            </Button>
+            <Button
+              type="button"
+              className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+            >
+              <FaApple />
+            </Button>
+            <Button
+              type="button"
+              className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+            >
+              <FaFacebookF />
+            </Button>
+          </div>
+          <p className="text-center text-white mt-4">
+            Already Have An Account?{" "}
+            <Link className="underline" href="/login">
+              Login
+            </Link>
+          </p>
+        </form>
       </div>
     </Container>
   );

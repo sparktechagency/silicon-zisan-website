@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import logo from "../../public/dashboard/hotel.png";
 import { ArrowLeft, Clock3 } from "lucide-react";
 import Link from "next/link";
+import dayjs from "dayjs";
 
-export default function ViewDetailsCompany() {
+export default function ViewDetailsCompany({ data }: any) {
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6">
       {/* Header */}
@@ -23,7 +24,7 @@ export default function ViewDetailsCompany() {
       {/* Image */}
       <div className="sm:flex gap-4">
         <Image
-          src={logo} // Replace with actual image path
+          src={logo}
           alt="Office"
           width={400}
           height={400}
@@ -31,21 +32,23 @@ export default function ViewDetailsCompany() {
         />
 
         <div className="mt-4 sm:mt-0">
-          <p className="text-lg font-semibold">Sparktech Agency</p>
-          <p className="text-sm text-gray-300">California, USA</p>
-          <p className="text-md mt-1">Senior Business Analysis</p>
+          <p className="text-lg font-semibold">{data?.author?.name}</p>
+          <p className="text-sm text-gray-300">{data?.author?.address}</p>
+          <p className="text-md mt-1">{data?.category}</p>
           <div className="flex gap-4 text-sm mt-2">
-            <p className="border p-0.5 rounded bg-[#465565] px-3">Full Time</p>
-            <p>$200–$300/Month</p>
+            <p className="border p-0.5 rounded bg-[#465565] px-3">
+              {data?.jobType}
+            </p>
+            <p>${data?.salaryAmount}/Month</p>
           </div>
           <div className="flex gap-4 items-center mt-2 text-sm">
             <p className="flex gap-2">
-              <Clock3 size={20} /> 20 Jun 2025
+              <Clock3 size={20} /> {dayjs(data?.deadline).format("YYYY-MM-DD")}
             </p>
           </div>
           <div className="space-x-2">
-            <Link href="/applied-jobs">
-              <Button className="custom-btn mt-5">8 Applied</Button>
+            <Link href={`/applied-jobs/${data?._id}`}>
+              <Button className="custom-btn mt-5">Job Applicants</Button>
             </Link>
             <Link href="/alert-setting" className="">
               <Button className="custom-btn mt-5">
@@ -59,25 +62,16 @@ export default function ViewDetailsCompany() {
       {/* Job Description */}
       <div>
         <h3 className="text-lg font-semibold mb-2">Job Description</h3>
-        <p className="text-sm text-gray-300">
-          We are seeking a compassionate nurse to join our Emergency Department,
-          providing quality care to patients in a fast-paced environment.
-        </p>
+        <p className="text-sm text-gray-300">{data?.description}</p>
       </div>
 
       {/* Responsibilities */}
       <div>
         <h3 className="text-lg font-semibold mb-2">Responsibilities</h3>
         <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-          <li>
-            Provide direct care to patients, monitor vital signs, administer
-            medications
-          </li>
-          <li>Maintain patient records and ensure they are up to date</li>
-          <li>
-            Collaborate with doctors, nurses, and other healthcare team members
-          </li>
-          <li>Respond quickly to patient needs and emergencies</li>
+          {data?.responsibilities?.map((item: any, index: number) => (
+            <li key={index}>{item}</li>
+          ))}
         </ul>
       </div>
 
@@ -85,21 +79,15 @@ export default function ViewDetailsCompany() {
       <div>
         <h3 className="text-lg font-semibold mb-2">Qualifications</h3>
         <ul className="list-disc list-inside text-sm text-gray-300 space-y-1">
-          <li>Bachelor's Degree in Nursing (BSN) or Medical Degree required</li>
-          <li>
-            Certified Nursing Assistant (CNA) or Board-Certified in Pediatrics
-          </li>
-          <li>2+ years of experience in a hospital setting preferred</li>
-          <li>
-            Strong communication skills, attention to detail, and critical
-            thinking
-          </li>
+          {data?.qualifications?.map((item: any, index: number) => (
+            <li key={index}>{item}</li>
+          ))}
         </ul>
       </div>
 
       {/* Action Buttons */}
       <div className="flex gap-4 justify-end">
-        <Link href="/edit-job-post">
+        <Link href={`/edit-job-post/${data?._id}`}>
           <Button className="custom-btn">Edit Now</Button>
         </Link>
         <Button className="custom-btn">Withdraw</Button>

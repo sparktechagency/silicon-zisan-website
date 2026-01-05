@@ -21,8 +21,8 @@ export const footerSections: FooterSection[] = [
     title: "Quick Links",
     links: [
       { label: "Profile", href: "/profile" },
-      { label: "Home", href: "/" },
-      { label: "Job", href: "/?name=My+Posted+Jobs" },
+      { label: "Homepage", href: "/" },
+      { label: "Jobs", href: "/?name=My+Posted+Jobs" },
       { label: "For Employer", href: "/?name=Hire+Employees" },
     ],
   },

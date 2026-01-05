@@ -90,7 +90,7 @@ export default function PaymentInterface() {
   const [selectedMethod, setSelectedMethod] = useState("Apple Pay");
 
   return (
-    <Container className="grid lg:grid-cols-[35%_auto] my-16 gap-20 px-10">
+    <Container className="grid lg:grid-cols-[35%_auto] my-16 sm:gap-20 px-1 sm:px-10">
       <div className="">
         <div className="flex gap-2 mb-3">
           <CustomBackButton />
@@ -124,7 +124,7 @@ export default function PaymentInterface() {
             <div className="bg-[#304150] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
               <div className="flex justify-between items-center">
                 <div className="mt-4">
-                  <h1 className="text-white text-2xl font-semibold">
+                  <h1 className="text-white sm:text-2xl font-semibold">
                     {item.subTitle}
                   </h1>
                   <p className="text-white text-sm flex gap-2 mt-2">
@@ -169,7 +169,7 @@ export default function PaymentInterface() {
         ))}
       </div>
       {/* payment */}
-      <div className=" text-white py-1 px-5 rounded-xl space-y-6 border border-gray-400/30 lg:mt-10 h-full">
+      <div className=" text-white py-1 px-5 rounded-xl space-y-6 border border-gray-400/30 mt-14 sm:mt-10 h-full">
         {/* Package Info */}
         <div className="space-y-2">
           {/* <h2 className="text-xl font-semibold">Package Information</h2> */}

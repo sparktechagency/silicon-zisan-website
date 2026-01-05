@@ -8,14 +8,19 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DatePicker() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+type Props = {
+  value: Date | undefined;
+  onChange: (date: Date | undefined) => void;
+};
+
+export function DatePicker({ value, onChange }: Props) {
   const [open, setOpen] = React.useState(false);
 
   const handleCancel = () => {
-    setDate(undefined);
+    onChange(undefined);
     setOpen(false);
   };
+
   const handleOk = () => setOpen(false);
 
   return (
@@ -23,16 +28,17 @@ export function DatePicker() {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button className="button-unactive bg-card text-white w-full">
-            {date ? format(date, "EEE, MMM d") : "Select date"}
+            {value ? format(value, "EEE, MMM d") : "Select date"}
           </Button>
         </PopoverTrigger>
+
         <PopoverContent className="w-full rounded-xl p-0 bg-card text-white">
-          <div className="flex flex-col  rounded-xl overflow-hidden">
+          <div className="flex flex-col rounded-xl overflow-hidden">
             {/* Header */}
             <div className="p-4 border-b text-center">
               <p className="text-gray-500 text-sm">Select date</p>
               <p className="text-2xl font-medium mt-1">
-                {date ? format(date, "EEE, MMM d") : "Select date"}
+                {value ? format(value, "EEE, MMM d") : "Select date"}
               </p>
             </div>
 
@@ -40,10 +46,10 @@ export function DatePicker() {
             <div className="p-3">
               <Calendar
                 mode="single"
-                selected={date}
-                onSelect={setDate}
-                month={date}
-                onMonthChange={setDate}
+                selected={value}
+                onSelect={onChange}
+                month={value}
+                onMonthChange={onChange}
                 captionLayout="dropdown"
                 className="w-full bg-card calendar-dropdown"
               />
@@ -59,7 +65,7 @@ export function DatePicker() {
               </Button>
               <Button
                 className={`border border-gray-400/30 bg-card ${
-                  date ? "custom-btn" : ""
+                  value ? "custom-btn" : ""
                 }`}
                 onClick={handleOk}
               >

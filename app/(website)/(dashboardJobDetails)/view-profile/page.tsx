@@ -1,11 +1,19 @@
 import ViewProfile from "@/components/job-details/ViewProfile";
-import { View } from "lucide-react";
-import React from "react";
+import { myFetch } from "@/utils/myFetch";
 
-export default function page() {
+export default async function page({
+  searchParams,
+}: {
+  searchParams: { profieID: string };
+}) {
+  const { profieID } = await searchParams;
+  console.log("profieID", profieID);
+
+  const res = await myFetch(`/job-seekers/single/${profieID}`);
+
   return (
-    <div>
-      <ViewProfile />
-    </div>
+    <>
+      <ViewProfile data={res?.data} />
+    </>
   );
 }

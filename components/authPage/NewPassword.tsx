@@ -1,82 +1,82 @@
 "use client";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+import { myFetch } from "@/utils/myFetch";
 
-const formSchema = z.object({
-  newPassword: z.string().min(1, "New Password is required"),
-  confirmPassword: z.string().min(1, "Confirm Password is required"),
-});
-
-type FormData = z.infer<typeof formSchema>;
+type Inputs = {
+  newPassword: string;
+  confirmPassword: string;
+};
 
 export default function NewPassword() {
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token") || "";
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      newPassword: "",
+      confirmPassword: "",
+    },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {};
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      const res = await myFetch("/auth/reset-password", {
+        method: "POST",
+        body: {
+          newPassword: data?.newPassword,
+          confirmPassword: data?.confirmPassword,
+        },
+        token: token,
+      });
+
+      if (res?.success) {
+        toast.success(res.message);
+        router.push("/login");
+      } else {
+        toast.error(res?.message || "Failed to reset password");
+      }
+    } catch (err) {
+      // handle error
+      toast.error(
+        err instanceof Error
+          ? err.message
+          : "Password reset failed. Please try again."
+      );
+    }
+  };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 w-full "
-      >
-        {/* email */}
-        <FormField
-          control={form.control}
-          name="newPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>New Password</FormLabel>
-              <FormControl>
-                <Input
-                  className="placeholder:text-white text-white"
-                  placeholder="Enter Your New Password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {/* Password */}
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Repeat Password</FormLabel>
-              <FormControl>
-                <Input
-                  className="placeholder:text-white"
-                  placeholder="Enter Your Repeat Password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Link href="/login">
-          <Button className="custom-btn w-full" type="submit">
-            Submit
-          </Button>
-        </Link>
-      </form>
-    </Form>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 w-full ">
+      {/* password */}
+      <Input
+        className="placeholder:text-white text-white"
+        placeholder="Enter Your New Password"
+        {...register("newPassword")}
+        type="password"
+      />
+
+      {/*new Password */}
+
+      <Input
+        className="placeholder:text-white text-white"
+        placeholder="Enter Your Confirm Password"
+        {...register("confirmPassword")}
+        type="password"
+      />
+
+      <Button className="custom-btn w-full" type="submit">
+        Submit
+      </Button>
+    </form>
   );
 }

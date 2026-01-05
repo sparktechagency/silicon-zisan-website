@@ -1,66 +1,62 @@
 "use client";
-
+import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Please enter a valid email address"),
-});
-type FormData = z.infer<typeof formSchema>;
+type Inputs = {
+  email: string;
+};
 
-export default function ForgotPasswordPage() {
-  const form = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-  });
+export default function ForgotPassword() {
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {};
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      const res = await myFetch("/auth/forget-password", {
+        method: "POST",
+        body: data,
+      });
+
+      if (res?.success) {
+        toast.success(res?.message);
+        router.push(`/verify-otp?email=${data?.email}`);
+      } else {
+        toast.error(res?.message || "Login failed");
+      }
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "An error occurred";
+      toast.error(message);
+    }
+  };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 w-full "
-      >
-        {/* email */}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-              <FormControl>
-                <Input
-                  className="placeholder:text-white text-white"
-                  placeholder="Enter Your Email Address"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full ">
+      {/* email */}
+      <div>
+        <Input
+          type="email"
+          className="placeholder:text-white text-white"
+          placeholder="Enter Your Email Address"
+          {...register("email", { required: true })}
         />
+      </div>
+      {errors.email?.type === "required" && (
+        <p className="text-red-500">Email is required</p>
+      )}
 
-        <Link href="/verify-otp">
-          <Button className="custom-btn w-full" type="submit">
-            Verify
-          </Button>
-        </Link>
-      </form>
-    </Form>
+      <Button className="custom-btn w-full" type="submit">
+        Verify
+      </Button>
+    </form>
   );
 }

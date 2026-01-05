@@ -1,58 +1,74 @@
-import { postJobsDetails } from "@/demoData/data";
-import Image from "next/image";
-import logo from "../../public/dashboard/hotel.png";
 import Link from "next/link";
+import { myFetch } from "@/utils/myFetch";
 import { Skeleton } from "../ui/skeleton";
+import CustomImage from "@/utils/CustomImage";
 
-export default function JobPostHomePage() {
+export default async function JobPostHomePage() {
+  const res = await myFetch("/jobs/me");
+  console.log("res", res);
+
   return (
     <div className="basis-[70%]">
       <h1 className=" p-3 rounded font-medium mb-4 bg-card text-white text-2xl border border-white/30">
-        My Posts Jobs
+        My Jobs
       </h1>
-      {postJobsDetails?.map((item: any, index: number) => (
-        <div
-          key={index}
-          className="bg-card sm:flex justify-between border border-gray-300/30 p-3 rounded-md mb-6"
-        >
-          <div className="sm:flex gap-5">
-            <div>
-              {logo ? (
-                <Image
-                  src={logo}
-                  alt="Logo"
-                  width={100}
-                  height={30}
-                  className="h-32 w-32"
-                />
-              ) : (
-                <Skeleton className="h-32 w-32" />
-              )}
-            </div>
-            {/* company details */}
-            <div className="text-white">
-              <p className="text-xl">{item.company}</p>
-              <p className="text-sm my-1">{item.location}</p>
-              <p className="text-xl my-2">{item.position}</p>
-              <div className="flex items-center gap-4">
-                <p className="border p-0.5 rounded bg-[#465565] px-3">
-                  {item.jobType}
+      {res?.data?.map((item: any, index: number) => {
+        return (
+          <div
+            key={index}
+            className="bg-card sm:flex justify-between space-x-4 border border-gray-300/30 p-3 rounded-md mb-6"
+          >
+            <div className="flex flex-col sm:flex-row gap-4">
+              {/* Image / Logo */}
+              <div className="shrink-0 w-32 sm:w-36 md:w-40">
+                {item?.author?.image ? (
+                  <CustomImage
+                    src={item?.author?.image}
+                    title="Logo"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <Skeleton className="w-full h-32" />
+                )}
+              </div>
+
+              {/* Company Details */}
+              <div className="text-white flex-1 min-w-0">
+                <p className="text-xl my-2">{item.subCategory}</p>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className="border rounded bg-[#465565] px-3 py-0.5">
+                    {item.jobType}
+                  </p>
+
+                  <p className="text-[18px]">
+                    ${item.salaryAmount}/{item.salaryType}
+                  </p>
+                </div>
+
+                <p className="mt-3 line-clamp-3">
+                  Company Details : {item.description}
                 </p>
-                <p className="text-[18px]">{item.salary}</p>
               </div>
             </div>
+
+            {/* view details */}
+            <div className="text-white flex flex-col justify-between mt-5 sm:mt-0 w-full sm:w-40 shrink-0">
+              <p className="sm:text-right text-sm text-gray-300">
+                {item.postedTime}
+              </p>
+
+              <Link href={`/view-details-jobs/${item._id}`} className="w-full">
+                <button className="custom-btn rounded-md py-2 w-full whitespace-nowrap">
+                  View Details
+                </button>
+              </Link>
+            </div>
           </div>
-          {/* view details */}
-          <div className="text-white  flex flex-col justify-between mt-5 sm:mt-0">
-            <p className="sm:text-right">{item.postedTime}</p>
-            <Link href="/view-details-jobs">
-              <button className="custom-btn rounded-md py-2 px-2 w-full">
-                View Details
-              </button>
-            </Link>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

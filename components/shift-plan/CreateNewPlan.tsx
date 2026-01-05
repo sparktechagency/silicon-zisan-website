@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,17 +10,14 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Delete, Trash, Trash2, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import AddEmployeeForm from "./AddEmployeeModal";
-import CustomDatePicker from "../appointments/CustomDatePicker";
 import ShiftPlanDate from "./ShiftPlanDate";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { useSearchParams } from "next/navigation";
-import DeleteModal from "./DeleteModal";
-// import DeleteModalUsers from "./DeleteUsersModalOpen";
 import DeleteUsersModalOpen from "./DeleteUsersModalOpen";
 import DeleteModalUsers from "./DeleteModalUsers";
 
