@@ -24,7 +24,7 @@ export default function SalaryDetailsFormValues({
               <PackeageType value={field.value} onChange={field.onChange} />
             )}
           />
-          {errors.salaryType && (
+          {errors?.salaryType && (
             <span className="text-red-400">{errors.salaryType.message}</span>
           )}
         </div>
@@ -38,7 +38,7 @@ export default function SalaryDetailsFormValues({
           placeholder="Salary amount type here"
           className="px-3 py-2 text-gray-200 placeholder:text-white"
         />
-        {errors.salaryAmount && (
+        {errors?.salaryAmount && (
           <span className="text-red-400">{errors.salaryAmount.message}</span>
         )}
       </div>
@@ -54,7 +54,7 @@ export default function SalaryDetailsFormValues({
           placeholder="Type here"
           className="w-full h-32 px-3 py-2 text-gray-200"
         />
-        {errors.description && (
+        {errors?.description && (
           <span className="text-red-400">{errors.description.message}</span>
         )}
       </div>

@@ -19,6 +19,7 @@ export default function JobType({ control, register }: any) {
         <Controller
           name="jobType"
           control={control}
+          rules={{ required: "Job type is required" }}
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">

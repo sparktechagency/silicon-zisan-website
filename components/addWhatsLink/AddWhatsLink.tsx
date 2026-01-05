@@ -25,14 +25,17 @@ export default function AddWhatsLink({ phone }: { phone: string }) {
   }, [phone, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("Submitted phone:", data.phone);
-
     try {
       const res = await myFetch(`/users/profile`, {
         method: "PATCH",
         body: data,
       });
-      console.log("res", res);
+
+      if (res.success) {
+        toast.success("Number is updated Successfully");
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "An error occurred";

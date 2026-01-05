@@ -39,7 +39,9 @@ export default function ViewDetailsCompany({ data }: any) {
             <p className="border p-0.5 rounded bg-[#465565] px-3">
               {data?.jobType}
             </p>
-            <p>${data?.salaryAmount}/Month</p>
+            <p>
+              ${data?.salaryAmount}/ {data?.salaryType}
+            </p>
           </div>
           <div className="flex gap-4 items-center mt-2 text-sm">
             <p className="flex gap-2">

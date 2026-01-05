@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Upload, FileText } from "lucide-react";
 import { Input } from "../ui/input";
 import { myFetch } from "@/utils/myFetch";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 
 export default function VerifyAccount() {
   const [preview1, setPreview1] = useState<string | null>(null);
@@ -54,10 +54,14 @@ export default function VerifyAccount() {
         method: "POST",
         body: formData,
       });
+
       console.log("res", res);
 
-      toast.success("Documents uploaded successfully");
-      console.log("res", res);
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "An error occurred");
     }

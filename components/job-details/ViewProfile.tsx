@@ -3,11 +3,8 @@
 import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import pdf from "../../public/dashboard/pdf.png";
-import CustomImage from "@/utils/CustomImage";
 
 export default function ViewProfile({ data }: any) {
-  console.log("data", data);
-
   const personalInfo = [
     { label: "Name", value: data?.user?.name?.trim() || "No Name" },
     { label: "Email", value: data?.user?.email },
