@@ -15,10 +15,10 @@ export default function SendMessageModal2({
   isModalTwoOpen2,
   setIsModalTwoOpen2,
 }: {
-  item: any;
   trigger?: React.ReactNode;
   isModalTwoOpen2: any;
   setIsModalTwoOpen2: any;
+  item?: any;
 }) {
   const handleStatusUpdate = async (id: string) => {
     try {
