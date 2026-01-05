@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { isSameDay } from "date-fns";
@@ -13,7 +14,7 @@ export default function ShiftPlanDate({
   setSelectedDates,
 }: any) {
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
 
   const handleCancel = () => setSelectedDates([]);
   const handleOk = () => setOpen(false);
