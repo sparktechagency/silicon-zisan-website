@@ -15,7 +15,7 @@ interface CategoriesProps {
     name: string;
     subCategories: string[];
   }[];
-  errors: any;
+  errors?: any;
 }
 
 export default function Categories({

@@ -10,7 +10,7 @@ type Props = {
   qualifications: any[];
   addQualification: (value: any) => void;
   removeQualification: (index: number) => void;
-  errors: any;
+  errors?: any;
 };
 
 export default function AddQualificationAndResposibilities({

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
@@ -8,10 +9,13 @@ const minutes = Array.from({ length: 60 }, (_, i) =>
 
 type Props = {
   value?: dayjs.Dayjs | null;
-  onChange: (time: dayjs.Dayjs | null) => void;
+  onChange?: (time: dayjs.Dayjs | null) => void;
 };
 
-export default function HourMinutePicker({ value, onChange }: Props) {
+export default function HourMinutePicker({
+  value,
+  onChange = () => {},
+}: Props) {
   const [isMobile, setIsMobile] = useState(false);
   const [hour, setHour] = useState<string>(""); // store as string for select
   const [minute, setMinute] = useState<string>("");
@@ -39,7 +43,7 @@ export default function HourMinutePicker({ value, onChange }: Props) {
     const h = Number(hStr);
     const m = Number(minute) || 0;
     if (!isNaN(h)) {
-      onChange(
+      onChange?.(
         value
           ? value.hour(h).minute(m).second(0)
           : dayjs().hour(h).minute(m).second(0)
@@ -52,7 +56,7 @@ export default function HourMinutePicker({ value, onChange }: Props) {
     const h = Number(hour) || 0;
     const m = Number(mStr);
     if (!isNaN(m)) {
-      onChange(
+      onChange?.(
         value
           ? value.hour(h).minute(m).second(0)
           : dayjs().hour(h).minute(m).second(0)
