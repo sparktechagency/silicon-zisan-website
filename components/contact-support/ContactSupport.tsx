@@ -72,14 +72,6 @@ export default function ContactSupport() {
         method: "POST",
         body: formData,
       });
-      if (!res.success && Array.isArray(res.error) && res.error?.length) {
-        res.error.forEach((err: { path: keyof Inputs; message: string }) => {
-          setError(err.path, {
-            type: "server",
-            message: err.message,
-          });
-        });
-      }
 
       if (res.success) {
         toast.success(res?.message || "Support request submitted successfully");
@@ -87,10 +79,13 @@ export default function ContactSupport() {
         setFile(null);
         setImagePreview(null);
       } else {
-        toast.error(res?.message || "Failed to submit support request");
+        toast.error(
+          (res as any)?.error[0].message || "Failed to submit support request"
+        );
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "An error occurred";
+      const errorMessage =
+        err instanceof Error ? err.message : "An error occurred";
       toast.error(errorMessage);
     }
   };
@@ -99,18 +94,29 @@ export default function ContactSupport() {
     <div className="bg-card border border-gray-50/30 rounded-md p-4">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 w-full ">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* name */}
-          <Input
-            className="placeholder:text-white text-white"
-            placeholder="Enter Your Name"
-            {...register("name")}
-          />
-          {/* email */}
-          <Input
-            className="placeholder:text-white text-white"
-            placeholder="Enter Your Name"
-            {...register("email")}
-          />
+          <div>
+            {/* name */}
+            <Input
+              className="placeholder:text-white text-white"
+              placeholder="Enter Your Name"
+              {...register("name", { required: "Name is required" })}
+            />
+            {errors.name && (
+              <span className="text-red-400">{errors.name.message}</span>
+            )}
+          </div>
+          <div>
+            {/* email */}
+            <Input
+              className="placeholder:text-white text-white"
+              placeholder="Enter Your Name"
+              {...register("email", { required: "Email is required" })}
+            />
+
+            {errors.email && (
+              <span className="text-red-400">{errors.email.message}</span>
+            )}
+          </div>
         </div>
 
         <div className="grid sm:grid-cols-2 gap-4">
@@ -119,7 +125,7 @@ export default function ContactSupport() {
             <Input
               className="placeholder:text-white text-white"
               placeholder="Enter Your Phone Number"
-              {...register("phone")}
+              {...register("phone", { required: "Phone is required" })}
             />
             {errors.phone && (
               <p className="text-red-400"> {errors.phone.message}</p>
@@ -129,8 +135,11 @@ export default function ContactSupport() {
           <Input
             className="placeholder:text-white text-white"
             placeholder="Enter Your Address"
-            {...register("address")}
+            {...register("address", { required: "Address is required" })}
           />
+          {errors.address && (
+            <p className="text-red-400"> {errors.address.message}</p>
+          )}
         </div>
 
         {/* textarea */}
@@ -138,8 +147,11 @@ export default function ContactSupport() {
           <Textarea
             className="placeholder:text-white text-white"
             placeholder="Enter Your Message"
-            {...register("message")}
+            {...register("message", { required: "Message is required" })}
           />
+          {errors.message && (
+            <p className="text-red-400"> {errors.message.message}</p>
+          )}
         </div>
 
         {/* upload image */}

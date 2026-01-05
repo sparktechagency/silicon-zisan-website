@@ -57,7 +57,7 @@ export default function Categories({
             </Select>
           )}
         />
-        {errors.category && (
+        {errors?.category && (
           <span className="text-red-400">{errors.category.message}</span>
         )}
       </div>
@@ -86,7 +86,7 @@ export default function Categories({
             </Select>
           )}
         />
-        {errors.subCategory && (
+        {errors?.subCategory && (
           <span className="text-red-400">{errors.subCategory.message}</span>
         )}
       </div>

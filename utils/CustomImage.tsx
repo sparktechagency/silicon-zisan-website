@@ -9,7 +9,6 @@ export default function CustomImage({
   fallback = "/default.png", // optional fallback image
 }) {
   // Return fallback if no SRC
-  console.log("src------", src);
 
   if (!src) {
     return (

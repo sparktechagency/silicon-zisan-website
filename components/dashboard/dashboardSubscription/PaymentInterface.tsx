@@ -94,7 +94,7 @@ export default function PaymentInterface() {
       <div className="">
         <div className="flex gap-2 mb-3">
           <CustomBackButton />
-          <h1 className="text-2xl font-semibold">Subscription Detail</h1>
+          <h1 className="text-2xl font-semibold">Subscription Details</h1>
         </div>
 
         {/* card */}

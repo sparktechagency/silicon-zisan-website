@@ -37,7 +37,12 @@ export default function Sidebar() {
     setSelectedName(name);
     const params = new URLSearchParams(searchParams.toString());
     params.set("name", name);
-    router.push(`?${params.toString()}`);
+
+    const srcObject = Object.fromEntries(params);
+
+    delete srcObject.status;
+
+    router.push(`?${new URLSearchParams(srcObject).toString()}`);
   };
   return (
     <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">

@@ -28,7 +28,13 @@ type FormValues = {
 
 export default function EditJobPost({ data }: any) {
   const [categories, setCategories] = useState<any[]>([]);
-  const { register, control, reset, handleSubmit } = useForm<FormValues>({
+  const {
+    register,
+    control,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       category: data?.category || "",
       subCategory: data?.subCategory || "",
@@ -120,10 +126,12 @@ export default function EditJobPost({ data }: any) {
         body: payload,
       });
 
+      console.log("res", res);
+
       if (res?.success) {
         toast.success(res.message);
       } else {
-        toast.error(res.message);
+        toast.error((res as any)?.error[0].message);
       }
     } catch (err) {
       const errorMessage =
@@ -145,13 +153,21 @@ export default function EditJobPost({ data }: any) {
           </div>
 
           {/* Category & Subcategory */}
-          <Categories control={control} categories={categories} />
+          <Categories
+            control={control}
+            categories={categories}
+            errors={errors}
+          />
 
           {/* Job Type & Deadline */}
-          <JobType control={control} register={register} />
+          <JobType control={control} register={register} errors={errors} />
 
           {/* Salary Type*/}
-          <SalaryDetailsFormValues control={control} register={register} />
+          <SalaryDetailsFormValues
+            control={control}
+            register={register}
+            errors={errors}
+          />
 
           <AddQualificationAndResposibilities
             register={register}
@@ -161,6 +177,7 @@ export default function EditJobPost({ data }: any) {
             qualifications={qualifications}
             addQualification={addQualification}
             removeQualification={removeQualification}
+            errors={errors}
           />
 
           {/* About Yourself */}
