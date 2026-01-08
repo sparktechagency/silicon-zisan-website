@@ -1,15 +1,16 @@
 import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
-import { Eye } from "lucide-react";
 import Image from "next/image";
 import one from "../../public/appartments/one.png";
 import two from "../../public/appartments/two.png";
 import { Button } from "../ui/button";
-import { position } from "@/demoData/data";
+import dayjs from "dayjs";
+import CustomImage from "@/utils/CustomImage";
 interface CancelModalProps {
   trigger?: React.ReactNode;
   isModalOneOpen: boolean;
   setIsModalOneOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onOpenSecondModal: () => void;
+  data: any;
 }
 
 const data = [
@@ -40,6 +41,7 @@ export default function EmployeeDetailsModal({
   isModalOneOpen,
   setIsModalOneOpen,
   onOpenSecondModal,
+  data,
 }: CancelModalProps) {
   const handleClickModalTwo = () => {
     setIsModalOneOpen(false);
@@ -52,69 +54,34 @@ export default function EmployeeDetailsModal({
 
       {/* Dialog Content */}
       <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg sm:max-w-xl ">
-        {[data[0]]?.map((item, index) => (
-          <div key={index}>
-            <div className="rounded-xl flex gap-4">
-              {/* Profile Image */}
-              <Image
-                src={item.src}
-                alt={item.name}
-                className="sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-700"
-              />
+        <div>
+          <div className="rounded-xl flex gap-4">
+            {/* Profile Image */}
+            <CustomImage
+              src={data?.receiver?.image}
+              title={data?.receiver?.name}
+              className="sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-700"
+            />
 
-              {/* Info Section */}
-              <div>
-                <h3 className="sm:text-xl font-semibold">
-                  {item.name} ({item.position})
-                </h3>
+            {/* Info Section */}
+            <div>
+              <h3 className="sm:text-xl font-semibold">
+                {data?.receiver?.name}
+              </h3>
 
-                <div className="text-sm flex items-center gap-2">
-                  <span className="sm:text-xl">{item.date}</span> /
-                  <span className="sm:text-xl">{item.time}</span>
-                </div>
-
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                  dolore voluptatum repellendus quas omnis, doloremque quos
-                  blanditiis praesentium quia provident?
-                </p>
+              <div className="text-sm flex items-center gap-2">
+                <span className="sm:text-xl">
+                  {dayjs(data?.scheduledAt).format("YYYY-MM-DD")}
+                </span>
+                <span className="sm:text-xl">{data?.time}</span>
               </div>
+
+              <p>{data?.message}</p>
             </div>
           </div>
-        ))}
+        </div>
 
-        <hr className="bg-green-950 my-5" />
-
-        {[data[1]]?.map((item, index) => (
-          <div key={index}>
-            <div className="rounded-xl flex gap-4">
-              {/* Profile Image */}
-              <Image
-                src={item.src}
-                alt={item.name}
-                className="sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-700"
-              />
-
-              {/* Info Section */}
-              <div>
-                <h3 className="sm:text-xl font-semibold">
-                  {item.name} (Employee)
-                </h3>
-
-                <div className="text-sm flex items-center gap-2">
-                  <span className="sm:text-xl">{item.date}</span> /
-                  <span className="sm:text-xl">{item.time}</span>
-                </div>
-
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                  dolore voluptatum repellendus quas omnis, doloremque quos
-                  blanditiis praesentium quia provident?
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
+        {/* <hr className="bg-green-950 my-5" /> */}
 
         <Button className="custom-btn py-2" onClick={handleClickModalTwo}>
           Reply

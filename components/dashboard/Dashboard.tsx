@@ -23,7 +23,7 @@ import DownloadCenterPage from "@/app/(website)/download-center/page";
 import SalaryCalculator from "../salary-calculator/SalaryCalculator";
 import SalaryDetails from "../salary-calculator/SalarayDetails";
 
-import CaruselCard from "./dashboardSubscription/CaruselCard";
+import CaruselCard from "./dashboardSubscription/SubscriptionPlan";
 import { JSX } from "react";
 import NotFound from "@/app/not-found";
 import HireEmployeeForm from "../hireEmployes/HireEmployeeForm";
