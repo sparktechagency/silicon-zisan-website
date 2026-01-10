@@ -13,7 +13,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
-import { setCookie } from "cookies-next/client";
 
 type Inputs = {
   name: string;
