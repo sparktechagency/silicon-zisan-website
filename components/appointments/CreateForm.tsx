@@ -39,14 +39,11 @@ export function CreateForm({ res }: any) {
       message: data?.message,
     };
 
-
     try {
       const res = await myFetch("/appointments/create", {
         method: "POST",
         body: payload,
       });
-
-      //console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);
