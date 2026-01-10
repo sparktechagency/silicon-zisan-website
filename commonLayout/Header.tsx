@@ -8,16 +8,19 @@ import Image from "next/image";
 import Container from "@/share/Container";
 import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
-import profile from "../public/profile/avatar.png";
 import call from "../public/call-header.svg";
+import profile from "../public/profile/avatar.png";
+import CustomImage from "@/utils/CustomImage";
 
-export default function HeaderTwo() {
+export default function HeaderTwo({ user }: { user?: any }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  console.log(user);
 
   return (
     <nav className={`${gradientClasses.primaryBg}  sticky top-0 z-50`}>
@@ -63,12 +66,15 @@ export default function HeaderTwo() {
           {/* CTA Button */}
           <Link href="/profile" className="hidden md:block">
             <div className="space-x-2 flex items-center">
-              <Image
-                src={profile}
-                alt="Zasulehry"
-                className="h-12 w-12 rounded-full"
+              <CustomImage
+                src={user?.image}
+                fallback={profile}
+                title="Zasulehry"
+                width={50}
+                height={50}
+                className="h-12 w-12 rounded-full object-cover"
               />
-              <p>Kamran</p>
+              <p>{user?.name || "Kamran"}</p>
             </div>
           </Link>
 
@@ -156,14 +162,17 @@ export default function HeaderTwo() {
               onClick={() => setIsMenuOpen(false)}
             >
               <div className="flex items-center space-x-3">
-                <Image
-                  src={profile}
-                  alt="Profile"
+                <CustomImage
+                  src={user?.image}
+                  fallback={profile}
+                  title="Profile"
                   width={40}
                   height={40}
-                  className="rounded-full"
+                  className="rounded-full object-cover"
                 />
-                <p className="text-gray-800 font-medium">Kamran</p>
+                <p className="text-gray-800 font-medium">
+                  {user?.name || "Kamran"}
+                </p>
               </div>
             </Link>
           </div>

@@ -3,7 +3,7 @@ import { myFetch } from "@/utils/myFetch";
 
 export default async function AddWhatsLinkPage() {
   const res = await myFetch("/users/profile");
-  console.log("res", res);
+  //console.log("res", res);
 
   return (
     <>

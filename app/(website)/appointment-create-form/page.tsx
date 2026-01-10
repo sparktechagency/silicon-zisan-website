@@ -13,7 +13,7 @@ export default async function AppointmentCreateForm({
     tags: ["job-seeker-details"],
   });
 
-  console.log("res", res);
+  //console.log("res", res);
 
   return (
     <>

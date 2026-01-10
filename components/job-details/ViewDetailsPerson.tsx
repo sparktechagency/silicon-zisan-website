@@ -13,7 +13,7 @@ import { revalidate } from "@/utils/revalidateTag";
 
 export default function ViewDetailsPerson({ data }: any) {
   const handleApproved = async (id: string) => {
-    console.log("id", id);
+    //console.log("id", id);
 
     try {
       const res = await myFetch(`/applications/update/${id}`, {
@@ -22,7 +22,7 @@ export default function ViewDetailsPerson({ data }: any) {
           status: "Accepted",
         },
       });
-      console.log("res", res);
+      //console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);

@@ -54,10 +54,10 @@ export default function VerifyAccount() {
         method: "POST",
         body: formData,
       });
-      console.log("res", res);
+      //console.log("res", res);
 
       toast.success("Documents uploaded successfully");
-      console.log("res", res);
+      //console.log("res", res);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "An error occurred");
     }

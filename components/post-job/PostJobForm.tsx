@@ -88,7 +88,7 @@ const PostJobForm = () => {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    console.log("data", data);
+    //console.log("data", data);
 
     const payload = {
       ...data,
@@ -102,7 +102,7 @@ const PostJobForm = () => {
       method: "POST",
       body: payload,
     });
-    console.log("res", res);
+    //console.log("res", res);
   };
 
   return (
