@@ -18,11 +18,13 @@ import { age, child, position } from "@/demoData/data";
 import HandleInformationButton from "./HandleInformationButton";
 
 export default function SalaryCalculator() {
+  const [tax, setTex] = useState(0);
   const [form, setForm] = useState({
     grossSalary: "2890.00",
     year: "2025",
     taxExemption: "",
     state: "Berlin",
+    tax: "",
     taxClass: "1",
     churchTax: "No",
     healthInsurance: "Yes",
@@ -40,7 +42,7 @@ export default function SalaryCalculator() {
     healthInsurance: "no",
     pensionInsurance: "no",
     unemploymentInsurance: "yes",
-    accidentInsurance: "no",
+    haveChildren: "no",
     gender: "no",
     gross: "yes",
     monthly: "no",
@@ -121,7 +123,7 @@ export default function SalaryCalculator() {
         <Label className="font-semibold">Your State</Label>
         <div>
           <Select>
-            <SelectTrigger className="w-full text-white border !h-10">
+            <SelectTrigger className="w-full text-white border h-10!">
               <SelectValue placeholder="Select your state" />
             </SelectTrigger>
             <SelectContent className=" text-white">
@@ -130,6 +132,24 @@ export default function SalaryCalculator() {
               <SelectItem value="Munich">Munich</SelectItem>
             </SelectContent>
           </Select>
+        </div>
+      </div>
+
+      {/* tax class */}
+      <div className="grid grid-cols-2">
+        <Label className="font-semibold">Tax Class</Label>
+        <div className="flex">
+          {[1, 2, 3, 4, 5, 6].map((item) => (
+            <p
+              onClick={() => setTex(item)}
+              className={`border px-4 py-2 cursor-pointer ${
+                tax === item ? "custom-btn" : "bg-transparent"
+              }`}
+              key={item}
+            >
+              {item}
+            </p>
+          ))}
         </div>
       </div>
 
@@ -160,9 +180,9 @@ export default function SalaryCalculator() {
           onChange={handleToggleChange}
         />
         <YesNoToggle
-          label="Accident Insurance"
+          label="Do you have children"
           name="accidentInsurance"
-          value={formStatus.accidentInsurance}
+          value={formStatus.haveChildren}
           onChange={handleToggleChange}
         />
       </div>
@@ -170,7 +190,7 @@ export default function SalaryCalculator() {
       {/*Select Child*/}
       <div>
         <CustomSelect
-          label="Child"
+          label="Child Tax Exemption"
           placeholder="Select Child"
           options={child}
         />
@@ -183,8 +203,8 @@ export default function SalaryCalculator() {
       {/*Your position*/}
       <div>
         <CustomSelect
-          label="Postal Code"
-          placeholder="Select Code"
+          label="Your Position"
+          placeholder="Select position"
           options={position}
         />
       </div>
