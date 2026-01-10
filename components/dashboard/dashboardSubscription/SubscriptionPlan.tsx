@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import cancel from "../../../public/dashboard/cancel.png";
 
@@ -18,73 +18,39 @@ import CancelModal from "./CancelModal";
 import CancelModalTwo from "./CancelModalTwo";
 import { Info } from "lucide-react";
 import FreeSubscriptionModal from "./FreeSubscriptionModal";
+import { myFetch } from "@/utils/myFetch";
+import { useRouter } from "next/navigation";
 
-// const packages = [
-//   {
-//     id: 1,
-//     title: ["Basic", "Standard", "Booster"],
-//     subTitle: "Basic Free",
-//     all: "Basic",
-//     price: "Free",
-//     info: false,
-//     active: "Activated",
-//     unactive: "Inactive",
-//     features: [
-//       "5 Jobs Posting",
-//       "Limited Candidate Alerts",
-//       "Limited Candidate Search",
-//       "Limited Access To AI Tools",
-//       "Activated For Every Registered Account",
-//     ],
-//   },
-//   {
-//     id: 2,
-//     title: ["Basic", "Standard", "Booster"],
-//     subTitle: "Standard",
-//     all: "Standard",
-//     price: "€ 2.50 Per Day",
-//     info: true,
-//     active: "Activated",
-//     unactive: "Inactive",
-//     features: [
-//       "0 € For 30 Days",
-//       "Activated For 30 Days",
-//       "Unlimited Jobs Posting",
-//       "Unlimited Candidate Search",
-//       "Unlimited Candidate Alerts",
-//       "Move Up After 7 Days",
-//       "Full Access AI Tools",
-//       "Exclusive Features",
-//       "24/7 Support",
-//     ],
-//   },
-//   {
-//     id: 3,
-//     title: ["Basic", "Standard", "Booster"],
-//     subTitle: "Booster",
-//     all: "Booster",
-//     price: "€ 2.50 Per Day",
-//     info: true,
-//     active: "Activated",
-//     unactive: "Inactive",
-//     features: [
-//       "0 € For 30 Days",
-//       "Activated For 90 Days",
-//       "Unlimited Jobs Posting",
-//       "Unlimited Candidate Search",
-//       "Unlimited Candidate Alerts",
-//       "Move Up After 7 Days",
-//       "Full Access AI Tools",
-//       "Exclusive Features",
-//       "24/7 Support",
-//     ],
-//   },
-// ];
+type PackageType = {
+  benefits?: string[];
+  dailyPrice: string;
+  _id: string;
+};
 
-export default function CaruselCard() {
+export default function SubscriptionPlan() {
   const swiperRef = useRef<null | any>(null);
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
+  const [data, setData] = useState<PackageType[]>([]);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await myFetch("/packages");
+      setData(res?.data || []);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSubscribe = (id: string) => {
+    setLoading(true);
+    router.push(`/dashboard-payment?id=${id}`);
+  };
+
+  const two = data?.[2]?._id;
+  const one = data?.[1]?._id;
 
   return (
     <div className="relative px-2 md:px-0">
@@ -159,11 +125,11 @@ export default function CaruselCard() {
               </div>
 
               <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                <li>5 Jobs Posting</li>
-                <li>Limited Candidate Alerts</li>
-                <li>Limited Candidate Search</li>
-                <li>Limited Access To AI Tools</li>
-                <li>Activated For Every Registered Account</li>
+                {data[0]?.benefits?.map((item: any, index: number) => (
+                  <li className="" key={index}>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -204,7 +170,9 @@ export default function CaruselCard() {
                     Standard
                   </h1>
                   <div className="flex gap-3 items-center mt-1">
-                    <p className="text-white text-sm ">€ 2.50 Per Day</p>
+                    <p className="text-white text-sm ">
+                      € {data[0]?.dailyPrice} Per Day
+                    </p>
                     <p>
                       <Info />{" "}
                     </p>
@@ -226,96 +194,100 @@ export default function CaruselCard() {
               </div>
 
               <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                <li className="">0 € For 30 Days</li>
-                <li className="">Activated For 30 Days</li>
-                <li className="">Unlimited Jobs Posting</li>
-                <li className="">Unlimited Candidate Search</li>
-                <li className="">Unlimited Candidate Alerts</li>
-                <li className="">Move Up After 7 Days</li>
-                <li className="">Full Access AI Tools</li>
-                <li className="">Exclusive Features</li>
-                <li className="">24/7 Support</li>
+                {data[1]?.benefits?.map((item: any, index: number) => (
+                  <li className="" key={index}>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
 
             <div className="mt-auto">
-              <Link href="/dashboard-payment">
-                <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                  Subscribe Now
-                </Button>
-              </Link>
+              <Button
+                disabled={loading || !one}
+                className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                  loading && "cursor-not-allowed"
+                }`}
+                onClick={() => handleSubscribe(data[1]?._id)}
+              >
+                Subscribe Now
+              </Button>
             </div>
           </div>
         </SwiperSlide>
 
         {/* Slide 3: Booster */}
-        <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
-            <h1 className="text-lg sm:text-2xl font-semibold my-2">
-              JobsinApp Plans
-            </h1>
-            <div className="grid grid-cols-3 gap-4">
-              <button className="button-unactive w-full py-2 rounded-2xl">
-                Basic
-              </button>
-              <button className="button-unactive w-full py-2 rounded-2xl">
-                Standard
-              </button>
-              <button className="button-unactive custom-btn  w-full py-2 rounded-2xl">
-                Booster
-              </button>
-            </div>
-
-            <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-              <div className="flex justify-between items-center">
-                <div className="mt-4">
-                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
-                    Booster
-                  </h1>
-                  <div className="flex gap-3 items-center mt-1">
-                    <p className="text-white text-sm ">€ 2.30 Per Day</p>
-                    <p>
-                      <Info />{" "}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-end mb-2">
-                    <Image src={logo} className="h-10 w-10" alt="logo" />
-                  </div>
-                  <div className="flex flex-col sm:flex-row">
-                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
-                      Activated
-                    </button>
-                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
-                      Inactive
-                    </button>
-                  </div>
-                </div>
+        {data[2] && (
+          <SwiperSlide>
+            <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
+              <h1 className="text-lg sm:text-2xl font-semibold my-2">
+                JobsinApp Plans
+              </h1>
+              <div className="grid grid-cols-3 gap-4">
+                <button className="button-unactive w-full py-2 rounded-2xl">
+                  Basic
+                </button>
+                <button className="button-unactive w-full py-2 rounded-2xl">
+                  Standard
+                </button>
+                <button className="button-unactive custom-btn  w-full py-2 rounded-2xl">
+                  Booster
+                </button>
               </div>
 
-              <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                <li>0 € For 30 Days</li>
-                <li>Activated For 90 Days</li>
-                <li>Unlimited Jobs Posting</li>
-                <li>Unlimited Candidate Search</li>
-                <li>Unlimited Candidate Alerts</li>
-                <li>Move Up After 7 Days</li>
-                <li>Full Access AI Tools</li>
-                <li>Exclusive Features</li>
-                <li>24/7 Support</li>
-              </ul>
-            </div>
+              <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+                <div className="flex justify-between items-center">
+                  <div className="mt-4">
+                    <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
+                      Booster
+                    </h1>
+                    <div className="flex gap-3 items-center mt-1">
+                      <p className="text-white text-sm ">
+                        € {data[1]?.dailyPrice} Per Day
+                      </p>
+                      <p>
+                        <Info />{" "}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-end mb-2">
+                      <Image src={logo} className="h-10 w-10" alt="logo" />
+                    </div>
+                    <div className="flex flex-col sm:flex-row">
+                      <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
+                        Activated
+                      </button>
+                      <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
+                        Inactive
+                      </button>
+                    </div>
+                  </div>
+                </div>
 
-            <div className="mt-auto">
-              <Link href="/dashboard-payment">
-                <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
+                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                  {data[2]?.benefits?.map((item: any, index: number) => (
+                    <li className="" key={index}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-auto">
+                <Button
+                  disabled={loading || !two}
+                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                    loading && "cursor-not-allowed"
+                  }`}
+                  onClick={() => handleSubscribe(data[2]?._id)}
+                >
                   Subscribe Now
                 </Button>
-              </Link>
+              </div>
             </div>
-          </div>
-        </SwiperSlide>
+          </SwiperSlide>
+        )}
 
         {/* cancel */}
         <SwiperSlide>

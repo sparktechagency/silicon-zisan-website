@@ -65,6 +65,7 @@ export default function AppointmentCardsConfirmed({ data }: any) {
                   isModalOneOpen={isModalOneOpen}
                   setIsModalOneOpen={setIsModalOneOpen}
                   onOpenSecondModal={() => setIsModalTwoOpen(true)}
+                  data={item}
                   trigger={
                     <button
                       className="cursor-pointer"
