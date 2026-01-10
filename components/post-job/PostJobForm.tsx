@@ -88,6 +88,8 @@ const PostJobForm = () => {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    //console.log("data", data);
+
     const payload = {
       ...data,
       responsibilities: data.responsibilities.map((item) => item.value),
@@ -100,6 +102,10 @@ const PostJobForm = () => {
       method: "POST",
       body: payload,
     });
+<<<<<<< HEAD
+    //console.log("res", res);
+=======
+>>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
   };
 
   return (

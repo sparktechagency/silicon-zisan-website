@@ -14,7 +14,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -38,12 +37,30 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function EditProfile({ title }: { title?: string }) {
+export default function EditProfile({
+  title,
+  initialData,
+}: {
+  title?: string;
+  initialData?: any;
+}) {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: initialData || {
+      companyName: "",
+      legalFrom: "",
+      address: "",
+      contactNumber: "",
+      companyCategory: "",
+      taxNo: "",
+      deNo: "",
+      optionalField: "",
+    },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {};
+  const onSubmit: SubmitHandler<FormData> = (values) => {
+    console.log(values);
+  };
 
   return (
     <div className="bg-[#2f4054] p-6 rounded-lg border border-gray-400/30 w-full">

@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
+import { FaApple, FaGoogle } from "react-icons/fa";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

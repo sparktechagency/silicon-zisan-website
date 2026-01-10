@@ -6,6 +6,11 @@ import pdf from "../../public/dashboard/pdf.png";
 import CustomImage from "@/utils/CustomImage";
 
 export default function ViewProfile({ data }: any) {
+<<<<<<< HEAD
+  //console.log("data", data);
+
+=======
+>>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
   const personalInfo = [
     { label: "Name", value: data?.user?.name?.trim() || "No Name" },
     { label: "Email", value: data?.user?.email },
