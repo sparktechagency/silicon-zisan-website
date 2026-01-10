@@ -1,9 +1,11 @@
 import DownloadCenter from "@/components/download-center/DownloadCenter";
+import { myFetch } from "@/utils/myFetch";
 
-export default function DownloadCenterPage() {
+export default async function DownloadCenterPage() {
+  const res = await myFetch("/drives/my-drives");
   return (
-    <div>
-      <DownloadCenter />
-    </div>
+    <>
+      <DownloadCenter data={res?.data} />
+    </>
   );
 }

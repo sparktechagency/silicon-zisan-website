@@ -1,12 +1,11 @@
 import { ArrowDown, EyeIcon } from "lucide-react";
-import payment from "../../public/invoice-payment/payment.png";
 
-export default function DownloadCenter() {
+export default function DownloadCenter({ data }: any) {
   return (
     <div>
       {/* Buttons */}
 
-      {Array.from({ length: 9 }).map((_, index) => (
+      {data?.map((item: any, index: any) => (
         <div key={index} className="mb-4">
           {/* Transaction Info */}
           <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
@@ -16,7 +15,7 @@ export default function DownloadCenter() {
 
             <div className="flex items-center space-x-2">
               <a
-                href={`http://10.10.7.54:3000/${payment.src}`}
+                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.url}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -24,9 +23,15 @@ export default function DownloadCenter() {
                   <EyeIcon className="w-5 h-5" />
                 </button>
               </a>
-              <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
-                <ArrowDown className="w-5 h-5" />
-              </button>
+              <a
+                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.url}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
+                  <ArrowDown className="w-5 h-5" />
+                </button>
+              </a>
             </div>
           </div>
         </div>

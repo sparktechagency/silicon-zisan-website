@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Status() {
-  const tabs = ["Confirmed", "Pending", "Cancelled", "Create New"];
+  const tabs = ["Confirmed", "Pending", "Cancelled", "Completed"];
 
   const router = useRouter();
   const searchParams = useSearchParams();

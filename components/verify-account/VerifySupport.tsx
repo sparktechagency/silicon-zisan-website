@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Upload, FileText } from "lucide-react";
 import { Input } from "../ui/input";
 import { myFetch } from "@/utils/myFetch";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 
 export default function VerifyAccount() {
   const [preview1, setPreview1] = useState<string | null>(null);
