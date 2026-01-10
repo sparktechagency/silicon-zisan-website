@@ -112,8 +112,6 @@ export default function EditJobPost({ data }: any) {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    console.log("click");
-
     if (!values.jobType) {
       toast.error("Please select job type");
       return;
@@ -132,8 +130,6 @@ export default function EditJobPost({ data }: any) {
         method: "PATCH",
         body: payload,
       });
-
-      console.log("res", res);
 
       if (res?.success) {
         toast.success(res.message);

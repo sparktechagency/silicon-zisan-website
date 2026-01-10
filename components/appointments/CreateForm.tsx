@@ -32,8 +32,8 @@ export function CreateForm({ res }: any) {
 
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      receiver: res?._id,
-      job: res?.user?._id,
+      receiver: res?.job?.author?._id,
+      job: res?.job?._id,
       scheduledAt: data.appointment?.toISOString() ?? null,
       address: res?.user?.address,
       message: data?.message,
