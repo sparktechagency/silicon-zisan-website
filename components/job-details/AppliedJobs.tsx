@@ -1,10 +1,9 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import personOne from "../../public/dashboard/person-one.png";
 import Container from "@/share/Container";
 import Link from "next/link";
 import CustomBackButton from "@/share/CustomBackButton";
 import dayjs from "dayjs";
+import CustomImage from "@/utils/CustomImage";
 
 export default function AppliedJobs({ data }: any) {
   return (
@@ -17,13 +16,11 @@ export default function AppliedJobs({ data }: any) {
             className="bg-card text-white rounded-lg w-full max-w-sm mx-auto shadow-lg p-3 border"
           >
             {/* Profile Image */}
-            <div className="w-full h-64 relative">
-              <Image
-                src={personOne}
-                alt="Alex Gender"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-t-lg"
+            <div className=" relative">
+              <CustomImage
+                src={item?.user?.image}
+                title="Alex Gender"
+                className="rounded-t-lg h-40 w-full"
               />
             </div>
 

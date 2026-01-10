@@ -55,8 +55,6 @@ export default function VerifyAccount() {
         body: formData,
       });
 
-      console.log("res", res);
-
       if (res.success) {
         toast.success(res.message);
       } else {

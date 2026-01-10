@@ -4,7 +4,6 @@ import { Bell } from "lucide-react";
 
 export default async function Alerts() {
   const res = await myFetch("/notifications/me");
-  console.log("res?.data?.data");
 
   return (
     <Container className="my-16">
