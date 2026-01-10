@@ -7,10 +7,6 @@ export default async function page({
   searchParams: { profieID: string };
 }) {
   const { profieID } = await searchParams;
-<<<<<<< HEAD
-  //console.log("profieID", profieID);
-=======
->>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
 
   const res = await myFetch(`/job-seekers/single/${profieID}`);
 

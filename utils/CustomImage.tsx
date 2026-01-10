@@ -18,10 +18,7 @@ export default function CustomImage({
   fallback = "/default.png", // optional fallback image
 }: CustomImageProps) {
   // Return fallback if no SRC
-<<<<<<< HEAD
   //console.log("src------", src);
-=======
->>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
 
   if (!src) {
     return (
