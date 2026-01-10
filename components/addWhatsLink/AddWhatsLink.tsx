@@ -7,26 +7,26 @@ import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 
 type Inputs = {
-  phone: string;
+  whatsApp: string;
 };
 
-export default function AddWhatsLink({ phone }: { phone: string }) {
+export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<Inputs>({
-    defaultValues: { phone: phone || "" },
+    defaultValues: { whatsApp: whatsApp || "" },
   });
 
   useEffect(() => {
-    reset({ phone });
-  }, [phone, reset]);
+    reset({ whatsApp });
+  }, [whatsApp, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const res = await myFetch(`/users/profile`, {
+      const res = await myFetch(`/employers/me`, {
         method: "PATCH",
         body: data,
       });
@@ -49,15 +49,15 @@ export default function AddWhatsLink({ phone }: { phone: string }) {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-3">
           <Input
-            {...register("phone", {
+            {...register("whatsApp", {
               required: "Phone number is required",
             })}
             type="tel"
             placeholder="Enter Number Here"
             className="border"
           />
-          {errors.phone && (
-            <p className="text-red-500 text-sm">{errors.phone.message}</p>
+          {errors.whatsApp && (
+            <p className="text-red-500 text-sm">{errors.whatsApp.message}</p>
           )}
         </div>
         <div className="flex justify-end">

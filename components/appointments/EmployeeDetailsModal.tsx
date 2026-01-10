@@ -5,36 +5,14 @@ import two from "../../public/appartments/two.png";
 import { Button } from "../ui/button";
 import dayjs from "dayjs";
 import CustomImage from "@/utils/CustomImage";
+import Link from "next/link";
 interface CancelModalProps {
   trigger?: React.ReactNode;
   isModalOneOpen: boolean;
   setIsModalOneOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onOpenSecondModal: () => void;
-  data: any;
+  data?: any;
 }
-
-const data = [
-  {
-    id: 1,
-    name: "Kamran Khan",
-    position: "Employer",
-    phone: "01333327633",
-    date: "01.02.2025",
-    time: "10:00",
-    src: one,
-    border: true,
-  },
-
-  {
-    id: 3,
-    name: "Alex Gender",
-    position: "Employee",
-    phone: "0133336567",
-    date: "01.02.2025",
-    time: "10:00",
-    src: two,
-  },
-];
 
 export default function EmployeeDetailsModal({
   trigger,
@@ -82,10 +60,13 @@ export default function EmployeeDetailsModal({
         </div>
 
         {/* <hr className="bg-green-950 my-5" /> */}
-
+        {/* 
         <Button className="custom-btn py-2" onClick={handleClickModalTwo}>
           Reply
-        </Button>
+        </Button> */}
+        <Link href={`/inbox`}>
+          <Button className="custom-btn py-2 w-full">Inbox</Button>
+        </Link>
       </DialogContent>
     </Dialog>
   );

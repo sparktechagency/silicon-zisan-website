@@ -1,18 +1,73 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
-import Link from "next/link";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { useSearchParams } from "next/navigation";
+import { Input } from "../ui/input";
+type CheckedState = boolean | "indeterminate";
 
 export default function AlertsSettingCreate() {
-  const [frequency, setFrequency] = useState("daily");
+  const [frequency, setFrequency] = useState("");
   const [pushEnabled, setPushEnabled] = useState(true);
+  const [accepted, setAccepted] = useState<CheckedState>(false);
+  const [email, setEmail] = useState("");
+
   const [emailEnabled, setEmailEnabled] = useState(true);
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
+  const handlePushNotification = async () => {
+    if (!accepted) {
+      toast.error("Please accept Terms & Conditions");
+      return;
+    }
+
+    if (!frequency) {
+      toast.error("Please select notification push message");
+      return;
+    }
+
+    if (!emailEnabled && !pushEnabled) {
+      toast.error("Please enable at least one notification method");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailEnabled && !emailRegex.test(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      const res = await myFetch(`/jobs/update/${id}`, {
+        method: "PATCH",
+        body: {
+          notificationSettings: {
+            pushNotification: pushEnabled,
+            emailNotification: emailEnabled,
+            repeat: frequency,
+            email,
+          },
+        },
+      });
+
+      if (res.success) {
+        toast.success(res.message);
+        setFrequency("");
+        setEmail("");
+      } else {
+        toast.error((res as any)?.error?.[0]?.message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
+    }
+  };
 
   return (
     <Container className="bg-card p-6 max-w-md mx-auto rounded-lg space-y-6 border border-gray-400/30 my-16">
@@ -20,37 +75,24 @@ export default function AlertsSettingCreate() {
         <CustomBackButton /> Settings
       </div>
 
-      {/* <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block mb-1 font-medium">Job Title</label>
-          <Input placeholder="Type Here" className="" />
-        </div>
-        <div>
-          <label className="block mb-1 font-medium">City/Post Code</label>
-          <Input placeholder="Type Here" className="" />
-        </div>
-      </div> */}
-
       <div className="space-y-2">
         <label className="font-medium">Push Message</label>
         <div className="flex items-center justify-between mt-1">
           <div className="flex gap-2">
             <Button
-              variant={frequency === "daily" ? "default" : "outline"}
-              onClick={() => setFrequency("daily")}
+              variant={frequency === "Daily" ? "default" : "outline"}
+              onClick={() => setFrequency("Daily")}
               className={
-                frequency === "daily" ? "custom-btn rounded " : "border-white "
+                frequency === "Daily" ? "custom-btn rounded " : "border-white "
               }
             >
               Every Day
             </Button>
             <Button
-              variant={frequency === "weekly" ? "default" : "outline"}
-              onClick={() => setFrequency("weekly")}
+              variant={frequency === "Weekly" ? "default" : "outline"}
+              onClick={() => setFrequency("Weekly")}
               className={
-                frequency === "weekly"
-                  ? "custom-btn  "
-                  : "border-white rounded-none"
+                frequency === "Weekly" ? "custom-btn " : "border-white rounded"
               }
             >
               Weekly
@@ -63,15 +105,21 @@ export default function AlertsSettingCreate() {
       <div className="space-y-2">
         <label className="font-medium">Email Address</label>
         <div className="flex items-center justify-between mt-1">
-          <Link href="/email-setting">
-            <Button className="custom-btn w-40">Email Setting</Button>
-          </Link>
+          <Input
+            type="email"
+            required
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-100"
+          />
+
           <Switch checked={emailEnabled} onCheckedChange={setEmailEnabled} />
         </div>
       </div>
 
       <div className="flex items-center gap-2 pt-4">
-        <Checkbox />
+        <Checkbox checked={accepted} onCheckedChange={setAccepted} />
         <p className="text-sm">
           By Continuing, You Accept The{" "}
           <span className="font-semibold">Privacy Policy</span> And{" "}
@@ -81,7 +129,12 @@ export default function AlertsSettingCreate() {
       </div>
 
       <div className="flex justify-end">
-        <Button className="sm:w-[15%] custom-btn mt-4">Submit</Button>
+        <Button
+          className="sm:w-[15%] custom-btn mt-4"
+          onClick={handlePushNotification}
+        >
+          Submit
+        </Button>
       </div>
     </Container>
   );

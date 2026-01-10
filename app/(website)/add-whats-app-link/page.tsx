@@ -2,11 +2,11 @@ import AddWhatsLink from "@/components/addWhatsLink/AddWhatsLink";
 import { myFetch } from "@/utils/myFetch";
 
 export default async function AddWhatsLinkPage() {
-  const res = await myFetch("/users/profile");
+  const res = await myFetch("/employers/me");
 
   return (
     <>
-      <AddWhatsLink phone={res?.data?.phone} />
+      <AddWhatsLink whatsApp={res?.data?.whatsApp} />
     </>
   );
 }
