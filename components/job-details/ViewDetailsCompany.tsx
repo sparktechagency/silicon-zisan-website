@@ -6,8 +6,31 @@ import logo from "../../public/dashboard/hotel.png";
 import { ArrowLeft, Clock3 } from "lucide-react";
 import Link from "next/link";
 import dayjs from "dayjs";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { revalidate } from "@/utils/revalidateTag";
 
 export default function ViewDetailsCompany({ data }: any) {
+  const handleWithdraw = async (id: string) => {
+    try {
+      const res = await myFetch(`/jobs/update/${id}`, {
+        method: "PATCH",
+        body: { status: "Closed" },
+      });
+
+      if (res.success) {
+        toast.success(res.message);
+        await revalidate("single-job");
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "An error occurred";
+      toast.error(errorMessage);
+    }
+  };
+
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6">
       {/* Header */}
@@ -39,7 +62,9 @@ export default function ViewDetailsCompany({ data }: any) {
             <p className="border p-0.5 rounded bg-[#465565] px-3">
               {data?.jobType}
             </p>
-            <p>${data?.salaryAmount}/Month</p>
+            <p>
+              ${data?.salaryAmount}/ {data?.salaryType}
+            </p>
           </div>
           <div className="flex gap-4 items-center mt-2 text-sm">
             <p className="flex gap-2">
@@ -50,7 +75,7 @@ export default function ViewDetailsCompany({ data }: any) {
             <Link href={`/applied-jobs/${data?._id}`}>
               <Button className="custom-btn mt-5">Job Applicants</Button>
             </Link>
-            <Link href="/alert-setting" className="">
+            <Link href={`/alert-setting?id=${data?._id}`} className="">
               <Button className="custom-btn mt-5">
                 Turn on notification on this job
               </Button>
@@ -90,7 +115,14 @@ export default function ViewDetailsCompany({ data }: any) {
         <Link href={`/edit-job-post/${data?._id}`}>
           <Button className="custom-btn">Edit Now</Button>
         </Link>
-        <Button className="custom-btn">Withdraw</Button>
+        {data?.status !== "Closed" && (
+          <Button
+            onClick={() => handleWithdraw(data?._id)}
+            className="custom-btn"
+          >
+            Withdraw
+          </Button>
+        )}
       </div>
     </div>
   );

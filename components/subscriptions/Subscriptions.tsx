@@ -18,73 +18,25 @@ import Container from "@/share/Container";
 import CancelModal from "../dashboard/dashboardSubscription/CancelModal";
 import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
 import FreeSubscriptionModal from "../dashboard/dashboardSubscription/FreeSubscriptionModal";
+import { useRouter } from "next/navigation";
 
-const packages = [
-  {
-    id: 1,
-    title: ["Basic", "Standard", "Booster"],
-    subTitle: "Basic Free",
-    all: "Basic",
-    price: "Free",
-    info: false,
-    active: "Activated",
-    unactive: "Inactive",
-    features: [
-      "5 Jobs Posting",
-      "Limited Candidate Alerts",
-      "Limited Candidate Search",
-      "Limited Access To AI Tools",
-      "Activated For Every Registered Account",
-    ],
-  },
-  {
-    id: 2,
-    title: ["Basic", "Standard", "Booster"],
-    subTitle: "Standard",
-    all: "Standard",
-    price: "€ 2.50 Per Day",
-    info: true,
-    active: "Activated",
-    unactive: "Inactive",
-    features: [
-      "0 € For 30 Days",
-      "Activated For 30 Days",
-      "Unlimited Jobs Posting",
-      "Unlimited Candidate Search",
-      "Unlimited Candidate Alerts",
-      "Move Up After 7 Days",
-      "Full Access AI Tools",
-      "Exclusive Features",
-      "24/7 Support",
-    ],
-  },
-  {
-    id: 3,
-    title: ["Basic", "Standard", "Booster"],
-    subTitle: "Booster",
-    all: "Booster",
-    price: "€ 2.50 Per Day",
-    info: true,
-    active: "Activated",
-    unactive: "Inactive",
-    features: [
-      "0 € For 30 Days",
-      "Activated For 90 Days",
-      "Unlimited Jobs Posting",
-      "Unlimited Candidate Search",
-      "Unlimited Candidate Alerts",
-      "Move Up After 7 Days",
-      "Full Access AI Tools",
-      "Exclusive Features",
-      "24/7 Support",
-    ],
-  },
-];
-
-export default function Subscriptions() {
+export default function Subscriptions({ res }: any) {
   const swiperRef = useRef<null | any>(null);
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+    try {
+      router.push("/dashboard-payment");
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Container className="px-5">
@@ -155,11 +107,9 @@ export default function Subscriptions() {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  <li>5 Jobs Posting</li>
-                  <li>Limited Candidate Alerts</li>
-                  <li>Limited Candidate Search</li>
-                  <li>Limited Access To AI Tools</li>
-                  <li>Activated For Every Registered Account</li>
+                  {res[0]?.benefits?.map((list: any, index: number) => (
+                    <li key={index}>{list}</li>
+                  ))}
                 </ul>
               </div>
 
@@ -199,7 +149,9 @@ export default function Subscriptions() {
                     <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
                       Standard
                     </h1>
-                    <p className="text-white text-sm mt-2">€ 2.50 Per Day</p>
+                    <p className="text-white text-sm mt-2">
+                      € {res[1]?.dailyPrice} Per Day
+                    </p>
                   </div>
                   <div>
                     <div className="flex justify-end mb-2">
@@ -217,24 +169,22 @@ export default function Subscriptions() {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  <li className="">0 € For 30 Days</li>
-                  <li className="">Activated For 30 Days</li>
-                  <li className="">Unlimited Jobs Posting</li>
-                  <li className="">Unlimited Candidate Search</li>
-                  <li className="">Unlimited Candidate Alerts</li>
-                  <li className="">Move Up After 7 Days</li>
-                  <li className="">Full Access AI Tools</li>
-                  <li className="">Exclusive Features</li>
-                  <li className="">24/7 Support</li>
+                  {res[1]?.benefits?.map((list: any, index: number) => (
+                    <li key={index}>{list}</li>
+                  ))}
                 </ul>
               </div>
 
               <div className="mt-auto">
-                <Link href="/dashboard-payment">
-                  <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                    Subscribe Now
-                  </Button>
-                </Link>
+                <Button
+                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                    loading && "cursor-not-allowed"
+                  }`}
+                  disabled={loading}
+                  onClick={handleClick}
+                >
+                  Subscribe Now
+                </Button>
               </div>
             </div>
           </SwiperSlide>
@@ -263,7 +213,9 @@ export default function Subscriptions() {
                     <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
                       Booster
                     </h1>
-                    <p className="text-white text-sm mt-2">€ 2.50 Per Day</p>
+                    <p className="text-white text-sm mt-2">
+                      € {res[2]?.dailyPrice} Per Day
+                    </p>
                   </div>
                   <div>
                     <div className="flex justify-end mb-2">
@@ -281,24 +233,22 @@ export default function Subscriptions() {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  <li>0 € For 30 Days</li>
-                  <li>Activated For 90 Days</li>
-                  <li>Unlimited Jobs Posting</li>
-                  <li>Unlimited Candidate Search</li>
-                  <li>Unlimited Candidate Alerts</li>
-                  <li>Move Up After 7 Days</li>
-                  <li>Full Access AI Tools</li>
-                  <li>Exclusive Features</li>
-                  <li>24/7 Support</li>
+                  {res[2]?.benefits?.map((list: any, index: number) => (
+                    <li key={index}>{list}</li>
+                  ))}
                 </ul>
               </div>
 
               <div className="mt-auto">
-                <Link href="/dashboard-payment">
-                  <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                    Subscribe Now
-                  </Button>
-                </Link>
+                <Button
+                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                    loading && "cursor-not-allowed"
+                  }`}
+                  disabled={loading}
+                  onClick={handleClick}
+                >
+                  Subscribe Now
+                </Button>
               </div>
             </div>
           </SwiperSlide>

@@ -102,7 +102,10 @@ const PostJobForm = () => {
       method: "POST",
       body: payload,
     });
+<<<<<<< HEAD
     //console.log("res", res);
+=======
+>>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
   };
 
   return (

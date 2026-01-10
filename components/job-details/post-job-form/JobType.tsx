@@ -11,7 +11,7 @@ import {
 import { jobTypes } from "@/demoData/data";
 import { Controller } from "react-hook-form";
 
-export default function JobType({ control, register }: any) {
+export default function JobType({ control, register, errors }: any) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <div>
@@ -19,6 +19,7 @@ export default function JobType({ control, register }: any) {
         <Controller
           name="jobType"
           control={control}
+          rules={{ required: "Job type is required" }}
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
@@ -37,6 +38,10 @@ export default function JobType({ control, register }: any) {
             </Select>
           )}
         />
+
+        {errors.jobType && (
+          <span className="text-red-400">{errors.jobType.message}</span>
+        )}
       </div>
 
       <div>

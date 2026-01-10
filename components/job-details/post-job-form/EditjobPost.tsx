@@ -12,6 +12,7 @@ import SalaryDetailsFormValues from "./SalaryDetailsFormValues";
 import AddQualificationAndResposibilities from "./AddQualificationAndResposibilities";
 import { toast, Toaster } from "sonner";
 import { myFetch } from "@/utils/myFetch";
+import { Button } from "@/components/ui/button";
 
 type FormValues = {
   category: string;
@@ -28,7 +29,13 @@ type FormValues = {
 
 export default function EditJobPost({ data }: any) {
   const [categories, setCategories] = useState<any[]>([]);
-  const { register, control, reset, handleSubmit } = useForm<FormValues>({
+  const {
+    register,
+    control,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
     defaultValues: {
       category: data?.category || "",
       subCategory: data?.subCategory || "",
@@ -105,6 +112,12 @@ export default function EditJobPost({ data }: any) {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    console.log("click");
+
+    if (!values.jobType) {
+      toast.error("Please select job type");
+      return;
+    }
     const payload = {
       ...values,
       deadline: values.deadline
@@ -120,10 +133,12 @@ export default function EditJobPost({ data }: any) {
         body: payload,
       });
 
+      console.log("res", res);
+
       if (res?.success) {
         toast.success(res.message);
       } else {
-        toast.error(res.message);
+        toast.error((res as any)?.error[0].message);
       }
     } catch (err) {
       const errorMessage =
@@ -137,21 +152,28 @@ export default function EditJobPost({ data }: any) {
       className={`bg-card w-[50%] mx-auto"
       p-5 border rounded-md`}
     >
+      <div className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <CustomBackButton />
+        <p>Edit Job Post</p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-gray-100 w-full rounded-xl">
-          <div className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <CustomBackButton />
-            <p>Edit Job Post</p>
-          </div>
-
           {/* Category & Subcategory */}
-          <Categories control={control} categories={categories} />
+          <Categories
+            control={control}
+            categories={categories}
+            errors={errors}
+          />
 
           {/* Job Type & Deadline */}
-          <JobType control={control} register={register} />
+          <JobType control={control} register={register} errors={errors} />
 
           {/* Salary Type*/}
-          <SalaryDetailsFormValues control={control} register={register} />
+          <SalaryDetailsFormValues
+            control={control}
+            register={register}
+            errors={errors}
+          />
 
           <AddQualificationAndResposibilities
             register={register}
@@ -161,6 +183,7 @@ export default function EditJobPost({ data }: any) {
             qualifications={qualifications}
             addQualification={addQualification}
             removeQualification={removeQualification}
+            errors={errors}
           />
 
           {/* About Yourself */}
@@ -175,12 +198,12 @@ export default function EditJobPost({ data }: any) {
 
           {/* Confirm Button */}
           <div className="flex justify-end mt-6">
-            <button
+            <Button
               type="submit"
               className="custom-btn text-white font-medium sm:px-6 py-2 rounded-md hover:opacity-90 transition px-2"
             >
               Confirm
-            </button>
+            </Button>
           </div>
         </div>
       </form>

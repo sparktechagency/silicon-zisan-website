@@ -38,8 +38,6 @@ export default function SignUpPage() {
         body: { ...data, role: "Employer" },
       });
 
-      //console.log("res", res);
-
       if (res?.success) {
         toast.success(res?.message);
         // setCookie("accessToken", res?.data?.accessToken);

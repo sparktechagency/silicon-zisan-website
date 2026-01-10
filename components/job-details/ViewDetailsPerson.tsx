@@ -13,8 +13,11 @@ import { revalidate } from "@/utils/revalidateTag";
 
 export default function ViewDetailsPerson({ data }: any) {
   const handleApproved = async (id: string) => {
+<<<<<<< HEAD
     //console.log("id", id);
 
+=======
+>>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
     try {
       const res = await myFetch(`/applications/update/${id}`, {
         method: "PATCH",
@@ -22,7 +25,10 @@ export default function ViewDetailsPerson({ data }: any) {
           status: "Accepted",
         },
       });
+<<<<<<< HEAD
       //console.log("res", res);
+=======
+>>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
 
       if (res.success) {
         toast.success(res.message);

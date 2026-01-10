@@ -5,7 +5,6 @@ import {
   DialogTrigger,
   DialogContent,
   DialogClose,
-  DialogFooter,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 

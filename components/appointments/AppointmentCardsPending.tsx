@@ -113,6 +113,7 @@ export default function AppointmentCardsPending() {
             />
 
             <SendMessageModal2
+              item={item?.id}
               isModalTwoOpen2={isModalTwoOpen2}
               setIsModalTwoOpen2={setIsModalTwoOpen2}
             />

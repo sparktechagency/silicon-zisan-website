@@ -1,7 +1,11 @@
 import Container from "@/share/Container";
-import { ArrowDown, Bell, Settings } from "lucide-react";
+import { myFetch } from "@/utils/myFetch";
+import { Bell } from "lucide-react";
 
-export default function Alerts() {
+export default async function Alerts() {
+  const res = await myFetch("/notifications/me");
+  console.log("res?.data?.data");
+
   return (
     <Container className="my-16">
       <div className="flex items-center justify-between mb-4">
@@ -16,24 +20,29 @@ export default function Alerts() {
           </button>
         </Link> */}
       </div>
-      {Array.from({ length: 9 }).map((_, index) => (
-        <div key={index} className="mb-4">
-          {/* Transaction Info */}
-          <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
-            <div>
-              <p className="text-lg flex gap-3 items-center font">
-                <Bell /> kamran is ux ui designer
-              </p>
-            </div>
+      {res?.data?.data.length > 0 ? (
+        res?.data?.data?.map((item: any) => (
+          <div key={item?._id} className="mb-4">
+            {/* Transaction Info */}
+            <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
+              <div>
+                <p className="text-lg flex gap-3 items-center font">
+                  <Bell />
+                  {item.message}
+                </p>
+              </div>
 
-            <div className="flex space-x-2">
-              <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
-                12 : 00 Pm
-              </button>
+              <div className="flex space-x-2">
+                <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
+                  {item?.timeAgo}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p className="text-center text-lg">Notifications Not Found</p>
+      )}
     </Container>
   );
 }
