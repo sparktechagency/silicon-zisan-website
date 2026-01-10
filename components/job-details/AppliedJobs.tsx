@@ -7,6 +7,8 @@ import CustomBackButton from "@/share/CustomBackButton";
 import dayjs from "dayjs";
 
 export default function AppliedJobs({ data }: any) {
+  //console.log("data", data);
+
   return (
     <Container className="my-10">
       <CustomBackButton />

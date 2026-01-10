@@ -4,6 +4,10 @@ import { myFetch } from "@/utils/myFetch";
 export default async function page({ params }: { params: { id: string } }) {
   const id = (await params)?.id;
   const res = await myFetch(`/applications/job/${id}`);
+<<<<<<< HEAD
+  //console.log("res", res);
+=======
+>>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
 
   return (
     <>

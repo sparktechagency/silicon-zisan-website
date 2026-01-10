@@ -54,6 +54,12 @@ export default function VerifyAccount() {
         method: "POST",
         body: formData,
       });
+<<<<<<< HEAD
+      //console.log("res", res);
+
+      toast.success("Documents uploaded successfully");
+      //console.log("res", res);
+=======
 
       console.log("res", res);
 
@@ -62,6 +68,7 @@ export default function VerifyAccount() {
       } else {
         toast.error((res as any)?.error[0].message);
       }
+>>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "An error occurred");
     }

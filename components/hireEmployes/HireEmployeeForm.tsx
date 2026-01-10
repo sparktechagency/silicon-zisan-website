@@ -91,6 +91,8 @@ const HireEmployeeForm = () => {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    //console.log("data", data);
+
     const payload = {
       ...data,
       responsibilities: data.responsibilities.map((item) => item.value),
@@ -104,6 +106,7 @@ const HireEmployeeForm = () => {
         method: "POST",
         body: payload,
       });
+      //console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);
