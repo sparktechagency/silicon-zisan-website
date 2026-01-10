@@ -20,8 +20,6 @@ export default function SendMessageModal2({
   setIsModalTwoOpen2: (val: boolean) => void;
   item?: any;
 }) {
-  console.log("item", item);
-
   const handleStatusUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -36,7 +34,6 @@ export default function SendMessageModal2({
           cancelReason,
         },
       });
-      console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);

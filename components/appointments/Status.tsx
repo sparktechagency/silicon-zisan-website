@@ -1,22 +1,18 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function Status() {
   const tabs = ["Confirmed", "Pending", "Cancelled", "Create New"];
-  const [statusTab, setStatusTab] = useState("");
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const activeStatus = searchParams.get("status");
-  const params = new URLSearchParams(searchParams.toString());
-  const currentName = params.get("name");
+  // const params = new URLSearchParams(searchParams.toString());
 
   // function addRemoveStatus() {
   //   if (currentName === "Appointments") {
-  //     console.log("done");
 
   //     params.set("status", statusTab);
   //   } else {
@@ -38,7 +34,6 @@ export default function Status() {
     const params = new URLSearchParams(searchParams.toString());
     const currentName = params.get("name");
     if (currentName === "Appointments") {
-      console.log("done");
       params.set("status", tab);
     } else {
       params.delete("status");

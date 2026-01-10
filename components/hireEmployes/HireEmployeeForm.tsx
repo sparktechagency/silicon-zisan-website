@@ -143,7 +143,7 @@ const HireEmployeeForm = () => {
           />
 
           {/* Job Type & Deadline */}
-          <JobType control={control} register={register} />
+          <JobType control={control} register={register} errors={errors} />
 
           {/* Salary Type*/}
           <SalaryDetailsFormValues

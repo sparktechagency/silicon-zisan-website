@@ -3,6 +3,7 @@
 import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import pdf from "../../public/dashboard/pdf.png";
+import CustomImage from "@/utils/CustomImage";
 
 export default function ViewProfile({ data }: any) {
 <<<<<<< HEAD
@@ -14,7 +15,7 @@ export default function ViewProfile({ data }: any) {
     { label: "Name", value: data?.user?.name?.trim() || "No Name" },
     { label: "Email", value: data?.user?.email },
     { label: "Contact", value: data?.user?.phone },
-    { label: "Location", value: data?.user?.address },
+    { label: "Location", value: data?.user?.address || "No" },
     // { label: "Role", value: "Job Seeker" },
   ];
 
@@ -49,13 +50,12 @@ export default function ViewProfile({ data }: any) {
 
       {/* Image */}
       <div className="flex gap-4">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.user?.image}`}
-          alt="Office"
+        <CustomImage
+          src={data?.user?.image}
+          title="Office"
           className="rounded-full h-28 w-28 object-cover"
           width={10}
           height={10}
-          unoptimized
         />
 
         <div className="t">
@@ -107,12 +107,12 @@ export default function ViewProfile({ data }: any) {
         {data?.attachments?.map((item: any, index: number) => {
           return (
             <div key={index} className="image-wrapper">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item}`}
-                alt={`Office ${index + 1}`}
+              <CustomImage
+                src={item}
+                title={`Office ${index + 1}`}
                 className="image"
-                width={10}
-                height={10}
+                width={100}
+                height={100}
               />
             </div>
           );

@@ -9,6 +9,8 @@ export default async function page({ params }: { params: { id: string } }) {
 =======
 >>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
 
+  console.log("applications", res);
+
   return (
     <>
       {res?.data.length > 0 ? (

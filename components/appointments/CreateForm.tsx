@@ -32,17 +32,14 @@ export function CreateForm({ res }: any) {
 
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      receiver: res?._id,
-      job: res?.user?._id,
+      receiver: res?.job?.author?._id,
+      job: res?.job?._id,
       scheduledAt: data.appointment?.toISOString() ?? null,
       address: res?.user?.address,
       message: data?.message,
     };
 
-<<<<<<< HEAD
-    //console.log("payload", payload);
-=======
->>>>>>> ceb4b5c532f5ba14580cf7549592cb374d37f855
+
     try {
       const res = await myFetch("/appointments/create", {
         method: "POST",
