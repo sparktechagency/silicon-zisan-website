@@ -1,4 +1,13 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+
+interface CustomImageProps {
+  src?: string | null;
+  title?: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  fallback?: string | StaticImageData;
+}
 
 export default function CustomImage({
   src = "",
@@ -7,8 +16,9 @@ export default function CustomImage({
   height = 100,
   className = "",
   fallback = "/default.png", // optional fallback image
-}) {
+}: CustomImageProps) {
   // Return fallback if no SRC
+  //console.log("src------", src);
 
   if (!src) {
     return (

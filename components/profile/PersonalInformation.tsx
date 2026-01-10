@@ -1,23 +1,27 @@
 "use client";
 import React from "react";
-import Image from "next/image"; // or <img> if not using Next.js
+// import Image from "next/image";
 import profileMan from "../../public/profile/profile.png";
 import { Camera } from "lucide-react";
-// Data for profile fields
-const profileData = [
-  { label: "Name", value: "Kamran Khan" },
-  { label: "Email", value: "Kamran@Gmail.Com" },
-  { label: "Contact", value: "+1524623256656" },
-  { label: "Location", value: "Dhaka Bangladesh" },
-];
+import CustomImage from "@/utils/CustomImage";
 
 export default function PersonalInformation({
   setStatus,
+  data,
 }: {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  data: any;
 }) {
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  // Data for profile fields
+  const profileData = [
+    { label: "Name", value: data?.name || data?.companyName || "N/A" },
+    { label: "Email", value: data?.email || "N/A" },
+    { label: "Contact", value: data?.contactNumber || data?.phone || "N/A" },
+    { label: "Location", value: data?.address || "N/A" },
+  ];
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -38,14 +42,13 @@ export default function PersonalInformation({
     <div className="w-full max-w-[400px] bg-card p-5 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
-        <Image
-          src={previewImage || profileMan}
-          width={10}
-          height={10}
-          alt="Profile"
-          className="object-cover w-full h-full"
-          sizes="100vh"
-          // priority
+        <CustomImage
+          src={previewImage || data?.image}
+          fallback={profileMan}
+          width={100}
+          height={100}
+          title="Profile"
+          className="w-full h-full"
         />
         {/* Camera Icon overlay */}
         <div
@@ -66,9 +69,9 @@ export default function PersonalInformation({
       {/* Profile Data */}
       <div className="mb-6">
         {profileData.map(({ label, value }, idx) => (
-          <div key={idx} className="grid grid-cols-2 py-2 ">
-            <span className="text-sm font-">{label}</span>
-            <span className="text-sm">: {value}</span>
+          <div key={idx} className="flex gap-10 py-2 ">
+            <span className="text-sm w-[20%]">{label}</span>
+            <span className="text-sm w-[80%]">: {value}</span>
           </div>
         ))}
       </div>

@@ -10,6 +10,7 @@ import EditProfile from "./EditProfile";
 import Setting from "./Settings";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { deleteCookie } from "cookies-next/client";
 
 const buttons = [
   {
@@ -27,7 +28,7 @@ const buttons = [
     hover: "hover:bg-[#324250]",
   },
 ];
-export default function Profile() {
+export default function Profile({ data }: { data: any }) {
   const router = useRouter();
   const [status, setStatus] = useState("Personal Information");
 
@@ -42,6 +43,8 @@ export default function Profile() {
       confirmButtonText: "Yes ",
     }).then((result) => {
       if (result.isConfirmed) {
+        deleteCookie("accessToken");
+        deleteCookie("role");
         router.push("/login");
         Swal.fire({
           title: "Logged Out",
@@ -77,13 +80,13 @@ export default function Profile() {
     <div className="flex flex-col md:flex-row my-16 gap-10 w-full max-w-[1000px] mx-auto px-4 md:px-0">
       <div className="sm:w-88 text-white ">
         {/* Profile Image */}
-        <div className="flex justify-center mb-6">
+        {/* <div className="flex justify-center mb-6">
           <Image
             src={profileMan}
             alt="Profile"
             className="w-52 sm:w-auto object-cover"
           />
-        </div>
+        </div> */}
 
         {/* Buttons */}
         <div className="grid grid-cols-1 space-y-4">
@@ -132,9 +135,9 @@ export default function Profile() {
       {/* conditional components */}
       <div className="w-full">
         {status === "Personal Information" && (
-          <PersonalInformation setStatus={setStatus} />
+          <PersonalInformation setStatus={setStatus} data={data} />
         )}
-        {status === "Edit Profile" && <EditProfile />}
+        {status === "Edit Profile" && <EditProfile initialData={data} />}
 
         {status === "Settings" && <Setting />}
       </div>

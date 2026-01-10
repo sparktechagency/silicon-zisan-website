@@ -6,7 +6,7 @@ const { cookies } = require("next/headers");
 const getProfile = async () => {
   const token = (await cookies()).get("accessToken")?.value;
 
-  const res = await fetch(`${process.env.BASE_URL}/user/profile`, {
+  const res = await fetch(`${process.env.BASE_URL}/users/profile`, {
     next: {
       tags: ["users-profile"],
     },
@@ -17,6 +17,7 @@ const getProfile = async () => {
   });
 
   const { data } = await res.json();
+  console.log("adadvcasdvadvadv =====>", data);
   return data;
 };
 
