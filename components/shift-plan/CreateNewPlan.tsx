@@ -73,7 +73,7 @@ export default function CreateNewPlan() {
         <div className=" text-white rounded-xl  space-y-6 mt-10 sm:mt-0">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-semibold"></h1>
-            <AddEmployeeForm
+            {/* <AddEmployeeForm
               title={findName || ""}
               trigger={
                 <div className="flex justify-end">
@@ -82,7 +82,7 @@ export default function CreateNewPlan() {
                   </Button>
                 </div>
               }
-            />
+            /> */}
 
             {findName && (
               <>

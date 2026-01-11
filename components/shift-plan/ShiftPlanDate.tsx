@@ -3,10 +3,10 @@
 import { isSameDay } from "date-fns";
 import { useState } from "react";
 import { Label } from "../ui/label";
-import CustomDatePicker from "../appointments/CustomDatePicker";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import Container from "@/share/Container";
+import CustomTimePicker from "../appointments/CustomTimePicker";
 
 export default function ShiftPlanDate({
   selectedDates,
@@ -66,8 +66,6 @@ export default function ShiftPlanDate({
         <Label className="block font-semibold">Shift Time</Label>
         <div className="grid sm:grid-cols-2 gap-4 mx-auto w-full ">
           <div className="flex-1">
-            <Label className="block mb-2">From</Label>
-            <CustomDatePicker />
             {selectedDates.length > 0 && (
               <div className="text-sm text-white mt-2">
                 {selectedDates[0].toLocaleDateString()} -{" "}
@@ -77,8 +75,7 @@ export default function ShiftPlanDate({
           </div>
 
           <div className="flex-1">
-            <Label className="block mb-2">To</Label>
-            <CustomDatePicker />
+            {/* <CustomTimePicker /> */}
             {selectedDates.length > 0 && (
               <div className="text-sm text-white mt-2">
                 {selectedDates.length} Days Plan

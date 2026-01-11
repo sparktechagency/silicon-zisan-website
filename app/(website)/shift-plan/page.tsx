@@ -1,9 +1,13 @@
 import ShiftPlan from "@/components/shift-plan/ShiftPlan";
+import { myFetch } from "@/utils/myFetch";
 
-export default function ShiftPlanpage() {
+export default async function ShiftPlanpage() {
+  const res = await myFetch("/shift-plans/me", {
+    tags: ["shift-plan"],
+  });
   return (
     <>
-      <ShiftPlan />
+      <ShiftPlan data={res?.data} />
     </>
   );
 }

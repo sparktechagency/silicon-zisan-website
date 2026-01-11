@@ -13,31 +13,10 @@ import {
 import DeleteModal from "./DeleteModal";
 import ShiftPlanStatus from "./ShiftPlanStatus";
 import { useRouter } from "next/navigation";
+import dayjs from "dayjs";
+import Link from "next/link";
 
-const tableData = [
-  {
-    name: "Kamran",
-    date: "20.25.2025",
-    time: "Morning",
-  },
-  {
-    name: "Kamran",
-    date: "20.25.2025",
-    time: "Morning",
-  },
-  {
-    name: "Kamran",
-    date: "20.25.2025",
-    time: "Morning",
-  },
-  {
-    name: "Kamran",
-    date: "20.25.2025",
-    time: "Morning",
-  },
-];
-
-export default function ShiftPlan() {
+export default function ShiftPlan({ data }: any) {
   const router = useRouter();
 
   return (
@@ -71,19 +50,22 @@ export default function ShiftPlan() {
           </TableHeader>
 
           <TableBody>
-            {tableData?.map((item, index) => (
+            {data?.map((item: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="font-medium">{item.name}</TableCell>
-                <TableCell>{item.date}</TableCell>
-                <TableCell>{item.time}</TableCell>
+                <TableCell className="font-medium">
+                  {item?.worker?.name}
+                </TableCell>
+                <TableCell>
+                  {dayjs(item?.days[0]).format("YYYY-MM-DD")}
+                </TableCell>
+                <TableCell>{item?.shift}</TableCell>
                 <TableCell>
                   <div className="flex space-x-3">
-                    <button
-                      className="custom-btn rounded p-1.5"
-                      onClick={() => router.push("/create-new-plan?name=edit")}
-                    >
-                      <Pencil />
-                    </button>
+                    <Link href={`/create-new-plan?id=${item?._id}`}>
+                      <button className="custom-btn rounded p-1.5">
+                        <Pencil />
+                      </button>
+                    </Link>
 
                     <button
                       className="custom-btn rounded p-1.5 flex items-center justify-center"

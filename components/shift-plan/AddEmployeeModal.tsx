@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   Dialog,
   DialogClose,
@@ -8,80 +8,90 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { FormInput } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+
 import { Label } from "../ui/label";
+import { toast } from "sonner";
+import { myFetch } from "@/utils/myFetch";
+import { useState } from "react";
+
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+};
 
 export default function AddEmployeeForm({
   trigger,
-  title,
 }: {
   trigger: React.ReactNode;
-  title?: string;
 }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    contact: "",
-    address: "",
+  const [open, setOpen] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      address: "",
+    },
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const onSubmit = async (data: FormData) => {
+    try {
+      const res = await myFetch("/workers/create", {
+        method: "POST",
+        body: data,
+      });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+      console.log("res", res);
 
-    // Add your save logic here
+      if (res.success) {
+        toast.success(res.message);
+        setOpen(false);
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "something went wrong");
+    }
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="rounded-xl max-w-sm bg-[#3C4751] backdrop-blur-sm opacity-90 border border-gray-400/30 shadow-lg">
         <DialogTitle className="text-xl font-semibold ">
-          {title ? "Edit Employee" : "Add Employee"}
+          Add Employee
         </DialogTitle>
 
-        <form onSubmit={handleSubmit} className=" text-white  space-y-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=" text-white  space-y-5"
+        >
           {/* Employee Name */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <Label className="block mb-1 font-medium">Employee Name</Label>
-              {title ? (
-                <Select>
-                  <SelectTrigger className="w-full border">
-                    <SelectValue placeholder="Select Name" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="John Doe">John Doe</SelectItem>
-                      <SelectItem value="Jane Smith">Jane Smith</SelectItem>
-                      <SelectItem value="Michael Lee">Michael Lee</SelectItem>
-                      <SelectItem value="Sara Khan">Sara Khan</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              ) : (
-                <Input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter full name"
-                  className="w-full p- rounded  text-white placeholder:text-[13px]"
-                />
+              <Input
+                type="text"
+                {...register("name", {
+                  required: "Name is required",
+                  minLength: {
+                    value: 2,
+                    message: "Name must be at least 2 characters",
+                  },
+                })}
+                placeholder="Enter full name"
+                className="w-full p-2 rounded text-white placeholder:text-[13px]"
+              />
+              {errors.name && (
+                <span className="text-red-400 text-xs">
+                  {errors.name.message}
+                </span>
               )}
             </div>
 
@@ -90,12 +100,21 @@ export default function AddEmployeeForm({
               <Label className="block mb-1 font-medium">Email Address</Label>
               <Input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Invalid email address",
+                  },
+                })}
                 placeholder="Enter email"
-                className="w-full p-2 rounded  text-white placeholder:text-[13px]"
+                className="w-full p-2 rounded text-white placeholder:text-[13px]"
               />
+              {errors.email && (
+                <span className="text-red-400 text-xs">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -104,33 +123,45 @@ export default function AddEmployeeForm({
               <Label className="block mb-1 font-medium">Contact Number</Label>
               <Input
                 type="tel"
-                name="contact"
-                value={formData.contact}
-                onChange={handleChange}
+                {...register("phone", {
+                  required: "Contact number is required",
+                  pattern: {
+                    value: /^[0-9+\-\s()]+$/,
+                    message: "Invalid phone number",
+                  },
+                })}
                 placeholder="Enter phone number"
-                className="w-full p-2 rounded  text-white placeholder:text-[13px]"
+                className="w-full p-2 rounded text-white placeholder:text-[13px]"
               />
+              {errors.phone && (
+                <span className="text-red-400 text-xs">
+                  {errors.phone.message}
+                </span>
+              )}
             </div>
 
             {/* Address */}
             <div>
               <Label className="block mb-1 font-medium">Address</Label>
               <Input
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
+                {...register("address", {
+                  required: "Address is required",
+                })}
                 placeholder="Enter address"
-                className="w-full p-2 rounded  text-white placeholder:text-[13px]"
+                className="w-full p-2 rounded text-white placeholder:text-[13px]"
               />
+              {errors.address && (
+                <span className="text-red-400 text-xs">
+                  {errors.address.message}
+                </span>
+              )}
             </div>
           </div>
           {/* Save Button */}
           <div className="flex justify-end">
-            <DialogClose asChild>
-              <Button type="submit" className="w-[50%] custom-btn">
-                Save
-              </Button>
-            </DialogClose>
+            <Button type="submit" className="w-[50%] custom-btn">
+              Save
+            </Button>
           </div>
         </form>
       </DialogContent>
