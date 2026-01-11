@@ -13,6 +13,7 @@ import SalaryDetailsFormValues from "../job-details/post-job-form/SalaryDetailsF
 import AddQualificationAndResposibilities from "../job-details/post-job-form/AddQualificationAndResposibilities";
 import { myFetch } from "@/utils/myFetch";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 type FormValues = {
   category: string;
@@ -36,6 +37,7 @@ const PostJobForm = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
@@ -88,8 +90,6 @@ const PostJobForm = () => {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    console.log("data", data);
-
     const payload = {
       ...data,
       responsibilities: data.responsibilities.map((item) => item.value),
@@ -98,11 +98,21 @@ const PostJobForm = () => {
       experience: "With Experience",
     };
 
-    const res = await myFetch("/jobs/create", {
-      method: "POST",
-      body: payload,
-    });
-    console.log("res", res);
+    try {
+      const res = await myFetch("/jobs/create", {
+        method: "POST",
+        body: payload,
+      });
+
+      if (res.success) {
+        toast.success(res.message);
+        reset();
+      } else {
+        toast.error((res as any)?.error[0]?.message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
+    }
   };
 
   return (

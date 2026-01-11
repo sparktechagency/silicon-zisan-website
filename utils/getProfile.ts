@@ -17,7 +17,6 @@ const getProfile = async () => {
   });
 
   const { data } = await res.json();
-  console.log("adadvcasdvadvadv =====>", data);
   return data;
 };
 

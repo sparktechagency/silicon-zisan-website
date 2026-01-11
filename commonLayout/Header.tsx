@@ -20,8 +20,6 @@ export default function HeaderTwo({ user }: { user?: any }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  console.log(user);
-
   return (
     <nav className={`${gradientClasses.primaryBg}  sticky top-0 z-50`}>
       <Container>

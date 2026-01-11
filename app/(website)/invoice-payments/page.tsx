@@ -1,9 +1,11 @@
 import InvoicePayments from "@/components/invoicePayments/InvoicePayments";
+import { myFetch } from "@/utils/myFetch";
 
-export default function InvoicePaymentspage() {
+export default async function InvoicePaymentspage() {
+  const res = await myFetch("/invoices/me");
   return (
-    <div>
-      <InvoicePayments />
-    </div>
+    <>
+      <InvoicePayments data={res?.data} />
+    </>
   );
 }

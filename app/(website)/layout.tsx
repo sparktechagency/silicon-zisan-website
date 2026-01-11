@@ -9,8 +9,6 @@ export default async function MainLayout({
 }>) {
   const user = await getProfile();
 
-  console.log(user);
-
   return (
     <>
       <Header user={user} />

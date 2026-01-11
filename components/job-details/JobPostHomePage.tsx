@@ -5,7 +5,6 @@ import CustomImage from "@/utils/CustomImage";
 
 export default async function JobPostHomePage() {
   const res = await myFetch("/jobs/me");
-  //console.log("res", res);
 
   return (
     <div className="basis-[70%]">

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Invoice from "./Invoice";
 import PaymentSystem from "./PaymentSystem";
 
-export default function InvoicePayments() {
+export default function InvoicePayments({ data }: any) {
   const [selectedTab, setSelectedTab] = useState("invoice");
   return (
     <div>
@@ -30,7 +30,7 @@ export default function InvoicePayments() {
           Manage Payments
         </button>
       </div>
-      {selectedTab === "invoice" && <Invoice />}
+      {selectedTab === "invoice" && <Invoice data={data} />}
       {selectedTab === "card" && <PaymentSystem />}
     </div>
   );
