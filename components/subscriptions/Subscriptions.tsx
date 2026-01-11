@@ -190,68 +190,70 @@ export default function Subscriptions({ res }: any) {
           </SwiperSlide>
 
           {/* Slide 3: Booster */}
-          <SwiperSlide>
-            <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
-              <h1 className="text-lg sm:text-2xl font-semibold my-2">
-                JobsinApp Plans
-              </h1>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                <button className="button-unactive w-full py-2 rounded-2xl">
-                  Basic
-                </button>
-                <button className="button-unactive w-full py-2 rounded-2xl">
-                  Standard
-                </button>
-                <button className="button-unactive custom-btn  w-full py-2 rounded-2xl">
-                  Booster
-                </button>
-              </div>
-
-              <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-                <div className="flex justify-between items-center">
-                  <div className="mt-4">
-                    <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
-                      Booster
-                    </h1>
-                    <p className="text-white text-sm mt-2">
-                      € {res[2]?.dailyPrice} Per Day
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex justify-end mb-2">
-                      <Image src={logo} className="h-10 w-10" alt="logo" />
-                    </div>
-                    <div className="flex flex-col sm:flex-row">
-                      <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
-                        Activated
-                      </button>
-                      <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
-                        Inactive
-                      </button>
-                    </div>
-                  </div>
+          {res[2] && (
+            <SwiperSlide>
+              <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
+                <h1 className="text-lg sm:text-2xl font-semibold my-2">
+                  JobsinApp Plans
+                </h1>
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                  <button className="button-unactive w-full py-2 rounded-2xl">
+                    Basic
+                  </button>
+                  <button className="button-unactive w-full py-2 rounded-2xl">
+                    Standard
+                  </button>
+                  <button className="button-unactive custom-btn  w-full py-2 rounded-2xl">
+                    Booster
+                  </button>
                 </div>
 
-                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {res[2]?.benefits?.map((list: any, index: number) => (
-                    <li key={index}>{list}</li>
-                  ))}
-                </ul>
-              </div>
+                <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+                  <div className="flex justify-between items-center">
+                    <div className="mt-4">
+                      <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
+                        Booster
+                      </h1>
+                      <p className="text-white text-sm mt-2">
+                        € {res[2]?.dailyPrice} Per Day
+                      </p>
+                    </div>
+                    <div>
+                      <div className="flex justify-end mb-2">
+                        <Image src={logo} className="h-10 w-10" alt="logo" />
+                      </div>
+                      <div className="flex flex-col sm:flex-row">
+                        <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
+                          Activated
+                        </button>
+                        <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
+                          Inactive
+                        </button>
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="mt-auto">
-                <Button
-                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                    loading && "cursor-not-allowed"
-                  }`}
-                  disabled={loading}
-                  onClick={handleClick}
-                >
-                  Subscribe Now
-                </Button>
+                  <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                    {res[2]?.benefits?.map((list: any, index: number) => (
+                      <li key={index}>{list}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-auto">
+                  <Button
+                    className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                      loading && "cursor-not-allowed"
+                    }`}
+                    disabled={loading}
+                    onClick={handleClick}
+                  >
+                    Subscribe Now
+                  </Button>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          )}
 
           {/* cancel */}
           <SwiperSlide>

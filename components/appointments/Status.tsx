@@ -9,22 +9,6 @@ export default function Status() {
   const searchParams = useSearchParams();
 
   const activeStatus = searchParams.get("status");
-  // const params = new URLSearchParams(searchParams.toString());
-
-  // function addRemoveStatus() {
-  //   if (currentName === "Appointments") {
-
-  //     params.set("status", statusTab);
-  //   } else {
-  //     params.delete("status");
-  //   }
-
-  //   router.push(`?${params.toString()}`);
-  // }
-
-  // useEffect(() => {
-  //   addRemoveStatus();
-  // }, [currentName, statusTab]);
 
   const handleClick = (tab: string) => {
     if (tab === "Create New") {
@@ -51,7 +35,7 @@ export default function Status() {
             <button
               key={tab}
               onClick={() => handleClick(tab)}
-              className={`py-2 px-6 md:py-3 rounded-md font-medium text-sm transition-all duration-300 xl:text-xl
+              className={`py-2 px-6 md:py-3 rounded-md font-medium text-sm transition-all duration-300 xl:text-xl cursor-pointer
                 ${
                   isActive && tab !== "Create New"
                     ? "btn"

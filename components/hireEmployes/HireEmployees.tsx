@@ -38,7 +38,7 @@ export default async function HireEmployees() {
                 {item?.jobType}
               </button>
               <div className="flex items-center justify-center h-full">
-                <Link href="/contact-information">
+                <Link href={`/contact-information?id=${item?._id}`}>
                   <button className="button-unactive p-1 h-9 w-9 rounded-full flex items-center justify-center">
                     <Eye />
                   </button>

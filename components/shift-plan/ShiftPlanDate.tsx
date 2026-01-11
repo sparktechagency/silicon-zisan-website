@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { isSameDay } from "date-fns";
@@ -14,10 +13,9 @@ export default function ShiftPlanDate({
   setSelectedDates,
 }: any) {
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [, setOpen] = useState(false);
 
   const handleCancel = () => setSelectedDates([]);
-  const handleOk = () => setOpen(false);
+  // const handleOk = () => setOpen(false);
 
   return (
     <Container className="max-w-2xl mx-auto">
@@ -50,7 +48,7 @@ export default function ShiftPlanDate({
             >
               Cancel
             </Button>
-            <Button
+            {/* <Button
               className={`${
                 selectedDates.length > 0
                   ? "custom-btn"
@@ -59,7 +57,7 @@ export default function ShiftPlanDate({
               onClick={handleOk}
             >
               Add
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

@@ -129,14 +129,6 @@ export default function CreateNewPlan() {
                 </SelectContent>
               </Select>
             </div>
-            {/* {title ? ( */}
-
-            {/* // ) : (
-            //   <div>
-            //     <label className="block font-semibold mb-2">Add Employee</label>
-            //     <Input placeholder="Enter Your Name" />
-            //   </div>
-            // )} */}
 
             {/* Timeline Selection */}
             <div className="space-y-2">

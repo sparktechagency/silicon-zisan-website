@@ -1,9 +1,17 @@
 import ContractInformation from "@/components/hireEmployes/ContactInformation";
+import { myFetch } from "@/utils/myFetch";
 
-export default function ContractInformationHomePage() {
+export default async function ContractInformationHomePage({
+  searchParams,
+}: {
+  searchParams: { id: string };
+}) {
+  const { id } = await searchParams;
+  const res = await myFetch(`/jobs/single/${id}`);
+
   return (
-    <div>
-      <ContractInformation />
-    </div>
+    <>
+      <ContractInformation data={res?.data} />
+    </>
   );
 }
