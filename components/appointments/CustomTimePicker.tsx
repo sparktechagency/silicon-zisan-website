@@ -103,7 +103,7 @@ function TimePickerContent({ field, fieldState }: any) {
           value={time.hour}
           onValueChange={(hour) => updateTime({ hour })}
         >
-          <SelectTrigger className="w-[90px]">
+          <SelectTrigger className="w-full button-unactive">
             <SelectValue placeholder="HH" />
           </SelectTrigger>
           <SelectContent>
@@ -123,7 +123,7 @@ function TimePickerContent({ field, fieldState }: any) {
           value={time.minute}
           onValueChange={(minute) => updateTime({ minute })}
         >
-          <SelectTrigger className="w-[90px]">
+          <SelectTrigger className="w-full button-unactive">
             <SelectValue placeholder="MM" />
           </SelectTrigger>
           <SelectContent>

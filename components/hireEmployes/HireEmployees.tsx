@@ -29,7 +29,7 @@ export default async function HireEmployees() {
               <div className="flex items-center gap-2">
                 <Image src={titleIcon} height={24} width={24} alt="icon" />
                 <h1 className="text-lg sm:text-2xl capitalize">
-                  {item.subCategory}
+                  {item.category}
                 </h1>
               </div>
             </div>
