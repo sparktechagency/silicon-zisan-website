@@ -23,6 +23,7 @@ import CustomTimePicker from "../appointments/CustomTimePicker";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import dayjs from "dayjs";
+import { revalidate } from "@/utils/revalidateTag";
 
 type FormValues = {
   worker: string;
@@ -50,7 +51,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         worker: "",
         shift: "",
         taskInput: "",
-        tasks: [{ value: "" }],
+        tasks: [],
         remarks: "",
         startTime: null, // Changed from "" to null
         endTime: null, // Changed from "" to null
@@ -120,6 +121,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
 
       if (res.success) {
         toast.success(res.message);
+        await revalidate("shift-plan");
       } else {
         toast.error((res as any)?.error[0].message);
       }
