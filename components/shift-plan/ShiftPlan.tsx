@@ -69,12 +69,17 @@ export default function ShiftPlan({ data }: any) {
 
                     <button
                       className="custom-btn rounded p-1.5 flex items-center justify-center"
-                      onClick={() => router.push("/shift-plan-view-details")}
+                      onClick={() =>
+                        router.push(
+                          `/shift-plan-view-details?details=${item?._id}`
+                        )
+                      }
                     >
                       <Eye />
                     </button>
 
                     <DeleteModal
+                      id={item?._id}
                       trigger={
                         <div className="custom-btn rounded p-1.5">
                           <Trash2 />

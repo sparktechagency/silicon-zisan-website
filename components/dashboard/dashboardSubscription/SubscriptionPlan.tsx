@@ -20,11 +20,14 @@ import { Info } from "lucide-react";
 import FreeSubscriptionModal from "./FreeSubscriptionModal";
 import { myFetch } from "@/utils/myFetch";
 import { useRouter } from "next/navigation";
+import SubscriptionDetails from "./SubscriptionDetails";
+import { toast } from "sonner";
 
 type PackageType = {
   benefits?: string[];
   dailyPrice: string;
   _id: string;
+  description: string;
 };
 
 export default function SubscriptionPlan() {
@@ -32,7 +35,6 @@ export default function SubscriptionPlan() {
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
   const [data, setData] = useState<PackageType[]>([]);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -44,9 +46,26 @@ export default function SubscriptionPlan() {
     fetchData();
   }, []);
 
-  const handleSubscribe = (id: string) => {
+  const handleSubscribe = async (id: string) => {
     setLoading(true);
-    router.push(`/dashboard-payment?id=${id}`);
+    try {
+      const res = await myFetch(`/subscriptions/create`, {
+        method: "POST",
+        body: {
+          package: id,
+        },
+      });
+
+      if (res.success) {
+        window.open(res.data, "_blank");
+      } else {
+        toast.error(res?.message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const two = data?.[2]?._id;
@@ -104,23 +123,29 @@ export default function SubscriptionPlan() {
                   </h1>
                   <div className="flex gap-3 items-center mt-1">
                     <p className="text-white text-sm ">Free</p>
-                    <p>
-                      <Info />{" "}
-                    </p>
+
+                    <SubscriptionDetails
+                      bio={data[0]?.description}
+                      trigger={
+                        <p>
+                          <Info />
+                        </p>
+                      }
+                    />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-end mb-2">
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
-                  <div className="flex flex-col sm:flex-row">
+                  {/* <div className="flex flex-col sm:flex-row">
                     <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                       Activated
                     </button>
                     <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                       Inactive
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -171,25 +196,30 @@ export default function SubscriptionPlan() {
                   </h1>
                   <div className="flex gap-3 items-center mt-1">
                     <p className="text-white text-sm ">
-                      € {data[0]?.dailyPrice} Per Day
+                      € {data[1]?.dailyPrice} Per Day
                     </p>
-                    <p>
-                      <Info />{" "}
-                    </p>
+                    <SubscriptionDetails
+                      bio={data[1]?.description}
+                      trigger={
+                        <p>
+                          <Info />
+                        </p>
+                      }
+                    />
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-end mb-2">
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
-                  <div className="flex flex-col sm:flex-row">
+                  {/* <div className="flex flex-col sm:flex-row">
                     <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                       Activated
                     </button>
                     <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                       Inactive
                     </button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -245,23 +275,28 @@ export default function SubscriptionPlan() {
                       <p className="text-white text-sm ">
                         € {data[1]?.dailyPrice} Per Day
                       </p>
-                      <p>
-                        <Info />{" "}
-                      </p>
+                      <SubscriptionDetails
+                        bio={data[2]?.description}
+                        trigger={
+                          <p>
+                            <Info />
+                          </p>
+                        }
+                      />
                     </div>
                   </div>
                   <div>
                     <div className="flex justify-end mb-2">
                       <Image src={logo} className="h-10 w-10" alt="logo" />
                     </div>
-                    <div className="flex flex-col sm:flex-row">
+                    {/* <div className="flex flex-col sm:flex-row">
                       <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                         Activated
                       </button>
                       <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                         Inactive
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
