@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import HourMinutePicker from "./CustomDatePicker";
+import HourMinutePicker from "./CustomTimePicker";
 import { DatePicker } from "@/share/DatePicker";
 import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
@@ -79,10 +79,10 @@ export function CreateForm({ res }: any) {
                 }}
               />
 
-              <HourMinutePicker
+              {/* <HourMinutePicker
                 value={field.value ?? null}
                 onChange={(time) => field.onChange(time)}
-              />
+              /> */}
             </>
           )}
         />
