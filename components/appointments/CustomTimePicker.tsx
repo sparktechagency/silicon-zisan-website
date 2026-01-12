@@ -108,7 +108,7 @@ function TimePickerContent({ field, fieldState }: any) {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {hours.map((h) => (
+              {hours?.map((h) => (
                 <SelectItem key={h} value={h}>
                   {h}
                 </SelectItem>
@@ -128,7 +128,7 @@ function TimePickerContent({ field, fieldState }: any) {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {minutes.map((m) => (
+              {minutes?.map((m) => (
                 <SelectItem key={m} value={m}>
                   {m}
                 </SelectItem>

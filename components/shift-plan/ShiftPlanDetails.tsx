@@ -35,11 +35,11 @@ export default function ShiftPlanDetails({ details }: any) {
               style: "normalText",
             },
             {
-              text: details.startTime,
+              text: dayjs(details?.startTime).format("hh:mm A"),
               style: "normalText",
             },
             {
-              text: details.endTime,
+              text: dayjs(details.endTime).format("hh:mm A"),
               style: "normalText",
             },
             {
@@ -158,8 +158,12 @@ export default function ShiftPlanDetails({ details }: any) {
                   {dayjs(details?.days[0]).format("YYYY-MM-DD")}
                 </td>
                 {/* <td className="px-4 py-2">{entry.day}</td> */}
-                <td className="px-4 py-2">{details?.startTime}</td>
-                <td className="px-4 py-2">{details?.endTime}</td>
+                <td className="px-4 py-2">
+                  {dayjs(details?.startTime).format("hh:mm A")}
+                </td>
+                <td className="px-4 py-2">
+                  {details?.endTime && dayjs(details.endTime).format("hh:mm A")}
+                </td>
                 <td className="px-4 py-2">{details?.shift}</td>
               </tr>
             </tbody>

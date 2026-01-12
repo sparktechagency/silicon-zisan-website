@@ -10,7 +10,7 @@ export default function SubscriptionDetails({
 }) {
   return (
     <Dialog>
-      <DialogTrigger>{trigger}</DialogTrigger>
+      <DialogTrigger className="cursor-pointer">{trigger}</DialogTrigger>
       <DialogContent>{bio}</DialogContent>
     </Dialog>
   );

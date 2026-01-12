@@ -6,7 +6,6 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import Container from "@/share/Container";
-import CustomTimePicker from "../appointments/CustomTimePicker";
 
 export default function ShiftPlanDate({
   selectedDates,
