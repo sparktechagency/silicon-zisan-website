@@ -33,11 +33,17 @@ export default function LoginPage() {
         body: data,
       });
 
+      console.log("res", res);
+
       if (res?.success) {
         toast.success(res?.message);
-        setCookie("accessToken", res?.data?.accessToken);
-        setCookie("role", res?.data?.role);
-        router.push("/");
+        if (res?.data?.accessToken) {
+          setCookie("accessToken", res?.data?.accessToken);
+          setCookie("role", res?.data?.role);
+          router.push("/");
+        } else {
+          router.push("/verify-otp  ");
+        }
       } else {
         toast.error(res?.message || "Login failed");
       }
