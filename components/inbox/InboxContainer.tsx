@@ -8,22 +8,77 @@ import { Message } from "@/types/message";
 import { myFetch } from "@/utils/myFetch";
 import { getToken } from "@/utils/getToken";
 import { initializeSocket, disconnectSocket, getSocket } from "@/utils/socket";
+import getProfile from "@/utils/getProfile";
 
 interface InboxContainerProps {
   initialChats: Chat[];
 }
 
 export default function InboxContainer({ initialChats }: InboxContainerProps) {
-  const [chats] = useState<Chat[]>(initialChats);
+  const [chats, setChats] = useState<Chat[]>(initialChats);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const selectedChatRef = useRef<Chat | null>(null);
 
   // Keep ref in sync for socket callback
   useEffect(() => {
     selectedChatRef.current = selectedChat;
   }, [selectedChat]);
+
+  // Fetch Current User ID
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const profile = await getProfile();
+        console.log("Fetched Profile:", profile);
+        // Try to get the User ID (it might be nested in 'user' for employers)
+        const userId = profile?.user?._id || profile?._id;
+        console.log("Determined Current User ID:", userId);
+
+        if (userId) {
+          setCurrentUserId(userId);
+        }
+      } catch (err) {
+        console.error("Failed to fetch user profile:", err);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  // Helper to update chat list
+  const updateChatList = (newMessage: Message) => {
+    setChats((prevChats) => {
+      const chatIndex = prevChats.findIndex(
+        (c) =>
+          c._id ===
+          (typeof newMessage.chat === "object"
+            ? (newMessage.chat as any)._id
+            : newMessage.chat)
+      );
+
+      if (chatIndex === -1) return prevChats;
+
+      const updatedChats = [...prevChats];
+      // Update lastMessage and move to top
+      const updatedChat = {
+        ...updatedChats[chatIndex],
+        lastMessage: {
+          _id: newMessage._id,
+          sender: newMessage.sender._id,
+          text: newMessage.text,
+          image: newMessage.image,
+          createdAt: newMessage.createdAt,
+        },
+      };
+
+      updatedChats.splice(chatIndex, 1);
+      updatedChats.unshift(updatedChat);
+
+      return updatedChats;
+    });
+  };
 
   // Initial Socket Connection
   useEffect(() => {
@@ -32,17 +87,49 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
       if (token) {
         const socket = initializeSocket(token);
 
+        // Listener for getMessage (standard)
         socket.on("getMessage", (newMessage: Message) => {
-          // We only append if it belongs to the active chat
-          if (
-            selectedChatRef.current &&
-            newMessage.chat === selectedChatRef.current._id
-          ) {
+          console.log("Socket received getMessage:", newMessage);
+
+          // Update chat list
+          updateChatList(newMessage);
+
+          const currentChatId = selectedChatRef.current?._id;
+          const messageChatId =
+            typeof newMessage.chat === "object"
+              ? (newMessage.chat as any)._id
+              : newMessage.chat;
+
+          if (currentChatId && messageChatId === currentChatId) {
             setMessages((prev) => {
-              // Prevent duplicates
               if (prev.some((m) => m._id === newMessage._id)) return prev;
               return [...prev, newMessage];
             });
+          }
+        });
+
+        // Listener for getChatList (fallback/alternative based on screenshot)
+        socket.on("getChatList", (data: any) => {
+          console.log("Socket received getChatList:", data);
+          // Check if data looks like a message
+          if (data && (data.text || data.image)) {
+            const newMessage = data as Message;
+
+            // Update chat list
+            updateChatList(newMessage);
+
+            const currentChatId = selectedChatRef.current?._id;
+            const messageChatId =
+              typeof newMessage.chat === "object"
+                ? (newMessage.chat as any)._id
+                : newMessage.chat;
+
+            if (currentChatId && messageChatId === currentChatId) {
+              setMessages((prev) => {
+                if (prev.some((m) => m._id === newMessage._id)) return prev;
+                return [...prev, newMessage];
+              });
+            }
           }
         });
       }
@@ -89,6 +176,9 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
   };
 
   const handleMessageSent = (newMessage: Message) => {
+    // Also update chat list for sent messages
+    updateChatList(newMessage);
+
     setMessages((prev) => {
       if (prev.some((m) => m._id === newMessage._id)) return prev;
       return [...prev, newMessage];
@@ -110,6 +200,7 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
           selectedChat={selectedChat}
           loading={loadingMessages}
           onMessageSent={handleMessageSent}
+          currentUserId={currentUserId}
         />
       </div>
     </div>

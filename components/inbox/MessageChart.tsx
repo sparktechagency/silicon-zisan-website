@@ -14,6 +14,7 @@ interface MessageChartProps {
   selectedChat: Chat | null;
   loading: boolean;
   onMessageSent: (message: Message) => void;
+  currentUserId: string | null;
 }
 
 const MessageChart = ({
@@ -21,6 +22,7 @@ const MessageChart = ({
   selectedChat,
   loading,
   onMessageSent,
+  currentUserId,
 }: MessageChartProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [userTextMessage, setUserTextMessage] = useState("");
@@ -117,51 +119,59 @@ const MessageChart = ({
           </div>
         ) : (
           <div className="space-y-4">
-            {messages.map((item) => (
-              <div
-                key={item._id}
-                className={`flex ${
-                  item.isMyMessage ? "justify-end" : "justify-start"
-                }`}
-              >
-                {!item.isMyMessage && (
-                  <CustomImage
-                    src={item.sender?.image}
-                    fallback={man}
-                    title="avatar"
-                    className="w-8 h-8 rounded-full mr-2 object-cover"
-                    width={32}
-                    height={32}
-                  />
-                )}
+            {messages.map((item) => {
+              const isMyMessage =
+                item.isMyMessage ||
+                (typeof item.sender === "string"
+                  ? item.sender === currentUserId
+                  : item.sender?._id === currentUserId);
 
-                <div>
-                  <div
-                    className={`whitespace-pre-line px-4 py-1.5 rounded-lg text-[14px] ${
-                      item.isMyMessage
-                        ? "custom-btn rounded-tr-none text-white bg-primary"
-                        : "bg-[#5E6C79] rounded border border-gray-400/30 text-white"
-                    }`}
-                  >
-                    {item.image && (
-                      <div className="mb-2">
-                        <CustomImage
-                          src={item.image}
-                          title="sent image"
-                          className="rounded-md max-w-[200px] h-auto object-cover"
-                          width={200}
-                          height={200}
-                        />
-                      </div>
-                    )}
-                    {item.text && <span>{item.text}</span>}
-                  </div>
-                  <div className="text-[#B0B0B0] text-right text-[12px] mt-1">
-                    {format(new Date(item.createdAt), "hh:mm a")}
+              return (
+                <div
+                  key={item._id}
+                  className={`flex ${
+                    isMyMessage ? "justify-end" : "justify-start"
+                  }`}
+                >
+                  {!isMyMessage && (
+                    <CustomImage
+                      src={item.sender?.image}
+                      fallback={man}
+                      title="avatar"
+                      className="w-8 h-8 rounded-full mr-2 object-cover"
+                      width={32}
+                      height={32}
+                    />
+                  )}
+
+                  <div>
+                    <div
+                      className={`whitespace-pre-line px-4 py-1.5 rounded-lg text-[14px] ${
+                        isMyMessage
+                          ? "custom-btn rounded-tr-none text-white bg-primary"
+                          : "bg-[#5E6C79] rounded border border-gray-400/30 text-white"
+                      }`}
+                    >
+                      {item.image && (
+                        <div className="mb-2">
+                          <CustomImage
+                            src={item.image}
+                            title="sent image"
+                            className="rounded-md max-w-[200px] h-auto object-cover"
+                            width={200}
+                            height={200}
+                          />
+                        </div>
+                      )}
+                      {item.text && <span>{item.text}</span>}
+                    </div>
+                    <div className="text-[#B0B0B0] text-right text-[12px] mt-1">
+                      {format(new Date(item.createdAt), "hh:mm a")}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
             {messages.length === 0 && (
               <p className="text-center text-gray-500 mt-10">
                 No messages yet. Say hi!

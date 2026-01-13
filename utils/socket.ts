@@ -8,6 +8,9 @@ const SOCKET_URL =
 export const initializeSocket = (token: string) => {
   if (!socket) {
     socket = io(SOCKET_URL, {
+      auth: {
+        token: token,
+      },
       extraHeaders: {
         token: token,
       },

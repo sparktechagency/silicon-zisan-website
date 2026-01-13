@@ -19,20 +19,23 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import z from "zod";
 
 const formSchema = z.object({
-  companyName: z.string().min(1, { message: "Company name is required" }),
-  legalFrom: z.string().min(1, { message: "Legal From is required" }),
+  name: z.string().min(1, { message: "Company name is required" }),
+  legalForm: z.string().min(1, { message: "Legal Form is required" }),
   address: z.string().min(1, { message: "Address is required" }),
-  contactNumber: z.string().min(1, { message: "Phone is required" }),
-  companyCategory: z
+  phone: z.string().min(1, { message: "Phone is required" }),
+  businessCategory: z
     .string()
-    .min(1, { message: "Comapany Category is required" }),
+    .min(1, { message: "Business Category is required" }),
   taxNo: z.string().min(1, { message: "Tax No is required" }),
-  deNo: z.string().min(1, { message: "DeNo No is required" }),
-  optionalField: z.string().optional(),
+  deNo: z.string().min(1, { message: "DeNo is required" }),
+  whatsApp: z.string().optional(),
+  about: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -46,20 +49,38 @@ export default function EditProfile({
 }) {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
-      companyName: "",
-      legalFrom: "",
-      address: "",
-      contactNumber: "",
-      companyCategory: "",
-      taxNo: "",
-      deNo: "",
-      optionalField: "",
+    defaultValues: {
+      name:
+        initialData?.user?.name ||
+        initialData?.name ||
+        initialData?.user?.id ||
+        "",
+      legalForm: initialData?.legalForm || "",
+      address: initialData?.user?.address || initialData?.address || "",
+      phone: initialData?.user?.phone || initialData?.contactNumber || "",
+      businessCategory: initialData?.businessCategory || "",
+      taxNo: initialData?.taxNo || "",
+      deNo: initialData?.deNo || "",
+      whatsApp: initialData?.whatsApp || "",
+      about: initialData?.about || "",
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (values) => {
-    console.log(values);
+  const onSubmit: SubmitHandler<FormData> = async (values) => {
+    try {
+      const res = await myFetch("/employers/profile", {
+        method: "PATCH",
+        body: values,
+      });
+
+      if (res?.success) {
+        toast.success(res?.message || "Profile updated successfully");
+      } else {
+        toast.error(res?.message || "Failed to update profile");
+      }
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "An error occurred");
+    }
   };
 
   return (
@@ -76,7 +97,7 @@ export default function EditProfile({
           {/* Company Name */}
           <FormField
             control={form.control}
-            name="companyName"
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Company Name</FormLabel>
@@ -88,13 +109,13 @@ export default function EditProfile({
             )}
           />
 
-          {/* Legal From */}
+          {/* Legal Form */}
           <FormField
             control={form.control}
-            name="legalFrom"
+            name="legalForm"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Legal From</FormLabel>
+                <FormLabel>Legal Form</FormLabel>
                 <FormControl>
                   <Input placeholder="Type Here" {...field} />
                 </FormControl>
@@ -118,10 +139,10 @@ export default function EditProfile({
             )}
           />
 
-          {/* Contact Number */}
+          {/* Phone */}
           <FormField
             control={form.control}
-            name="contactNumber"
+            name="phone"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Contact Number</FormLabel>
@@ -133,17 +154,21 @@ export default function EditProfile({
             )}
           />
 
-          {/* Company Category */}
+          {/* Business Category */}
           <FormField
             control={form.control}
-            name="companyCategory"
+            name="businessCategory"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Company Category</FormLabel>
+                <FormLabel>Business Category</FormLabel>
                 <FormControl>
-                  <Select>
-                    <SelectTrigger className="w-full border" {...field}>
-                      <SelectValue placeholder="Select a fruit" />
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    value={field.value}
+                  >
+                    <SelectTrigger className="w-full border">
+                      <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
@@ -188,15 +213,30 @@ export default function EditProfile({
             )}
           />
 
-          {/* Optional Field */}
+          {/* WhatsApp */}
           <FormField
             control={form.control}
-            name="optionalField"
+            name="whatsApp"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Type Here (Optional)</FormLabel>
+                <FormLabel>WhatsApp</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type Here" {...field} />
+                  <Input placeholder="Enter WhatsApp Number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* About */}
+          <FormField
+            control={form.control}
+            name="about"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>About (Optional)</FormLabel>
+                <FormControl>
+                  <Input placeholder="Description" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

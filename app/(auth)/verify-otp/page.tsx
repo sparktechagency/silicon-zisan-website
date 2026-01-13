@@ -3,6 +3,8 @@ import Image from "next/image";
 import BackButton from "@/share/BackButton";
 import { VerifyOtp } from "@/components/authPage/VerifyOtp";
 
+import { Suspense } from "react";
+
 export default function page() {
   return (
     <Container className="flex flex-col md:flex-col xl:flex-row items-center justify-center h-auto lg:h-screen gap-10 px-4 py-10">
@@ -23,7 +25,9 @@ export default function page() {
       </div>
 
       {/* form */}
-      <VerifyOtp />
+      <Suspense fallback={<div>Loading...</div>}>
+        <VerifyOtp />
+      </Suspense>
     </Container>
   );
 }

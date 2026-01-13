@@ -3,6 +3,7 @@ import man from "../../public/inbox/man.png";
 import { Chat } from "@/types/chat";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import CustomImage from "@/utils/CustomImage";
 
 interface ChatCardProps {
   chat: Chat;
@@ -29,12 +30,13 @@ export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
     >
       <div className="flex items-center gap-2 ">
         <div>
-          <Image
-            className="w-9 h-9 xl:h-11 xl:w-11 rounded-full object-cover"
-            src={participant?.image ? participant.image : man}
-            alt={participant?.name || "User"}
+          <CustomImage
+            src={participant?.image}
+            fallback={man}
+            title={participant?.name || "User"}
             width={44}
             height={44}
+            className="w-9 h-9 xl:h-11 xl:w-11 rounded-full object-cover"
           />
         </div>
         <div>
