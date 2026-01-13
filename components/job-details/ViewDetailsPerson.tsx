@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 
 export default function ViewDetailsPerson({ data }: any) {
-  console.log("data", data);
+  console.log("data", data?._id);
 
   const handleApproved = async (id: string) => {
     try {

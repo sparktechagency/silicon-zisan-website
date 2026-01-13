@@ -6,6 +6,7 @@ import { Upload, FileText } from "lucide-react";
 import { Input } from "../ui/input";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
+import { se } from "date-fns/locale";
 
 export default function VerifyAccount() {
   const [preview1, setPreview1] = useState<string | null>(null);
@@ -62,6 +63,11 @@ export default function VerifyAccount() {
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setFile1(null);
+      setFile2(null);
+      setPreview1(null);
+      setPreview2(null);
     }
   };
 

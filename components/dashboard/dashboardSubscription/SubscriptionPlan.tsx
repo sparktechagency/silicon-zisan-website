@@ -158,15 +158,15 @@ export default function SubscriptionPlan() {
               </ul>
             </div>
 
-            <div className="mt-auto">
-              <FreeSubscriptionModal
-                trigger={
-                  <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                    Subscribe Now
-                  </Button>
-                }
-              />
-            </div>
+            <Button
+              disabled={loading || !one}
+              className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                loading && "cursor-not-allowed"
+              }`}
+              onClick={() => handleSubscribe(data[0]?._id)}
+            >
+              Subscribe Now
+            </Button>
           </div>
         </SwiperSlide>
 

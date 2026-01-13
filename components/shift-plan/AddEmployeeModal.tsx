@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogTitle,
   DialogTrigger,
@@ -13,6 +12,7 @@ import { Label } from "../ui/label";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { useState } from "react";
+import { revalidate } from "@/utils/revalidateTag";
 
 type FormData = {
   name: string;
@@ -47,10 +47,9 @@ export default function AddEmployeeForm({
         body: data,
       });
 
-      console.log("res", res);
-
       if (res.success) {
         toast.success(res.message);
+        await revalidate("shift-plan");
         setOpen(false);
       } else {
         toast.error((res as any)?.error[0].message);

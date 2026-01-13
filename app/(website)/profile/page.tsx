@@ -6,8 +6,8 @@ export default async function ProfilePage() {
   const profileData = await getProfile();
 
   return (
-    <div>
+    <>
       <Profile data={profileData} />
-    </div>
+    </>
   );
 }

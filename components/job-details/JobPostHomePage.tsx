@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { myFetch } from "@/utils/myFetch";
-import { Skeleton } from "../ui/skeleton";
+import Default from "../../public/default.jpg";
 import CustomImage from "@/utils/CustomImage";
+import Image from "next/image";
 
 export default async function JobPostHomePage() {
   const res = await myFetch("/jobs/me");
@@ -20,14 +21,14 @@ export default async function JobPostHomePage() {
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Image / Logo */}
               <div className="shrink-0 w-32 sm:w-36 md:w-40">
-                <CustomImage
+                {/* <CustomImage
                   src={item?.author?.image}
                   title="Logo"
                   width={160}
                   height={160}
                   className="w-full h-full object-contain"
-                />
-                {/* {item?.author?.image ? (
+                /> */}
+                {item?.author?.image ? (
                   <CustomImage
                     src={item?.author?.image || "No Image"}
                     title="Logo"
@@ -36,8 +37,15 @@ export default async function JobPostHomePage() {
                     className="w-full h-full object-contain"
                   />
                 ) : (
-                  <Skeleton className="w-full h-32" />
-                )} */}
+                  // <Skeleton className="w-full h-32" />
+                  <Image
+                    src={Default}
+                    alt="Logo"
+                    width={160}
+                    height={160}
+                    className="w-full h-full object-contain"
+                  />
+                )}
               </div>
 
               {/* Company Details */}

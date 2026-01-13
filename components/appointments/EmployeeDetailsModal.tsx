@@ -25,6 +25,9 @@ export default function EmployeeDetailsModal({
     setIsModalOneOpen(false);
     onOpenSecondModal(); // trigger second modal from parent
   };
+
+  console.log("data", data);
+
   return (
     <Dialog open={isModalOneOpen} onOpenChange={setIsModalOneOpen}>
       {/* Trigger Button */}

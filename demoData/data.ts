@@ -26,7 +26,7 @@ export const data = [
     value: "salaryCalculator",
     icon: CiCalculator1,
   },
-  { title: "WhatsApp Support", value: "whatsappSupport", icon: FaWhatsapp },
+  // { title: "WhatsApp Support", value: "whatsappSupport", icon: FaWhatsapp },
   { title: "Add WhatsApp", value: "addWhatsapp", icon: FaWhatsapp },
   { title: "Invoice & Payments", value: "invoicePayments", icon: PiNoteThin },
   {

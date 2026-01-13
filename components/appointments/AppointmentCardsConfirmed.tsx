@@ -38,17 +38,20 @@ export default function AppointmentCardsConfirmed({ data }: any) {
                   <h3 className="sm:text-xl font-semibold">
                     {item?.receiver?.name}
                   </h3>
-                  <p>({item?.receiver?.phone || "No Number"})</p>
+                  <p>
+                    {item?.status !== "Pending" &&
+                      (item?.receiver?.phone || "No Number")}
+                  </p>
                 </div>
 
-                <div className=" mt-2 text-sm text-gray-300">
+                <div className=" mt-2 text-sm text-gray-300 ">
                   <div className="flex items-center gap-1">
                     <FaCalendarAlt />
                     <span className="sm:text-xl">
                       {dayjs(item.scheduledAt).format("YYYY-MM-DD")}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 mt-2">
+                  <div className="flex items-center gap-1">
                     <Clock4 size={18} />
                     <span className="sm:text-xl">{item.time || "12:00"}</span>
                   </div>

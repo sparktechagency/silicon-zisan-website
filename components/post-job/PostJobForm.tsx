@@ -14,6 +14,8 @@ import AddQualificationAndResposibilities from "../job-details/post-job-form/Add
 import { myFetch } from "@/utils/myFetch";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Checkbox } from "../ui/checkbox";
+import { Input } from "../ui/input";
 
 type FormValues = {
   category: string;

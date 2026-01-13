@@ -15,6 +15,7 @@ import { myFetch } from "@/utils/myFetch";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
+import { Input } from "../ui/input";
 
 type FormValues = {
   category: string;
@@ -106,7 +107,7 @@ const HireEmployeeForm = () => {
       });
 
       if (res.success) {
-        toast.success(res.message);
+        toast.success("Application submitted successfully");
         await revalidate("hire-employee");
         setTimeout(() => {
           router.back();
@@ -129,7 +130,7 @@ const HireEmployeeForm = () => {
         <div className="text-gray-100 w-full rounded-xl">
           <div className="text-xl font-semibold mb-4 flex items-center gap-2">
             <CustomBackButton />
-            <p>Job Post</p>
+            <p>Hire Employee</p>
           </div>
 
           {/* Category & Subcategory */}
@@ -175,6 +176,39 @@ const HireEmployeeForm = () => {
                 {errors.aboutCompany.message}
               </span>
             )}
+          </div>
+
+          <div className=" rounded-md space-y-3 text-sm text-white">
+            <label className="flex items-start gap-3">
+              <Input
+                type="checkbox"
+                className="mt-1 h-4 w-4 accent-white"
+                required
+              />
+              <span>
+                By Continuing, You Accept The{" "}
+                <a href="#" className="underline font-semibold">
+                  Privacy Policy
+                </a>
+                And{" "}
+                <a href="#" className="underline font-semibold">
+                  Terms & Conditions
+                </a>{" "}
+                of JobsinApp.
+              </span>
+            </label>
+
+            <label className="flex items-start gap-3">
+              <Input
+                type="checkbox"
+                className="mt-1 h-4 w-4 accent-white"
+                required
+              />
+              <span>
+                By Ticking The Checkbox, The Client Declares Their Consent, The
+                Contract Thereby Comes Into Effect.
+              </span>
+            </label>
           </div>
 
           {/* Confirm Button */}

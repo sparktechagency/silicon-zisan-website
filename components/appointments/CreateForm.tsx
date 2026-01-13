@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import CustomTimePicker from "./CustomTimePicker";
+import CustomBackButton from "@/share/CustomBackButton";
 
 type FormValues = {
   appointment: dayjs.Dayjs | null;
@@ -22,6 +23,8 @@ type FormValues = {
 };
 
 export function CreateForm({ res }: any) {
+  console.log("res?.user?._id", res?.user?._id);
+
   const { register, handleSubmit, control } = useForm<FormValues>({
     defaultValues: {
       appointment: dayjs(),
@@ -32,8 +35,10 @@ export function CreateForm({ res }: any) {
   });
 
   const onSubmit = async (data: FormValues) => {
+    console.log("res", res);
+
     const payload = {
-      receiver: res?.job?.author?._id,
+      receiver: res?.user?._id,
       job: res?.job?._id,
       scheduledAt: data.appointment?.toISOString() ?? null,
       address: res?.user?.address,
@@ -46,6 +51,8 @@ export function CreateForm({ res }: any) {
         body: payload,
       });
 
+      console.log("res", res);
+
       if (res.success) {
         toast.success(res.message);
       } else {
@@ -57,98 +64,104 @@ export function CreateForm({ res }: any) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="bg-[#334455] text-white rounded-md space-y-6 border border-gray-300/30 p-5 mt-5"
-    >
-      <h1 className="text-white text-lg">Confirm Appointment</h1>
+    <>
+      <CustomBackButton />{" "}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-[#334455] text-white rounded-md space-y-6 border border-gray-300/30 p-5 mt-5"
+      >
+        <h1 className="text-white text-lg">Confirm Appointment</h1>
 
-      <div className="grid grid-cols-2 gap-4">
-        <Controller
-          name="appointment"
-          control={control}
-          render={({ field }) => (
-            <>
-              <DatePicker
-                value={field.value?.toDate()}
-                onChange={(date) => {
-                  if (!date) return field.onChange(null);
-                  const newDate = dayjs(date)
-                    .hour(field.value?.hour() ?? 0)
-                    .minute(field.value?.minute() ?? 0);
-                  field.onChange(newDate);
-                }}
-              />
-              {/* 
+        <div className="grid grid-cols-2 gap-4">
+          <Controller
+            name="appointment"
+            control={control}
+            render={({ field }) => (
+              <>
+                <DatePicker
+                  value={field.value?.toDate()}
+                  onChange={(date) => {
+                    if (!date) return field.onChange(null);
+                    const newDate = dayjs(date)
+                      .hour(field.value?.hour() ?? 0)
+                      .minute(field.value?.minute() ?? 0);
+                    field.onChange(newDate);
+                  }}
+                />
+                {/* 
               <HourMinutePicker
                 value={field.value ?? null}
                 onChange={(time) => field.onChange(time)}
               /> */}
 
-              <CustomTimePicker
-                name="ok"
-                control={control}
-                rules={{ required: "Time is required" }}
-              />
-            </>
+                <CustomTimePicker
+                  name="ok"
+                  control={control}
+                  rules={{ required: "Time is required" }}
+                />
+              </>
+            )}
+          />
+        </div>
+
+        <Controller
+          name="option"
+          control={control}
+          render={({ field }) => (
+            <RadioGroup
+              value={field.value}
+              onValueChange={field.onChange}
+              className="space-y-4"
+            >
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="call" id="call" />
+                <Label
+                  htmlFor="call"
+                  className="text-[12px] sm:text-sm leading-relaxed"
+                >
+                  An appointment is available for you. Kindly confirm it in your
+                  JobsinApp Account and share your active contact number. We
+                  will call you.
+                </Label>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="address" id="address" />
+                <Label
+                  htmlFor="address"
+                  className="text-[12px] sm:text-sm leading-relaxed"
+                >
+                  An Appointment Is Available For You. Kindly Confirm It In Your
+                  JobsinApp Account. Please Come To This Address.
+                </Label>
+              </div>
+
+              {field.value === "address" && (
+                <Input
+                  placeholder="Type Here Meeting Address"
+                  {...register("meetingAddress")}
+                  className="bg-card text-white border-white/20"
+                />
+              )}
+            </RadioGroup>
           )}
         />
-      </div>
 
-      <Controller
-        name="option"
-        control={control}
-        render={({ field }) => (
-          <RadioGroup
-            value={field.value}
-            onValueChange={field.onChange}
-            className="space-y-4"
+        <Textarea
+          placeholder="Type Here Message"
+          {...register("message")}
+          className="bg-card text-white border-white/20 text-sm sm:text-md"
+        />
+
+        <div className="flex justify-end">
+          <Button
+            className="w-60 custom-btn text-white sm:text-lg"
+            type="submit"
           >
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="call" id="call" />
-              <Label
-                htmlFor="call"
-                className="text-[12px] sm:text-sm leading-relaxed"
-              >
-                An appointment is available for you. Kindly confirm it in your
-                JobsinApp Account and share your active contact number. We will
-                call you.
-              </Label>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="address" id="address" />
-              <Label
-                htmlFor="address"
-                className="text-[12px] sm:text-sm leading-relaxed"
-              >
-                An Appointment Is Available For You. Kindly Confirm It In Your
-                JobsinApp Account. Please Come To This Address.
-              </Label>
-            </div>
-
-            {field.value === "address" && (
-              <Input
-                placeholder="Type Here Meeting Address"
-                {...register("meetingAddress")}
-                className="bg-card text-white border-white/20"
-              />
-            )}
-          </RadioGroup>
-        )}
-      />
-
-      <Textarea
-        placeholder="Type Here Message"
-        {...register("message")}
-        className="bg-card text-white border-white/20 text-sm sm:text-md"
-      />
-
-      <div className="flex justify-end">
-        <Button className="w-60 custom-btn text-white sm:text-lg" type="submit">
-          Confirm Appointment
-        </Button>
-      </div>
-    </form>
+            Confirm Appointment
+          </Button>
+        </div>
+      </form>
+    </>
   );
 }
