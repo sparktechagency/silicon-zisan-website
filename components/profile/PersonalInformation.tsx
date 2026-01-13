@@ -4,6 +4,9 @@ import React from "react";
 import profileMan from "../../public/profile/profile.png";
 import { Camera } from "lucide-react";
 import CustomImage from "@/utils/CustomImage";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function PersonalInformation({
   setStatus,
@@ -14,6 +17,7 @@ export default function PersonalInformation({
 }) {
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   // Data for profile fields
   const profileData = [
@@ -23,12 +27,32 @@ export default function PersonalInformation({
     { label: "Location", value: data?.address || "N/A" },
   ];
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      try {
+        const response = await myFetch("/users/profile", {
+          method: "PATCH",
+          body: formData,
+        });
+
+        if (response.success) {
+          toast.success("Profile image updated successfully");
+          router.refresh();
+        } else {
+          toast.error(response.message || "Failed to update profile image");
+        }
+      } catch (error) {
+        console.error("Error updating profile image:", error);
+        toast.error("Something went wrong");
+      }
     }
   };
 

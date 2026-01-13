@@ -1,16 +1,30 @@
 import { Textarea } from "@/components/ui/textarea";
-import { Image as Movie, SendHorizonal } from "lucide-react";
-import React, { Dispatch, SetStateAction } from "react";
+import { Image as Movie, SendHorizonal, X } from "lucide-react";
+import React, { Dispatch, SetStateAction, useMemo } from "react";
+import Image from "next/image";
 
 interface Props {
   message: string;
   setMessage: Dispatch<SetStateAction<string>>;
   onHandle: () => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  file: File | null;
+  onRemoveFile: () => void;
 }
 
-const ChatInput = ({ message, setMessage, onHandle, onChange }: Props) => {
+const ChatInput = ({
+  message,
+  setMessage,
+  onHandle,
+  onChange,
+  file,
+  onRemoveFile,
+}: Props) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
+
+  const imageUrl = useMemo(() => {
+    return file ? URL.createObjectURL(file) : null;
+  }, [file]);
 
   const handleClick = () => {
     if (inputRef?.current) {
@@ -18,21 +32,42 @@ const ChatInput = ({ message, setMessage, onHandle, onChange }: Props) => {
     }
   };
   return (
-    <div className="flex items-center p-2 space-x-2 ">
-      {/* Text Input */}
-      <Textarea
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="flex-1 items-center shadow-sm rounded-2xl text-sm resize-none break-all"
-        placeholder="Type ……"
-      />
+    <div className="flex items-end p-2 space-x-2">
+      <div className="flex-1 flex flex-col rounded-2xl border bg-background shadow-sm overflow-hidden">
+        {/* Image Preview */}
+        {imageUrl && (
+          <div className="relative w-fit p-2">
+            <Image
+              src={imageUrl}
+              alt="preview"
+              width={100}
+              height={100}
+              className="rounded-lg object-cover max-h-[150px] w-auto border border-gray-300"
+            />
+            <button
+              onClick={onRemoveFile}
+              className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-0.5 hover:bg-red-600 shadow-md transform translate-x-1/4 -translate-y-1/4"
+            >
+              <X size={14} />
+            </button>
+          </div>
+        )}
+
+        {/* Text Input */}
+        <Textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="flex-1 w-full border-none shadow-none focus-visible:ring-0 resize-none break-all min-h-[44px] px-4 py-3"
+          placeholder="Type ……"
+        />
+      </div>
 
       {/* Image Button */}
       <button
         onClick={handleClick}
-        className="p-2  rounded-full shadow hover:bg-gray-500 text-[#0288A6] cursor-pointer"
+        className="p-3 mb-1 rounded-full shadow hover:bg-gray-200 dark:hover:bg-gray-800 text-[#0288A6] cursor-pointer bg-card border"
       >
-        <Movie />
+        <Movie size={20} />
 
         <input
           type="file"
@@ -45,10 +80,10 @@ const ChatInput = ({ message, setMessage, onHandle, onChange }: Props) => {
 
       {/* Send Button */}
       <button
-        className="p-2  rounded-full shadow hover:bg-gray-500 text-[#0288A6] cursor-pointer"
+        className="p-3 mb-1 rounded-full shadow hover:bg-gray-200 dark:hover:bg-gray-800 text-[#0288A6] cursor-pointer bg-card border"
         onClick={onHandle}
       >
-        <SendHorizonal />
+        <SendHorizonal size={20} />
       </button>
     </div>
   );

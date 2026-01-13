@@ -4,95 +4,19 @@ import { Input } from "@/components/ui/input";
 import { ArrowLeft, Search } from "lucide-react";
 import { ChatCard } from "./ChartCard";
 import CustomBackButton from "@/share/CustomBackButton";
+import { Chat } from "@/types/chat";
 
-const chats = [
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-  {
-    name: "Md Kamran Khan",
-    message: "Hi Can I Help You Today?",
-    time: "09:02 Am",
-    unread: "2",
-  },
-];
+interface AllUserChartProps {
+  chats: Chat[];
+  selectedChatId?: string;
+  onChatSelect?: (chat: Chat) => void;
+}
 
-const AllUserChart = () => {
+const AllUserChart = ({
+  chats,
+  selectedChatId,
+  onChatSelect,
+}: AllUserChartProps) => {
   return (
     <div
       className=" pr-2 flex flex-col"
@@ -122,9 +46,18 @@ const AllUserChart = () => {
 
       <div className="flex-1 overflow-y-auto space-y-2 hide-scrollbar">
         <div className="xl:mr-4">
-          {chats.map((chat, index) => (
-            <ChatCard key={index} card={chat} />
-          ))}
+          {chats?.length > 0 ? (
+            chats.map((chat) => (
+              <ChatCard
+                key={chat._id}
+                chat={chat}
+                isActive={chat._id === selectedChatId}
+                onClick={() => onChatSelect?.(chat)}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-500 mt-4">No chats found</p>
+          )}
         </div>
       </div>
     </div>

@@ -1,160 +1,174 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-// import image from "../../../public/user.png";
 import man from "../../public/inbox/man.png";
-import Image from "next/image";
 import ChatInput from "./ChartInput";
+import { Message } from "@/types/message";
+import { Chat } from "@/types/chat";
+import { format } from "date-fns";
+import CustomImage from "@/utils/CustomImage";
 
-const initialMessages = [
-  {
-    id: 1,
-    sender: "me",
-    text: "Hi How Are You",
-    time: "07:00 Pm",
-  },
-  {
-    id: 2,
-    sender: "other",
-    text: "What About You Today?",
-    time: "07:02 Pm",
-    avatar: "https://via.placeholder.com/150", // Replace with real avatar URL
-  },
-  {
-    id: 3,
-    sender: "me",
-    text: "Hi How Are You",
-    time: "07:00 Pm",
-  },
-  {
-    id: 4,
-    sender: "other",
-    text: "What About You Today?",
-    time: "07:02 Pm",
-    avatar: "https://via.placeholder.com/150",
-  },
-  {
-    id: 5,
-    sender: "other",
-    text: "What About You Today?",
-    time: "07:02 Pm",
-    avatar: "https://via.placeholder.com/150",
-  },
-  {
-    id: 6,
-    sender: "other",
-    text: "What About You Today?",
-    time: "07:02 Pm",
-    avatar: "https://via.placeholder.com/150",
-  },
-  {
-    id: 7,
-    sender: "other",
-    text: "What About You Today?",
-    time: "07:02 Pm",
-    avatar: "https://via.placeholder.com/150",
-  },
-];
+import { myFetch } from "@/utils/myFetch";
 
-type Message = {
-  id: number;
-  sender: string;
-  text: string;
-  time: string;
-  avatar?: string;
-};
+interface MessageChartProps {
+  messages: Message[];
+  selectedChat: Chat | null;
+  loading: boolean;
+  onMessageSent: (message: Message) => void;
+}
 
-const timeNow = new Date().toLocaleTimeString([], {
-  hour: "2-digit",
-  minute: "2-digit",
-});
-
-const ChatMessages = () => {
-  const bottomRef = useRef<HTMLDivElement>(null);
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+const MessageChart = ({
+  messages,
+  selectedChat,
+  loading,
+  onMessageSent,
+}: MessageChartProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [userTextMessage, setUserTextMessage] = useState("");
-  const [image, setImage] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
 
+  // Scroll to bottom when messages change
   useEffect(() => {
-    bottomRef.current?.scrollTo({
-      top: bottomRef.current.scrollHeight,
-      behavior: "smooth",
-    });
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        top: containerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }, [messages]);
 
-  const handleMessageSend = () => {
-    if (userTextMessage.trim() !== "") {
-      const newMessage: Message = {
-        id: Date.now(),
-        sender: "me",
-        text: userTextMessage,
-        time: timeNow,
-      };
+  const handleMessageSend = async () => {
+    if (!selectedChat) return;
+    if (userTextMessage.trim() === "" && !file) return;
 
-      setMessages((prev) => [...prev, newMessage]);
+    const formData = new FormData();
+    formData.append("chat", selectedChat._id);
+    if (userTextMessage.trim()) {
+      formData.append("text", userTextMessage);
+    }
+    if (file) {
+      formData.append("image", file);
+    }
 
-      setUserTextMessage("");
+    try {
+      const response = await myFetch("/messages/create", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.success && response.data) {
+        // Manually set isMyMessage to true as it's the current user sending it
+        const newMessage = { ...response.data, isMyMessage: true };
+        onMessageSent(newMessage);
+        setUserTextMessage("");
+        setFile(null);
+      }
+    } catch (error) {
+      console.error("Failed to send message:", error);
     }
   };
 
   const handleImageUpoad = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl);
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setFile(selectedFile);
     }
   };
+
+  if (!selectedChat) {
+    return (
+      <div
+        className="rounded-md flex flex-col items-center justify-center bg-card border border-gray-400/30"
+        style={{ height: "calc(100vh - 150px)" }}
+      >
+        <p className="text-gray-500">Select a conversation to start chatting</p>
+      </div>
+    );
+  }
+
+  const participant = selectedChat.participants[0];
 
   return (
     <div
       className="rounded-md flex flex-col"
       style={{ height: "calc(100vh - 150px)" }}
     >
-      <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card static">
-        <Image src={man} className="w-11 h-11 rounded-full" alt="header" />
+      <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card static items-center">
+        <CustomImage
+          src={participant?.image}
+          fallback={man}
+          title="header"
+          width={44}
+          height={44}
+          className="w-11 h-11 rounded-full object-cover"
+        />
         <div className="font-medium">
-          <h1 className="2xl:text-xl">Kamran Khan</h1>
-          <p className="text-xs">Typing...</p>
+          <h1 className="2xl:text-xl">{participant?.name || "Unknown User"}</h1>
+          {/* <p className="text-xs">Typing...</p> */}
         </div>
       </div>
       {/* Messages container */}
       <div
-        ref={bottomRef}
+        ref={containerRef}
         className="flex-1 flex flex-col  hide-scrollbar mt-5 bg-card border border-b-0 border-gray-400/30 p-3 overflow-y-auto"
       >
-        <div className="space-y-4">
-          {messages.map((item) => (
-            <div
-              key={item.id}
-              className={`flex ${
-                item.sender === "me" ? "justify-end" : "justify-start"
-              }`}
-            >
-              {item.sender === "other" && (
-                <Image
-                  src={man}
-                  alt="avatar"
-                  className="w-8 h-8 rounded-full mr-2"
-                />
-              )}
+        {loading ? (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-gray-500">Loading messages...</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {messages.map((item) => (
+              <div
+                key={item._id}
+                className={`flex ${
+                  item.isMyMessage ? "justify-end" : "justify-start"
+                }`}
+              >
+                {!item.isMyMessage && (
+                  <CustomImage
+                    src={item.sender?.image}
+                    fallback={man}
+                    title="avatar"
+                    className="w-8 h-8 rounded-full mr-2 object-cover"
+                    width={32}
+                    height={32}
+                  />
+                )}
 
-              <div>
-                <div
-                  className={`whitespace-pre-line px-4 py-1.5 rounded-lg text-[14px] ${
-                    item.sender === "me"
-                      ? "custom-btn rounded-tr-none "
-                      : "bg-[#5E6C79] rounded border border-gray-400/30"
-                  }`}
-                >
-                  {item.text}
-                </div>
-                <div className="text-[#B0B0B0] text-right text-[12px]">
-                  {item.time}
+                <div>
+                  <div
+                    className={`whitespace-pre-line px-4 py-1.5 rounded-lg text-[14px] ${
+                      item.isMyMessage
+                        ? "custom-btn rounded-tr-none text-white bg-primary"
+                        : "bg-[#5E6C79] rounded border border-gray-400/30 text-white"
+                    }`}
+                  >
+                    {item.image && (
+                      <div className="mb-2">
+                        <CustomImage
+                          src={item.image}
+                          title="sent image"
+                          className="rounded-md max-w-[200px] h-auto object-cover"
+                          width={200}
+                          height={200}
+                        />
+                      </div>
+                    )}
+                    {item.text && <span>{item.text}</span>}
+                  </div>
+                  <div className="text-[#B0B0B0] text-right text-[12px] mt-1">
+                    {format(new Date(item.createdAt), "hh:mm a")}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-          {/* <div /> */}
-        </div>
+            ))}
+            {messages.length === 0 && (
+              <p className="text-center text-gray-500 mt-10">
+                No messages yet. Say hi!
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Input at bottom */}
@@ -164,10 +178,12 @@ const ChatMessages = () => {
           message={userTextMessage}
           setMessage={setUserTextMessage}
           onHandle={handleMessageSend}
+          file={file}
+          onRemoveFile={() => setFile(null)}
         />
       </div>
     </div>
   );
 };
 
-export default ChatMessages;
+export default MessageChart;
