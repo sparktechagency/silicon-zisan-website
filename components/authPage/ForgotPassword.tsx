@@ -26,6 +26,8 @@ export default function ForgotPassword() {
         body: data,
       });
 
+      console.log("res", res);
+
       if (res?.success) {
         toast.success(res?.message);
         router.push(`/verify-otp?email=${data?.email}`);

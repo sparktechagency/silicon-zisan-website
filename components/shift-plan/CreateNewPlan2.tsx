@@ -40,16 +40,12 @@ export default function CreateNewPlan2({ employee, editData }: any) {
 
   // date
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
-  const searchParams = useSearchParams();
-  const findName = searchParams.get("name");
-
-  console.log("edit data", editData);
 
   const { control, register, watch, handleSubmit, resetField, reset } =
     useForm<FormValues>({
       defaultValues: {
-        worker: "",
-        shift: "",
+        worker: editData?.worker?._id || "",
+        shift: editData?.shift || "",
         taskInput: "",
         tasks: [],
         remarks: "",
@@ -74,8 +70,9 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     if (editData) {
       reset({
         worker: editData?.worker?._id || "",
-        shift: editData.shift || "",
+        shift: editData.shift,
         taskInput: editData.taskInput || "",
+
         tasks:
           Array.isArray(editData.tasks) && editData.tasks.length
             ? editData.tasks.map((t: string) => ({ value: t }))
@@ -83,7 +80,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         remarks: editData.remarks || "",
         startTime: editData.startTime
           ? dayjs(editData.startTime, "hh:mm A")
-          : null, // Remove .format() here - keep as dayjs object
+          : null,
         endTime: editData.endTime ? dayjs(editData.endTime, "hh:mm A") : null,
       });
 
@@ -95,10 +92,14 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     }
   }, [editData, reset]);
 
+  console.log("edit data", editData);
+
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      startTime: data.startTime?.format("hh:mm A"),
-      endTime: data.endTime?.format("hh:mm A"),
+      // startTime: dayjs(data.startTime).format("hh:mm A"),
+      // endTime: data.endTime?.format("hh:mm A"),
+      startTime: data.startTime,
+      endTime: data.endTime,
       days: selectedDates.map((d) => d.toISOString()),
       tasks: data.tasks.map((t) => t.value),
       remarks: data.remarks,
@@ -302,7 +303,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
             </div>
 
             <Button type="submit" className="custom-btn w-full text-lg">
-              {findName ? "Update Plan" : "Create Now"}
+              {editData?._id ? "Update Now" : "Create Now"}
             </Button>
           </form>
         </div>

@@ -8,8 +8,8 @@ import CustomImage from "@/utils/CustomImage";
 export default function ViewProfile({ data }: any) {
   const personalInfo = [
     { label: "Name", value: data?.user?.name?.trim() || "No Name" },
-    { label: "Email", value: data?.user?.email },
-    { label: "Contact", value: data?.user?.phone },
+    { label: "Email", value: data?.user?.email || "No" },
+    { label: "Contact", value: data?.user?.phone || "No" },
     { label: "Location", value: data?.user?.address || "No" },
     // { label: "Role", value: "Job Seeker" },
   ];
@@ -73,6 +73,7 @@ export default function ViewProfile({ data }: any) {
             <div>
               <Image src={pdf} alt="Office" width={60} height={50} />
             </div>
+            <p>{data?.resumeUrl ? "Resume.Pdf" : "No Pdf"}</p>
           </div>
           <div className="flex gap-3">
             <a

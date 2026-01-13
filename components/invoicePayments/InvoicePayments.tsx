@@ -19,7 +19,7 @@ export default function InvoicePayments({ data }: any) {
         >
           Invoice
         </button>
-        <button
+        {/* <button
           className={`flex-1 py-3 px-4 text-white rounded  transition cursor-pointer ${
             selectedTab === "card"
               ? "custom-btn"
@@ -28,7 +28,7 @@ export default function InvoicePayments({ data }: any) {
           onClick={() => setSelectedTab("card")}
         >
           Manage Payments
-        </button>
+        </button> */}
       </div>
       {selectedTab === "invoice" && <Invoice data={data} />}
       {selectedTab === "card" && <PaymentSystem />}

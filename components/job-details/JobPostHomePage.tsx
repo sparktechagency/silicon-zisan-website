@@ -20,9 +20,16 @@ export default async function JobPostHomePage() {
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Image / Logo */}
               <div className="shrink-0 w-32 sm:w-36 md:w-40">
-                {item?.author?.image ? (
+                <CustomImage
+                  src={item?.author?.image}
+                  title="Logo"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-contain"
+                />
+                {/* {item?.author?.image ? (
                   <CustomImage
-                    src={item?.author?.image}
+                    src={item?.author?.image || "No Image"}
                     title="Logo"
                     width={160}
                     height={160}
@@ -30,7 +37,7 @@ export default async function JobPostHomePage() {
                   />
                 ) : (
                   <Skeleton className="w-full h-32" />
-                )}
+                )} */}
               </div>
 
               {/* Company Details */}

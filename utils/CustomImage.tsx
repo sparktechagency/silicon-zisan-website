@@ -15,9 +15,11 @@ export default function CustomImage({
   width = 100,
   height = 100,
   className = "",
-  fallback = "/default.png", // optional fallback image
+  fallback = "/default.jpg", // optional fallback image
 }: CustomImageProps) {
   // Return fallback if no SRC
+
+  console.log("CustomImage src:", src);
 
   if (!src) {
     return (

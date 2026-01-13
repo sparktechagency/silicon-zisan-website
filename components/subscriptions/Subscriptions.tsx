@@ -3,7 +3,6 @@
 import Image from "next/image";
 import logo from "../../public/dashboard/logo.png";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { useRef, useState } from "react";
@@ -18,21 +17,34 @@ import Container from "@/share/Container";
 import CancelModal from "../dashboard/dashboardSubscription/CancelModal";
 import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
 import FreeSubscriptionModal from "../dashboard/dashboardSubscription/FreeSubscriptionModal";
-import { useRouter } from "next/navigation";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import SubscriptionDetails from "../dashboard/dashboardSubscription/SubscriptionDetails";
+import { Info } from "lucide-react";
 
 export default function Subscriptions({ res }: any) {
   const swiperRef = useRef<null | any>(null);
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const handleClick = () => {
+  const handleSubscribe = async (id: string) => {
     setLoading(true);
     try {
-      router.push("/dashboard-payment");
+      const res = await myFetch(`/subscriptions/create`, {
+        method: "POST",
+        body: {
+          package: id,
+        },
+      });
+
+      if (res.success) {
+        window.open(res.data, "_blank");
+      } else {
+        toast.error(res?.message);
+      }
     } catch (err) {
-      console.error(err);
+      toast.error(err instanceof Error ? err.message : "something went wrong");
     } finally {
       setLoading(false);
     }
@@ -89,20 +101,30 @@ export default function Subscriptions({ res }: any) {
                     <h1 className="text-white text-lg lg:text-2xl font-semibold w-40">
                       Basic Free
                     </h1>
-                    <p className="text-white text-sm mt-2">Free</p>
+                    <div className="text-white text-sm mt-2 flex items-center gap-2.5">
+                      <p> € {res[0]?.dailyPrice} Per Day</p>
+                      <SubscriptionDetails
+                        bio={res[0]?.description}
+                        trigger={
+                          <p>
+                            <Info />
+                          </p>
+                        }
+                      />
+                    </div>
                   </div>
                   <div>
                     <div className="flex justify-end mb-2">
                       <Image src={logo} className="h-10 w-10" alt="logo" />
                     </div>
-                    <div className="flex flex-col sm:flex-row">
+                    {/* <div className="flex flex-col sm:flex-row">
                       <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                         Activated
                       </button>
                       <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                         Inactive
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -149,22 +171,30 @@ export default function Subscriptions({ res }: any) {
                     <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
                       Standard
                     </h1>
-                    <p className="text-white text-sm mt-2">
-                      € {res[1]?.dailyPrice} Per Day
-                    </p>
+                    <div className="text-white text-sm mt-2 flex items-center gap-2.5">
+                      <p> € {res[1]?.dailyPrice} Per Day</p>
+                      <SubscriptionDetails
+                        bio={res[1]?.description}
+                        trigger={
+                          <p>
+                            <Info />
+                          </p>
+                        }
+                      />
+                    </div>
                   </div>
                   <div>
                     <div className="flex justify-end mb-2">
                       <Image src={logo} className="h-10 w-10" alt="logo" />
                     </div>
-                    <div className="flex flex-col sm:flex-row">
+                    {/* <div className="flex flex-col sm:flex-row">
                       <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                         Activated
                       </button>
                       <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                         Inactive
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -181,7 +211,7 @@ export default function Subscriptions({ res }: any) {
                     loading && "cursor-not-allowed"
                   }`}
                   disabled={loading}
-                  onClick={handleClick}
+                  onClick={() => handleSubscribe(res[1]?._id)}
                 >
                   Subscribe Now
                 </Button>
@@ -214,22 +244,30 @@ export default function Subscriptions({ res }: any) {
                       <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
                         Booster
                       </h1>
-                      <p className="text-white text-sm mt-2">
-                        € {res[2]?.dailyPrice} Per Day
-                      </p>
+                      <div className="text-white text-sm mt-2 flex items-center gap-2.5">
+                        <p> € {res[2]?.dailyPrice} Per Day</p>
+                        <SubscriptionDetails
+                          bio={res[2]?.description}
+                          trigger={
+                            <p>
+                              <Info />
+                            </p>
+                          }
+                        />
+                      </div>
                     </div>
                     <div>
                       <div className="flex justify-end mb-2">
                         <Image src={logo} className="h-10 w-10" alt="logo" />
                       </div>
-                      <div className="flex flex-col sm:flex-row">
+                      {/* <div className="flex flex-col sm:flex-row">
                         <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                           Activated
                         </button>
                         <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
                           Inactive
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -246,7 +284,7 @@ export default function Subscriptions({ res }: any) {
                       loading && "cursor-not-allowed"
                     }`}
                     disabled={loading}
-                    onClick={handleClick}
+                    onClick={() => handleSubscribe(res[2]?._id)}
                   >
                     Subscribe Now
                   </Button>
