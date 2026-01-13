@@ -1,10 +1,12 @@
 import TwoFactorAuth from "@/components/profile/Authtication";
+import getProfile from "@/utils/getProfile";
 import React from "react";
 
-export default function FactorAuthenticaiton() {
+export default async function FactorAuthenticaiton() {
+  const data = await getProfile();
   return (
     <div>
-      <TwoFactorAuth />
+      <TwoFactorAuth initialData={data} />
     </div>
   );
 }
