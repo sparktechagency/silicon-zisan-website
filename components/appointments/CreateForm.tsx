@@ -12,6 +12,7 @@ import { DatePicker } from "@/share/DatePicker";
 import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
+import CustomTimePicker from "./CustomTimePicker";
 
 type FormValues = {
   appointment: dayjs.Dayjs | null;
@@ -78,11 +79,17 @@ export function CreateForm({ res }: any) {
                   field.onChange(newDate);
                 }}
               />
-
-              {/* <HourMinutePicker
+              {/* 
+              <HourMinutePicker
                 value={field.value ?? null}
                 onChange={(time) => field.onChange(time)}
               /> */}
+
+              <CustomTimePicker
+                name="ok"
+                control={control}
+                rules={{ required: "Time is required" }}
+              />
             </>
           )}
         />

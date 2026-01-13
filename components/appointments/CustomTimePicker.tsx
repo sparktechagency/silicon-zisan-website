@@ -103,12 +103,12 @@ function TimePickerContent({ field, fieldState }: any) {
           value={time.hour}
           onValueChange={(hour) => updateTime({ hour })}
         >
-          <SelectTrigger className="w-[90px]">
+          <SelectTrigger className="w-full button-unactive">
             <SelectValue placeholder="HH" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {hours.map((h) => (
+              {hours?.map((h) => (
                 <SelectItem key={h} value={h}>
                   {h}
                 </SelectItem>
@@ -123,12 +123,12 @@ function TimePickerContent({ field, fieldState }: any) {
           value={time.minute}
           onValueChange={(minute) => updateTime({ minute })}
         >
-          <SelectTrigger className="w-[90px]">
+          <SelectTrigger className="w-full button-unactive">
             <SelectValue placeholder="MM" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {minutes.map((m) => (
+              {minutes?.map((m) => (
                 <SelectItem key={m} value={m}>
                   {m}
                 </SelectItem>

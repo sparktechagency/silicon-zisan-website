@@ -32,9 +32,16 @@ export function VerifyOtp() {
         body: { email, oneTimeCode: Number(otp) },
       });
 
+      console.log("res", res);
+
       if (res?.success) {
-        toast.success(res.message);
-        router.push(`/new-password?token=${res?.data}`);
+        if (res?.data?.accessToken) {
+          toast.success(res.message);
+          router.push(`/`);
+        } else {
+          toast.success(res.message);
+          router.push(`/new-password?token=${res?.data}`);
+        }
       } else {
         toast.error(res?.message || "Invalid OTP");
       }
