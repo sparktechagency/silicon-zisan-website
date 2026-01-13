@@ -1,10 +1,8 @@
-import { ChevronRight, Fingerprint, Globe, MapPin } from "lucide-react";
+import { ChevronRight, Fingerprint, Globe } from "lucide-react";
 import React from "react";
 import PasswordModal from "./modal/PasswordModal";
 import { CountryModal } from "./modal/CountryModal";
 import Link from "next/link";
-
-const buttons = [];
 
 export default function Setting() {
   return (

@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import profileMan from "../../public/profile/profile.png";
 import { useState } from "react";
 import { Settings, Trash, User } from "lucide-react";
 import { IoIosLogOut } from "react-icons/io";

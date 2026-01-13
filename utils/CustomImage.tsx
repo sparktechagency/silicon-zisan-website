@@ -37,9 +37,7 @@ export default function CustomImage({
 
   // Build image URL safely
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
-  const image = src.startsWith("https")
-    ? src
-    : new URL(src, baseUrl).toString();
+  const image = src.startsWith("http") ? src : new URL(src, baseUrl).toString();
 
   return (
     <Image
