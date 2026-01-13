@@ -1,31 +1,33 @@
 import { Label } from "@/components/ui/label";
+
 type Option = string;
 
+/* ---------------- Header Toggle ---------------- */
 export function HeaderYesNoToggle({
   label,
-  name,
   value,
   onChange,
   options,
 }: {
   label?: string;
-  name: string;
   value: string;
-  onChange: (name: string, val: string) => void;
+  onChange: (val: string) => void;
   options: Option[];
 }) {
   return (
-    <div className="">
-      <div className="border p-2 w-full rounded-3xl  gap-2">
-        {options?.map((status: any) => (
+    <div>
+      {label && <Label>{label}</Label>}
+      <div className="border p-2 rounded-3xl flex gap-2">
+        {options.map((status) => (
           <button
+            type="button"
             key={status}
-            onClick={() => onChange(name, status)}
-            className={`w-auto py-1 px-3 rounded-2xl transition cursor-pointer ${
+            onClick={() => onChange(status)}
+            className={`py-1 px-3 rounded-2xl transition ${
               value === status ? "custom-btn" : "bg-transparent"
             }`}
           >
-            {status.charAt(0).toUpperCase() + status.slice(1)}
+            {status}
           </button>
         ))}
       </div>
@@ -33,27 +35,28 @@ export function HeaderYesNoToggle({
   );
 }
 
+/* ---------------- Yes / No Toggle ---------------- */
 export default function YesNoToggle({
   label,
-  name,
   value,
   onChange,
 }: {
   label?: string;
-  name: string;
   value: string;
-  onChange: (name: string, val: string) => void;
+  onChange: (val: string) => void;
 }) {
   return (
     <div className="grid grid-cols-2 items-center gap-2">
       <Label>{label}</Label>
+
       <div className="flex justify-end">
-        <div className="border p-2 w-28 sm:w-40 rounded-3xl  gap-2">
+        <div className="border p-2 rounded-3xl flex gap-2 w-28 sm:w-40">
           {["yes", "no"].map((status) => (
             <button
+              type="button"
               key={status}
-              onClick={() => onChange(name, status)}
-              className={`sm:w-16 py-1 px-2 rounded-2xl transition cursor-pointer ${
+              onClick={() => onChange(status)}
+              className={`sm:w-16 py-1 px-2 rounded-2xl transition ${
                 value === status ? "custom-btn" : "bg-transparent"
               }`}
             >
@@ -66,31 +69,32 @@ export default function YesNoToggle({
   );
 }
 
+/* ---------------- Gender Toggle ---------------- */
 export function YesNoToggleMaleFemale({
   label,
-  name,
   value,
   onChange,
 }: {
   label?: string;
-  name: string;
   value: string;
-  onChange: (name: string, val: string) => void;
+  onChange: (val: string) => void;
 }) {
   return (
-    <div className="grid grid-cols-2 items-center gap-4 text-nowrap">
+    <div className="grid grid-cols-2 items-center gap-4">
       <Label>{label}</Label>
-      <div className="flex  justify-end">
-        <div className="border p-2  rounded-3xl  gap-2">
+
+      <div className="flex justify-end">
+        <div className="border p-2 rounded-3xl flex gap-2">
           {["Male", "Female"].map((status) => (
             <button
+              type="button"
               key={status}
-              onClick={() => onChange(name, status)}
-              className={`py-1 px-3 rounded-2xl transition cursor-pointer ${
+              onClick={() => onChange(status)}
+              className={`py-1 px-3 rounded-2xl transition ${
                 value === status ? "custom-btn" : "bg-transparent"
               }`}
             >
-              {status.charAt(0).toUpperCase() + status.slice(1)}
+              {status}
             </button>
           ))}
         </div>

@@ -10,9 +10,11 @@ import Categories from "./Categories";
 import JobType from "./JobType";
 import SalaryDetailsFormValues from "./SalaryDetailsFormValues";
 import AddQualificationAndResposibilities from "./AddQualificationAndResposibilities";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { Button } from "@/components/ui/button";
+import { revalidate } from "@/utils/revalidateTag";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   category: string;
@@ -28,6 +30,7 @@ type FormValues = {
 };
 
 export default function EditJobPost({ data }: any) {
+  const router = useRouter();
   const [categories, setCategories] = useState<any[]>([]);
   const {
     register,
@@ -39,7 +42,7 @@ export default function EditJobPost({ data }: any) {
     defaultValues: {
       category: data?.category || "",
       subCategory: data?.subCategory || "",
-      jobType: "",
+      jobType: data?.jobType || "",
       deadline: "",
       salaryType: "",
       salaryAmount: "",
@@ -133,6 +136,8 @@ export default function EditJobPost({ data }: any) {
 
       if (res?.success) {
         toast.success(res.message);
+        await revalidate("apply-jobs");
+        router.push("/view-details-jobs/" + data._id);
       } else {
         toast.error((res as any)?.error[0].message);
       }

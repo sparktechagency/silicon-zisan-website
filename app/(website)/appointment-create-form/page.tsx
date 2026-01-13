@@ -13,6 +13,8 @@ export default async function AppointmentCreateForm({
     tags: ["job-seeker-details"],
   });
 
+  console.log("get data", res);
+
   return (
     <>
       <Container className="my-12 px-2 md:px-10 lg:px-0">

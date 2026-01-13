@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useForm, Controller } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -9,143 +10,144 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+
 import YesNoToggle, {
   HeaderYesNoToggle,
   YesNoToggleMaleFemale,
 } from "@/share/YesNoToggle";
+
 import CustomSelect from "@/share/CustomSelect";
 import { age, child, position } from "@/demoData/data";
 import HandleInformationButton from "./HandleInformationButton";
 
+type FormValues = {
+  grossSalary: string;
+  year: string;
+  taxExemption: string;
+  state: string;
+  taxClass: number;
+  churchTax: string;
+  healthInsurance: string;
+  pensionInsurance: string;
+  unemploymentInsurance: string;
+  haveChildren: string;
+  childTaxExemption: string;
+  age: string;
+  position: string;
+  gender: string;
+  monthly: string;
+  gross: string;
+};
+
 export default function SalaryCalculator() {
-  const [tax, setTex] = useState(0);
-  const [form, setForm] = useState({
-    grossSalary: "2890.00",
-    year: "2025",
-    taxExemption: "",
-    state: "Berlin",
-    tax: "",
-    taxClass: "1",
-    churchTax: "No",
-    healthInsurance: "Yes",
-    pensionInsurance: "Yes",
-    unemploymentInsurance: "Yes",
-    children: "No",
-    childTaxExemption: "",
-    age: "25",
-    position: "",
-    gender: "Male",
-  });
+  const { control, register, handleSubmit, watch, setValue } =
+    useForm<FormValues>({
+      defaultValues: {
+        grossSalary: "2890.00",
+        year: "2025",
+        taxExemption: "",
+        state: "Berlin",
+        taxClass: 1,
+        churchTax: "yes",
+        healthInsurance: "no",
+        pensionInsurance: "no",
+        unemploymentInsurance: "yes",
+        haveChildren: "no",
+        childTaxExemption: "",
+        age: "25",
+        position: "",
+        gender: "Male",
+        monthly: "Monthly",
+        gross: "Gross",
+      },
+    });
 
-  const [formStatus, setFormStatus] = useState({
-    churchTax: "yes",
-    healthInsurance: "no",
-    pensionInsurance: "no",
-    unemploymentInsurance: "yes",
-    haveChildren: "no",
-    gender: "no",
-    gross: "yes",
-    monthly: "no",
-  });
+  const taxClass = watch("taxClass");
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  //   handle toogle change
-  const handleToggleChange = (name: string, value: string) => {
-    setFormStatus((prev) => ({ ...prev, [name]: value }));
+  const onSubmit = (data: FormValues) => {
+    console.log("FORM DATA:", data);
   };
 
   return (
-    <div className="bg-card text-white p-6 rounded-xl max-w-3xl mx-auto space-y-6">
-      <div className="flex justify-between space-x-2">
-        <HeaderYesNoToggle
-          options={["Monthly", "Yearly"]}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-card text-white p-6 rounded-xl max-w-3xl mx-auto space-y-6"
+    >
+      {/* Header Toggles */}
+      <div className="flex justify-between gap-2">
+        <Controller
           name="monthly"
-          value={formStatus.monthly}
-          onChange={handleToggleChange}
+          control={control}
+          render={({ field }) => (
+            <HeaderYesNoToggle
+              options={["Monthly", "Yearly"]}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
-        {/* Gender toggle */}
-        <HeaderYesNoToggle
-          options={["Gross", "Net"]}
+
+        <Controller
           name="gross"
-          value={formStatus.gross}
-          onChange={handleToggleChange}
+          control={control}
+          render={({ field }) => (
+            <HeaderYesNoToggle
+              options={["Gross", "Net"]}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
       </div>
 
+      {/* Inputs */}
       <div className="grid grid-cols-2">
-        <Label>Gross Salary </Label>
-        <div>
-          <Input
-            type="number"
-            name="grossSalary"
-            value={form.grossSalary}
-            onChange={handleChange}
-            className="w-full p-2 rounded  text-white"
-          />
-        </div>
+        <Label>Gross Salary</Label>
+        <Input type="number" {...register("grossSalary")} />
       </div>
+
       <div className="grid grid-cols-2">
         <Label>Year</Label>
-        <div>
-          <Input
-            type="number"
-            name="year"
-            value={form.year}
-            onChange={handleChange}
-            className="w-full p-2 rounded  text-white"
-          />
-        </div>
+        <Input type="number" {...register("year")} />
       </div>
-
-      {/* Tax Exemption & State */}
 
       <div className="grid grid-cols-2">
         <Label>Tax Exemption</Label>
-        <div>
-          <Input
-            type="number"
-            name="taxExemption"
-            placeholder="Type Here"
-            value={form.taxExemption}
-            onChange={handleChange}
-            className="w-full p-2 rounded  text-white"
-          />
-        </div>
-      </div>
-      {/* state */}
-      <div className="grid grid-cols-2">
-        <Label className="font-semibold">Your State</Label>
-        <div>
-          <Select>
-            <SelectTrigger className="w-full text-white border h-10!">
-              <SelectValue placeholder="Select your state" />
-            </SelectTrigger>
-            <SelectContent className=" text-white">
-              <SelectItem value="Berlin">Berlin</SelectItem>
-              <SelectItem value="Hamburg">Hamburg</SelectItem>
-              <SelectItem value="Munich">Munich</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+        <Input type="number" {...register("taxExemption")} />
       </div>
 
-      {/* tax class */}
+      {/* State */}
       <div className="grid grid-cols-2">
-        <Label className="font-semibold">Tax Class</Label>
+        <Label>Your State</Label>
+        <Controller
+          name="state"
+          control={control}
+          render={({ field }) => (
+            <Select value={field.value} onValueChange={field.onChange}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select your state" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Berlin">Berlin</SelectItem>
+                <SelectItem value="Hamburg">Hamburg</SelectItem>
+                <SelectItem value="Munich">Munich</SelectItem>
+              </SelectContent>
+            </Select>
+          )}
+        />
+      </div>
+
+      {/* Tax Class */}
+      <div className="grid grid-cols-2">
+        <Label>Tax Class</Label>
         <div className="flex">
           {[1, 2, 3, 4, 5, 6].map((item) => (
             <p
-              onClick={() => setTex(item)}
-              className={`border px-4 py-2 cursor-pointer ${
-                tax === item ? "custom-btn" : "bg-transparent"
-              }`}
               key={item}
+              onClick={() => setValue("taxClass", item)}
+              className={`border px-4 py-2 cursor-pointer ${
+                taxClass === item ? "custom-btn" : ""
+              }`}
             >
               {item}
             </p>
@@ -153,83 +155,107 @@ export default function SalaryCalculator() {
         </div>
       </div>
 
-      {/* all toggle statuw */}
-      <div className="space-y-4 ">
-        <YesNoToggle
-          label="Do You Pay Church Tax"
+      {/* Toggles */}
+      <div className="space-y-4">
+        <Controller
           name="churchTax"
-          value={formStatus.churchTax}
-          onChange={handleToggleChange}
+          control={control}
+          render={({ field }) => (
+            <YesNoToggle label="Do You Pay Church Tax" {...field} />
+          )}
         />
-        <YesNoToggle
-          label="Health Insurance"
+
+        <Controller
           name="healthInsurance"
-          value={formStatus.healthInsurance}
-          onChange={handleToggleChange}
+          control={control}
+          render={({ field }) => (
+            <YesNoToggle label="Health Insurance" {...field} />
+          )}
         />
-        <YesNoToggle
-          label="Pension Insurance"
+
+        <Controller
           name="pensionInsurance"
-          value={formStatus.pensionInsurance}
-          onChange={handleToggleChange}
+          control={control}
+          render={({ field }) => (
+            <YesNoToggle label="Pension Insurance" {...field} />
+          )}
         />
-        <YesNoToggle
-          label="Unemployment Insurance"
+
+        <Controller
           name="unemploymentInsurance"
-          value={formStatus.unemploymentInsurance}
-          onChange={handleToggleChange}
+          control={control}
+          render={({ field }) => (
+            <YesNoToggle label="Unemployment Insurance" {...field} />
+          )}
         />
-        <YesNoToggle
-          label="Do you have children"
-          name="accidentInsurance"
-          value={formStatus.haveChildren}
-          onChange={handleToggleChange}
-        />
-      </div>
 
-      {/*Select Child*/}
-      <div>
-        <CustomSelect
-          label="Child Tax Exemption"
-          placeholder="Select Child"
-          options={child}
-        />
-      </div>
-      {/*Your age*/}
-      <div>
-        <CustomSelect label="Your Age" placeholder="Select Age" options={age} />
-      </div>
-
-      {/*Your position*/}
-      <div>
-        <CustomSelect
-          label="Your Position"
-          placeholder="Select position"
-          options={position}
+        <Controller
+          name="haveChildren"
+          control={control}
+          render={({ field }) => (
+            <YesNoToggle label="Do you have children" {...field} />
+          )}
         />
       </div>
 
-      {/* Gender toggle */}
-      {/* <YesNoToggle
-        label="Gender"
-        name="gender"
-        value={formStatus.gender}
-        onChange={handleToggleChange}
-      /> */}
-
-      <YesNoToggleMaleFemale
-        label="Gender"
-        name="gender"
-        value={formStatus.gender}
-        onChange={handleToggleChange}
+      {/* Custom Selects */}
+      <Controller
+        name="childTaxExemption"
+        control={control}
+        render={({ field }) => (
+          <CustomSelect
+            label="Child Tax Exemption"
+            placeholder="Select Child"
+            options={child}
+            {...field}
+          />
+        )}
       />
 
+      <Controller
+        name="age"
+        control={control}
+        render={({ field }) => (
+          <CustomSelect
+            label="Your Age"
+            placeholder="Select Age"
+            options={age}
+            {...field}
+          />
+        )}
+      />
+
+      <Controller
+        name="position"
+        control={control}
+        render={({ field }) => (
+          <CustomSelect
+            label="Your Position"
+            placeholder="Select position"
+            options={position}
+            {...field}
+          />
+        )}
+      />
+
+      {/* Gender */}
+      <Controller
+        name="gender"
+        control={control}
+        render={({ field }) => (
+          <YesNoToggleMaleFemale label="Gender" {...field} />
+        )}
+      />
+
+      {/* Actions */}
       <div className="grid sm:grid-cols-2 gap-5">
-        <div className="custom-btn text-center rounded-2xl py-2">Calculate</div>
+        <button type="submit" className="custom-btn rounded-2xl py-2">
+          Calculate
+        </button>
         <div className="border py-2 text-center">$25622556 (brutto)</div>
       </div>
 
       <HandleInformationButton />
-    </div>
+    </form>
   );
 }

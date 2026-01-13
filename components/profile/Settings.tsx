@@ -22,7 +22,7 @@ export default function Setting() {
           </p>
         </div>
       </Link>
-      <CountryModal
+      {/* <CountryModal
         title="Select Language"
         trigger={
           <div
@@ -40,7 +40,7 @@ export default function Setting() {
             </p>
           </div>
         }
-      />
+      /> */}
       {/* <CountryModal
         title="Country"
         trigger={

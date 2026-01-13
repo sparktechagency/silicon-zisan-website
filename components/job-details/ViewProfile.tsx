@@ -15,8 +15,8 @@ export default function ViewProfile({ data }: any) {
   ];
 
   const workInfo = [
-    { label: "Category", value: data?.experiences[0]?.category },
-    { label: "Category", value: data?.experiences[0]?.subCategory },
+    { label: "Category", value: data?.experiences[0]?.category || "No" },
+    { label: "Category", value: data?.experiences[0]?.subCategory || "No" },
   ];
 
   const renderInfoSection = (title: string, data: any) => (

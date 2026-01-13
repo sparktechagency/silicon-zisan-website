@@ -18,7 +18,7 @@ import AddEmployeeForm from "./AddEmployeeModal";
 import ShiftPlanDate from "./ShiftPlanDate";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import CustomTimePicker from "../appointments/CustomTimePicker";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
@@ -36,8 +36,7 @@ type FormValues = {
 };
 
 export default function CreateNewPlan2({ employee, editData }: any) {
-  console.log("edit", editData?.worker?._id);
-
+  const router = useRouter();
   // date
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
 
@@ -92,12 +91,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     }
   }, [editData, reset]);
 
-  console.log("edit data", editData);
-
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      // startTime: dayjs(data.startTime).format("hh:mm A"),
-      // endTime: data.endTime?.format("hh:mm A"),
       startTime: data.startTime,
       endTime: data.endTime,
       days: selectedDates.map((d) => d.toISOString()),
@@ -118,11 +113,10 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         body: payload,
       });
 
-      console.log("res", res);
-
       if (res.success) {
         toast.success(res.message);
         await revalidate("shift-plan");
+        router.back();
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -170,13 +164,14 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         </div>
 
         {/* Form */}
-        <div>
-          <AddEmployeeForm
-            trigger={
-              <Button className="custom-btn px-5 py-5">Add Employee</Button>
-            }
-          />
-
+        <div className="">
+          <div className="flex justify-end">
+            <AddEmployeeForm
+              trigger={
+                <Button className="custom-btn px-5 py-5">Add Employee</Button>
+              }
+            />
+          </div>
           {/* form */}
           <form
             onSubmit={handleSubmit(onSubmit)}

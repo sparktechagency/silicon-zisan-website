@@ -86,6 +86,8 @@ const agreementSections = [
 ];
 
 export default function ContractInformation({ data }: any) {
+  console.log("data", data);
+
   const handleDownloadPdf = () => {
     const docDefinition: any = {
       pageMargins: [40, 40, 40, 40],
@@ -341,8 +343,8 @@ export default function ContractInformation({ data }: any) {
             {/* Confirmation */}
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
-                <p>Place</p>
-                <p>Date</p>
+                <p>Place : {data?.author?.address || "No Place"}</p>
+                <p>Date : {dayjs(data?.deadline).format("YYYY-MM-DD")}</p>
               </div>
               <p className="mt-3">
                 The client confirmed the contract by selecting the checkbox, so
