@@ -6,31 +6,30 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-
-import HourMinutePicker from "./CustomTimePicker";
 import { DatePicker } from "@/share/DatePicker";
-import dayjs from "dayjs";
-import { myFetch } from "@/utils/myFetch";
-import { toast } from "sonner";
+// import dayjs from "dayjs";
 import CustomTimePicker from "./CustomTimePicker";
 import CustomBackButton from "@/share/CustomBackButton";
+import dayjs, { Dayjs } from "dayjs";
 
 type FormValues = {
-  appointment: dayjs.Dayjs | null;
   option: "call" | "address";
   meetingAddress: string;
   message: string;
+  scheduledAt: Dayjs | null;
+  time: string;
 };
 
 export function CreateForm({ res }: any) {
   console.log("res?.user?._id", res?.user?._id);
 
-  const { register, handleSubmit, control } = useForm<FormValues>({
+  const { control, register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
-      appointment: dayjs(),
       option: "call",
       meetingAddress: "",
       message: "",
+      scheduledAt: null, // IMPORTANT
+      time: "",
     },
   });
 
@@ -40,27 +39,30 @@ export function CreateForm({ res }: any) {
     const payload = {
       receiver: res?.user?._id,
       job: res?.job?._id,
-      scheduledAt: data.appointment?.toISOString() ?? null,
+      scheduledAt: data.scheduledAt?.toISOString() ?? null,
       address: res?.user?.address,
       message: data?.message,
+      time: data?.scheduledAt?.format("HH:mm") || null,
     };
 
-    try {
-      const res = await myFetch("/appointments/create", {
-        method: "POST",
-        body: payload,
-      });
+    console.log("data apointment", payload);
 
-      console.log("res", res);
+    // try {
+    //   const res = await myFetch("/appointments/create", {
+    //     method: "POST",
+    //     body: payload,
+    //   });
 
-      if (res.success) {
-        toast.success(res.message);
-      } else {
-        toast.error((res as any)?.error[0].message);
-      }
-    } catch (err) {
-      toast.error(err instanceof Error ? res?.message : "something went wrong");
-    }
+    //   console.log("res", res);
+
+    //   if (res.success) {
+    //     toast.success(res.message);
+    //   } else {
+    //     toast.error((res as any)?.error[0].message);
+    //   }
+    // } catch (err) {
+    //   toast.error(err instanceof Error ? res?.message : "something went wrong");
+    // }
   };
 
   return (
@@ -74,33 +76,33 @@ export function CreateForm({ res }: any) {
 
         <div className="grid grid-cols-2 gap-4">
           <Controller
-            name="appointment"
+            name="scheduledAt"
             control={control}
             render={({ field }) => (
-              <>
-                <DatePicker
-                  value={field.value?.toDate()}
-                  onChange={(date) => {
-                    if (!date) return field.onChange(null);
-                    const newDate = dayjs(date)
-                      .hour(field.value?.hour() ?? 0)
-                      .minute(field.value?.minute() ?? 0);
-                    field.onChange(newDate);
-                  }}
-                />
-                {/* 
-              <HourMinutePicker
-                value={field.value ?? null}
-                onChange={(time) => field.onChange(time)}
-              /> */}
+              <DatePicker
+                value={field.value ? field.value.toDate() : undefined}
+                onChange={(date: Date | null | undefined) => {
+                  if (!date) {
+                    field.onChange(null);
+                    return;
+                  }
 
-                <CustomTimePicker
-                  name="ok"
-                  control={control}
-                  rules={{ required: "Time is required" }}
-                />
-              </>
+                  const prev = field.value ?? dayjs();
+
+                  const newDate = dayjs(date)
+                    .hour(prev.hour())
+                    .minute(prev.minute());
+
+                  field.onChange(newDate);
+                }}
+              />
             )}
+          />
+
+          <CustomTimePicker
+            name="time"
+            control={control}
+            rules={{ required: "Time is required" }}
           />
         </div>
 
