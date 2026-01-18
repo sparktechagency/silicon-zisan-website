@@ -42,7 +42,7 @@ export default function LoginPage() {
           setCookie("role", res?.data?.role);
           router.push("/");
         } else {
-          router.push("/verify-otp  ");
+          router.push("/verify-otp");
         }
       } else {
         toast.error(res?.message || "Login failed");
