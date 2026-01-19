@@ -17,35 +17,41 @@ type FormValues = {
   meetingAddress: string;
   message: string;
   scheduledAt: Dayjs | null;
-  time: string;
+  time: Dayjs | null;
 };
 
 export function CreateForm({ res }: any) {
-  console.log("res?.user?._id", res?.user?._id);
-
   const { control, register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       option: "call",
       meetingAddress: "",
       message: "",
       scheduledAt: null, // IMPORTANT
-      time: "",
+      time: null,
     },
   });
 
   const onSubmit = async (data: FormValues) => {
-    console.log("res", res);
+    if (!data.scheduledAt || !data.time) {
+      return;
+    }
+
+    const localIsoString = dayjs(data.scheduledAt)
+      .hour(data.time.hour())
+      .minute(data.time.minute())
+      .second(0)
+      .format("YYYY-MM-DDTHH:mm:ss");
 
     const payload = {
       receiver: res?.user?._id,
       job: res?.job?._id,
-      scheduledAt: data.scheduledAt?.toISOString() ?? null,
+      // scheduledAt: data.scheduledAt?.toISOString() ?? null,
+      scheduledAt: localIsoString,
       address: res?.user?.address,
       message: data?.message,
-      time: data?.scheduledAt?.format("HH:mm") || null,
     };
 
-    console.log("data apointment", payload);
+    console.log("payload", payload);
 
     // try {
     //   const res = await myFetch("/appointments/create", {

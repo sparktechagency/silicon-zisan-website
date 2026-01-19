@@ -16,6 +16,8 @@ export default function AppointmentCardsConfirmed({ data }: any) {
   const [isModalOneOpen2, setIsModalOneOpen2] = useState(false);
   const [isModalTwoOpen2, setIsModalTwoOpen2] = useState(false);
 
+  console.log("data", data);
+
   return (
     <>
       {data?.map((item: any) => (
@@ -53,7 +55,9 @@ export default function AppointmentCardsConfirmed({ data }: any) {
                   </div>
                   <div className="flex items-center gap-1">
                     <Clock4 size={18} />
-                    <span className="sm:text-xl">{item.time || "12:00"}</span>
+                    <span className="sm:text-xl">
+                      {dayjs(item.scheduledAt).format("HH:mm") || "No Time  "}
+                    </span>
                   </div>
                 </div>
               </div>

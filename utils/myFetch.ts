@@ -35,7 +35,7 @@ export const myFetch = async (
     token,
     headers = {},
     cache = "no-store",
-  }: FetchOptions = {}
+  }: FetchOptions = {},
 ): Promise<FetchResponse> => {
   const accessToken = await getToken();
 
