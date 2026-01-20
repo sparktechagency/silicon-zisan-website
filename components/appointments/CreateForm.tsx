@@ -6,41 +6,47 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-
-import HourMinutePicker from "./CustomTimePicker";
 import { DatePicker } from "@/share/DatePicker";
-import dayjs from "dayjs";
-import { myFetch } from "@/utils/myFetch";
-import { toast } from "sonner";
 import CustomTimePicker from "./CustomTimePicker";
 import CustomBackButton from "@/share/CustomBackButton";
+import dayjs, { Dayjs } from "dayjs";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
 
 type FormValues = {
-  appointment: dayjs.Dayjs | null;
   option: "call" | "address";
   meetingAddress: string;
   message: string;
+  scheduledAt: Dayjs | null;
+  time: Dayjs | null;
 };
 
 export function CreateForm({ res }: any) {
-  console.log("res?.user?._id", res?.user?._id);
-
-  const { register, handleSubmit, control } = useForm<FormValues>({
+  const { control, register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
-      appointment: dayjs(),
       option: "call",
       meetingAddress: "",
       message: "",
+      scheduledAt: null, // IMPORTANT
+      time: null,
     },
   });
 
   const onSubmit = async (data: FormValues) => {
-    console.log("res", res);
+    if (!data.scheduledAt || !data.time) {
+      return;
+    }
+
+    const localIsoString = dayjs(data.scheduledAt)
+      .hour(data.time.hour())
+      .minute(data.time.minute())
+      .second(0)
+      .format("YYYY-MM-DDTHH:mm:ss");
 
     const payload = {
       receiver: res?.user?._id,
       job: res?.job?._id,
-      scheduledAt: data.appointment?.toISOString() ?? null,
+      scheduledAt: localIsoString,
       address: res?.user?.address,
       message: data?.message,
     };
@@ -50,8 +56,6 @@ export function CreateForm({ res }: any) {
         method: "POST",
         body: payload,
       });
-
-      console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);
@@ -74,33 +78,33 @@ export function CreateForm({ res }: any) {
 
         <div className="grid grid-cols-2 gap-4">
           <Controller
-            name="appointment"
+            name="scheduledAt"
             control={control}
             render={({ field }) => (
-              <>
-                <DatePicker
-                  value={field.value?.toDate()}
-                  onChange={(date) => {
-                    if (!date) return field.onChange(null);
-                    const newDate = dayjs(date)
-                      .hour(field.value?.hour() ?? 0)
-                      .minute(field.value?.minute() ?? 0);
-                    field.onChange(newDate);
-                  }}
-                />
-                {/* 
-              <HourMinutePicker
-                value={field.value ?? null}
-                onChange={(time) => field.onChange(time)}
-              /> */}
+              <DatePicker
+                value={field.value ? field.value.toDate() : undefined}
+                onChange={(date: Date | null | undefined) => {
+                  if (!date) {
+                    field.onChange(null);
+                    return;
+                  }
 
-                <CustomTimePicker
-                  name="ok"
-                  control={control}
-                  rules={{ required: "Time is required" }}
-                />
-              </>
+                  const prev = field.value ?? dayjs();
+
+                  const newDate = dayjs(date)
+                    .hour(prev.hour())
+                    .minute(prev.minute());
+
+                  field.onChange(newDate);
+                }}
+              />
             )}
+          />
+
+          <CustomTimePicker
+            name="time"
+            control={control}
+            rules={{ required: "Time is required" }}
           />
         </div>
 

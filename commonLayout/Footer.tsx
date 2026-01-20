@@ -5,9 +5,11 @@ import { gradientClasses } from "@/styles/gradients";
 import Image from "next/image";
 import logo from "../public/logo.png";
 import Container from "@/share/Container";
+import { myFetch } from "@/utils/myFetch";
 
-export default function Footer() {
+export default async function Footer() {
   const currentYear = new Date().getFullYear();
+  const res = await myFetch("/contact");
 
   return (
     <footer className={`${gradientClasses.primaryBg} text-white`}>
@@ -59,11 +61,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center text-gray-200 text-sm">
                 <PhoneIcon />
-                <span className="ml-2">+8802563565652</span>
+                <span className="ml-2">{res?.data?.phone}</span>
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <EmailIcon />
-                <span className="ml-2">hello@jobsin.com</span>
+                <span className="ml-2">{res?.data?.email}</span>
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <ContactIcon />
@@ -71,7 +73,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <WhatsAppIcon />
-                <span className="ml-2">+8802563565652</span>
+                <span className="ml-2">{res?.data?.whatsApp}</span>
               </li>
             </ul>
           </div>

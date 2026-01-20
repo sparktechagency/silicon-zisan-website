@@ -1,17 +1,12 @@
 import { useForm } from "react-hook-form";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
 import { Label } from "../ui/label";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
 
 type FormData = {
@@ -22,28 +17,48 @@ type FormData = {
 };
 
 export default function AddEmployeeForm({
+  workerData,
   trigger,
 }: {
+  workerData?: any;
   trigger: React.ReactNode;
 }) {
+  console.log("workerData", workerData);
+
   const [open, setOpen] = useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      address: "",
+      name: workerData?.name || "",
+      email: workerData?.email || "",
+      phone: workerData?.phone || "",
+      address: workerData?.address || "",
     },
   });
 
+  useEffect(() => {
+    if (workerData) {
+      reset({
+        name: workerData?.name || "",
+        email: workerData?.email || "",
+        phone: workerData?.phone || "",
+        address: workerData?.address || "",
+      });
+    }
+  }, [workerData, reset]);
+
   const onSubmit = async (data: FormData) => {
+    const method = workerData?._id ? "PATCH" : "POST";
+    const url = workerData?._id
+      ? `/workers/update/${workerData._id}`
+      : "/workers/create";
     try {
-      const res = await myFetch("/workers/create", {
-        method: "POST",
+      const res = await myFetch(url, {
+        method,
         body: data,
       });
 
@@ -63,10 +78,6 @@ export default function AddEmployeeForm({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="rounded-xl max-w-sm bg-[#3C4751] backdrop-blur-sm opacity-90 border border-gray-400/30 shadow-lg">
-        <DialogTitle className="text-xl font-semibold ">
-          Add Employee
-        </DialogTitle>
-
         <form
           onSubmit={handleSubmit(onSubmit)}
           className=" text-white  space-y-5"
@@ -159,7 +170,7 @@ export default function AddEmployeeForm({
           {/* Save Button */}
           <div className="flex justify-end">
             <Button type="submit" className="w-[50%] custom-btn">
-              Save
+              {workerData?._id ? "Update " : "Save"}
             </Button>
           </div>
         </form>

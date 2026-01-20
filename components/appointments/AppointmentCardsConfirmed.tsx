@@ -53,7 +53,9 @@ export default function AppointmentCardsConfirmed({ data }: any) {
                   </div>
                   <div className="flex items-center gap-1">
                     <Clock4 size={18} />
-                    <span className="sm:text-xl">{item.time || "12:00"}</span>
+                    <span className="sm:text-xl">
+                      {dayjs(item.scheduledAt).format("HH:mm") || "No Time  "}
+                    </span>
                   </div>
                 </div>
               </div>

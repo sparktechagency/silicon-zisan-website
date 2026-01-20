@@ -1,7 +1,5 @@
 import { ChevronRight, Fingerprint, Globe } from "lucide-react";
-import React from "react";
 import PasswordModal from "./modal/PasswordModal";
-import { CountryModal } from "./modal/CountryModal";
 import Link from "next/link";
 
 export default function Setting() {

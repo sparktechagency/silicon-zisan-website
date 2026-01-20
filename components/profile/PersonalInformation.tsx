@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 // import Image from "next/image";
 import profileMan from "../../public/profile/profile.png";
 import { Camera } from "lucide-react";
@@ -7,6 +7,8 @@ import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import getProfile from "@/utils/getProfile";
+import { revalidate } from "@/utils/revalidateTag";
 
 export default function PersonalInformation({
   setStatus,
@@ -16,15 +18,17 @@ export default function PersonalInformation({
   data: any;
 }) {
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
+  const [fileImage, setFileImage] = React.useState<string | null>(null);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   // Data for profile fields
   const profileData = [
-    { label: "Name", value: data?.name || data?.companyName || "N/A" },
-    { label: "Email", value: data?.email || "N/A" },
-    { label: "Contact", value: data?.contactNumber || data?.phone || "N/A" },
-    { label: "Location", value: data?.address || "N/A" },
+    { label: "Name", value: data?.user?.name || data?.companyName || "N/A" },
+    { label: "Email", value: data?.user?.email || "N/A" },
+    { label: "Contact", value: data?.user.phone || "N/A" },
+    { label: "Location", value: data?.user?.address || "N/A" },
   ];
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +49,7 @@ export default function PersonalInformation({
 
         if (response.success) {
           toast.success("Profile image updated successfully");
+          await revalidate("users-profile");
           router.refresh();
         } else {
           toast.error(response.message || "Failed to update profile image");
@@ -62,12 +67,21 @@ export default function PersonalInformation({
     }
   };
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const res = await getProfile();
+      setFileImage(res?.image || null);
+    };
+
+    fetchProfile();
+  }, [previewImage]);
+
   return (
     <div className="w-full max-w-[400px] bg-card p-5 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
         <CustomImage
-          src={previewImage || data?.image}
+          src={fileImage}
           fallback={profileMan}
           width={100}
           height={100}
@@ -83,6 +97,7 @@ export default function PersonalInformation({
 
           <input
             type="file"
+            accept="image/png, image/jpeg, image/jpg"
             className="hidden"
             onChange={handleImageChange}
             ref={inputRef}

@@ -132,7 +132,9 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     <Container>
       <div className="flex items-center ml-8 my-8">
         <CustomBackButton />
-        <h2 className="text-2xl font-semibold px-5">Create Shift Plan</h2>
+        <h2 className="text-2xl font-semibold px-5">
+          {editData?._id ? "Edit Shift Plan" : "Create Shift Plan"}
+        </h2>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6 px-4 mb-12">
@@ -167,8 +169,11 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         <div className="">
           <div className="flex justify-end">
             <AddEmployeeForm
+              workerData={editData?.worker}
               trigger={
-                <Button className="custom-btn px-5 py-5">Add Employee</Button>
+                <Button className="custom-btn px-5 py-5">
+                  {editData?.worker ? "Edit Employee" : "Add Employee"}
+                </Button>
               }
             />
           </div>

@@ -1,11 +1,9 @@
 import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
-import Image from "next/image";
-import one from "../../public/appartments/one.png";
-import two from "../../public/appartments/two.png";
 import { Button } from "../ui/button";
 import dayjs from "dayjs";
 import CustomImage from "@/utils/CustomImage";
-import Link from "next/link";
+import { myFetch } from "@/utils/myFetch";
+import { useRouter } from "next/navigation";
 interface CancelModalProps {
   trigger?: React.ReactNode;
   isModalOneOpen: boolean;
@@ -18,15 +16,29 @@ export default function EmployeeDetailsModal({
   trigger,
   isModalOneOpen,
   setIsModalOneOpen,
-  onOpenSecondModal,
+
   data,
 }: CancelModalProps) {
-  const handleClickModalTwo = () => {
-    setIsModalOneOpen(false);
-    onOpenSecondModal(); // trigger second modal from parent
-  };
+  const router = useRouter();
 
-  console.log("data", data);
+  const handleInbox = async (appointmentId: string) => {
+    const res = await myFetch(`/chats/create`, {
+      method: "POST",
+      body: {
+        participants: [appointmentId],
+      },
+    });
+
+    try {
+      if (res.success) {
+        router.push(`/inbox`);
+      } else {
+        console.log("Failed to create or fetch chat:", res.message);
+      }
+    } catch (error) {
+      console.log("Error occurred while navigating to inbox:", error);
+    }
+  };
 
   return (
     <Dialog open={isModalOneOpen} onOpenChange={setIsModalOneOpen}>
@@ -67,9 +79,13 @@ export default function EmployeeDetailsModal({
         <Button className="custom-btn py-2" onClick={handleClickModalTwo}>
           Reply
         </Button> */}
-        <Link href={`/inbox`}>
-          <Button className="custom-btn py-2 w-full">Inbox</Button>
-        </Link>
+
+        <Button
+          onClick={() => handleInbox(data?._id)}
+          className="custom-btn py-2 w-full"
+        >
+          Inbox
+        </Button>
       </DialogContent>
     </Dialog>
   );

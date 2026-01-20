@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import { ArrowLeft, Clock3 } from "lucide-react";
@@ -8,6 +7,9 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import Image from "next/image";
 import agreement from "../../public/hire-employees/agreement.png";
 import dayjs from "dayjs";
+import { useState } from "react";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
 
 (pdfMake as any).vfs = pdfFonts.vfs;
 
@@ -86,7 +88,28 @@ const agreementSections = [
 ];
 
 export default function ContractInformation({ data }: any) {
-  console.log("data", data);
+  const [loading, setLoading] = useState(false);
+
+  const handleHiring = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await myFetch(`/jobs/send-hiring-post/${data._id}`, {
+        method: "POST",
+      });
+
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res?.error || "Failed to send shift plan.");
+      }
+    } catch {
+      toast.error("An error occurred while sending shift plan.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDownloadPdf = () => {
     const docDefinition: any = {
@@ -229,7 +252,7 @@ export default function ContractInformation({ data }: any) {
     pdfMake
       .createPdf(docDefinition)
       .download(
-        `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`
+        `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
       );
   };
 
@@ -363,7 +386,13 @@ export default function ContractInformation({ data }: any) {
         >
           Download Pdf
         </Button>
-        <Button className="w-full sm:w-[48%] custom-btn">Send</Button>
+        <Button
+          disabled={loading}
+          onClick={handleHiring}
+          className="w-full sm:w-[48%] custom-btn"
+        >
+          Send
+        </Button>
       </div>
     </div>
   );
