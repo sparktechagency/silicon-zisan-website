@@ -58,8 +58,6 @@ export function CreateForm({ res }: any) {
         body: payload,
       });
 
-      console.log("res", res);
-
       if (res.success) {
         toast.success(res.message);
       } else {

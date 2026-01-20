@@ -4,20 +4,17 @@ import dayjs from "dayjs";
 import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 interface CancelModalProps {
   trigger?: React.ReactNode;
-  isModalOneOpen: boolean;
-  setIsModalOneOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  onOpenSecondModal: () => void;
-  data?: any;
+
+  item?: any;
 }
 
 export default function EmployeeDetailsModal({
   trigger,
-  isModalOneOpen,
-  setIsModalOneOpen,
 
-  data,
+  item,
 }: CancelModalProps) {
   const router = useRouter();
 
@@ -33,15 +30,17 @@ export default function EmployeeDetailsModal({
       if (res.success) {
         router.push(`/inbox`);
       } else {
-        console.log("Failed to create or fetch chat:", res.message);
+        toast.error((res as any)?.error[0]?.message);
       }
     } catch (error) {
-      console.log("Error occurred while navigating to inbox:", error);
+      toast.error(
+        error instanceof Error ? error.message : "something went wrong",
+      );
     }
   };
 
   return (
-    <Dialog open={isModalOneOpen} onOpenChange={setIsModalOneOpen}>
+    <Dialog>
       {/* Trigger Button */}
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
@@ -51,25 +50,26 @@ export default function EmployeeDetailsModal({
           <div className="rounded-xl flex gap-4">
             {/* Profile Image */}
             <CustomImage
-              src={data?.receiver?.image}
-              title={data?.receiver?.name}
+              src={item?.receiver?.image}
+              title={item?.receiver?.name}
               className="sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-700"
             />
 
             {/* Info Section */}
             <div>
               <h3 className="sm:text-xl font-semibold">
-                {data?.receiver?.name}
+                {item?.receiver?.name}
               </h3>
+              <p>{item?._id}</p>
 
               <div className="text-sm flex items-center gap-2">
                 <span className="sm:text-xl">
-                  {dayjs(data?.scheduledAt).format("YYYY-MM-DD")}
+                  {dayjs(item?.scheduledAt).format("YYYY-MM-DD")}
                 </span>
-                <span className="sm:text-xl">{data?.time}</span>
+                <span className="sm:text-xl">{item?.time}</span>
               </div>
 
-              <p>{data?.message}</p>
+              <p>{item?.message}</p>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function EmployeeDetailsModal({
         </Button> */}
 
         <Button
-          onClick={() => handleInbox(data?._id)}
+          onClick={() => handleInbox(item?.receiver?._id)}
           className="custom-btn py-2 w-full"
         >
           Inbox
