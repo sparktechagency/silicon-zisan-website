@@ -7,6 +7,9 @@ import logo from "../../public/shift-plan/logo.png";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import dayjs from "dayjs";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
+import { useState } from "react";
 
 (pdfMake as any).vfs = pdfFonts.vfs;
 
@@ -14,6 +17,28 @@ type TDocumentDefinitions = any;
 
 export default function ShiftPlanDetails({ details }: any) {
   const { name, email, phone, address } = details?.worker;
+  const [loading, setLoading] = useState(false);
+
+  const handleSendShift = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await myFetch(`/shift-plans/send-worker/${details._id}`, {
+        method: "POST",
+      });
+
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res?.error || "Failed to send shift plan.");
+      }
+    } catch {
+      toast.error("An error occurred while sending shift plan.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDownload = () => {
     // const { name, email, phone, address } = details.worker;
@@ -183,7 +208,13 @@ export default function ShiftPlanDetails({ details }: any) {
         <Button className="custom-btn" onClick={handleDownload}>
           Download Pdf
         </Button>
-        <Button className="custom-btn">Send</Button>
+        <Button
+          onClick={handleSendShift}
+          className="custom-btn"
+          disabled={loading}
+        >
+          Send
+        </Button>
       </div>
     </div>
   );

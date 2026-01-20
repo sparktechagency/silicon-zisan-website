@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { DatePicker } from "@/share/DatePicker";
-// import dayjs from "dayjs";
 import CustomTimePicker from "./CustomTimePicker";
 import CustomBackButton from "@/share/CustomBackButton";
 import dayjs, { Dayjs } from "dayjs";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
 
 type FormValues = {
   option: "call" | "address";
@@ -45,7 +46,6 @@ export function CreateForm({ res }: any) {
     const payload = {
       receiver: res?.user?._id,
       job: res?.job?._id,
-      // scheduledAt: data.scheduledAt?.toISOString() ?? null,
       scheduledAt: localIsoString,
       address: res?.user?.address,
       message: data?.message,
@@ -53,22 +53,22 @@ export function CreateForm({ res }: any) {
 
     console.log("payload", payload);
 
-    // try {
-    //   const res = await myFetch("/appointments/create", {
-    //     method: "POST",
-    //     body: payload,
-    //   });
+    try {
+      const res = await myFetch("/appointments/create", {
+        method: "POST",
+        body: payload,
+      });
 
-    //   console.log("res", res);
+      console.log("res", res);
 
-    //   if (res.success) {
-    //     toast.success(res.message);
-    //   } else {
-    //     toast.error((res as any)?.error[0].message);
-    //   }
-    // } catch (err) {
-    //   toast.error(err instanceof Error ? res?.message : "something went wrong");
-    // }
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? res?.message : "something went wrong");
+    }
   };
 
   return (

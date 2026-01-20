@@ -21,10 +21,10 @@ export default function PersonalInformation({
 
   // Data for profile fields
   const profileData = [
-    { label: "Name", value: data?.name || data?.companyName || "N/A" },
-    { label: "Email", value: data?.email || "N/A" },
-    { label: "Contact", value: data?.contactNumber || data?.phone || "N/A" },
-    { label: "Location", value: data?.address || "N/A" },
+    { label: "Name", value: data?.user?.name || data?.companyName || "N/A" },
+    { label: "Email", value: data?.user?.email || "N/A" },
+    { label: "Contact", value: data?.user.phone || "N/A" },
+    { label: "Location", value: data?.user?.address || "N/A" },
   ];
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

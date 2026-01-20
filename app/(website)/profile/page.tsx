@@ -1,13 +1,14 @@
 import Profile from "@/components/profile/Profile";
-import getProfile from "@/utils/getProfile";
-import React from "react";
+import { myFetch } from "@/utils/myFetch";
 
 export default async function ProfilePage() {
-  const profileData = await getProfile();
+  const profileData = await myFetch("/employers/me", {
+    tags: ["profile"],
+  });
 
   return (
     <>
-      <Profile data={profileData} />
+      <Profile data={profileData?.data} />
     </>
   );
 }

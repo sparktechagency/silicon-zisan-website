@@ -2,10 +2,8 @@ import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
 import { Button } from "../ui/button";
 import dayjs from "dayjs";
 import CustomImage from "@/utils/CustomImage";
-import Link from "next/link";
 import { myFetch } from "@/utils/myFetch";
 import { useRouter } from "next/navigation";
-import { ca } from "date-fns/locale";
 interface CancelModalProps {
   trigger?: React.ReactNode;
   isModalOneOpen: boolean;
