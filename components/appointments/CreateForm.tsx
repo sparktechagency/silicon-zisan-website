@@ -41,7 +41,8 @@ export function CreateForm({ res }: any) {
       .hour(data.time.hour())
       .minute(data.time.minute())
       .second(0)
-      .format("YYYY-MM-DDTHH:mm:ss");
+      .millisecond(0)
+      .toISOString();
 
     const payload = {
       receiver: res?.user?._id,
@@ -56,6 +57,8 @@ export function CreateForm({ res }: any) {
         method: "POST",
         body: payload,
       });
+
+      console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);

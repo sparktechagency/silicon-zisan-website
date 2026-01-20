@@ -16,7 +16,6 @@ import "swiper/css/navigation";
 import Container from "@/share/Container";
 import CancelModal from "../dashboard/dashboardSubscription/CancelModal";
 import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
-import FreeSubscriptionModal from "../dashboard/dashboardSubscription/FreeSubscriptionModal";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import SubscriptionDetails from "../dashboard/dashboardSubscription/SubscriptionDetails";
@@ -136,13 +135,15 @@ export default function Subscriptions({ res }: any) {
               </div>
 
               <div className="mt-auto">
-                <FreeSubscriptionModal
-                  trigger={
-                    <Button className="custom-btn py-2 rounded font-semibold w-full text-lg h-10">
-                      Subscribe Now
-                    </Button>
-                  }
-                />
+                <Button
+                  disabled={loading}
+                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                    loading && "cursor-not-allowed"
+                  }`}
+                  onClick={() => handleSubscribe(res[0]?._id)}
+                >
+                  Subscribe Now
+                </Button>
               </div>
             </div>
           </SwiperSlide>
