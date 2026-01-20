@@ -19,14 +19,13 @@ export default function EmployeeDetailsModal({
   const router = useRouter();
 
   const handleInbox = async (appointmentId: string) => {
-    const res = await myFetch(`/chats/create`, {
-      method: "POST",
-      body: {
-        participants: [appointmentId],
-      },
-    });
-
     try {
+      const res = await myFetch(`/chats/create`, {
+        method: "POST",
+        body: {
+          participants: [appointmentId],
+        },
+      });
       if (res.success) {
         router.push(`/inbox`);
       } else {
