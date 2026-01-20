@@ -27,8 +27,6 @@ const buttons = [
   },
 ];
 export default function Profile({ data }: { data: any }) {
-  console.log("data", data);
-
   const router = useRouter();
   const [status, setStatus] = useState("Personal Information");
 

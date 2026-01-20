@@ -37,8 +37,6 @@ export default function SignUpPage() {
         body: { ...data, role: "Employer" },
       });
 
-      console.log("res", res);
-
       if (res?.success) {
         toast.success(res?.message);
         // setCookie("accessToken", res?.data?.accessToken);
@@ -48,7 +46,7 @@ export default function SignUpPage() {
         toast.error(
           Array.isArray(res?.error)
             ? res?.error[0]?.message
-            : res?.error ?? "Login failed"
+            : (res?.error ?? "Login failed"),
         );
       }
     } catch (error) {

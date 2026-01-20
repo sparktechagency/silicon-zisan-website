@@ -11,8 +11,6 @@ export default async function Footer() {
   const currentYear = new Date().getFullYear();
   const res = await myFetch("/contact");
 
-  console.log("res", res);
-
   return (
     <footer className={`${gradientClasses.primaryBg} text-white`}>
       <Container className="py-16 px-6 lg:px-0">

@@ -16,8 +16,6 @@ export default function AppointmentCardsConfirmed({ data }: any) {
   const [isModalOneOpen2, setIsModalOneOpen2] = useState(false);
   const [isModalTwoOpen2, setIsModalTwoOpen2] = useState(false);
 
-  console.log("data", data);
-
   return (
     <>
       {data?.map((item: any) => (

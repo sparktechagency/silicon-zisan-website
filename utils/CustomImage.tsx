@@ -19,8 +19,6 @@ export default function CustomImage({
 }: CustomImageProps) {
   // Return fallback if no SRC
 
-  console.log("CustomImage src:", src);
-
   if (!src) {
     return (
       <Image

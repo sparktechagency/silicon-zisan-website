@@ -19,12 +19,9 @@ export default function EmployeeDetailsModal({
 
   data,
 }: CancelModalProps) {
-  console.log("data", data);
   const router = useRouter();
 
   const handleInbox = async (appointmentId: string) => {
-    console.log("Navigate to inbox for appointment ID:", appointmentId);
-
     const res = await myFetch(`/chats/create`, {
       method: "POST",
       body: {
@@ -41,8 +38,6 @@ export default function EmployeeDetailsModal({
     } catch (error) {
       console.log("Error occurred while navigating to inbox:", error);
     }
-
-    // console.log("res", res);
   };
 
   return (

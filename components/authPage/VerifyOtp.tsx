@@ -32,8 +32,6 @@ export function VerifyOtp() {
         body: { email, oneTimeCode: Number(otp) },
       });
 
-      console.log("res", res);
-
       if (res?.success) {
         if (res?.data?.accessToken) {
           toast.success(res.message);

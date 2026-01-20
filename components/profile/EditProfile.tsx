@@ -31,13 +31,12 @@ export default function EditProfile({
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: {},
   } = useForm<Inputs>({
     defaultValues: {
       name: initialData?.user?.name || "",
       address: initialData?.user?.address || "",
       phone: initialData?.user?.phone || "",
-
       legalForm: initialData?.legalForm || "",
       taxNo: initialData?.taxNo || "",
       deNo: initialData?.deNo || "",
