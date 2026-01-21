@@ -23,8 +23,6 @@ export default function AddEmployeeForm({
   workerData?: any;
   trigger: React.ReactNode;
 }) {
-  console.log("workerData", workerData);
-
   const [open, setOpen] = useState(false);
   const {
     register,

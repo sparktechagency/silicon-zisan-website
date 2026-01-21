@@ -3,7 +3,7 @@
 import Image from "next/image";
 import logo from "../../../public/dashboard/logo.png";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
@@ -17,9 +17,7 @@ import "swiper/css/navigation";
 import CancelModal from "./CancelModal";
 import CancelModalTwo from "./CancelModalTwo";
 import { Info } from "lucide-react";
-import FreeSubscriptionModal from "./FreeSubscriptionModal";
 import { myFetch } from "@/utils/myFetch";
-import { useRouter } from "next/navigation";
 import SubscriptionDetails from "./SubscriptionDetails";
 import { toast } from "sonner";
 
@@ -273,7 +271,7 @@ export default function SubscriptionPlan() {
                     </h1>
                     <div className="flex gap-3 items-center mt-1">
                       <p className="text-white text-sm ">
-                        € {data[1]?.dailyPrice} Per Day
+                        € {data[2]?.dailyPrice} Per Day
                       </p>
                       <SubscriptionDetails
                         bio={data[2]?.description}

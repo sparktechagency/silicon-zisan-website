@@ -5,16 +5,12 @@ import { Clock4, Eye } from "lucide-react";
 import DeleteButton from "./DeleteButton";
 import { useState } from "react";
 import EmployeeDetailsModal from "./EmployeeDetailsModal";
-import SendMessageModal from "./SendMessageModal";
-import SendMessageModal2 from "./SendMessageModal2";
 import CustomImage from "@/utils/CustomImage";
 import dayjs from "dayjs";
 
 export default function AppointmentCardsConfirmed({ data }: any) {
-  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
-  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
   const [isModalOneOpen2, setIsModalOneOpen2] = useState(false);
-  const [isModalTwoOpen2, setIsModalTwoOpen2] = useState(false);
+  const [, setIsModalTwoOpen2] = useState(false);
 
   return (
     <>
@@ -40,7 +36,7 @@ export default function AppointmentCardsConfirmed({ data }: any) {
                   </h3>
                   <p>
                     {item?.status !== "Pending" &&
-                      (item?.receiver?.phone || "No Number")}
+                      (`(${item?.receiver?.phone})` || "No Number")}
                   </p>
                 </div>
 
@@ -67,26 +63,14 @@ export default function AppointmentCardsConfirmed({ data }: any) {
             <div>
               {item.status !== "Cancelled" && (
                 <EmployeeDetailsModal
-                  isModalOneOpen={isModalOneOpen}
-                  setIsModalOneOpen={setIsModalOneOpen}
-                  onOpenSecondModal={() => setIsModalTwoOpen(true)}
-                  data={item}
+                  item={item}
                   trigger={
-                    <button
-                      className="cursor-pointer"
-                      onClick={() => setIsModalOneOpen(true)}
-                    >
+                    <button className="cursor-pointer">
                       <Eye />
                     </button>
                   }
                 />
               )}
-
-              {/* Second Modal */}
-              <SendMessageModal
-                isModalTwoOpen={isModalTwoOpen}
-                setIsModalTwoOpen={setIsModalTwoOpen}
-              />
             </div>
             {item.status !== "Cancelled" && (
               <div>
@@ -102,12 +86,6 @@ export default function AppointmentCardsConfirmed({ data }: any) {
                 />
               </div>
             )}
-
-            <SendMessageModal2
-              item={item?._id}
-              isModalTwoOpen2={isModalTwoOpen2}
-              setIsModalTwoOpen2={setIsModalTwoOpen2}
-            />
           </div>
         </div>
       ))}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "../public/logo.png";
@@ -11,14 +11,36 @@ import { mainNavigation } from "@/constants/navigation";
 import call from "../public/call-header.svg";
 import profile from "../public/profile/avatar.png";
 import CustomImage from "@/utils/CustomImage";
+import { myFetch } from "@/utils/myFetch";
 
-export default function HeaderTwo({ user }: { user?: any }) {
+type Profile = {
+  user: {
+    image: string;
+    name: string;
+  };
+};
+
+export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [profileData, setProfileData] = useState<Profile | null>(null);
+
   const pathname = usePathname();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  useEffect(() => {
+    const getProfile = async () => {
+      const res = await myFetch("/employers/me", {
+        tags: ["profile"],
+      });
+
+      setProfileData(res?.data);
+    };
+
+    getProfile();
+  }, []);
 
   return (
     <nav className={`${gradientClasses.primaryBg}  sticky top-0 z-50`}>
@@ -65,14 +87,14 @@ export default function HeaderTwo({ user }: { user?: any }) {
           <Link href="/profile" className="hidden md:block">
             <div className="space-x-2 flex items-center">
               <CustomImage
-                src={user?.image}
+                src={profileData?.user?.image}
                 fallback={profile}
                 title="Zasulehry"
                 width={50}
                 height={50}
                 className="h-12 w-12 rounded-full object-cover"
               />
-              <p>{user?.name || "Kamran"}</p>
+              <p>{profileData?.user?.name || "No Name"}</p>
             </div>
           </Link>
 
@@ -161,7 +183,7 @@ export default function HeaderTwo({ user }: { user?: any }) {
             >
               <div className="flex items-center space-x-3">
                 <CustomImage
-                  src={user?.image}
+                  src={profileData?.user?.image}
                   fallback={profile}
                   title="Profile"
                   width={40}
@@ -169,7 +191,7 @@ export default function HeaderTwo({ user }: { user?: any }) {
                   className="rounded-full object-cover"
                 />
                 <p className="text-gray-800 font-medium">
-                  {user?.name || "Kamran"}
+                  {profileData?.user?.name || "No Name"}
                 </p>
               </div>
             </Link>

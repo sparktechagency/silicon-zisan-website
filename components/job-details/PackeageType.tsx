@@ -6,7 +6,7 @@ type Props = {
 export default function PackeageType({ value, onChange }: Props) {
   return (
     <div className="flex gap-4">
-      {["Day", "Month", "Year"].map((item) => (
+      {["Hour", "Month", "Year"].map((item) => (
         <button
           key={item}
           type="button"

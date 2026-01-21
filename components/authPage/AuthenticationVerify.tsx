@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import * as React from "react";
@@ -9,15 +8,18 @@ import {
 } from "@/components/ui/input-otp";
 import { Button } from "../ui/button";
 import { myFetch } from "@/utils/myFetch";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
+import AuthenticationModal from "./AuthenticationModal";
+import { getCookie } from "cookies-next/client";
 
-export function VerifyOtp() {
+export function AuthenticationVerify() {
   const [otp, setOtp] = React.useState("");
+  const [showModal, setShowModal] = React.useState(false); // <-- state to control modal
   const searchParams = useSearchParams();
-  const router = useRouter();
+  const email = getCookie("email");
 
-  const email = searchParams.get("email") || "";
+  const id = searchParams.get("userId") || "";
 
   const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,49 +29,29 @@ export function VerifyOtp() {
       return;
     }
 
+    const payload = { userId: id, otp: otp };
+
     try {
-      const res = await myFetch("/auth/verify-email", {
+      const res = await myFetch("/totp/verify-token", {
         method: "POST",
-        body: { email, oneTimeCode: Number(otp) },
+        body: payload,
       });
 
       if (res?.success) {
-        if (res?.data?.accessToken) {
-          toast.success(res.message);
-          router.push(`/`);
-        } else {
-          toast.success(res.message);
-          router.push(`/new-password?token=${res?.data}`);
-        }
+        toast.success(res.message);
+        setShowModal(true); // <-- show the modal
       } else {
-        toast.error(res?.message || "Invalid OTP");
+        toast.error(res.message);
       }
     } catch (err) {
       toast.error("Verification failed. Please try again.");
     }
   };
 
-  const handleResendOtp = async () => {
-    try {
-      const res = await myFetch("/auth/resend-otp", {
-        method: "POST",
-        body: { email },
-      });
-
-      if (res?.success) {
-        toast.success(res.message);
-      } else {
-        toast.error(res?.message || "Failed to resend OTP");
-      }
-    } catch {
-      toast.error("Failed to resend OTP");
-    }
-  };
-
   return (
     <div className="w-[80%] lg:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859] text-center mx-auto">
       <h1 className="text-xl sm:text-3xl font-semibold text-white">
-        Verify OTP
+        Authentication OTP
       </h1>
       <p className="text-white mt-2">We sent a 6-digit code to your email</p>
 
@@ -83,17 +65,26 @@ export function VerifyOtp() {
             </InputOTPGroup>
           </InputOTP>
         </div>
-        <div
+
+        {/* <div
           className="text-center text-sm text-white my-5 cursor-pointer"
           onClick={handleResendOtp}
         >
           Resend
-        </div>
+        </div> */}
 
-        <Button className="custom-btn w-[80%]" type="submit">
+        <Button className="custom-btn w-[80%] mt-6" type="submit">
           Continue
         </Button>
       </form>
+
+      {/* Modal rendered conditionally */}
+      {showModal && (
+        <AuthenticationModal
+          open={showModal}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 }

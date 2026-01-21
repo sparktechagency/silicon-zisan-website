@@ -3,6 +3,7 @@ import { myFetch } from "@/utils/myFetch";
 
 export default async function DownloadCenterPage() {
   const res = await myFetch("/drives/my-drives");
+
   return (
     <>
       {res?.data?.length > 0 ? (
