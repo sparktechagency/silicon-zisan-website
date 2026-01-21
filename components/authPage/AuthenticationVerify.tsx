@@ -48,23 +48,6 @@ export function AuthenticationVerify() {
     }
   };
 
-  const handleResendOtp = async () => {
-    try {
-      const res = await myFetch("/auth/forget-password", {
-        method: "POST",
-        body: { email }, // replace with real email
-      });
-
-      if (res?.success) {
-        toast.success(res.message);
-      } else {
-        toast.error(res?.message || "Failed to resend OTP");
-      }
-    } catch {
-      toast.error("Failed to resend OTP");
-    }
-  };
-
   return (
     <div className="w-[80%] lg:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859] text-center mx-auto">
       <h1 className="text-xl sm:text-3xl font-semibold text-white">

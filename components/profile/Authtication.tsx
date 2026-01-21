@@ -6,13 +6,33 @@ import { setCookie } from "cookies-next/client";
 import { ArrowLeft, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function TwoFactorAuth() {
-  const [smsActive, setSmsActive] = useState(true);
+  const [smsActive, setSmsActive] = useState(false);
+  const [smsActive2, setSmsActive2] = useState(false);
+  console.log("sms", smsActive);
+
   const [authAppActive, setAuthAppActive] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await myFetch("/users/profile");
+
+        if (res?.success) {
+          // ✅ sync backend value to Switch
+          setSmsActive(Boolean(res.data?.authentication?.is2FAEmailActive));
+        }
+      } catch (err) {
+        toast.error("Failed to load profile");
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleAuthentication = async () => {
     try {
@@ -25,6 +45,44 @@ export default function TwoFactorAuth() {
         router.push(`/authentication-app`);
       } else {
         toast.error((res as any)?.error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
+    }
+  };
+
+  const handleActiveIsActive = async (value: boolean) => {
+    try {
+      const res = await myFetch("/users/profile", {
+        method: "PATCH",
+        body: {
+          is2FAEmailActive: value, // true | false
+        },
+      });
+
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error((res as any)?.error?.[0]?.message || "Update failed");
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
+    }
+  };
+
+  const handleActiveIsActive2 = async (value: boolean) => {
+    try {
+      const res = await myFetch("/users/profile", {
+        method: "PATCH",
+        body: {
+          is2FAAuthenticatorActive: value, // true | false
+        },
+      });
+
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error((res as any)?.error?.[0]?.message || "Update failed");
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
@@ -46,13 +104,6 @@ export default function TwoFactorAuth() {
       </div>
 
       <div className="space-y-2">
-        {/* <div>
-          <Link href="/phone-number-sms">
-            <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">
-              Sms
-            </button>
-          </Link>
-        </div> */}
         <div>
           <button
             onClick={handleAuthentication}
@@ -69,7 +120,13 @@ export default function TwoFactorAuth() {
             <p className="text-sm">Active</p>
             <p className="text-base font-medium">01839327833</p>
           </div>
-          <Switch checked={smsActive} onCheckedChange={setSmsActive} />
+          <Switch
+            checked={smsActive2}
+            onCheckedChange={(checked) => {
+              setSmsActive2(checked);
+              handleActiveIsActive(checked);
+            }}
+          />
         </div>
 
         <div className="flex items-center justify-between bg-card px-4 py-3 rounded-lg">
@@ -77,7 +134,13 @@ export default function TwoFactorAuth() {
             <p className="text-sm">Inactive</p>
             <p className="text-base font-medium">Google Authenticator App</p>
           </div>
-          <Switch checked={authAppActive} onCheckedChange={setAuthAppActive} />
+          <Switch
+            checked={smsActive}
+            onCheckedChange={(checked) => {
+              setSmsActive(checked);
+              handleActiveIsActive2(checked);
+            }}
+          />
         </div>
       </div>
 

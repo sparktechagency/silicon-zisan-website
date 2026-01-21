@@ -6,8 +6,8 @@ import { Input } from "../ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
-import { getCookie } from "cookies-next/client";
-import { useSearchParams } from "next/navigation";
+import { getCookie, setCookie } from "cookies-next/client";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface AuthenticationModalProps {
   open: boolean;
@@ -25,9 +25,11 @@ export default function AuthenticationModal({
 }: AuthenticationModalProps) {
   const [isActive, setIsActive] = useState("");
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const email = getCookie("email");
 
+  // const userId = searchParams.get("userId") || "";
   const userId = searchParams.get("userId") || "";
 
   const { register, handleSubmit } = useForm<Inputs>({
@@ -53,9 +55,14 @@ export default function AuthenticationModal({
         method: "POST",
         body: isActive === "email" ? payload2 : payload,
       });
+
       if (res.success) {
+        console.log("res.message", res.message);
+
         toast.success(res.message);
-        onClose(); // close the modal after success
+        setCookie("accessToken", res?.data?.accessToken);
+        onClose();
+        router.push("/");
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -69,6 +76,7 @@ export default function AuthenticationModal({
       <DialogContent className="border-none">
         <div className="grid grid-cols-2 gap-9 mt-7">
           <Button
+            disabled={userId}
             onClick={() => setIsActive("email")}
             className={`bg-[#374859] border ${isActive === "email" && "custom-btn"}`}
           >
@@ -82,12 +90,10 @@ export default function AuthenticationModal({
           </Button>
         </div>
 
-        {isActive && (
-          <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
-            <Input placeholder="Enter Your OTP" {...register("otp")} />
-            <Button className="custom-btn mt-7 w-full">Submit</Button>
-          </form>
-        )}
+        <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
+          <Input placeholder="Enter Your OTP" {...register("otp")} />
+          <Button className="custom-btn mt-7 w-full">Submit</Button>
+        </form>
       </DialogContent>
     </Dialog>
   );
