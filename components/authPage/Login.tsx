@@ -27,21 +27,31 @@ export default function LoginPage() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log("data0", data);
+
     try {
       const res = await myFetch("/auth/login", {
         method: "POST",
         body: data,
       });
 
+      console.log("res", res);
+
       if (res?.success) {
         toast.success(res?.message);
+        setCookie("email", data.email);
+        if (res.success && res?.data?.userId) {
+          router.push(`/authentication-verify?userId=${res?.data?.userId}`);
+          return;
+        }
+
         if (res?.data?.accessToken) {
           setCookie("accessToken", res?.data?.accessToken);
           setCookie("role", res?.data?.role);
           router.push("/");
-        } else {
-          router.push("/verify-otp");
+          return;
         }
+        router.push("/verify-otp");
       } else {
         toast.error(res?.message || "Login failed");
       }

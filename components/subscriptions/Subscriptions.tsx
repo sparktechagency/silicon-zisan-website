@@ -101,9 +101,9 @@ export default function Subscriptions({ res }: any) {
                       Basic Free
                     </h1>
                     <div className="text-white text-sm mt-2 flex items-center gap-2.5">
-                      <p> € {res[2]?.dailyPrice} Per Day</p>
+                      <p> € {res[0]?.dailyPrice} Per Day</p>
                       <SubscriptionDetails
-                        bio={res[2]?.description}
+                        bio={res[0]?.description}
                         trigger={
                           <p>
                             <Info />
@@ -128,7 +128,7 @@ export default function Subscriptions({ res }: any) {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {res[2]?.benefits?.map((list: any, index: number) => (
+                  {res[0]?.benefits?.map((list: any, index: number) => (
                     <li key={index}>{list}</li>
                   ))}
                 </ul>
@@ -140,7 +140,7 @@ export default function Subscriptions({ res }: any) {
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                     loading && "cursor-not-allowed"
                   }`}
-                  onClick={() => handleSubscribe(res[2]?._id)}
+                  onClick={() => handleSubscribe(res[0]?._id)}
                 >
                   Subscribe Now
                 </Button>
@@ -221,7 +221,7 @@ export default function Subscriptions({ res }: any) {
           </SwiperSlide>
 
           {/* Slide 3: Booster */}
-          {res[0] && (
+          {res[2] && (
             <SwiperSlide>
               <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
                 <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -246,9 +246,9 @@ export default function Subscriptions({ res }: any) {
                         Booster
                       </h1>
                       <div className="text-white text-sm mt-2 flex items-center gap-2.5">
-                        <p> € {res[0]?.dailyPrice} Per Day</p>
+                        <p> € {res[2]?.dailyPrice} Per Day</p>
                         <SubscriptionDetails
-                          bio={res[0]?.description}
+                          bio={res[2]?.description}
                           trigger={
                             <p>
                               <Info />
@@ -273,7 +273,7 @@ export default function Subscriptions({ res }: any) {
                   </div>
 
                   <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                    {res[0]?.benefits?.map((list: any, index: number) => (
+                    {res[2]?.benefits?.map((list: any, index: number) => (
                       <li key={index}>{list}</li>
                     ))}
                   </ul>
@@ -285,7 +285,7 @@ export default function Subscriptions({ res }: any) {
                       loading && "cursor-not-allowed"
                     }`}
                     disabled={loading}
-                    onClick={() => handleSubscribe(res[0]?._id)}
+                    onClick={() => handleSubscribe(res[2]?._id)}
                   >
                     Subscribe Now
                   </Button>

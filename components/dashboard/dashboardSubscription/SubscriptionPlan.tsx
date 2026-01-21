@@ -124,7 +124,7 @@ export default function SubscriptionPlan() {
                     <p className="text-white text-sm ">Free</p>
 
                     <SubscriptionDetails
-                      bio={data[2]?.description}
+                      bio={data[0]?.description}
                       trigger={
                         <p>
                           <Info />
@@ -149,7 +149,7 @@ export default function SubscriptionPlan() {
               </div>
 
               <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                {data[2]?.benefits?.map((item: any, index: number) => (
+                {data[0]?.benefits?.map((item: any, index: number) => (
                   <li className="" key={index}>
                     {item}
                   </li>
@@ -162,7 +162,7 @@ export default function SubscriptionPlan() {
               className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                 loading && "cursor-not-allowed"
               }`}
-              onClick={() => handleSubscribe(data[2]?._id)}
+              onClick={() => handleSubscribe(data[0]?._id)}
             >
               Subscribe Now
             </Button>
@@ -246,7 +246,7 @@ export default function SubscriptionPlan() {
         </SwiperSlide>
 
         {/* Slide 3: Booster */}
-        {data[0] && (
+        {data[2] && (
           <SwiperSlide>
             <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -272,7 +272,7 @@ export default function SubscriptionPlan() {
                     </h1>
                     <div className="flex gap-3 items-center mt-1">
                       <p className="text-white text-sm ">
-                        € {data[1]?.dailyPrice} Per Day
+                        € {data[2]?.dailyPrice} Per Day
                       </p>
                       <SubscriptionDetails
                         bio={data[2]?.description}
@@ -300,7 +300,7 @@ export default function SubscriptionPlan() {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {data[0]?.benefits?.map((item: any, index: number) => (
+                  {data[2]?.benefits?.map((item: any, index: number) => (
                     <li className="" key={index}>
                       {item}
                     </li>
@@ -314,7 +314,7 @@ export default function SubscriptionPlan() {
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                     loading && "cursor-not-allowed"
                   }`}
-                  onClick={() => handleSubscribe(data[0]?._id)}
+                  onClick={() => handleSubscribe(data[2]?._id)}
                 >
                   Subscribe Now
                 </Button>

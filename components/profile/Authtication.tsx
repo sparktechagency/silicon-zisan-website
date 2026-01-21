@@ -1,16 +1,35 @@
 "use client";
 import { Switch } from "@/components/ui/switch";
 import Container from "@/share/Container";
+import { myFetch } from "@/utils/myFetch";
+import { setCookie } from "cookies-next/client";
 import { ArrowLeft, Info } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function TwoFactorAuth() {
   const [smsActive, setSmsActive] = useState(true);
   const [authAppActive, setAuthAppActive] = useState(false);
   const router = useRouter();
+
+  const handleAuthentication = async () => {
+    try {
+      const res = await myFetch("/totp/generate-token", {
+        method: "POST",
+      });
+
+      if (res.success) {
+        setCookie("qrcode", res?.data?.qrcode);
+        router.push(`/authentication-app`);
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
+    }
+  };
 
   return (
     <Container className="px-10 md:px-40  space-y-6 my-16">
@@ -35,11 +54,12 @@ export default function TwoFactorAuth() {
           </Link>
         </div> */}
         <div>
-          <Link href="/authentication-app">
-            <button className="w-full border border-white rounded-full py-2 text-white cursor-pointer">
-              Authenticator App
-            </button>
-          </Link>
+          <button
+            onClick={handleAuthentication}
+            className="w-full border border-white rounded-full py-2 text-white cursor-pointer"
+          >
+            Authenticator App
+          </button>
         </div>
       </div>
 

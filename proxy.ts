@@ -9,7 +9,8 @@ export async function proxy(request: NextRequest) {
     path === "/login" ||
     path === "/signup" ||
     path === "/forgot-password" ||
-    path === "/verify-otp";
+    path === "/verify-otp" ||
+    path === "/authentication-verify";
 
   const token = await getToken();
 
