@@ -44,7 +44,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     useForm<FormValues>({
       defaultValues: {
         worker: editData?.worker?._id || "",
-        shift: editData?.shift || "",
+        shift: editData?.plans[0]?.shift || "",
         taskInput: "",
         tasks: [],
         remarks: "",
@@ -69,37 +69,44 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     if (editData) {
       reset({
         worker: editData?.worker?._id || "",
-        shift: editData.shift,
+        shift: editData.plans[0].shift,
         taskInput: editData.taskInput || "",
 
         tasks:
-          Array.isArray(editData.tasks) && editData.tasks.length
-            ? editData.tasks.map((t: string) => ({ value: t }))
+          Array.isArray(editData.plans[0].tasks) &&
+          editData.plans[0].tasks.length
+            ? editData.plans[0].tasks.map((t: string) => ({ value: t }))
             : [{ value: "" }],
-        remarks: editData.remarks || "",
-        startTime: editData.startTime
-          ? dayjs(editData.startTime, "hh:mm A")
+        remarks: editData.plans[0].remarks || "",
+        startTime: editData.plans[0].startTime
+          ? dayjs(editData.plans[0].startTime, "hh:mm A")
           : null,
-        endTime: editData.endTime ? dayjs(editData.endTime, "hh:mm A") : null,
+        endTime: editData.plans[0].endTime
+          ? dayjs(editData.plans[0].endTime, "hh:mm A")
+          : null,
       });
 
       setSelectedDates(
-        Array.isArray(editData.days)
-          ? editData.days.map((d: string) => new Date(d))
-          : []
+        Array.isArray(editData.plans[0].days)
+          ? editData.plans[0].days.map((d: string) => new Date(d))
+          : [],
       );
     }
   }, [editData, reset]);
 
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      startTime: data.startTime,
-      endTime: data.endTime,
-      days: selectedDates.map((d) => d.toISOString()),
-      tasks: data.tasks.map((t) => t.value),
-      remarks: data.remarks,
       worker: data?.worker,
-      shift: data?.shift,
+      plans: [
+        {
+          startTime: data.startTime,
+          endTime: data.endTime,
+          days: selectedDates.map((d) => d.toISOString()),
+          tasks: data.tasks.map((t) => t.value),
+          remarks: data.remarks,
+          shift: data?.shift,
+        },
+      ],
     };
 
     const method = editData?._id ? "PATCH" : "POST";
@@ -112,6 +119,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         method: method,
         body: payload,
       });
+
+      console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);

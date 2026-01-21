@@ -39,7 +39,6 @@ export default function SubscriptionPlan() {
     const fetchData = async () => {
       const res = await myFetch("/packages");
       setData(res?.data || []);
-      console.log("res?.data", res?.data);
     };
 
     fetchData();

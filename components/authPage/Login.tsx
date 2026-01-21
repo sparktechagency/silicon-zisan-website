@@ -27,15 +27,11 @@ export default function LoginPage() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("data0", data);
-
     try {
       const res = await myFetch("/auth/login", {
         method: "POST",
         body: data,
       });
-
-      console.log("res", res);
 
       if (res?.success) {
         toast.success(res?.message);

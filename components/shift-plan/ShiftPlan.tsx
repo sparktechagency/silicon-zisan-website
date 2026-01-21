@@ -17,6 +17,8 @@ import dayjs from "dayjs";
 import Link from "next/link";
 
 export default function ShiftPlan({ data }: any) {
+  console.log("data", data);
+
   const router = useRouter();
 
   return (
@@ -56,9 +58,9 @@ export default function ShiftPlan({ data }: any) {
                   {item?.worker?.name}
                 </TableCell>
                 <TableCell>
-                  {dayjs(item?.days[0]).format("YYYY-MM-DD")}
+                  {dayjs(item?.plans[0].days[0]).format("YYYY-MM-DD")}
                 </TableCell>
-                <TableCell>{item?.shift}</TableCell>
+                <TableCell>{item?.plans[0]?.shift}</TableCell>
                 <TableCell>
                   <div className="flex space-x-3">
                     <Link href={`/create-new-plan?id=${item?._id}`}>
@@ -71,7 +73,7 @@ export default function ShiftPlan({ data }: any) {
                       className="custom-btn rounded p-1.5 flex items-center justify-center"
                       onClick={() =>
                         router.push(
-                          `/shift-plan-view-details?details=${item?._id}`
+                          `/shift-plan-view-details?details=${item?._id}`,
                         )
                       }
                     >

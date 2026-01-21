@@ -18,7 +18,6 @@ export function AuthenticationVerify() {
   const [showModal, setShowModal] = React.useState(false); // <-- state to control modal
   const searchParams = useSearchParams();
   const email = getCookie("email");
-  console.log(email);
 
   const id = searchParams.get("userId") || "";
 

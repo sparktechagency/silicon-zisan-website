@@ -23,7 +23,6 @@ type Profile = {
 export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileData, setProfileData] = useState<Profile | null>(null);
-  console.log("profileData", profileData);
 
   const pathname = usePathname();
 

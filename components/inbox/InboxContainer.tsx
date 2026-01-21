@@ -32,10 +32,9 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
     const fetchUser = async () => {
       try {
         const profile = await getProfile();
-        console.log("Fetched Profile:", profile);
+
         // Try to get the User ID (it might be nested in 'user' for employers)
         const userId = profile?.user?._id || profile?._id;
-        console.log("Determined Current User ID:", userId);
 
         if (userId) {
           setCurrentUserId(userId);
@@ -55,7 +54,7 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
           c._id ===
           (typeof newMessage.chat === "object"
             ? (newMessage.chat as any)._id
-            : newMessage.chat)
+            : newMessage.chat),
       );
 
       if (chatIndex === -1) return prevChats;
