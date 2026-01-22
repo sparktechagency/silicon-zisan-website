@@ -1,7 +1,6 @@
 "use client";
 
-import { Input } from "../ui/input";
-import { Eye, Pencil, Search, Trash2 } from "lucide-react";
+import { Eye, Pencil, Trash2 } from "lucide-react";
 import {
   Table,
   TableBody,

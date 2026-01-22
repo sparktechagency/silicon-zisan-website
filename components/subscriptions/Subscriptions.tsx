@@ -28,6 +28,8 @@ export default function Subscriptions({ res }: any) {
   const [loading, setLoading] = useState(false);
 
   const handleSubscribe = async (id: string) => {
+    console.log("id", id);
+
     setLoading(true);
     try {
       const res = await myFetch(`/subscriptions/create`, {

@@ -8,9 +8,11 @@ export default async function page({ params }: { params: { id: string } }) {
     tags: ["single-job"],
   });
 
+  const length = await myFetch(`/applications/job/${id}`);
+
   return (
     <div className="my-16">
-      <ViewDetailsJobs data={res?.data} />
+      <ViewDetailsJobs data={res?.data} length={length?.data?.data.length} />
     </div>
   );
 }
