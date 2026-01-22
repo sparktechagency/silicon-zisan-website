@@ -75,11 +75,6 @@ export default function ViewDetailsCompany({ data }: any) {
             <Link href={`/applied-jobs/${data?._id}`}>
               <Button className="custom-btn mt-5">Job Applicants</Button>
             </Link>
-            <Link href={`/alert-setting?id=${data?._id}`} className="">
-              <Button className="custom-btn mt-5">
-                Turn on notification on this job
-              </Button>
-            </Link>
           </div>
         </div>
       </div>

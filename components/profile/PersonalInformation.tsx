@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import getProfile from "@/utils/getProfile";
 import { revalidate } from "@/utils/revalidateTag";
+import { Skeleton } from "../ui/skeleton";
 
 export default function PersonalInformation({
   setStatus,
@@ -80,14 +81,18 @@ export default function PersonalInformation({
     <div className="w-full max-w-[400px] bg-card p-5 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
-        <CustomImage
-          src={fileImage}
-          fallback={profileMan}
-          width={100}
-          height={100}
-          title="Profile"
-          className="w-full h-full"
-        />
+        {fileImage ? (
+          <CustomImage
+            src={fileImage}
+            fallback={profileMan}
+            width={100}
+            height={100}
+            title="Profile"
+            className="w-full h-full"
+          />
+        ) : (
+          <Skeleton className="w-full h-full" />
+        )}
         {/* Camera Icon overlay */}
         <div
           className="absolute bottom-0.5 right-0.5 bg-[#416383] rounded-full p-1 cursor-pointer hover:bg-[#5881a3] transition"

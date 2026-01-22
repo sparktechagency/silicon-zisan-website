@@ -46,6 +46,8 @@ export default function SubscriptionPlan() {
 
   const handleSubscribe = async (id: string) => {
     setLoading(true);
+    console.log("id", id);
+
     try {
       const res = await myFetch(`/subscriptions/create`, {
         method: "POST",
@@ -53,6 +55,8 @@ export default function SubscriptionPlan() {
           package: id,
         },
       });
+
+      console.log("res", res);
 
       if (res.success) {
         window.open(res.data, "_blank");

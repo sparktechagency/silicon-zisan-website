@@ -27,7 +27,7 @@ export default function ShiftPlan({ data }: any) {
       <ShiftPlanStatus />
 
       {/* search bar */}
-      <div className="relative w-full">
+      {/* <div className="relative w-full">
         <Input
           className="border border-gray-400/70 rounded-full pl-9 pr-4 py-2 w-full"
           placeholder="Search here"
@@ -35,7 +35,7 @@ export default function ShiftPlan({ data }: any) {
         <span className="absolute left-3 top-1/2 -translate-y-1/2">
           <Search size={20} />
         </span>
-      </div>
+      </div> */}
 
       {/* header div */}
       <div className="mt-6">

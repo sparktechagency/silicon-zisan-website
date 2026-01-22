@@ -43,6 +43,8 @@ export default function Profile({ data }: { data: any }) {
       if (result.isConfirmed) {
         deleteCookie("accessToken");
         deleteCookie("role");
+        deleteCookie("email");
+        deleteCookie("qrcode");
         router.push("/login");
         Swal.fire({
           title: "Logged Out",

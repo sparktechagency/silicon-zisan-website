@@ -11,9 +11,6 @@ import { toast } from "sonner";
 
 export default function TwoFactorAuth() {
   const [smsActive, setSmsActive] = useState(false);
-  const [smsActive2, setSmsActive2] = useState(false);
-  console.log("sms", smsActive);
-
   const [authAppActive, setAuthAppActive] = useState(false);
   const router = useRouter();
 
@@ -26,6 +23,7 @@ export default function TwoFactorAuth() {
           // ✅ sync backend value to Switch
           setSmsActive(Boolean(res.data?.authentication?.is2FAEmailActive));
         }
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         toast.error("Failed to load profile");
       }
@@ -71,6 +69,8 @@ export default function TwoFactorAuth() {
   };
 
   const handleActiveIsActive2 = async (value: boolean) => {
+    console.log("value", value);
+
     try {
       const res = await myFetch("/users/profile", {
         method: "PATCH",
@@ -121,9 +121,9 @@ export default function TwoFactorAuth() {
             <p className="text-base font-medium">01839327833</p>
           </div>
           <Switch
-            checked={smsActive2}
+            checked={smsActive}
             onCheckedChange={(checked) => {
-              setSmsActive2(checked);
+              setSmsActive(checked);
               handleActiveIsActive(checked);
             }}
           />
@@ -135,9 +135,9 @@ export default function TwoFactorAuth() {
             <p className="text-base font-medium">Google Authenticator App</p>
           </div>
           <Switch
-            checked={smsActive}
+            checked={authAppActive}
             onCheckedChange={(checked) => {
-              setSmsActive(checked);
+              setAuthAppActive(checked);
               handleActiveIsActive2(checked);
             }}
           />

@@ -8,7 +8,6 @@ import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
 import { Input } from "../ui/input";
 type CheckedState = boolean | "indeterminate";
 
@@ -17,10 +16,7 @@ export default function AlertsSettingCreate() {
   const [pushEnabled, setPushEnabled] = useState(true);
   const [accepted, setAccepted] = useState<CheckedState>(false);
   const [email, setEmail] = useState("");
-
   const [emailEnabled, setEmailEnabled] = useState(true);
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
 
   const handlePushNotification = async () => {
     if (!accepted) {
@@ -45,7 +41,7 @@ export default function AlertsSettingCreate() {
     }
 
     try {
-      const res = await myFetch(`/jobs/update/${id}`, {
+      const res = await myFetch(`/employers/me`, {
         method: "PATCH",
         body: {
           notificationSettings: {
@@ -56,6 +52,8 @@ export default function AlertsSettingCreate() {
           },
         },
       });
+
+      console.log("res", res);
 
       if (res.success) {
         toast.success(res.message);

@@ -61,11 +61,15 @@ export default async function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center text-gray-200 text-sm">
                 <PhoneIcon />
-                <span className="ml-2">{res?.data?.phone}</span>
+                <span className="ml-2">
+                  {res?.data?.phone || "+1234567890"}
+                </span>
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <EmailIcon />
-                <span className="ml-2">{res?.data?.email}</span>
+                <span className="ml-2">
+                  {res?.data?.email || "hello@jobsin.com"}
+                </span>
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <ContactIcon />
@@ -73,7 +77,9 @@ export default async function Footer() {
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <WhatsAppIcon />
-                <span className="ml-2">{res?.data?.whatsApp}</span>
+                <span className="ml-2">
+                  {res?.data?.whatsApp || "+8801859543996"}
+                </span>
               </li>
             </ul>
           </div>
