@@ -25,12 +25,11 @@ export default function Subscriptions({ res }: any) {
   const swiperRef = useRef<null | any>(null);
   const [isModalOneOpen, setIsModalOneOpen] = useState(false);
   const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
 
   const handleSubscribe = async (id: string) => {
-    console.log("id", id);
+    setLoadingId(id);
 
-    setLoading(true);
     try {
       const res = await myFetch(`/subscriptions/create`, {
         method: "POST",
@@ -47,7 +46,7 @@ export default function Subscriptions({ res }: any) {
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
     } finally {
-      setLoading(false);
+      setLoadingId(null);
     }
   };
 
@@ -138,13 +137,15 @@ export default function Subscriptions({ res }: any) {
 
               <div className="mt-auto">
                 <Button
-                  disabled={loading}
+                  disabled={loadingId === res[0]?._id}
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                    loading && "cursor-not-allowed"
+                    loadingId === res[0]?._id && "cursor-not-allowed"
                   }`}
                   onClick={() => handleSubscribe(res[0]?._id)}
                 >
-                  Subscribe Now
+                  {loadingId === res[0]?._id
+                    ? "Processing..."
+                    : "Subscribe Now"}
                 </Button>
               </div>
             </div>
@@ -210,13 +211,15 @@ export default function Subscriptions({ res }: any) {
 
               <div className="mt-auto">
                 <Button
+                  disabled={loadingId === res[1]?._id}
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                    loading && "cursor-not-allowed"
+                    loadingId === res[1]?._id && "cursor-not-allowed"
                   }`}
-                  disabled={loading}
                   onClick={() => handleSubscribe(res[1]?._id)}
                 >
-                  Subscribe Now
+                  {loadingId === res[1]?._id
+                    ? "Processing..."
+                    : "Subscribe Now"}
                 </Button>
               </div>
             </div>
@@ -283,13 +286,15 @@ export default function Subscriptions({ res }: any) {
 
                 <div className="mt-auto">
                   <Button
+                    disabled={loadingId === res[2]?._id}
                     className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                      loading && "cursor-not-allowed"
+                      loadingId === res[2]?._id && "cursor-not-allowed"
                     }`}
-                    disabled={loading}
                     onClick={() => handleSubscribe(res[2]?._id)}
                   >
-                    Subscribe Now
+                    {loadingId === res[2]?._id
+                      ? "Processing..."
+                      : "Subscribe Now"}
                   </Button>
                 </div>
               </div>

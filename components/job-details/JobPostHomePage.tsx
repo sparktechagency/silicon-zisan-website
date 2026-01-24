@@ -34,7 +34,7 @@ export default async function JobPostHomePage() {
                     title="Logo"
                     width={160}
                     height={160}
-                    className="w-full h-full object-contain"
+                    className="w-full h-[200px] object-contain"
                   />
                 ) : (
                   // <Skeleton className="w-full h-32" />

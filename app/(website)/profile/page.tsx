@@ -6,6 +6,8 @@ export default async function ProfilePage() {
     tags: ["profile"],
   });
 
+  console.log("profile data", profileData);
+
   return (
     <>
       <Profile data={profileData?.data} />
