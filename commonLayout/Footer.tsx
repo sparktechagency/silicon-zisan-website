@@ -67,9 +67,7 @@ export default async function Footer() {
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <EmailIcon />
-                <span className="ml-2">
-                  {res?.data?.email || "hello@jobsin.com"}
-                </span>
+                <span className="ml-2">{"info@jobsinapp.de"}</span>
               </li>
               <li className="flex items-center text-gray-200 text-sm">
                 <ContactIcon />

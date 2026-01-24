@@ -77,10 +77,10 @@ export default function ViewDetailsCompany({ data, length }: any) {
             <div className="space-x-2">
               <Link href={`/applied-jobs/${data?._id}`}>
                 <Button className="custom-btn mt-5">
-                  Applied Jobs{" "}
-                  <span className="bg-gray-800 h-8 w-8 flex items-center justify-center rounded-full">
+                  {length} Applied
+                  {/* <span className="bg-[#374859] h-8 w-8 flex items-center justify-center rounded-full">
                     {length}
-                  </span>
+                  </span> */}
                 </Button>
               </Link>
             </div>

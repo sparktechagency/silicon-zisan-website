@@ -116,9 +116,16 @@ export default function ViewDetailsPerson({ data }: any) {
                 <EyeIcon className="p-0.5 text-white" />
               </button>
             </a>
-            <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-              <DownloadIcon className="p-0.5 text-white" />
-            </button>
+
+            <a
+              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                <DownloadIcon className="p-0.5 text-white" />
+              </button>
+            </a>
           </div>
         </div>
 
