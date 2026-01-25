@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         port: "5000",
         pathname: "/image/**",
       },
+      {
+        protocol: "https",
+        hostname: "jobsin.naimulhassan.me",
+      },
     ],
   },
 };

@@ -12,15 +12,21 @@ import getProfile from "@/utils/getProfile";
 
 interface InboxContainerProps {
   initialChats: Chat[];
+  adminId: string;
 }
 
-export default function InboxContainer({ initialChats }: InboxContainerProps) {
+export default function InboxContainer({
+  initialChats,
+  adminId,
+}: InboxContainerProps) {
   const [chats, setChats] = useState<Chat[]>(initialChats);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const selectedChatRef = useRef<Chat | null>(null);
+
+  console.log("adminId", adminId);
 
   // Keep ref in sync for socket callback
   useEffect(() => {
@@ -173,6 +179,18 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
       setLoadingMessages(false);
     }
   };
+
+  // admin chat select
+  useEffect(() => {
+    if (!selectedChat && adminId) {
+      const adminChat = chats.find((chat) => chat._id === adminId || adminId);
+      console.log("admin chat", adminChat);
+
+      if (adminChat) {
+        handleChatSelect(adminChat);
+      }
+    }
+  }, [adminId, selectedChat, chats]);
 
   const handleMessageSent = (newMessage: Message) => {
     // Also update chat list for sent messages

@@ -10,7 +10,9 @@ import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 
-export default function ViewDetailsCompany({ data }: any) {
+export default function ViewDetailsCompany({ data, length }: any) {
+  console.log("length");
+
   const handleWithdraw = async (id: string) => {
     try {
       const res = await myFetch(`/jobs/update/${id}`, {
@@ -71,16 +73,18 @@ export default function ViewDetailsCompany({ data }: any) {
               <Clock3 size={20} /> {dayjs(data?.deadline).format("YYYY-MM-DD")}
             </p>
           </div>
-          <div className="space-x-2">
-            <Link href={`/applied-jobs/${data?._id}`}>
-              <Button className="custom-btn mt-5">Job Applicants</Button>
-            </Link>
-            <Link href={`/alert-setting?id=${data?._id}`} className="">
-              <Button className="custom-btn mt-5">
-                Turn on notification on this job
-              </Button>
-            </Link>
-          </div>
+          {length > 0 && (
+            <div className="space-x-2">
+              <Link href={`/applied-jobs/${data?._id}`}>
+                <Button className="custom-btn mt-5">
+                  {length} Applied
+                  {/* <span className="bg-[#374859] h-8 w-8 flex items-center justify-center rounded-full">
+                    {length}
+                  </span> */}
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 

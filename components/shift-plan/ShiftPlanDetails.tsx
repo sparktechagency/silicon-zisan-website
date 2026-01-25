@@ -56,19 +56,19 @@ export default function ShiftPlanDetails({ details }: any) {
           ],
           [
             {
-              text: dayjs(details.days[0]).format("YYYY-MM-DD"),
+              text: dayjs(details.days).format("YYYY-MM-DD"),
               style: "normalText",
             },
             {
-              text: dayjs(details?.startTime).format("hh:mm A"),
+              text: dayjs(details?.plans[0].startTime).format("hh:mm A"),
               style: "normalText",
             },
             {
-              text: dayjs(details.endTime).format("hh:mm A"),
+              text: dayjs(details.plans[0].endTime).format("hh:mm A"),
               style: "normalText",
             },
             {
-              text: details.shift,
+              text: details.plans[0].shift,
               style: "normalText",
             },
           ],
@@ -160,7 +160,7 @@ export default function ShiftPlanDetails({ details }: any) {
         {/* Plan Info */}
         <div className="mt-5">
           <h1 className="capitalize text-xl font-medium">
-            plan for January {dayjs(details?.days[0]).format("YYYY")}
+            plan for January {dayjs(details?.days).format("YYYY")}
           </h1>
           {/* <p>holiday weekend</p> */}
         </div>
@@ -180,16 +180,17 @@ export default function ShiftPlanDetails({ details }: any) {
             <tbody>
               <tr className="border-b border-gray-100">
                 <td className="px-4 py-2">
-                  {dayjs(details?.days[0]).format("YYYY-MM-DD")}
+                  {dayjs(details?.days).format("YYYY-MM-DD")}
                 </td>
                 {/* <td className="px-4 py-2">{entry.day}</td> */}
                 <td className="px-4 py-2">
-                  {dayjs(details?.startTime).format("hh:mm A")}
+                  {dayjs(details?.plans[0].startTime).format("hh:mm A")}
                 </td>
                 <td className="px-4 py-2">
-                  {details?.endTime && dayjs(details.endTime).format("hh:mm A")}
+                  {details?.plans[0].endTime &&
+                    dayjs(details.plans[0].endTime).format("hh:mm A")}
                 </td>
-                <td className="px-4 py-2">{details?.shift}</td>
+                <td className="px-4 py-2">{details?.plans[0].shift}</td>
               </tr>
             </tbody>
           </table>

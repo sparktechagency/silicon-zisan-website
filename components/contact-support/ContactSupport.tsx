@@ -51,7 +51,7 @@ export default function ContactSupport() {
   const {
     register,
     handleSubmit,
-    setError,
+
     reset,
     formState: { errors },
   } = useForm<Inputs>();
@@ -80,7 +80,7 @@ export default function ContactSupport() {
         setImagePreview(null);
       } else {
         toast.error(
-          (res as any)?.error[0].message || "Failed to submit support request"
+          (res as any)?.error[0].message || "Failed to submit support request",
         );
       }
     } catch (err) {
@@ -109,7 +109,7 @@ export default function ContactSupport() {
             {/* email */}
             <Input
               className="placeholder:text-white text-white"
-              placeholder="Enter Your Name"
+              placeholder="Enter Your Email"
               {...register("email", { required: "Email is required" })}
             />
 

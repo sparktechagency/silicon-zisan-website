@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { revalidate } from "@/utils/revalidateTag";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   name: string;
@@ -69,6 +70,7 @@ export default function EditProfile({
 
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
+        window.location.reload();
         await revalidate("profile");
       } else {
         toast.error(res?.message || "Failed to update profile");

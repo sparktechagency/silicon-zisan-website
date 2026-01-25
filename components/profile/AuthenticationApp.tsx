@@ -1,6 +1,5 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -61,10 +60,10 @@ export default function AuthenticationApp() {
             verification.
           </p>
 
-          <Input
+          {/* <Input
             placeholder="Enter Your Code"
             className="mt-2 bg-[#4B5A69] text-white border-white/20"
-          />
+          /> */}
         </div>
       </div>
 

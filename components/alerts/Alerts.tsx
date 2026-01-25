@@ -1,6 +1,8 @@
 import Container from "@/share/Container";
 import { myFetch } from "@/utils/myFetch";
 import { Bell } from "lucide-react";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default async function Alerts() {
   const res = await myFetch("/notifications/me");
@@ -9,6 +11,11 @@ export default async function Alerts() {
     <Container className="my-16">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold">All Alerts</h1>
+        <Link href={`/alert-setting`} className="">
+          <Button className="custom-btn mt-5">
+            Turn on notification on this job
+          </Button>
+        </Link>
         {/* <Link href="/alert-setting">
           <button className="flex items-center gap-3 custom-btn rounded px-5 py-3 ">
             <Settings

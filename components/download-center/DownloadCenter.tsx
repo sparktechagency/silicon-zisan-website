@@ -1,6 +1,8 @@
 import { ArrowDown, EyeIcon } from "lucide-react";
 
 export default function DownloadCenter({ data }: any) {
+  console.log("data", data);
+
   return (
     <div>
       {/* Buttons */}
@@ -10,7 +12,7 @@ export default function DownloadCenter({ data }: any) {
           {/* Transaction Info */}
           <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
             <div>
-              <p className="text-lg font-semibold">{index + 1} From</p>
+              <p className="text-lg font-semibold">{item?.name}</p>
             </div>
 
             <div className="flex items-center space-x-2">

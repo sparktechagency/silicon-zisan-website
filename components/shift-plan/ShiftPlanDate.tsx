@@ -6,15 +6,22 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import Container from "@/share/Container";
+import { Trash2 } from "lucide-react";
+import dayjs from "dayjs";
 
 export default function ShiftPlanDate({
   selectedDates,
   setSelectedDates,
+  onHanldeShift,
+  plans,
+  onHandleRemove,
 }: any) {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   const handleCancel = () => setSelectedDates([]);
   // const handleOk = () => setOpen(false);
+
+  console.log("plans", plans);
 
   return (
     <Container className="max-w-2xl mx-auto">
@@ -33,7 +40,7 @@ export default function ShiftPlanDate({
               modifiers={{
                 selected: (date) =>
                   selectedDates.some((selected: Date) =>
-                    isSameDay(selected, date)
+                    isSameDay(selected, date),
                   ),
               }}
             />
@@ -41,45 +48,60 @@ export default function ShiftPlanDate({
 
           {/* Footer Buttons */}
           <div className="flex justify-end space-x-2 px-4 py-2">
-            <Button
+            {/* <Button
               className="border border-gray-400/400 bg-card"
               onClick={handleCancel}
             >
               Cancel
-            </Button>
-            {/* <Button
+            </Button> */}
+            <Button
               className={`${
                 selectedDates.length > 0
                   ? "custom-btn"
                   : "bg-card border border-gray-400/400"
               }`}
-              onClick={handleOk}
+              onClick={onHanldeShift}
             >
               Add
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>
       {/* Shift Time */}
       <div className="space-y-2 px- mt-6 ">
         <Label className="block font-semibold">Shift Time</Label>
-        <div className="grid sm:grid-cols-2 gap-4 mx-auto w-full ">
-          <div className="flex-1">
-            {selectedDates.length > 0 && (
-              <div className="text-sm text-white mt-2">
-                {selectedDates[0].toLocaleDateString()} -{" "}
-                {selectedDates[selectedDates.length - 1].toLocaleDateString()}
-              </div>
-            )}
-          </div>
+        <div className="flex pr-4">
+          <div className=" gap-4 mx-auto w-full ">
+            <div className="flex-1  flex items-center gap-8">
+              <div>
+                {plans?.map((item: any, index: number) => {
+                  const first = dayjs(item?.days[0])?.format("YYYY-MM-DD");
+                  const last = dayjs(item?.days[item?.days?.length - 1]).format(
+                    "YYYY-MM-DD",
+                  );
 
-          <div className="flex-1">
-            {/* <CustomTimePicker /> */}
-            {selectedDates.length > 0 && (
-              <div className="text-sm text-white mt-2">
-                {selectedDates.length} Days Plan
+                  return (
+                    <div className="flex justify-between" key={index}>
+                      {" "}
+                      <div className="grid grid-cols-2 gap-9 my-2">
+                        <div>
+                          {first} – {last}
+                        </div>
+                        <div className="flex items-start">
+                          {item.days.length} Days Plan
+                        </div>
+                      </div>
+                      <div>
+                        <Trash2
+                          className="text-red-400 cursor-pointer"
+                          onClick={() => onHandleRemove(index)}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>

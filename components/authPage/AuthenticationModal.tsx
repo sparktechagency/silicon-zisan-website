@@ -10,6 +10,7 @@ import { getCookie, setCookie } from "cookies-next/client";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface AuthenticationModalProps {
+  data: any;
   open: boolean;
   onClose: () => void;
 }
@@ -20,6 +21,7 @@ type Inputs = {
 };
 
 export default function AuthenticationModal({
+  data,
   open,
   onClose,
 }: AuthenticationModalProps) {
@@ -28,6 +30,8 @@ export default function AuthenticationModal({
   const router = useRouter();
 
   const email = getCookie("email");
+
+  console.log("data?.data?.is2FAEmail", data);
 
   // const userId = searchParams.get("userId") || "";
   const userId = searchParams.get("userId") || "";
@@ -55,12 +59,11 @@ export default function AuthenticationModal({
         method: "POST",
         body: isActive === "email" ? payload2 : payload,
       });
-
+      console.log("res.message", res);
       if (res.success) {
-        console.log("res.message", res.message);
-
         toast.success(res.message);
-        setCookie("accessToken", res?.data?.accessToken);
+        setCookie("accessToken", res?.data);
+        // setCookie("accessToken", res?.data?.accessToken);
         onClose();
         router.push("/");
       } else {
@@ -76,15 +79,21 @@ export default function AuthenticationModal({
       <DialogContent className="border-none">
         <div className="grid grid-cols-2 gap-9 mt-7">
           <Button
-            disabled={userId}
+            disabled={!data?.is2FAEmail}
             onClick={() => setIsActive("email")}
-            className={`bg-[#374859] border ${isActive === "email" && "custom-btn"}`}
+            className={`bg-[#374859] border ${
+              isActive === "email" ? "custom-btn" : ""
+            }`}
           >
             Email
           </Button>
+
           <Button
+            disabled={!data?.is2FAAuthenticator}
             onClick={() => setIsActive("auth")}
-            className={`bg-[#374859] border ${isActive === "auth" && "custom-btn"}`}
+            className={`bg-[#374859] border ${
+              isActive === "auth" ? "custom-btn" : ""
+            }`}
           >
             Authentication
           </Button>
@@ -92,7 +101,9 @@ export default function AuthenticationModal({
 
         <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
           <Input placeholder="Enter Your OTP" {...register("otp")} />
-          <Button className="custom-btn mt-7 w-full">Submit</Button>
+          <Button disabled={!isActive} className="custom-btn mt-7 w-full">
+            Submit
+          </Button>
         </form>
       </DialogContent>
     </Dialog>

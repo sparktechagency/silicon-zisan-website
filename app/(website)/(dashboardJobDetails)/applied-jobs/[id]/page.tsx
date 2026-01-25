@@ -7,8 +7,8 @@ export default async function page({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {res?.data.length > 0 ? (
-        <AppliedJobs data={res?.data} />
+      {res?.data?.data?.length > 0 ? (
+        <AppliedJobs data={res?.data?.data} />
       ) : (
         <p className="text-center my-4">No Applications</p>
       )}

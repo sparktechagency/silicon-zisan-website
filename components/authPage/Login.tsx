@@ -22,6 +22,8 @@ export default function LoginPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const searchParams = useSearchParams();
   const {
@@ -31,6 +33,7 @@ export default function LoginPage() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true);
     try {
       const res = await myFetch("/auth/login", {
         method: "POST",
@@ -38,6 +41,7 @@ export default function LoginPage() {
       });
 
       if (res?.success) {
+        setData(res?.data);
         setCookie("email", data.email);
         if (res.success && res?.data?.userId) {
           const params = new URLSearchParams(searchParams?.toString()); // Start with current params
@@ -62,12 +66,13 @@ export default function LoginPage() {
       const message =
         error instanceof Error ? error.message : "An error occurred";
       toast.error(message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
-      {" "}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full ">
         {/* email */}
         <div>
@@ -101,9 +106,11 @@ export default function LoginPage() {
           <p className="text-red-500">Password is required</p>
         )}
 
-        <Button className="custom-btn w-full" type="submit">
+        <Button disabled={loading} className="custom-btn w-full" type="submit">
           Login
         </Button>
+
+        {/* others section */}
         <div className="flex justify-end">
           <Link href="/forgot-password" className="text-white underline ">
             Forgot Password?
@@ -133,6 +140,7 @@ export default function LoginPage() {
       </form>
       {showModal && (
         <AuthenticationModal
+          data={data}
           open={showModal}
           onClose={() => setShowModal(false)}
         />

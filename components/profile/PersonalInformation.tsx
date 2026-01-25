@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 // import Image from "next/image";
-import profileMan from "../../public/profile/profile.png";
+import profile from "../../public/profile/avatar.png";
 import { Camera } from "lucide-react";
 import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
@@ -22,6 +22,8 @@ export default function PersonalInformation({
 
   const inputRef = React.useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  console.log("profile data", data);
 
   // Data for profile fields
   const profileData = [
@@ -80,9 +82,20 @@ export default function PersonalInformation({
     <div className="w-full max-w-[400px] bg-card p-5 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
+        {/* {fileImage ? (
+          <CustomImage
+            src={fileImage}
+            width={100}
+            height={100}
+            title="Profile"
+            className="w-full h-full"
+          />
+        ) : (
+          <Skeleton className="w-full h-full" />
+        )} */}
         <CustomImage
           src={fileImage}
-          fallback={profileMan}
+          fallback={profile}
           width={100}
           height={100}
           title="Profile"

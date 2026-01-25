@@ -79,12 +79,12 @@ export function AuthenticationVerify() {
       </form>
 
       {/* Modal rendered conditionally */}
-      {showModal && (
+      {/* {showModal && (
         <AuthenticationModal
           open={showModal}
           onClose={() => setShowModal(false)}
         />
-      )}
+      )} */}
     </div>
   );
 }

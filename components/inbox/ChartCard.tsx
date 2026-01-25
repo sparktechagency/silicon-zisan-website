@@ -1,4 +1,3 @@
-import Image from "next/image";
 import man from "../../public/inbox/man.png";
 import { Chat } from "@/types/chat";
 import { format } from "date-fns";
@@ -25,7 +24,7 @@ export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
         "flex flex-row justify-between p-4 rounded-lg shadow mb-3 border border-gray-400/30 cursor-pointer transition-colors",
         isActive
           ? "bg-gray-800 text-primary-foreground hover:bg-primary/90"
-          : "bg-card hover:bg-gray-700 dark:hover:bg-gray-800"
+          : "bg-card hover:bg-gray-700 dark:hover:bg-gray-800",
       )}
     >
       <div className="flex items-center gap-2 ">
