@@ -35,10 +35,20 @@ type FormValues = {
   endTime: any;
 };
 
+type Plan = {
+  shift: string;
+  startTime: string;
+  endTime: string;
+  days: string[];
+  tasks: string[];
+  remarks: string;
+};
+
 export default function CreateNewPlan2({ employee, editData }: any) {
   const router = useRouter();
-  // date
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
+  const [plans, setPlans] = useState<Plan[]>([]);
+  console.log("shift plain ", plans);
 
   const { control, register, watch, handleSubmit, resetField, reset } =
     useForm<FormValues>({
@@ -94,47 +104,54 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     }
   }, [editData, reset]);
 
-  const onSubmit = async (data: FormValues) => {
+  // single shift plan hanlder
+  const handleAddShiftPlan = (data: FormValues) => {
     const payload = {
-      worker: data?.worker,
-      plans: [
-        {
-          startTime: data.startTime,
-          endTime: data.endTime,
-          days: selectedDates.map((d) => d.toISOString()),
-          tasks: data.tasks.map((t) => t.value),
-          remarks: data.remarks,
-          shift: data?.shift,
-        },
-      ],
+      startTime: data.startTime,
+      endTime: data.endTime,
+      days: selectedDates.map((d) => d.toISOString()),
+      tasks: data.tasks.map((t) => t.value),
+      remarks: data.remarks,
+      shift: data.shift,
     };
+
+    setPlans((prev) => [...prev, payload]);
+
+    toast.success("Shift added");
+  };
+
+  const onSubmit = async (data: FormValues) => {
+    if (!plans.length) {
+      toast.error("Please add at least one shift plan");
+      return;
+    }
 
     const method = editData?._id ? "PATCH" : "POST";
     const url = editData?._id
       ? `/shift-plans/update/${editData._id}` // ✅ Use editData._id, not 'id'
       : "/shift-plans/create";
 
+    const payload = {
+      worker: data.worker,
+      plans,
+    };
+
     try {
       const res = await myFetch(url, {
         method: method,
         body: payload,
       });
-
       console.log("res", res);
-
       if (res.success) {
         toast.success(res.message);
         await revalidate("shift-plan");
-        router.back();
+        // router.back();
       } else {
         toast.error((res as any)?.error[0].message);
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
     }
-
-    console.log("Backend payload:", payload);
-    // history.back();
   };
 
   return (
@@ -152,6 +169,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
           <ShiftPlanDate
             selectedDates={selectedDates}
             setSelectedDates={setSelectedDates}
+            onHanldeShift={handleSubmit(handleAddShiftPlan)}
           />
 
           <div className="grid grid-cols-2 gap-4 mt-6">

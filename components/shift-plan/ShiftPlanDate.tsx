@@ -10,6 +10,7 @@ import Container from "@/share/Container";
 export default function ShiftPlanDate({
   selectedDates,
   setSelectedDates,
+  onHanldeShift,
 }: any) {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
@@ -33,7 +34,7 @@ export default function ShiftPlanDate({
               modifiers={{
                 selected: (date) =>
                   selectedDates.some((selected: Date) =>
-                    isSameDay(selected, date)
+                    isSameDay(selected, date),
                   ),
               }}
             />
@@ -47,16 +48,16 @@ export default function ShiftPlanDate({
             >
               Cancel
             </Button>
-            {/* <Button
+            <Button
               className={`${
                 selectedDates.length > 0
                   ? "custom-btn"
                   : "bg-card border border-gray-400/400"
               }`}
-              onClick={handleOk}
+              onClick={onHanldeShift}
             >
               Add
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>
