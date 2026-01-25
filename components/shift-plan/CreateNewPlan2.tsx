@@ -45,16 +45,15 @@ type Plan = {
 };
 
 export default function CreateNewPlan2({ employee, editData }: any) {
-  const router = useRouter();
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
+
   const [plans, setPlans] = useState<Plan[]>([]);
-  console.log("shift plain ", plans);
 
   const { control, register, watch, handleSubmit, resetField, reset } =
     useForm<FormValues>({
       defaultValues: {
         worker: editData?.worker?._id || "",
-        shift: editData?.plans[0]?.shift || "",
+        shift: "",
         taskInput: "",
         tasks: [],
         remarks: "",
@@ -66,6 +65,12 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     control,
     name: "tasks",
   });
+
+  useEffect(() => {
+    if (Array.isArray(editData?.plans)) {
+      setPlans(editData.plans);
+    }
+  }, [editData]);
 
   const taskInput = watch("taskInput");
 
@@ -79,26 +84,26 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     if (editData) {
       reset({
         worker: editData?.worker?._id || "",
-        shift: editData.plans[0].shift,
+        // shift: editData.plans[0].shift,
         taskInput: editData.taskInput || "",
 
-        tasks:
-          Array.isArray(editData.plans[0].tasks) &&
-          editData.plans[0].tasks.length
-            ? editData.plans[0].tasks.map((t: string) => ({ value: t }))
-            : [{ value: "" }],
-        remarks: editData.plans[0].remarks || "",
-        startTime: editData.plans[0].startTime
-          ? dayjs(editData.plans[0].startTime, "hh:mm A")
-          : null,
-        endTime: editData.plans[0].endTime
-          ? dayjs(editData.plans[0].endTime, "hh:mm A")
-          : null,
+        // tasks:
+        //   Array.isArray(editData.plans[0].tasks) &&
+        //   editData.plans[0].tasks.length
+        //     ? editData.plans[0].tasks.map((t: string) => ({ value: t }))
+        //     : [{ value: "" }],
+        // remarks: editData.plans[0].remarks || "",
+        // startTime: editData.plans[0].startTime
+        //   ? dayjs(editData.plans[0].startTime, "hh:mm A")
+        //   : null,
+        // endTime: editData.plans[0].endTime
+        //   ? dayjs(editData.plans[0].endTime, "hh:mm A")
+        //   : null,
       });
 
       setSelectedDates(
-        Array.isArray(editData.plans[0].days)
-          ? editData.plans[0].days.map((d: string) => new Date(d))
+        Array.isArray(editData?.plans[0]?.days)
+          ? editData?.plans[0]?.days?.map((d: string) => new Date(d))
           : [],
       );
     }
@@ -120,25 +125,31 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     toast.success("Shift added");
   };
 
-  const onSubmit = async (data: FormValues) => {
-    if (!plans.length) {
-      toast.error("Please add at least one shift plan");
-      return;
-    }
+  const handleRemovePlan = (indexToRemove: number) => {
+    setPlans((prev) => prev.filter((_, index) => index !== indexToRemove));
+  };
 
-    const method = editData?._id ? "PATCH" : "POST";
-    const url = editData?._id
-      ? `/shift-plans/update/${editData._id}` // ✅ Use editData._id, not 'id'
-      : "/shift-plans/create";
+  const onSubmit = async (data: FormValues) => {
+    // if (!plans.length) {
+    //   toast.error("Please add at least one shift plan");
+    //   return;
+    // }
+
+    // const method = editData?._id ? "PATCH" : "POST";
+    // const url = editData?._id
+    //   ? `/shift-plans/update/${editData._id}` // ✅ Use editData._id, not 'id'
+    //   : "/shift-plans/create";
 
     const payload = {
       worker: data.worker,
       plans,
     };
 
+    console.log("payload", payload);
+
     try {
-      const res = await myFetch(url, {
-        method: method,
+      const res = await myFetch("/shift-plans/create", {
+        method: "POST",
         body: payload,
       });
       console.log("res", res);
@@ -159,7 +170,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       <div className="flex items-center ml-8 my-8">
         <CustomBackButton />
         <h2 className="text-2xl font-semibold px-5">
-          {editData?._id ? "Edit Shift Plan" : "Create Shift Plan"}
+          {/* {editData?._id ? "Edit Shift Plan" : "Create Shift Plan"} */}
+          Create Shift Plan
         </h2>
       </div>
 
@@ -170,6 +182,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
             selectedDates={selectedDates}
             setSelectedDates={setSelectedDates}
             onHanldeShift={handleSubmit(handleAddShiftPlan)}
+            plans={plans}
+            onHandleRemove={handleRemovePlan}
           />
 
           <div className="grid grid-cols-2 gap-4 mt-6">
@@ -178,7 +192,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               <CustomTimePicker
                 name="startTime"
                 control={control}
-                rules={{ required: "Start time is required" }}
+                // rules={{ required: "Start time is required" }}
               />
             </div>
             <div>
@@ -186,7 +200,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               <CustomTimePicker
                 name="endTime"
                 control={control}
-                rules={{ required: "End time is required" }}
+                // rules={{ required: "End time is required" }}
               />
             </div>
           </div>
@@ -209,27 +223,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-6 mt-10 sm:mt-0"
           >
-            <div className="flex items-center justify-end">
-              {/* 
-            {findName && (
-              <>
-                <DeleteUsersModalOpen
-                  isModalOneOpen={isModalOneOpen}
-                  setIsModalOneOpen={setIsModalOneOpen}
-                  onOpenSecondModal={() => setIsModalTwoOpen(true)}
-                  trigger={
-                    <Button className="bg-red-600">Delete Employee</Button>
-                  }
-                />
-
-                <DeleteModalUsers
-                  isModalTwoOpen={isModalTwoOpen}
-                  setIsModalTwoOpen={setIsModalTwoOpen}
-                />
-              </>
-            )} */}
-            </div>
-
             {/* Employee */}
             <div className="space-y-2">
               <Label>Select Employee</Label>
@@ -330,7 +323,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
             </div>
 
             <Button type="submit" className="custom-btn w-full text-lg">
-              {editData?._id ? "Update Now" : "Create Now"}
+              Create Now
             </Button>
           </form>
         </div>

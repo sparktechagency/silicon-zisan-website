@@ -57,7 +57,7 @@ export default function ShiftPlan({ data }: any) {
                   {item?.worker?.name}
                 </TableCell>
                 <TableCell>
-                  {dayjs(item?.plans[0].days[0]).format("YYYY-MM-DD")}
+                  {dayjs(item?.plans[0]?.days[0]).format("YYYY-MM-DD")}
                 </TableCell>
                 <TableCell>{item?.plans[0]?.shift}</TableCell>
                 <TableCell>
