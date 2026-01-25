@@ -19,4 +19,5 @@ export interface Chat {
   updatedAt: string;
   unreadCount: number;
   lastMessage?: LastMessage;
+  adminId: string;
 }

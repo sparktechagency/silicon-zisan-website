@@ -51,7 +51,7 @@ export default function ContactSupport() {
   const {
     register,
     handleSubmit,
-    setError,
+
     reset,
     formState: { errors },
   } = useForm<Inputs>();

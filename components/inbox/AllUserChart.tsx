@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { ChatCard } from "./ChartCard";
 import CustomBackButton from "@/share/CustomBackButton";
 import { Chat } from "@/types/chat";
@@ -17,6 +17,8 @@ const AllUserChart = ({
   selectedChatId,
   onChatSelect,
 }: AllUserChartProps) => {
+  console.log("selectedChatId", selectedChatId);
+
   return (
     <div
       className=" pr-2 flex flex-col"
