@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
@@ -21,17 +20,27 @@ export default function AdminContact({ adminId }: any) {
           <ChevronRight />
         </p>
       </div>
-      <div className="border rounded p-2 flex justify-between items-center mt-4 custom-btn">
-        <div>
-          <p className="text-gray-300">WhatsApp Support</p>
-          <p className="text-gray-400">+8801859543990</p>
-        </div>
-        <p>
+      <a
+        href="https://wa.me/01716752129"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block"
+      >
+        <div className="border rounded p-2 flex justify-between items-center mt-4 custom-btn cursor-pointer">
+          <div>
+            <p className="text-gray-300">WhatsApp Support</p>
+            <p className="text-gray-400">+8801859543990</p>
+          </div>
           <ChevronRight />
-        </p>
-      </div>
+        </div>
+      </a>
       <Link href={`/inbox?id=${adminId}`}>
-        <Button className="custom-btn w-full mt-4">Live Chat</Button>
+        <div className="custom-btn flex items-center py-5 px-3 mt-4 rounded">
+          <p className="w-full">Live Chat</p>
+          <p>
+            <ChevronRight />
+          </p>
+        </div>
       </Link>
     </div>
   );

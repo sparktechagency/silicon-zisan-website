@@ -4,7 +4,6 @@ import AdminContact from "./AdminContact";
 
 export default async function ContactSupportPage() {
   const res = await myFetch(`/contact`);
-  console.log("res", res);
 
   return (
     <>

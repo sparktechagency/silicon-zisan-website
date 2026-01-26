@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "./utils/getToken";
+import { myFetch } from "./utils/myFetch";
 
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
@@ -10,7 +11,8 @@ export async function proxy(request: NextRequest) {
     path === "/signup" ||
     path === "/forgot-password" ||
     path === "/verify-otp" ||
-    path === "/authentication-verify";
+    path === "/authentication-verify" ||
+    path === "/new-password";
 
   const token = await getToken();
 
@@ -18,8 +20,12 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
 
-  if (isPublicPath && token) {
-    return NextResponse.redirect(new URL("/", request.nextUrl));
+  // get user profile
+  const res = await myFetch("/users/profile");
+  const userRole = res?.data?.role;
+  if (!isPublicPath && userRole !== "Employer") {
+    request.cookies.delete("accessToken");
+    return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
 }
 
