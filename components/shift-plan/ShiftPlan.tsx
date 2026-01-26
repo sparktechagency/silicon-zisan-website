@@ -16,8 +16,6 @@ import dayjs from "dayjs";
 import Link from "next/link";
 
 export default function ShiftPlan({ data }: any) {
-  console.log("data", data);
-
   const router = useRouter();
 
   return (

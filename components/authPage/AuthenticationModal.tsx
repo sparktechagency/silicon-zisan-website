@@ -31,8 +31,6 @@ export default function AuthenticationModal({
 
   const email = getCookie("email");
 
-  console.log("data?.data?.is2FAEmail", data);
-
   // const userId = searchParams.get("userId") || "";
   const userId = searchParams.get("userId") || "";
 
@@ -59,7 +57,7 @@ export default function AuthenticationModal({
         method: "POST",
         body: isActive === "email" ? payload2 : payload,
       });
-      console.log("res.message", res);
+
       if (res.success) {
         toast.success(res.message);
         setCookie("accessToken", res?.data);

@@ -152,7 +152,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         method: "POST",
         body: payload,
       });
-      console.log("res", res);
+
       if (res.success) {
         toast.success(res.message);
         await revalidate("shift-plan");

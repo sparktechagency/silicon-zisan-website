@@ -1,8 +1,6 @@
 import { ArrowDown, EyeIcon } from "lucide-react";
 
 export default function DownloadCenter({ data }: any) {
-  console.log("data", data);
-
   return (
     <div>
       {/* Buttons */}

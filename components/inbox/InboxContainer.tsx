@@ -26,8 +26,6 @@ export default function InboxContainer({
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const selectedChatRef = useRef<Chat | null>(null);
 
-  console.log("adminId", adminId);
-
   // Keep ref in sync for socket callback
   useEffect(() => {
     selectedChatRef.current = selectedChat;
@@ -184,7 +182,6 @@ export default function InboxContainer({
   useEffect(() => {
     if (!selectedChat && adminId) {
       const adminChat = chats.find((chat) => chat._id === adminId || adminId);
-      console.log("admin chat", adminChat);
 
       if (adminChat) {
         handleChatSelect(adminChat);

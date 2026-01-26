@@ -23,8 +23,6 @@ export default function PersonalInformation({
   const inputRef = React.useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  console.log("profile data", data);
-
   // Data for profile fields
   const profileData = [
     { label: "Name", value: data?.user?.name || data?.companyName || "N/A" },

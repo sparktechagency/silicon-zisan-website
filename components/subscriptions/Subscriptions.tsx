@@ -46,8 +46,6 @@ export default function Subscriptions({ res }: any) {
     }
   };
 
-  console.log("res[0]?.data?.price ", res[0]);
-
   return (
     <Container className="px-5">
       <div className="relative max-w-7xl mx-auto">
