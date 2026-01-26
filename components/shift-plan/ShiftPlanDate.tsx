@@ -18,11 +18,6 @@ export default function ShiftPlanDate({
 }: any) {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
-  const handleCancel = () => setSelectedDates([]);
-  // const handleOk = () => setOpen(false);
-
-  console.log("plans", plans);
-
   return (
     <Container className="max-w-2xl mx-auto">
       <div className="flex flex-col items-center md:items-stretch">

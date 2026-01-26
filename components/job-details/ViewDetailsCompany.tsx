@@ -11,8 +11,6 @@ import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 
 export default function ViewDetailsCompany({ data, length }: any) {
-  console.log("length");
-
   const handleWithdraw = async (id: string) => {
     try {
       const res = await myFetch(`/jobs/update/${id}`, {

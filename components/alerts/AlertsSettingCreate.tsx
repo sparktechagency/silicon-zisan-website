@@ -53,8 +53,6 @@ export default function AlertsSettingCreate() {
         },
       });
 
-      console.log("res", res);
-
       if (res.success) {
         toast.success(res.message);
         setFrequency("");
