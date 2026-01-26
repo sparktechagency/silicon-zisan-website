@@ -2,6 +2,7 @@ import NewPassword from "@/components/authPage/NewPassword";
 import BackButton from "@/share/BackButton";
 import Container from "@/share/Container";
 import Image from "next/image";
+import logo from "@/public/auth/logo.png";
 
 export default function page() {
   return (
@@ -11,7 +12,7 @@ export default function page() {
         {/* back button */}
         <BackButton />
         <Image
-          src="/auth/logo.png"
+          src={logo}
           alt="Logo"
           width={150}
           height={24}

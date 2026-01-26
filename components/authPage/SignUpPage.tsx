@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Container from "@/share/Container";
 import Image from "next/image";
-import logo from "../../public/auth/logo.png";
+import logo from "@/public/auth/logo.png";
 import Link from "next/link";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { FaApple, FaFacebookF, FaGoogle } from "react-icons/fa";
