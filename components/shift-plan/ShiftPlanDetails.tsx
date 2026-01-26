@@ -43,8 +43,9 @@ export default function ShiftPlanDetails({ details }: any) {
   };
 
   const handleDownload = () => {
-    // const { name, email, phone, address } = details.worker;
+    if (!details) return;
 
+    /* ---------------- Schedule Table ---------------- */
     const scheduleTable = {
       table: {
         headerRows: 1,
@@ -57,10 +58,10 @@ export default function ShiftPlanDetails({ details }: any) {
             { text: "Shift", style: "tableHeader" },
           ],
           ...details.plans.map((plan: any) => [
-            dayjs(plan.days[0]).format("YYYY-MM-DD"),
-            dayjs(plan.startTime).format("hh:mm A"),
-            dayjs(plan.endTime).format("hh:mm A"),
-            plan.shift,
+            dayjs(plan?.days?.[0]).format("YYYY-MM-DD"),
+            dayjs(plan?.startTime).format("hh:mm A"),
+            dayjs(plan?.endTime).format("hh:mm A"),
+            plan?.shift || "—",
           ]),
         ],
       },
@@ -68,20 +69,38 @@ export default function ShiftPlanDetails({ details }: any) {
       margin: [0, 10, 0, 15],
     };
 
+    /* ---------------- Remarks Section ---------------- */
+    const remarksSection =
+      details?.plans?.length > 0
+        ? {
+            margin: [0, 10, 0, 0],
+            stack: [
+              { text: "Remarks", style: "sectionHeader" },
+              {
+                ul: details.plans.map(
+                  (plan: any, index: number) =>
+                    plan?.remarks || `Remark ${index + 1}`,
+                ),
+                style: "normalText",
+              },
+            ],
+          }
+        : null;
+
+    /* ---------------- Document Definition ---------------- */
     const docDefinition: TDocumentDefinitions = {
       pageMargins: [40, 40, 40, 40],
       content: [
         {
           text: "Personal Information",
           style: "sectionHeader",
-          margin: [0, 10, 0, 5],
         },
         {
           stack: [
-            { text: `Name: ${name}` },
-            { text: `Email: ${email}` },
-            { text: `Address: ${address}` },
-            { text: `Contact: ${phone}` },
+            { text: `Name: ${name || "—"}` },
+            { text: `Email: ${email || "—"}` },
+            { text: `Address: ${address || "—"}` },
+            { text: `Contact: ${phone || "—"}` },
           ],
           style: "normalText",
           margin: [0, 0, 0, 15],
@@ -89,19 +108,17 @@ export default function ShiftPlanDetails({ details }: any) {
         {
           text: "Schedule",
           style: "sectionHeader",
-          margin: [0, 10, 0, 5],
         },
         scheduleTable,
+
+        // ✅ Append remarks only if available
+        ...(remarksSection ? [remarksSection] : []),
       ],
       styles: {
         sectionHeader: {
           fontSize: 16,
           bold: true,
           margin: [0, 10, 0, 5],
-        },
-        sectionTitle: {
-          fontSize: 14,
-          bold: true,
         },
         normalText: {
           fontSize: 11,
@@ -113,6 +130,7 @@ export default function ShiftPlanDetails({ details }: any) {
       },
     };
 
+    /* ---------------- Download PDF ---------------- */
     pdfMake
       .createPdf(docDefinition)
       .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);

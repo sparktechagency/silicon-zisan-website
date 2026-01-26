@@ -3,9 +3,17 @@ import { myFetch } from "@/utils/myFetch";
 import Default from "../../public/default.jpg";
 import CustomImage from "@/utils/CustomImage";
 import Image from "next/image";
+import { UserSearch } from "lucide-react";
 
 export default async function JobPostHomePage() {
   const res = await myFetch("/jobs/me");
+
+  const getAppliedJob = async (id: string) => {
+    const length = await myFetch(`/applications/job/${id}`);
+    return length?.data?.data?.length;
+  };
+
+  console.log("get jobs", getAppliedJob);
 
   return (
     <div className="basis-[70%]">
@@ -74,11 +82,24 @@ export default async function JobPostHomePage() {
                 {item.postedTime}
               </p>
 
-              <Link href={`/view-details-jobs/${item._id}`} className="w-full">
-                <button className="custom-btn rounded-md py-2 w-full whitespace-nowrap">
-                  View Details
-                </button>
-              </Link>
+              <div>
+                <div className="flex gap-1">
+                  <p>
+                    <UserSearch />
+                  </p>
+                  <p>{getAppliedJob(item?._id)} Applied</p>
+                </div>
+                <div className="mt-1">
+                  <Link
+                    href={`/view-details-jobs/${item._id}`}
+                    className="w-full"
+                  >
+                    <button className="custom-btn rounded-md py-2 w-full whitespace-nowrap">
+                      View Details
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         );
