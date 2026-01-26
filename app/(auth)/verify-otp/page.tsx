@@ -1,6 +1,7 @@
 import Container from "@/share/Container";
 import Image from "next/image";
 import BackButton from "@/share/BackButton";
+import logo from "@/public/auth/logo.png";
 import { VerifyOtp } from "@/components/authPage/VerifyOtp";
 
 import { Suspense } from "react";
@@ -13,7 +14,7 @@ export default function page() {
         {/* back button */}
         <BackButton />
         <Image
-          src="/auth/logo.png"
+          src={logo}
           alt="Logo"
           width={150}
           height={24}

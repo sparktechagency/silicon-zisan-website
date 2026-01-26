@@ -2,6 +2,7 @@ import Container from "@/share/Container";
 import Image from "next/image";
 import LoginPage from "@/components/authPage/Login";
 import BackButton from "@/share/BackButton";
+import logo from "@/public/auth/logo.png";
 
 export default function page() {
   return (
@@ -11,11 +12,12 @@ export default function page() {
         {/* back button */}
         <BackButton />
         <Image
-          src="/auth/logo.png"
+          src={logo}
           alt="Logo"
           width={150}
           height={24}
           className="w-24 md:w-40"
+          priority
         />
         <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium capitalize">
           where dream job meets top talent

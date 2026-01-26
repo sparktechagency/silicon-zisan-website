@@ -41,6 +41,12 @@ export default function LoginPage() {
       });
 
       if (res?.success) {
+        // check user role. allow only employer
+        if (res?.data?.role !== "Employer") {
+          toast.error("You are not allowed to this portal!");
+          return;
+        }
+
         setData(res?.data);
         setCookie("email", data.email);
         if (res.success && res?.data?.userId) {
@@ -48,7 +54,6 @@ export default function LoginPage() {
           params.set("userId", res?.data?.userId); // Set or update the userId parameter
           router.push(`?${params.toString()}`);
           setShowModal(true);
-
           return;
         }
 

@@ -7,15 +7,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import cancel from "../../public/dashboard/cancel.png";
+// import cancel from "../../public/dashboard/cancel.png";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Container from "@/share/Container";
-import CancelModal from "../dashboard/dashboardSubscription/CancelModal";
-import CancelModalTwo from "../dashboard/dashboardSubscription/CancelModalTwo";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import SubscriptionDetails from "../dashboard/dashboardSubscription/SubscriptionDetails";
@@ -23,8 +21,6 @@ import { Info } from "lucide-react";
 
 export default function Subscriptions({ res }: any) {
   const swiperRef = useRef<null | any>(null);
-  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
-  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
   const [loadingId, setLoadingId] = useState<string | null>(null);
 
   const handleSubscribe = async (id: string) => {
@@ -49,6 +45,8 @@ export default function Subscriptions({ res }: any) {
       setLoadingId(null);
     }
   };
+
+  console.log("res[0]?.data?.price ", res[0]);
 
   return (
     <Container className="px-5">
@@ -137,15 +135,17 @@ export default function Subscriptions({ res }: any) {
 
               <div className="mt-auto">
                 <Button
-                  disabled={loadingId === res[0]?._id}
+                  disabled={res[0]?.price === 0 || loadingId === res[0]?._id}
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                     loadingId === res[0]?._id && "cursor-not-allowed"
                   }`}
                   onClick={() => handleSubscribe(res[0]?._id)}
                 >
-                  {loadingId === res[0]?._id
-                    ? "Processing..."
-                    : "Subscribe Now"}
+                  {res[0]?.price === 0
+                    ? "Already Actived"
+                    : loadingId === res[0]?._id
+                      ? "Processing..."
+                      : "Subscribe Now"}
                 </Button>
               </div>
             </div>
@@ -302,7 +302,7 @@ export default function Subscriptions({ res }: any) {
           )}
 
           {/* cancel */}
-          <SwiperSlide>
+          {/* <SwiperSlide>
             <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-[630px]">
               <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
                 <Image
@@ -341,7 +341,7 @@ export default function Subscriptions({ res }: any) {
                 </>
               </div>
             </div>
-          </SwiperSlide>
+          </SwiperSlide> */}
         </Swiper>
 
         {/* Navigation Arrows */}

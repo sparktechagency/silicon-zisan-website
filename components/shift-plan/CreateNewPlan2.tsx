@@ -130,10 +130,10 @@ export default function CreateNewPlan2({ employee, editData }: any) {
   };
 
   const onSubmit = async (data: FormValues) => {
-    // if (!plans.length) {
-    //   toast.error("Please add at least one shift plan");
-    //   return;
-    // }
+    if (!plans.length) {
+      toast.error("Please add at least one shift plan");
+      return;
+    }
 
     // const method = editData?._id ? "PATCH" : "POST";
     // const url = editData?._id

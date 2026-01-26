@@ -68,6 +68,8 @@ export default function EditProfile({
         body: values,
       });
 
+      console.log("res", res);
+
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
         window.location.reload();

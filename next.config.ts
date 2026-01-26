@@ -8,13 +8,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "10.10.7.7",
-        port: "5000",
-        pathname: "/image/**",
-      },
-      {
-        protocol: "https",
-        hostname: "jobsin.naimulhassan.me",
+        hostname: "**",
       },
     ],
   },

@@ -34,12 +34,14 @@ export function VerifyOtp() {
       });
 
       if (res?.success) {
-        if (res?.data?.accessToken) {
-          toast.success(res.message);
-          router.push(`/`);
-        } else {
+        if (res?.data) {
+          // if reset token is available then redirect reset password page
           toast.success(res.message);
           router.push(`/new-password?token=${res?.data}`);
+        } else {
+          // if not reset token, redirect to login page
+          toast.success(res.message);
+          router.push(`/login`);
         }
       } else {
         toast.error(res?.message || "Invalid OTP");

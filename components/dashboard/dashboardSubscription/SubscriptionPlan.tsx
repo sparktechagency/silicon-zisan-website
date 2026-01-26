@@ -8,14 +8,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import { useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import cancel from "../../../public/dashboard/cancel.png";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import CancelModal from "./CancelModal";
-import CancelModalTwo from "./CancelModalTwo";
 import { Info } from "lucide-react";
 import { myFetch } from "@/utils/myFetch";
 import SubscriptionDetails from "./SubscriptionDetails";
@@ -26,12 +23,11 @@ type PackageType = {
   dailyPrice: string;
   _id: string;
   description: string;
+  price: number;
 };
 
 export default function SubscriptionPlan() {
   const swiperRef = useRef<null | any>(null);
-  const [isModalOneOpen, setIsModalOneOpen] = useState(false);
-  const [isModalTwoOpen, setIsModalTwoOpen] = useState(false);
   const [data, setData] = useState<PackageType[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -161,13 +157,13 @@ export default function SubscriptionPlan() {
             </div>
 
             <Button
-              disabled={loading || !one}
+              disabled={data[0]?.price === 0 || loading || !one}
               className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                 loading && "cursor-not-allowed"
               }`}
               onClick={() => handleSubscribe(data[0]?._id)}
             >
-              Subscribe Now
+              {data[0]?.price === 0 ? "Already Actived" : "Subscribe Now"}
             </Button>
           </div>
         </SwiperSlide>
@@ -325,48 +321,6 @@ export default function SubscriptionPlan() {
             </div>
           </SwiperSlide>
         )}
-
-        {/* cancel */}
-        <SwiperSlide>
-          <div className="bg-card  p-3 rounded border border-gray-300/30 flex flex-col  h-[630px] md:w-[50%] mx-auto">
-            <div className="py-10 px-5 mt-20 w-full flex flex-col items-center justify-center">
-              <Image
-                src={cancel}
-                alt="JobsinApp Logo"
-                width={150}
-                height={24}
-                sizes="100vh"
-              />
-              <h2 className="text-white text-3xl  xl:text-5xl font-semibold my-2">
-                JobsinApp
-              </h2>
-              <p className="text-white text-sm mb-6 text-center"></p>
-            </div>
-            <div className="mt-auto">
-              <>
-                <CancelModal
-                  isModalOneOpen={isModalOneOpen}
-                  setIsModalOneOpen={setIsModalOneOpen}
-                  onOpenSecondModal={() => setIsModalTwoOpen(true)}
-                  trigger={
-                    <Button
-                      onClick={() => setIsModalOneOpen(true)}
-                      variant="destructive"
-                      className="w-full py-2 rounded cursor-pointer text-lg h-10"
-                    >
-                      Cancel Subscription
-                    </Button>
-                  }
-                />
-
-                <CancelModalTwo
-                  isModalTwoOpen={isModalTwoOpen}
-                  setIsModalTwoOpen={setIsModalTwoOpen}
-                />
-              </>
-            </div>
-          </div>
-        </SwiperSlide>
       </Swiper>
 
       {/* Navigation Arrows */}
