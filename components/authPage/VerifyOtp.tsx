@@ -53,7 +53,7 @@ export function VerifyOtp() {
 
   const handleResendOtp = async () => {
     try {
-      const res = await myFetch("/auth/resend-otp", {
+      const res = await myFetch("/auth/forget-password", {
         method: "POST",
         body: { email },
       });
