@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import man from "../../public/inbox/man.png";
+import defalutImage from "@/public/default-image.png";
 import ChatInput from "./ChartInput";
 import { Message } from "@/types/message";
 import { Chat } from "@/types/chat";
@@ -97,7 +97,7 @@ const MessageChart = ({
       <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card static items-center">
         <CustomImage
           src={participant?.image}
-          fallback={man}
+          fallback={defalutImage}
           title="header"
           width={44}
           height={44}
@@ -135,8 +135,8 @@ const MessageChart = ({
                 >
                   {!isMyMessage && (
                     <CustomImage
-                      src={item.sender?.image}
-                      fallback={man}
+                      src={participant?.image}
+                      fallback={defalutImage}
                       title="avatar"
                       className="w-8 h-8 rounded-full mr-2 object-cover"
                       width={32}
