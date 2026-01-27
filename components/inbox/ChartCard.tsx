@@ -1,8 +1,8 @@
-import man from "../../public/inbox/man.png";
 import { Chat } from "@/types/chat";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import CustomImage from "@/utils/CustomImage";
+import defalutImage from "@/public/default-image.png";
 
 interface ChatCardProps {
   chat: Chat;
@@ -31,7 +31,7 @@ export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
         <div>
           <CustomImage
             src={participant?.image}
-            fallback={man}
+            fallback={defalutImage}
             title={participant?.name || "User"}
             width={44}
             height={44}

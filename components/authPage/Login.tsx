@@ -26,6 +26,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const {
     register,
     handleSubmit,
@@ -60,7 +61,7 @@ export default function LoginPage() {
         if (res?.data?.accessToken) {
           setCookie("accessToken", res?.data?.accessToken);
           setCookie("role", res?.data?.role);
-          router.push("/");
+          router.push(callbackUrl);
           return;
         }
         router.push("/verify-otp");

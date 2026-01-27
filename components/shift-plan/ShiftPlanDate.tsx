@@ -57,7 +57,7 @@ export default function ShiftPlanDate({
               }`}
               onClick={onHanldeShift}
             >
-              Add
+              Add Plan
             </Button>
           </div>
         </div>

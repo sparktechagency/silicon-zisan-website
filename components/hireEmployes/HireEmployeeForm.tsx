@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 type FormValues = {
   category: string;
@@ -34,6 +35,7 @@ const HireEmployeeForm = () => {
   const searchParams = useSearchParams();
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -92,11 +94,12 @@ const HireEmployeeForm = () => {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    setSubmitLoading(true);
     const payload = {
       ...data,
       responsibilities: data.responsibilities.map((item) => item.value),
       qualifications: data.qualifications.map((item) => item.value),
-      salaryAmount: 5000,
+      salaryAmount: Number(data.salaryAmount),
       experience: "With Experience",
       isHiringRequest: true,
     };
@@ -105,6 +108,8 @@ const HireEmployeeForm = () => {
         method: "POST",
         body: payload,
       });
+
+      console.log("res", res);
 
       if (res.success) {
         toast.success("Application submitted successfully");
@@ -117,6 +122,8 @@ const HireEmployeeForm = () => {
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
@@ -213,12 +220,13 @@ const HireEmployeeForm = () => {
 
           {/* Confirm Button */}
           <div className="flex justify-end mt-6">
-            <button
+            <Button
               type="submit"
+              disabled={submitLoading}
               className="custom-btn text-white font-medium sm:px-6 py-2 rounded-md hover:opacity-90 transition px-2"
             >
               Confirm
-            </button>
+            </Button>
           </div>
         </div>
       </form>
