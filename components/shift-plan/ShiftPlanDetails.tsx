@@ -19,8 +19,6 @@ export default function ShiftPlanDetails({ details }: any) {
   const { name, email, phone, address } = details?.worker;
   const [loading, setLoading] = useState(false);
 
-  console.log("details", details);
-
   const handleSendShift = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
