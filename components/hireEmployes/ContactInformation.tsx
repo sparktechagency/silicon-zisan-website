@@ -256,6 +256,8 @@ export default function ContractInformation({ data }: any) {
       );
   };
 
+  console.log("data?.salaryAmount", data);
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">

@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
 import { useRouter } from "next/navigation";
 
@@ -28,6 +28,7 @@ export default function EditProfile({
   title?: string;
   initialData?: any;
 }) {
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -62,21 +63,28 @@ export default function EditProfile({
   }, [initialData, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    setLoading(true);
     try {
       const res = await myFetch("/employers/profile", {
         method: "PATCH",
         body: values,
       });
 
+      console.log("res", res);
+
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
         window.location.reload();
         await revalidate("profile");
       } else {
-        toast.error(res?.message || "Failed to update profile");
+        toast.error(
+          (res as any)?.error[0].message || "Failed to update profile",
+        );
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -138,7 +146,7 @@ export default function EditProfile({
           {...register("about")}
         />
 
-        <Button type="submit" className="w-full custom-btn">
+        <Button disabled={loading} type="submit" className="w-full custom-btn">
           Confirm
         </Button>
       </form>

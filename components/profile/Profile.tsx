@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Settings, Trash, User } from "lucide-react";
+import { Ban, Settings, Trash, User } from "lucide-react";
 import { IoIosLogOut } from "react-icons/io";
 import PersonalInformation from "./PersonalInformation";
 import EditProfile from "./EditProfile";
@@ -9,6 +9,7 @@ import Setting from "./Settings";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next/client";
+import CancelInformation from "./CancelInformation";
 
 const buttons = [
   {
@@ -16,7 +17,14 @@ const buttons = [
     path: "Personal Information",
     icon: <User />,
     bg: "bg-[#1ba1a3]",
-    hover: "hover:bg-[#169091]",
+    // hover: "hover:bg-[#169091]",
+  },
+  {
+    label: "Cancel Information",
+    path: "Cancel Information",
+    icon: <Ban />,
+    bg: "bg-[#1ba1a3]",
+    // hover: "hover:bg-[#169091]",
   },
   {
     label: "Settings",
@@ -140,6 +148,7 @@ export default function Profile({ data }: { data: any }) {
         {status === "Edit Profile" && <EditProfile initialData={data} />}
 
         {status === "Settings" && <Setting />}
+        {status === "Cancel Information" && <CancelInformation />}
       </div>
     </div>
   );

@@ -121,7 +121,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     };
 
     setPlans((prev) => [...prev, payload]);
-
+    setSelectedDates([]);
     toast.success("Shift added");
   };
 

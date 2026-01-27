@@ -34,7 +34,7 @@ export default function SalaryDetailsFormValues({
           {...register("salaryAmount", {
             required: "Salary amount is required",
           })}
-          type="text"
+          type="number  "
           placeholder="Salary amount type here"
           className="px-3 py-2 text-gray-200 placeholder:text-white"
         />
