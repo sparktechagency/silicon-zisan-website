@@ -145,8 +145,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       plans,
     };
 
-    console.log("payload", payload);
-
     try {
       const res = await myFetch("/shift-plans/create", {
         method: "POST",

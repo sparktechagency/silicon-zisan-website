@@ -69,8 +69,6 @@ export default function TwoFactorAuth() {
   };
 
   const handleActiveIsActive2 = async (value: boolean) => {
-    console.log("value", value);
-
     try {
       const res = await myFetch("/users/profile", {
         method: "PATCH",
