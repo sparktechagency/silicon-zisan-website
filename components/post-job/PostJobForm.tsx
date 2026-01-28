@@ -129,7 +129,7 @@ const PostJobForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-gray-100 w-full rounded-xl">
           <div className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <CustomBackButton />
+            {/* <CustomBackButton /> */}
             <p>Job Post</p>
           </div>
 
