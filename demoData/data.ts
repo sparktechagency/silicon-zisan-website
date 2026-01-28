@@ -75,7 +75,7 @@ export const data = [
     title: "Hire Employees",
     value: "hireEmployees",
     icon: hire,
-    path: "/hire-employees-form",
+    path: "/hire-employees",
   },
   {
     title: "Shift Plan",

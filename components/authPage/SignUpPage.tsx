@@ -13,15 +13,18 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
+import { Label } from "../ui/label";
 
 type Inputs = {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
 };
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
   const router = useRouter();
 
   const {
@@ -79,14 +82,15 @@ export default function SignUpPage() {
         </h1>
       </div>
 
-      <div className="w-[80%] md:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
-        <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
+      <div className="w-[80%] md:w-[50%] border border-[#FFFFFF0D] p-5 rounded-md bg-[#374859]">
+        <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-7">
           Sign Up
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full ">
           {/* name */}
           <div>
+            <Label className="text-lg  mb-1">Name</Label>
             <Input
               type="text"
               className="placeholder:text-white text-white"
@@ -99,6 +103,7 @@ export default function SignUpPage() {
           )}
           {/* email */}
           <div>
+            <Label className="text-lg mb-1">Email</Label>
             <Input
               type="email"
               className="placeholder:text-white text-white"
@@ -112,6 +117,7 @@ export default function SignUpPage() {
 
           {/* Password */}
           <div className="relative">
+            <Label className="text-lg mb-">Password</Label>
             <Input
               type={showPassword ? "text" : "password"}
               className="placeholder:text-white"
@@ -123,12 +129,52 @@ export default function SignUpPage() {
             )}
 
             <span
-              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859]"
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859] mt-3"
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? <Eye /> : <EyeOff />}
             </span>
           </div>
+
+          {/* Password */}
+          <div className="relative">
+            <Label className="text-lg mb-1">Confirm Password</Label>
+            <Input
+              type={showPassword2 ? "text" : "password"}
+              className="placeholder:text-white"
+              placeholder="Enter Your Password"
+              {...register("confirmPassword", { required: true })}
+            />
+            {errors.password?.type === "required" && (
+              <p className="text-red-500">confirmPassword is required</p>
+            )}
+
+            <span
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859] mt-3"
+              onClick={() => setShowPassword2((prev) => !prev)}
+            >
+              {showPassword2 ? <Eye /> : <EyeOff />}
+            </span>
+          </div>
+
+          <label className="flex items-start gap-3 text-sm">
+            <Input
+              type="checkbox"
+              className="mt-1 h-4 w-4 accent-white"
+              required
+            />
+            <span>
+              By Continuing, You Accept The{" "}
+              <a href="#" className="underline font-semibold">
+                Privacy Policy
+              </a>
+              And{" "}
+              <a href="#" className="underline font-semibold">
+                Terms & Conditions
+              </a>{" "}
+              of JobsinApp.
+            </span>
+          </label>
 
           <Button className="custom-btn w-full" type="submit">
             Sign Up

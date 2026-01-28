@@ -47,6 +47,8 @@ export default function AuthenticationModal({
       otp: data.otp,
     };
 
+    console.log("payload", payload);
+
     const payload2 = {
       email: email,
       oneTimeCode: Number(data.otp),
@@ -58,10 +60,11 @@ export default function AuthenticationModal({
         body: isActive === "email" ? payload2 : payload,
       });
 
+      console.log("res", res);
+
       if (res.success) {
-        toast.success(res.message);
-        setCookie("accessToken", res?.data);
-        // setCookie("accessToken", res?.data?.accessToken);
+        toast.success("Authentication Successfully");
+        setCookie("accessToken", res?.data?.accessToken);
         onClose();
         router.push("/");
       } else {

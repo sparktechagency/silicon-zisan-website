@@ -109,8 +109,6 @@ const HireEmployeeForm = () => {
         body: payload,
       });
 
-      console.log("res", res);
-
       if (res.success) {
         toast.success("Application submitted successfully");
         await revalidate("hire-employee");
