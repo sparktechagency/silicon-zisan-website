@@ -27,6 +27,7 @@ import CaruselCard from "./dashboardSubscription/SubscriptionPlan";
 import { JSX } from "react";
 import NotFound from "@/app/not-found";
 import HireEmployeeForm from "../hireEmployes/HireEmployeeForm";
+import Sidebar2 from "./Sidebar2";
 
 // --------------------
 // Dashboard Component
@@ -56,11 +57,15 @@ export default function Dashboard({ searchTerm }: { searchTerm?: string }) {
 
   return (
     <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
-      <Sidebar />
+      <Sidebar2 />
 
       {/* Content */}
       <div className="flex-1 px-4 max-h-[83vh] overflow-y-scroll">
-        {searchTerm ? dashboardPages[searchTerm] ?? <NotFound /> : <NotFound />}
+        {searchTerm ? (
+          (dashboardPages[searchTerm] ?? <NotFound />)
+        ) : (
+          <NotFound />
+        )}
       </div>
     </Container>
   );

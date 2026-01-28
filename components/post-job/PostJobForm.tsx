@@ -117,6 +117,9 @@ const PostJobForm = () => {
     }
   };
 
+  const nameParam = searchParams.get("name") || "";
+  console.log("nameParam", nameParam);
+
   return (
     <Container
       className={`bg-card ${

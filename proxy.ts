@@ -56,6 +56,7 @@ export async function proxy(request: NextRequest) {
   if (!isPublicPath && !token) {
     const loginUrl = new URL("/login", request.nextUrl);
     loginUrl.searchParams.set("callbackUrl", path);
+    loginUrl.searchParams.set("name", path);
     return NextResponse.redirect(loginUrl);
   }
 

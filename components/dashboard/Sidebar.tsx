@@ -20,6 +20,8 @@ export default function Sidebar() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialName = searchParams.get("name") || "My Jobs";
+  console.log("initialName", initialName);
+
   const [selectedName, setSelectedName] = useState(initialName);
 
   // const params = new URLSearchParams(searchParams.toString());
@@ -31,7 +33,7 @@ export default function Sidebar() {
 
   const handleChangeName = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    name: string
+    name: string,
   ) => {
     e.preventDefault();
     setSelectedName(name);

@@ -13,36 +13,105 @@ import { CiCalculator1 } from "react-icons/ci";
 import { MdPodcasts } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
+// export const data = [
+//   { title: "My Jobs", value: "myJobs", icon: jobIcon, path: "/my-jobs" },
+//   { title: "Post Job", value: "postJob", icon: postJob },
+//   // { title: "AI Tools", value: "aiTools", icon: aiIcon },
+//   { title: "Appointments", value: "appointments", icon: two },
+//   { title: "Subscription Plan", value: "subscriptionPlan", icon: MdPodcasts },
+//   { title: "Hire Employees", value: "hireEmployees", icon: hire },
+//   { title: "Shift Plan", value: "shiftPlan", icon: shift },
+//   // {
+//   //   title: "Salary Calculator",
+//   //   value: "salaryCalculator",
+//   //   icon: CiCalculator1,
+//   // },
+//   // { title: "WhatsApp Support", value: "whatsappSupport", icon: FaWhatsapp },
+//   { title: "Add WhatsApp", value: "addWhatsapp", icon: FaWhatsapp },
+//   { title: "Invoice & Payments", value: "invoicePayments", icon: PiNoteThin },
+//   {
+//     title: "Contact & Support",
+//     value: "contactSupport",
+//     icon: TfiHeadphoneAlt,
+//   },
+//   {
+//     title: "Verify Account",
+//     value: "verifyAccount",
+//     icon: MdOutlineVerifiedUser,
+//   },
+//   {
+//     title: "Download Center",
+//     value: "downloadCenter",
+//     icon: MdOutlineFileDownload,
+//   },
+// ];
+
 export const data = [
-  { title: "My Jobs", value: "myJobs", icon: jobIcon, path: "/my-jobs" },
-  { title: "Post Job", value: "postJob", icon: postJob },
-  // { title: "AI Tools", value: "aiTools", icon: aiIcon },
-  { title: "Appointments", value: "appointments", icon: two },
-  { title: "Subscription Plan", value: "subscriptionPlan", icon: MdPodcasts },
-  { title: "Hire Employees", value: "hireEmployees", icon: hire },
-  { title: "Shift Plan", value: "shiftPlan", icon: shift },
-  // {
-  //   title: "Salary Calculator",
-  //   value: "salaryCalculator",
-  //   icon: CiCalculator1,
-  // },
-  // { title: "WhatsApp Support", value: "whatsappSupport", icon: FaWhatsapp },
-  { title: "Add WhatsApp", value: "addWhatsapp", icon: FaWhatsapp },
-  { title: "Invoice & Payments", value: "invoicePayments", icon: PiNoteThin },
+  {
+    title: "My Jobs",
+    value: "myJobs",
+    icon: jobIcon,
+    path: "/my-jobs",
+  },
+  {
+    title: "Post Job",
+    value: "postJob",
+    icon: postJob,
+    path: "/post-job",
+  },
+  {
+    title: "Appointments",
+    value: "appointments",
+    icon: two,
+    path: "/appointments",
+  },
+  {
+    title: "Subscription Plan",
+    value: "subscriptionPlan",
+    icon: MdPodcasts,
+    path: "/subscription-plan",
+  },
+  {
+    title: "Hire Employees",
+    value: "hireEmployees",
+    icon: hire,
+    path: "/hire-employees-form",
+  },
+  {
+    title: "Shift Plan",
+    value: "shiftPlan",
+    icon: shift,
+    path: "/shift-plan",
+  },
+  {
+    title: "Add WhatsApp",
+    value: "addWhatsapp",
+    icon: FaWhatsapp,
+    path: "/add-whatsapp",
+  },
+  {
+    title: "Invoice & Payments",
+    value: "invoicePayments",
+    icon: PiNoteThin,
+    path: "/invoice-payments",
+  },
   {
     title: "Contact & Support",
     value: "contactSupport",
     icon: TfiHeadphoneAlt,
+    path: "/contact-support",
   },
   {
     title: "Verify Account",
     value: "verifyAccount",
     icon: MdOutlineVerifiedUser,
+    path: "/verify-account",
   },
   {
     title: "Download Center",
     value: "downloadCenter",
     icon: MdOutlineFileDownload,
+    path: "/download-center",
   },
 ];
 

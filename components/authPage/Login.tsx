@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setCookie } from "cookies-next/client";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AuthenticationModal from "./AuthenticationModal";
 
 type Inputs = {
@@ -27,6 +27,14 @@ export default function LoginPage() {
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const nameParam = searchParams.get("name") || "";
+  const [selectedName, setSelectedName] = useState(nameParam);
+  console.log("nameParam", selectedName);
+
+  useEffect(() => {
+    setSelectedName(nameParam);
+  }, [nameParam]);
+
   const {
     register,
     handleSubmit,
@@ -61,7 +69,10 @@ export default function LoginPage() {
         if (res?.data?.accessToken) {
           setCookie("accessToken", res?.data?.accessToken);
           setCookie("role", res?.data?.role);
-          router.push(callbackUrl);
+          // router.push(callbackUrl);
+          const params = new URLSearchParams();
+          params.set("name", nameParam);
+          router.push(`${callbackUrl}?${params.toString()}`);
           return;
         }
         router.push("/verify-otp");
