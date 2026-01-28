@@ -4,6 +4,7 @@ import { getToken } from "./getToken";
 
 export interface FetchResponse {
   success: boolean;
+  status: number;
   message?: string;
   data?: any;
   pagination?: {
@@ -64,6 +65,7 @@ export const myFetch = async (
     if (response.ok) {
       return {
         success: data?.success ?? true,
+        status: data?.status,
         message: data?.message,
         data: data?.data,
         pagination: data?.pagination,
@@ -73,6 +75,7 @@ export const myFetch = async (
 
     return {
       success: false,
+      status: response.status,
       message: data?.message,
       data: null,
       error: data?.errorMessages || "Request failed",
@@ -80,6 +83,7 @@ export const myFetch = async (
   } catch (error) {
     return {
       success: false,
+      status: 500,
       data: null,
       message: "Network error",
       error: error instanceof Error ? error.message : "Unknown error",

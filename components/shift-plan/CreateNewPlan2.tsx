@@ -111,6 +111,10 @@ export default function CreateNewPlan2({ employee, editData }: any) {
 
   // single shift plan hanlder
   const handleAddShiftPlan = (data: FormValues) => {
+    if (!data.startTime && !data.endTime) {
+      toast.error("Please select time");
+      return;
+    }
     const payload = {
       startTime: data.startTime,
       endTime: data.endTime,
@@ -122,6 +126,10 @@ export default function CreateNewPlan2({ employee, editData }: any) {
 
     setPlans((prev) => [...prev, payload]);
     setSelectedDates([]);
+    reset({
+      shift: "",
+      tasks: [],
+    });
     toast.success("Shift added");
   };
 
@@ -285,7 +293,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               </div>
 
               <ul className="space-y-1">
-                {fields.map((field, index) => (
+                {fields?.map((field, index) => (
                   <li
                     key={field.id}
                     className="flex justify-between items-center bg-[#2c3e50] p-2 rounded"

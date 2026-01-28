@@ -34,10 +34,21 @@ export default function SignUpPage() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (data.password !== data.confirmPassword) {
+      toast.error("Password and Confirm password do not match");
+      return;
+    }
+
+    const payload = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      role: "Employer",
+    };
     try {
       const res = await myFetch("/users/create-user", {
         method: "POST",
-        body: { ...data, role: "Employer" },
+        body: payload,
       });
 
       if (res?.success) {

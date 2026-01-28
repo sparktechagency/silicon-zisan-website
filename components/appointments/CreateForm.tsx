@@ -12,20 +12,22 @@ import CustomBackButton from "@/share/CustomBackButton";
 import dayjs, { Dayjs } from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
   option: "call" | "address";
-  meetingAddress: string;
+  address: string;
   message: string;
   scheduledAt: Dayjs | null;
   time: Dayjs | null;
 };
 
 export function CreateForm({ res }: any) {
+  const router = useRouter();
   const { control, register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       option: "call",
-      meetingAddress: "",
+      address: "",
       message: "",
       scheduledAt: null, // IMPORTANT
       time: null,
@@ -48,7 +50,7 @@ export function CreateForm({ res }: any) {
       receiver: res?.user?._id,
       job: res?.job?._id,
       scheduledAt: localIsoString,
-      address: res?.user?.address,
+      address: data?.address,
       message: data?.message,
     };
 
@@ -57,6 +59,10 @@ export function CreateForm({ res }: any) {
         method: "POST",
         body: payload,
       });
+
+      if (res.status === 402) {
+        router.push("/subscriptions");
+      }
 
       if (res.success) {
         toast.success(res.message);
@@ -144,7 +150,7 @@ export function CreateForm({ res }: any) {
               {field.value === "address" && (
                 <Input
                   placeholder="Type Here Meeting Address"
-                  {...register("meetingAddress")}
+                  {...register("address")}
                   className="bg-card text-white border-white/20"
                 />
               )}

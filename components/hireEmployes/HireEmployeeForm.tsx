@@ -113,7 +113,7 @@ const HireEmployeeForm = () => {
         toast.success("Application submitted successfully");
         await revalidate("hire-employee");
         setTimeout(() => {
-          router.back();
+          router.push("/hire-employees");
         }, 500);
       } else {
         toast.error((res as any).error[0].message);

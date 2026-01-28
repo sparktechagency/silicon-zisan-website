@@ -96,7 +96,7 @@ const PostJobForm = () => {
       ...data,
       responsibilities: data.responsibilities.map((item) => item.value),
       qualifications: data.qualifications.map((item) => item.value),
-      salaryAmount: 5000,
+      salaryAmount: Number(data.salaryAmount),
       experience: "With Experience",
     };
 
@@ -105,6 +105,8 @@ const PostJobForm = () => {
         method: "POST",
         body: payload,
       });
+
+      console.log("/post-job", res);
 
       if (res.success) {
         toast.success(res.message);
