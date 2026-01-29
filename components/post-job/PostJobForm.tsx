@@ -96,7 +96,7 @@ const PostJobForm = () => {
       ...data,
       responsibilities: data.responsibilities.map((item) => item.value),
       qualifications: data.qualifications.map((item) => item.value),
-      salaryAmount: 5000,
+      salaryAmount: Number(data.salaryAmount),
       experience: "With Experience",
     };
 
@@ -105,6 +105,8 @@ const PostJobForm = () => {
         method: "POST",
         body: payload,
       });
+
+      console.log("/post-job", res);
 
       if (res.success) {
         toast.success(res.message);
@@ -117,6 +119,9 @@ const PostJobForm = () => {
     }
   };
 
+  const nameParam = searchParams.get("name") || "";
+  console.log("nameParam", nameParam);
+
   return (
     <Container
       className={`bg-card ${
@@ -126,7 +131,7 @@ const PostJobForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="text-gray-100 w-full rounded-xl">
           <div className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <CustomBackButton />
+            {/* <CustomBackButton /> */}
             <p>Job Post</p>
           </div>
 

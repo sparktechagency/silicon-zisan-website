@@ -11,13 +11,9 @@ export default function Status() {
   const activeStatus = searchParams.get("status");
 
   const handleClick = (tab: string) => {
-    if (tab === "Create New") {
-      router.replace("/appointment-create-form");
-      return;
-    }
     const params = new URLSearchParams(searchParams.toString());
-    const currentName = params.get("name");
-    if (currentName === "Appointments") {
+
+    if (tab) {
       params.set("status", tab);
     } else {
       params.delete("status");

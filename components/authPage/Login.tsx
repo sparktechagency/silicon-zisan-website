@@ -10,8 +10,8 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setCookie } from "cookies-next/client";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
 import AuthenticationModal from "./AuthenticationModal";
+import { useState } from "react";
 
 type Inputs = {
   email: string;
@@ -27,6 +27,7 @@ export default function LoginPage() {
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   const {
     register,
     handleSubmit,
@@ -48,13 +49,13 @@ export default function LoginPage() {
           return;
         }
 
-        setData(res?.data);
         setCookie("email", data.email);
         if (res.success && res?.data?.userId) {
           const params = new URLSearchParams(searchParams?.toString()); // Start with current params
           params.set("userId", res?.data?.userId); // Set or update the userId parameter
           router.push(`?${params.toString()}`);
           setShowModal(true);
+          setData(res?.data);
           return;
         }
 
@@ -62,6 +63,7 @@ export default function LoginPage() {
           setCookie("accessToken", res?.data?.accessToken);
           setCookie("role", res?.data?.role);
           router.push(callbackUrl);
+
           return;
         }
         router.push("/verify-otp");

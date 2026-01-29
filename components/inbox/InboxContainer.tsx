@@ -200,8 +200,8 @@ export default function InboxContainer({
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[35%_auto] px-2 py-10">
-      <div className="w-[90%] xl:w-[78%] mx-auto">
+    <div className="grid grid-cols-1 xl:grid-cols-[35%_auto] py-10">
+      <div className="w-[90%] xl:w-[90%] mx-auto">
         <AllUserChart
           chats={chats}
           selectedChatId={selectedChat?._id}
