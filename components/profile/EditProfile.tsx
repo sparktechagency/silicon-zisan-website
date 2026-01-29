@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
 import { Label } from "../ui/label";
+import AddressInput from "./AddressSearch";
 
 type Inputs = {
   name: string;
@@ -33,6 +34,7 @@ export default function EditProfile({
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: {},
   } = useForm<Inputs>({
     defaultValues: {
@@ -70,11 +72,9 @@ export default function EditProfile({
         body: values,
       });
 
-      console.log("res", res);
-
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
-        window.location.reload();
+        // window.location.reload();
         await revalidate("profile");
       } else {
         toast.error(
@@ -115,7 +115,7 @@ export default function EditProfile({
             {...register("legalForm")}
           />
         </div>
-
+        {/* 
         <div className="space-y-2">
           <Label htmlFor="address">Address</Label>
           <Input
@@ -123,7 +123,9 @@ export default function EditProfile({
             placeholder="Enter address"
             {...register("address")}
           />
-        </div>
+        </div> */}
+
+        <AddressInput setValue={setValue} register={register} />
 
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
