@@ -7,7 +7,6 @@ import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
-import { useRouter } from "next/navigation";
 
 type Inputs = {
   name: string;
@@ -115,6 +114,7 @@ export default function EditProfile({
           className="placeholder:text-gray-400"
           {...register("address")}
         />
+        {/* <AddressInput /> */}
 
         <Input
           placeholder="Phone Number"
