@@ -19,13 +19,13 @@ const buttons = [
     bg: "bg-[#1ba1a3]",
     // hover: "hover:bg-[#169091]",
   },
-  {
-    label: "Cancel Information",
-    path: "Cancel Information",
-    icon: <Ban />,
-    bg: "bg-[#1ba1a3]",
-    // hover: "hover:bg-[#169091]",
-  },
+  // {
+  //   label: "Cancel Information",
+  //   path: "Cancel Information",
+  //   icon: <Ban />,
+  //   bg: "bg-[#1ba1a3]",
+  //   // hover: "hover:bg-[#169091]",
+  // },
   {
     label: "Settings",
     path: "Settings",

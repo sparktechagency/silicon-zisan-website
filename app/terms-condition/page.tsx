@@ -3,6 +3,8 @@ import { myFetch } from "@/utils/myFetch";
 
 export default async function page() {
   const res = await myFetch("/disclaimers/terms-and-conditions");
+  console.log("res", res);
+
   return (
     <>
       <div className="flex items-center justify-center bg-linear-to-br from-[#0f4c5c] to-[#2c7a7b] py-10">
@@ -15,6 +17,10 @@ export default async function page() {
             className="leading-relaxed mb-4"
             dangerouslySetInnerHTML={{ __html: res?.data?.content }}
           />
+
+          <p>
+            Last Updated : {new Date(res?.data?.updatedAt).toLocaleString()}
+          </p>
         </div>
       </Container>
     </>
