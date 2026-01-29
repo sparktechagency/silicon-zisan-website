@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 import CustomTimePicker from "../appointments/CustomTimePicker";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
-import dayjs from "dayjs";
 import { revalidate } from "@/utils/revalidateTag";
 
 type FormValues = {
@@ -46,7 +45,7 @@ type Plan = {
 
 export default function CreateNewPlan2({ employee, editData }: any) {
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
-
+  const router = useRouter();
   const [plans, setPlans] = useState<Plan[]>([]);
 
   const { control, register, watch, handleSubmit, resetField, reset } =
@@ -158,6 +157,10 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         method: "POST",
         body: payload,
       });
+
+      if (res.status === 402) {
+        router.push("/subscriptions");
+      }
 
       if (res.success) {
         toast.success(res.message);
