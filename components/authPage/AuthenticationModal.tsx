@@ -31,6 +31,8 @@ export default function AuthenticationModal({
 
   const email = getCookie("email");
 
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   // const userId = searchParams.get("userId") || "";
   const userId = searchParams.get("userId") || "";
 
@@ -66,7 +68,7 @@ export default function AuthenticationModal({
         toast.success("Authentication Successfully");
         setCookie("accessToken", res?.data?.accessToken);
         onClose();
-        router.push("/");
+        router.push(callbackUrl);
       } else {
         toast.error((res as any)?.error[0].message);
       }

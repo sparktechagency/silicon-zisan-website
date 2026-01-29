@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
+import { Label } from "../ui/label";
 
 type Inputs = {
   name: string;
@@ -97,54 +98,77 @@ export default function EditProfile({
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <Input
-          placeholder="Company Name"
-          className="placeholder:text-gray-400"
-          {...register("name")}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="name">Company Name</Label>
+          <Input
+            id="name"
+            placeholder="Enter company name"
+            {...register("name")}
+          />
+        </div>
 
-        <Input
-          placeholder="Legal Form"
-          className="placeholder:text-gray-400"
-          {...register("legalForm")}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="legalForm">Legal Form</Label>
+          <Input
+            id="legalForm"
+            placeholder="Enter legal form"
+            {...register("legalForm")}
+          />
+        </div>
 
-        <Input
-          placeholder="Address"
-          className="placeholder:text-gray-400"
-          {...register("address")}
-        />
-        {/* <AddressInput /> */}
+        <div className="space-y-2">
+          <Label htmlFor="address">Address</Label>
+          <Input
+            id="address"
+            placeholder="Enter address"
+            {...register("address")}
+          />
+        </div>
 
-        <Input
-          placeholder="Phone Number"
-          className="placeholder:text-gray-400"
-          {...register("phone")}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="phone">Phone Number</Label>
+          <Input
+            id="phone"
+            placeholder="Enter phone number"
+            {...register("phone")}
+          />
+        </div>
 
-        <Input
-          placeholder="Tax Number"
-          className="placeholder:text-gray-400"
-          {...register("taxNo")}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="taxNo">Tax Number</Label>
+          <Input
+            id="taxNo"
+            placeholder="Enter tax number"
+            {...register("taxNo")}
+          />
+        </div>
 
-        <Input
-          placeholder="DE Number"
-          className="placeholder:text-gray-400"
-          {...register("deNo")}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="deNo">DE Number</Label>
+          <Input
+            id="deNo"
+            placeholder="Enter DE number"
+            {...register("deNo")}
+          />
+        </div>
 
-        <Input
-          placeholder="WhatsApp Number"
-          className="placeholder:text-gray-400"
-          {...register("whatsApp")}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="whatsApp">WhatsApp Number</Label>
+          <Input
+            id="whatsApp"
+            placeholder="Enter WhatsApp number"
+            {...register("whatsApp")}
+          />
+        </div>
 
-        <Input
-          placeholder="About Company"
-          className="placeholder:text-gray-400"
-          {...register("about")}
-        />
+        <div className="space-y-2">
+          <Label htmlFor="about">About Company</Label>
+          <Input
+            id="about"
+            placeholder="Short description about company"
+            {...register("about")}
+          />
+        </div>
 
         <Button disabled={loading} type="submit" className="w-full custom-btn">
           Confirm

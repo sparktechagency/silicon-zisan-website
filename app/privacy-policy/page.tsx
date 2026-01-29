@@ -15,6 +15,10 @@ export default async function page() {
             className="leading-relaxed mb-4"
             dangerouslySetInnerHTML={{ __html: res?.data?.content }}
           />
+
+          <p>
+            Last Updated : {new Date(res?.data?.updatedAt).toLocaleString()}
+          </p>
         </div>
       </Container>
     </>
