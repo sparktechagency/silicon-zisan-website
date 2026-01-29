@@ -2,7 +2,7 @@
 "use client";
 
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,6 +34,7 @@ const PostJobForm = () => {
   const searchParams = useSearchParams();
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const {
     register,
@@ -106,7 +107,9 @@ const PostJobForm = () => {
         body: payload,
       });
 
-      console.log("/post-job", res);
+      if (res.status === 402) {
+        router.push("/subscriptions");
+      }
 
       if (res.success) {
         toast.success(res.message);

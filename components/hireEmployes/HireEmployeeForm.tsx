@@ -109,6 +109,10 @@ const HireEmployeeForm = () => {
         body: payload,
       });
 
+      if (res.status === 402) {
+        router.push("/subscriptions");
+      }
+
       if (res.success) {
         toast.success("Application submitted successfully");
         await revalidate("hire-employee");
