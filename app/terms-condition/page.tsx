@@ -3,7 +3,6 @@ import { myFetch } from "@/utils/myFetch";
 
 export default async function page() {
   const res = await myFetch("/disclaimers/terms-and-conditions");
-  console.log("res", res);
 
   return (
     <>

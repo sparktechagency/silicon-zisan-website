@@ -13,7 +13,8 @@ export default async function Alerts() {
         <h1 className="text-2xl font-semibold">All Alerts</h1>
         <Link href={`/alert-setting`} className="">
           <Button className="custom-btn mt-5">
-            Turn on notification on this job
+            {/* Turn on notification on this job */}
+            Settings
           </Button>
         </Link>
         {/* <Link href="/alert-setting">

@@ -39,8 +39,8 @@ export default async function Footer() {
                 {section.title}
               </h3>
               <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.href}>
+                {section.links.map((link, index) => (
+                  <li key={index}>
                     <Link
                       href={link.href}
                       className="text-gray-200 hover:text-white transition-colors duration-200 text-sm"
@@ -59,26 +59,44 @@ export default async function Footer() {
               Contact Info
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-center text-gray-200 text-sm">
-                <PhoneIcon />
-                <span className="ml-2">
-                  {res?.data?.phone || "+1234567890"}
-                </span>
-              </li>
-              <li className="flex items-center text-gray-200 text-sm">
-                <EmailIcon />
-                <span className="ml-2">{"info@jobsinapp.de"}</span>
-              </li>
-              <li className="flex items-center text-gray-200 text-sm">
-                <ContactIcon />
-                <span className="ml-2">Contact Us</span>
-              </li>
-              <li className="flex items-center text-gray-200 text-sm">
+              <Link
+                href="https://wa.me/+88018595439901"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <li className="flex items-center text-gray-200 text-sm">
+                  <WhatsAppIcon />
+                  <span className="ml-2">
+                    {res?.data?.phone || "+1234567890"}
+                  </span>
+                </li>
+              </Link>
+
+              <div className="mt-3">
+                <Link
+                  href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=info@jobsinapp.de"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <li className="flex items-center text-gray-200 text-sm">
+                    <EmailIcon />
+                    <span className="ml-2">{"info@jobsinapp.de"}</span>
+                  </li>
+                </Link>
+              </div>
+              <Link href="/contact-support">
+                <li className="flex items-center text-gray-200 text-sm ">
+                  <ContactIcon />
+                  <span className="ml-2">Contact Us</span>
+                </li>
+              </Link>
+
+              {/* <li className="flex items-center text-gray-200 text-sm">
                 <WhatsAppIcon />
                 <span className="ml-2">
                   {res?.data?.whatsApp || "+8801859543996"}
                 </span>
-              </li>
+              </li> */}
             </ul>
           </div>
 
@@ -148,13 +166,13 @@ export default async function Footer() {
 }
 
 // Icon Components
-function PhoneIcon() {
-  return (
-    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-    </svg>
-  );
-}
+// function PhoneIcon() {
+//   return (
+//     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+//       <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+//     </svg>
+//   );
+// }
 
 function EmailIcon() {
   return (

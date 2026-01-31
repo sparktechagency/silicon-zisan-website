@@ -13,10 +13,10 @@ type CheckedState = boolean | "indeterminate";
 
 export default function AlertsSettingCreate() {
   const [frequency, setFrequency] = useState("");
-  const [pushEnabled, setPushEnabled] = useState(true);
+  const [pushEnabled, setPushEnabled] = useState(false);
   const [accepted, setAccepted] = useState<CheckedState>(false);
   const [email, setEmail] = useState("");
-  const [emailEnabled, setEmailEnabled] = useState(true);
+  const [emailEnabled, setEmailEnabled] = useState(false);
 
   const handlePushNotification = async () => {
     if (!accepted) {

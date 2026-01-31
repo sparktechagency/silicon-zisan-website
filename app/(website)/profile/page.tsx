@@ -1,4 +1,4 @@
-import Profile from "@/components/profile/Profile";
+import PersonalInformation from "@/components/profile/PersonalInformation";
 import { myFetch } from "@/utils/myFetch";
 
 export default async function ProfilePage() {
@@ -8,7 +8,8 @@ export default async function ProfilePage() {
 
   return (
     <>
-      <Profile data={profileData?.data} />
+      {/* <Profile data={profileData?.data} /> */}
+      <PersonalInformation data={profileData?.data} />
     </>
   );
 }

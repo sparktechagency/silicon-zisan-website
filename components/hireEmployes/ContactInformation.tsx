@@ -198,7 +198,10 @@ export default function ContractInformation({ data }: any) {
               ],
               [
                 { text: data?.author?.address || "N/A", style: "normalText" },
-                { text: dayjs().format("YYYY-MM-DD"), style: "normalText" },
+                {
+                  text: dayjs(data?.createdAt).format("YYYY-MM-DD"),
+                  style: "normalText",
+                },
               ],
             ],
           },
@@ -255,8 +258,6 @@ export default function ContractInformation({ data }: any) {
         `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
       );
   };
-
-  console.log("data?.salaryAmount", data);
 
   return (
     <div className="max-w-3xl mx-auto my-7">
@@ -369,7 +370,7 @@ export default function ContractInformation({ data }: any) {
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
                 <p>Place : {data?.author?.address || "No Place"}</p>
-                <p>Date : {dayjs(data?.deadline).format("YYYY-MM-DD")}</p>
+                <p>Date : {dayjs(data?.createdAt).format("YYYY-MM-DD")}</p>
               </div>
               <p className="mt-3">
                 The client confirmed the contract by selecting the checkbox, so

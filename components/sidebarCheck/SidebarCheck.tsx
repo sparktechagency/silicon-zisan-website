@@ -15,6 +15,12 @@ export default function SidebarCheck() {
     "/applied-jobs", // base path for dynamic routes
     "/view-details-person",
     "/view-profile",
+    "/factor-authenticaiton",
+    "/alert-setting",
+    "/authentication-app",
+    "/appointment-create-form",
+    "/view-details-jobs",
+    "/edit-job-post",
   ];
 
   const shouldHideSidebar = hideSidebarRoutes.some((route) =>

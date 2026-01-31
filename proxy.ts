@@ -48,6 +48,7 @@ export async function proxy(request: NextRequest) {
     "/verify-otp",
     "/authentication-verify",
     "/new-password",
+    "/method",
   ].includes(path);
 
   const token = await getToken();

@@ -7,8 +7,8 @@ import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
-import { Label } from "../ui/label";
-import AddressInput from "./AddressSearch";
+import { Label } from "@/components/ui/label";
+import AddressInput from "@/components/profile/AddressSearch";
 
 type Inputs = {
   name: string;
@@ -22,14 +22,35 @@ type Inputs = {
   about: string;
 };
 
-export default function EditProfile({
-  title,
-  initialData,
-}: {
-  title?: string;
-  initialData?: any;
-}) {
+type ProfileData = {
+  user?: {
+    name: string;
+    address: string;
+    phone: string;
+  };
+  legalForm?: string;
+  taxNo?: string;
+  deNo?: string;
+  whatsApp?: string;
+  about?: string;
+};
+
+export default function EditProfile({ title }: { title?: string }) {
   const [loading, setLoading] = useState(false);
+  const [initialData, setInitialData] = useState<ProfileData | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const profileData = await myFetch("/employers/me", {
+        tags: ["profile"],
+      });
+
+      setInitialData(profileData?.data);
+    };
+
+    fetchData();
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -74,7 +95,7 @@ export default function EditProfile({
 
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
-        window.location.reload();
+
         await revalidate("profile");
       } else {
         toast.error(
@@ -89,7 +110,7 @@ export default function EditProfile({
   };
 
   return (
-    <div className="bg-[#2f4054] p-6 rounded-lg border border-gray-400/30 w-full">
+    <div className="bg-[#2f4054] p-6 rounded-lg border border-gray-400/30 w-full max-h-[63vh] overflow-y-scroll ">
       {/* Header with Back Arrow */}
       <div className="flex items-center mb-6 space-x-3">
         <h2 className="text-lg font-semibold">

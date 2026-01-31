@@ -64,9 +64,7 @@ export default function SalaryCalculator() {
 
   const taxClass = watch("taxClass");
 
-  const onSubmit = (data: FormValues) => {
-    console.log("FORM DATA:", data);
-  };
+  const onSubmit = (data: FormValues) => {};
 
   return (
     <form

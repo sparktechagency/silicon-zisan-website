@@ -18,7 +18,7 @@ export default function SalaryDetailsFormValues({
           <Controller
             name="salaryType"
             control={control}
-            defaultValue="day"
+            defaultValue="Hour"
             rules={{ required: "Salary type is required" }}
             render={({ field }) => (
               <PackeageType value={field.value} onChange={field.onChange} />
@@ -30,12 +30,14 @@ export default function SalaryDetailsFormValues({
         </div>
 
         {/* Salary Amount */}
+        <Label className="block text-sm mb-1">Salary Amount</Label>
         <Input
           {...register("salaryAmount", {
             required: "Salary amount is required",
           })}
-          type="number  "
-          placeholder="Salary amount type here"
+          type="number"
+          placeholder="Salary amount €
+"
           className="px-3 py-2 text-gray-200 placeholder:text-white"
         />
         {errors?.salaryAmount && (

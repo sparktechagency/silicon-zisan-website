@@ -25,7 +25,8 @@ export default function Sidebar2() {
   return (
     <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">
       {data?.map((item: any, index: number) => {
-        const active = pathname === item.path;
+        // const active =
+        const active = pathname.startsWith(item.path);
 
         const icon = item.icon;
         const isFunctionIcon = typeof icon === "function";

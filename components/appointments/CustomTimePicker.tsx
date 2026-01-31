@@ -194,6 +194,9 @@ function TimePicker({ field, fieldState }: any) {
         hour: String(field.value.hour()).padStart(2, "0"),
         minute: String(field.value.minute()).padStart(2, "0"),
       });
+    } else {
+      // 🔑 RESET LOCAL STATE WHEN FORM RESETS
+      setTime({ hour: "", minute: "" });
     }
   }, [field.value]);
 

@@ -3,21 +3,36 @@ type Props = {
   onChange: (value: string) => void;
 };
 
+const type = [
+  {
+    label: "Hourly",
+    value: "Hour",
+  },
+  {
+    label: "Monthly",
+    value: "Month",
+  },
+  {
+    label: "Yearly",
+    value: "Year",
+  },
+];
+
 export default function PackeageType({ value, onChange }: Props) {
   return (
     <div className="flex gap-4">
-      {["Hour", "Month", "Year"].map((item) => (
+      {type?.map((item: any, index: number) => (
         <button
-          key={item}
+          key={index}
           type="button"
           className={`${
-            value === item
+            value === item.value
               ? "custom-btn rounded px-3 py-1"
               : "border rounded py-1 px-3"
           }`}
-          onClick={() => onChange(item)}
+          onClick={() => onChange(item.value)}
         >
-          {item.charAt(0).toUpperCase() + item.slice(1)}
+          {item.label}
         </button>
       ))}
     </div>

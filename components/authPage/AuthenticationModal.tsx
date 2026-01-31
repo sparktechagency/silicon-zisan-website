@@ -49,8 +49,6 @@ export default function AuthenticationModal({
       otp: data.otp,
     };
 
-    console.log("payload", payload);
-
     const payload2 = {
       email: email,
       oneTimeCode: Number(data.otp),
@@ -61,8 +59,6 @@ export default function AuthenticationModal({
         method: "POST",
         body: isActive === "email" ? payload2 : payload,
       });
-
-      console.log("res", res);
 
       if (res.success) {
         toast.success("Authentication Successfully");
@@ -79,7 +75,7 @@ export default function AuthenticationModal({
 
   return (
     <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-      <DialogContent className="border-none">
+      <DialogContent className="border-none w-[28vw]">
         <div className="grid grid-cols-2 gap-9 mt-7">
           <Button
             disabled={!data?.is2FAEmail}
