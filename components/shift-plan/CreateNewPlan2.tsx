@@ -114,6 +114,12 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       toast.error("Please select time");
       return;
     }
+
+    if (selectedDates.length === 0) {
+      toast.error("Please select date");
+      return;
+    }
+
     const payload = {
       startTime: data.startTime,
       endTime: data.endTime,
@@ -126,9 +132,12 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     setPlans((prev) => [...prev, payload]);
     setSelectedDates([]);
     reset({
+      worker: data.worker,
       shift: "",
       tasks: [],
+      taskInput: "",
     });
+
     toast.success("Shift added");
   };
 
@@ -245,7 +254,12 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                     </SelectTrigger>
                     <SelectContent>
                       {employee?.map((item: any) => (
-                        <SelectItem key={item?._id} value={item?._id}>
+                        <SelectItem
+                          className={`${field.value === "cursor-not-allowed"}`}
+                          key={item?._id}
+                          value={item?._id}
+                          disabled={!!field.value}
+                        >
                           {item?.name}
                         </SelectItem>
                       ))}
@@ -331,7 +345,11 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               />
             </div>
 
-            <Button type="submit" className="custom-btn w-full text-lg">
+            <Button
+              disabled={plans.length === 0}
+              type="submit"
+              className="custom-btn w-full text-lg"
+            >
               Create Now
             </Button>
           </form>

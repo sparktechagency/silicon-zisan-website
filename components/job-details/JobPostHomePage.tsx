@@ -71,6 +71,12 @@ export default async function JobPostHomePage() {
                 <p className="mt-3 line-clamp-3">
                   Company Details : {item.description}
                 </p>
+                <div className="flex mt-13">
+                  <p>
+                    <UserSearch />
+                  </p>
+                  <p>{getAppliedJob(item?._id)} Applied</p>
+                </div>
               </div>
             </div>
 
@@ -81,12 +87,6 @@ export default async function JobPostHomePage() {
               </p>
 
               <div>
-                <div className="flex gap-1">
-                  <p>
-                    <UserSearch />
-                  </p>
-                  <p>{getAppliedJob(item?._id)} Applied</p>
-                </div>
                 <div className="mt-1">
                   <Link
                     href={`/view-details-jobs/${item._id}`}

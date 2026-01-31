@@ -1,16 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import logo from "../../public/dashboard/hotel.png";
 import { ArrowLeft, Clock3 } from "lucide-react";
 import Link from "next/link";
 import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
+import CustomImage from "@/utils/CustomImage";
 
 export default function ViewDetailsCompany({ data, length }: any) {
+  console.log("data", data);
+
   const handleWithdraw = async (id: string) => {
     try {
       const res = await myFetch(`/jobs/update/${id}`, {
@@ -46,9 +47,9 @@ export default function ViewDetailsCompany({ data, length }: any) {
 
       {/* Image */}
       <div className="sm:flex gap-4">
-        <Image
-          src={logo}
-          alt="Office"
+        <CustomImage
+          src={data?.author?.image}
+          title={data?.author?.name}
           width={400}
           height={400}
           className="rounded-md object-cover w-80 h-48"

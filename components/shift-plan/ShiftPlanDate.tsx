@@ -18,6 +18,12 @@ export default function ShiftPlanDate({
 }: any) {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
+  const disabledDate = (date: Date) => {
+    return plans.some((plan: any) =>
+      plan.days.some((d: string) => isSameDay(new Date(d), date)),
+    );
+  };
+
   return (
     <Container className="max-w-2xl mx-auto">
       <div className="flex flex-col items-center md:items-stretch">
@@ -25,6 +31,7 @@ export default function ShiftPlanDate({
           {/* Calendar */}
           <div className="">
             <Calendar
+              disabled={disabledDate}
               mode="multiple"
               selected={selectedDates}
               onSelect={setSelectedDates}

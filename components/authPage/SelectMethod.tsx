@@ -1,55 +1,75 @@
 "use client";
 
+import Container from "@/share/Container";
 import Image from "next/image";
 import React from "react";
+import logo from "../../public/auth/logo.png";
 import sekker from "../../public/auth/sekker.png";
 import employer from "../../public/auth/employer.png";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function SelectMethod() {
   const [selected, setSelected] = React.useState("");
   const router = useRouter();
 
-  React.useEffect(() => {
-    if (selected) {
-      router.push(`/signup?method=${selected}`);
-    }
-  }, [selected, router]);
-
   return (
-    <div className="w-[90%] sm:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
-      <div
-        className={`${
-          selected === "Job Seeker"
-            ? "custom-btn"
-            : "bg-[#425363] py-2 rounded-md text-white"
-        } `}
-        onClick={() => setSelected("Job Seeker")}
-      >
-        <div className="flex items-center justify-center mt-5">
-          <Image src={sekker} alt="Logo" width={100} height={20} className="" />
+    <Container className="flex flex-col md:flex-col lg:flex-row items-center justify-center h-auto lg:h-screen gap-10 py-10">
+      <div className="bg-[#374859] w-[200px] h-[200px] md:w-[300px] md:h-[300px] xl:w-[400px] xl:h-[400px] flex flex-col items-center justify-center rounded-full border border-[#FFFFFF0D]/50 p-5 relative">
+        <div
+          className="absolute -top-9  lg:-top-20 xl:-top-10 left-0 bg-[#374859] text-white border border-[#FFFFFF0D] rounded-full p-2 cursor-pointer"
+          onClick={() => history.back()}
+        >
+          <ArrowLeft />
         </div>
-        <p className="my-4 text-center"> A Job Seeker</p>
+        <Image
+          src={logo}
+          alt="Logo"
+          width={150}
+          height={24}
+          className="w-24 md:w-40"
+        />
+        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[17px] capitalize">
+          where dream job meets top talent
+        </h1>
       </div>
-      <div
-        className={`mt-5 ${
-          selected === "Employer"
-            ? "custom-btn"
-            : "bg-[#425363] py-2 rounded-md text-white cursor-pointer"
-        } `}
-        onClick={() => setSelected("Employer")}
-      >
-        <div className="flex items-center justify-center mt-5 cursor-pointer">
-          <Image
-            src={employer}
-            alt="Logo"
-            width={100}
-            height={20}
-            className=""
-          />
+
+      <div className="w-[70%] sm:w-[50%] border border-[#FFFFFF0D] p-2 rounded-md bg-[#374859]">
+        <p className="text-center text-2xl my-3">Are You</p>
+        <div
+          className={`${
+            selected === "sekker"
+              ? "custom-btn p-2"
+              : "bg-[#425363] py-2 rounded-md text-white"
+          } `}
+          onClick={() => {
+            setSelected("sekker"); // optional, if you want to highlight
+            window.open("https://play.google.com/store/apps", "_blank"); // open in new tab
+          }}
+        >
+          <div className="flex items-center justify-center mt-5">
+            <Image src={sekker} alt="Logo" width={100} height={20} />
+          </div>
+          <p className="my-4 text-center">A Job Seeker</p>
         </div>
-        <p className="my-4 text-center">An Employer</p>
+
+        <div
+          className={`mt-5 ${
+            selected === "employer"
+              ? "custom-btn"
+              : "bg-[#425363] py-2 rounded-md text-white cursor-pointer"
+          } `}
+          onClick={() => {
+            setSelected("employer"); // optional
+            router.push("/signup"); // internal navigation
+          }}
+        >
+          <div className="flex items-center justify-center mt-5 cursor-pointer">
+            <Image src={employer} alt="Logo" width={100} height={20} />
+          </div>
+          <p className="my-4 text-center">An Employer</p>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 }

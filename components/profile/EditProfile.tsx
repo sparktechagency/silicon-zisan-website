@@ -74,7 +74,7 @@ export default function EditProfile({
 
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
-        // window.location.reload();
+        window.location.reload();
         await revalidate("profile");
       } else {
         toast.error(

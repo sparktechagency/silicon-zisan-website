@@ -89,6 +89,7 @@ const agreementSections = [
 
 export default function ContractInformation({ data }: any) {
   const [loading, setLoading] = useState(false);
+  console.log("data", data);
 
   const handleHiring = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -369,7 +370,7 @@ export default function ContractInformation({ data }: any) {
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
                 <p>Place : {data?.author?.address || "No Place"}</p>
-                <p>Date : {dayjs(data?.deadline).format("YYYY-MM-DD")}</p>
+                <p>Date : {dayjs(data?.createdAt).format("YYYY-MM-DD")}</p>
               </div>
               <p className="mt-3">
                 The client confirmed the contract by selecting the checkbox, so

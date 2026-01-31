@@ -52,8 +52,8 @@ const HireEmployeeForm = () => {
       salaryType: "",
       salaryAmount: "",
       description: "",
-      responsibilities: [],
-      qualifications: [],
+      responsibilities: [{ value: "" }],
+      qualifications: [{ value: "" }],
       aboutCompany: "",
     },
   });
@@ -109,9 +109,9 @@ const HireEmployeeForm = () => {
         body: payload,
       });
 
-      if (res.status === 402) {
-        router.push("/subscriptions");
-      }
+      // if (res.status === 402) {
+      //   router.push("/subscriptions");
+      // }
 
       if (res.success) {
         toast.success("Application submitted successfully");

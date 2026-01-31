@@ -1,155 +1,148 @@
 "use client";
 
-import { useState } from "react";
-import { Ban, Settings, Trash, User } from "lucide-react";
+import { useState, JSX } from "react";
+import { Trash, User, UserCheck, Settings } from "lucide-react";
 import { IoIosLogOut } from "react-icons/io";
 import PersonalInformation from "./PersonalInformation";
 import EditProfile from "./EditProfile";
 import Setting from "./Settings";
+
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { deleteCookie } from "cookies-next/client";
-import CancelInformation from "./CancelInformation";
+import MySubscription from "./MySubscription";
 
 const buttons = [
   {
     label: "Personal Information",
-    path: "Personal Information",
     icon: <User />,
     bg: "bg-[#1ba1a3]",
-    // hover: "hover:bg-[#169091]",
   },
-  // {
-  //   label: "Cancel Information",
-  //   path: "Cancel Information",
-  //   icon: <Ban />,
-  //   bg: "bg-[#1ba1a3]",
-  //   // hover: "hover:bg-[#169091]",
-  // },
+  {
+    label: "My Subscription",
+    icon: <UserCheck />,
+    bg: "bg-[#1ba1a3]",
+  },
   {
     label: "Settings",
-    path: "Settings",
     icon: <Settings />,
     bg: "bg-[#3a4a5a]",
     hover: "hover:bg-[#324250]",
   },
 ];
+
 export default function Profile({ data }: { data: any }) {
   const router = useRouter();
   const [status, setStatus] = useState("Personal Information");
 
+  // Logout handler
   const handleLogOut = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You want to Log Out",
+      text: "You want to log out",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes ",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteCookie("accessToken");
         deleteCookie("role");
         deleteCookie("email");
         deleteCookie("qrcode");
-        router.push("/login");
+
         Swal.fire({
           title: "Logged Out",
-          text: "Your have been Log Out.",
+          text: "You have been logged out.",
           icon: "success",
+        }).then(() => {
+          router.push("/login");
         });
       }
     });
   };
 
-  // handle delete
+  // Delete account placeholder
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You want to Delete Your Account",
+      text: "You want to delete your account",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes ",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
-        // router.push("/login");
+        // TODO: call API to delete account
         Swal.fire({
-          // title: "Deleted!",
-          text: "Your has been Deleted.",
+          text: "Your account has been deleted.",
           icon: "success",
+        }).then(() => {
+          router.push("/login");
         });
       }
     });
   };
+
+  // Map status to component
+  const componentMap: { [key: string]: JSX.Element } = {
+    "Personal Information": (
+      <PersonalInformation setStatus={setStatus} data={data} />
+    ),
+    "Edit Profile": <EditProfile initialData={data} />,
+    Settings: <Setting />,
+    "My Subscription": <MySubscription />,
+  };
+
   return (
     <div className="flex flex-col md:flex-row my-16 gap-10 w-full max-w-[1000px] mx-auto px-4 md:px-0">
-      <div className="sm:w-88 text-white ">
-        {/* Profile Image */}
-        {/* <div className="flex justify-center mb-6">
-          <Image
-            src={profileMan}
-            alt="Profile"
-            className="w-52 sm:w-auto object-cover"
-          />
-        </div> */}
-
-        {/* Buttons */}
-        <div className="grid grid-cols-1 space-y-4">
+      {/* Sidebar */}
+      <div className="sm:w-88 text-white">
+        <div className="grid grid-cols-1 gap-4">
           {buttons.map((btn, i) => {
-            const active = status === btn.path;
+            const active = status === btn.label;
             return (
               <button
                 key={i}
                 onClick={() => setStatus(btn.label)}
-                className={`flex items-center pl-7 cursor-pointer  ${
+                className={`flex items-center pl-7 cursor-pointer font-semibold py-3 rounded-lg transition-all text-white ${
                   active ? "custom-btn" : "bg-card border border-gray-400/50"
-                } ${
-                  btn.hover
-                } text-white font-semibold py-3 rounded-lg transition-all`}
+                } ${btn.hover || ""}`}
               >
-                <span className="mr-2 text-nowrap">{btn.icon}</span>
+                <span className="mr-2">{btn.icon}</span>
                 {btn.label}
               </button>
             );
           })}
 
-          {/* delete account */}
+          {/* Delete Account */}
           <button
             onClick={handleDelete}
-            className={`flex items-center pl-7 cursor-pointer bg-card border border-gray-400/50 text-white font-semibold py-3 rounded-lg transition-all`}
+            className="flex items-center pl-7 cursor-pointer bg-card border border-gray-400/50 text-white font-semibold py-3 rounded-lg transition-all"
           >
-            <span className="mr-2 text-nowrap">
+            <span className="mr-2">
               <Trash />
             </span>
             Delete Account
           </button>
 
-          {/* log out */}
+          {/* Log Out */}
           <button
             onClick={handleLogOut}
-            className={`flex items-center pl-7 cursor-pointer bg-card border border-gray-400/50 text-white font-semibold py-3 rounded-lg transition-all`}
+            className="flex items-center pl-7 cursor-pointer bg-card border border-gray-400/50 text-white font-semibold py-3 rounded-lg transition-all"
           >
-            <span className="mr-2 text-nowrap">
-              <IoIosLogOut size={27} />
+            <span className="mr-2">
+              <IoIosLogOut size={24} />
             </span>
             Log Out
           </button>
         </div>
       </div>
 
-      {/* conditional components */}
-      <div className="w-full">
-        {status === "Personal Information" && (
-          <PersonalInformation setStatus={setStatus} data={data} />
-        )}
-        {status === "Edit Profile" && <EditProfile initialData={data} />}
-
-        {status === "Settings" && <Setting />}
-        {status === "Cancel Information" && <CancelInformation />}
-      </div>
+      {/* Main Content */}
+      <div className="w-full">{componentMap[status]}</div>
     </div>
   );
 }

@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 type FormValues = {
   category: string;
@@ -51,8 +52,8 @@ const PostJobForm = () => {
       salaryType: "",
       salaryAmount: "",
       description: "",
-      responsibilities: [],
-      qualifications: [],
+      responsibilities: [{ value: "" }],
+      qualifications: [{ value: "" }],
       aboutCompany: "",
     },
   });
@@ -93,6 +94,7 @@ const PostJobForm = () => {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    setLoading(true);
     const payload = {
       ...data,
       responsibilities: data.responsibilities.map((item) => item.value),
@@ -113,17 +115,17 @@ const PostJobForm = () => {
 
       if (res.success) {
         toast.success(res.message);
+        router.push("/my-jobs");
         reset();
       } else {
         toast.error((res as any)?.error[0]?.message);
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
-
-  const nameParam = searchParams.get("name") || "";
-  console.log("nameParam", nameParam);
 
   return (
     <Container
@@ -185,12 +187,13 @@ const PostJobForm = () => {
 
           {/* Confirm Button */}
           <div className="flex justify-end mt-6">
-            <button
+            <Button
+              disabled={loading}
               type="submit"
               className="custom-btn text-white font-medium sm:px-6 py-2 rounded-md hover:opacity-90 transition px-2"
             >
               Confirm
-            </button>
+            </Button>
           </div>
         </div>
       </form>

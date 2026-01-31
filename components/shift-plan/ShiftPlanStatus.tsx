@@ -53,7 +53,7 @@ export default function ShiftPlanStatus() {
             <SelectContent>
               <SelectGroup>
                 <SelectItem value="2026-01-01">January</SelectItem>
-                <SelectItem value="2026-04-01">February</SelectItem>
+                <SelectItem value="2027-04-01">February</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -65,7 +65,7 @@ export default function ShiftPlanStatus() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup className="my-2">
-                <SelectItem value="2026-01-01">2025</SelectItem>
+                <SelectItem value="2026-01-01">2026</SelectItem>
                 <SelectItem value="2026-04-01">2026</SelectItem>
               </SelectGroup>
             </SelectContent>
