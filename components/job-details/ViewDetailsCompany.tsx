@@ -10,8 +10,6 @@ import { revalidate } from "@/utils/revalidateTag";
 import CustomImage from "@/utils/CustomImage";
 
 export default function ViewDetailsCompany({ data, length }: any) {
-  console.log("data", data);
-
   const handleWithdraw = async (id: string) => {
     try {
       const res = await myFetch(`/jobs/update/${id}`, {

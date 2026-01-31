@@ -18,6 +18,9 @@ export default function SidebarCheck() {
     "/factor-authenticaiton",
     "/alert-setting",
     "/authentication-app",
+    "/appointment-create-form",
+    "/view-details-jobs",
+    "/edit-job-post",
   ];
 
   const shouldHideSidebar = hideSidebarRoutes.some((route) =>

@@ -23,18 +23,12 @@ export default async function ShiftPlanPage({
   if (startDate) params.append("startDate", startDate);
   if (endDate) params.append("endDate", endDate);
 
-  console.log("startDate", startDate);
-  console.log("params", params.toString());
-
   const url = params.toString()
     ? `/shift-plans/me?${params.toString()}`
     : `/shift-plans/me`;
 
-  console.log("url", url);
-
   // ✅ Fetch data on the server
   const data = await myFetch(url);
-  console.log("data", data);
 
   return (
     <div className="relative">

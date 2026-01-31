@@ -49,8 +49,6 @@ export default function AuthenticationModal({
       otp: data.otp,
     };
 
-    console.log("payload", payload);
-
     const payload2 = {
       email: email,
       oneTimeCode: Number(data.otp),
@@ -61,8 +59,6 @@ export default function AuthenticationModal({
         method: "POST",
         body: isActive === "email" ? payload2 : payload,
       });
-
-      console.log("res", res);
 
       if (res.success) {
         toast.success("Authentication Successfully");

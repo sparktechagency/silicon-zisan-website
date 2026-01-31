@@ -17,8 +17,6 @@ import { toast } from "sonner";
 
 export function SubscriptionCancelModal({ subscriptionId }: any) {
   const handleSubscription = async (id: string) => {
-    console.log("id", id);
-
     try {
       const res = await myFetch(`/subscriptions/cancel/${id}`, {
         method: "PATCH",

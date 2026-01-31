@@ -40,7 +40,6 @@ export default function AddressInput({ setValue, register }: any) {
           `https://photon.komoot.io/api/?lang=en&q=${input}&limit=5`,
         );
         const data = await res.json();
-        // console.log("data", data.features[0]?.geometry.coordinates);
 
         setSuggestions(data.features || []);
         setOpen(true);
@@ -84,8 +83,6 @@ export default function AddressInput({ setValue, register }: any) {
       {open && suggestions.length > 0 && (
         <ul className="absolute z-50 mt-1 w-full rounded-md border bg-white text-black shadow">
           {suggestions.map((item, index) => {
-            console.log("item", item);
-
             const label = [
               item.properties.name,
               item.properties.city,

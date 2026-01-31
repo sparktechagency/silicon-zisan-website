@@ -89,7 +89,6 @@ const agreementSections = [
 
 export default function ContractInformation({ data }: any) {
   const [loading, setLoading] = useState(false);
-  console.log("data", data);
 
   const handleHiring = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -259,8 +258,6 @@ export default function ContractInformation({ data }: any) {
         `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
       );
   };
-
-  console.log("data?.salaryAmount", data);
 
   return (
     <div className="max-w-3xl mx-auto my-7">

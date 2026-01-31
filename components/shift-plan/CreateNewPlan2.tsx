@@ -174,7 +174,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       if (res.success) {
         toast.success(res.message);
         await revalidate("shift-plan");
-        // router.back();
+
+        router.push("/shift-plan");
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -194,36 +195,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6 px-4 mb-12">
-        {/* Date */}
-        <div>
-          <ShiftPlanDate
-            selectedDates={selectedDates}
-            setSelectedDates={setSelectedDates}
-            onHanldeShift={handleSubmit(handleAddShiftPlan)}
-            plans={plans}
-            onHandleRemove={handleRemovePlan}
-          />
-
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <div>
-              <Label className="block mb-2">From</Label>
-              <CustomTimePicker
-                name="startTime"
-                control={control}
-                // rules={{ required: "Start time is required" }}
-              />
-            </div>
-            <div>
-              <Label className="block mb-2">To</Label>
-              <CustomTimePicker
-                name="endTime"
-                control={control}
-                // rules={{ required: "End time is required" }}
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Form */}
         <div className="">
           <div className="flex justify-end">
@@ -353,6 +324,36 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               Create Now
             </Button>
           </form>
+        </div>
+
+        {/* Date */}
+        <div>
+          <ShiftPlanDate
+            selectedDates={selectedDates}
+            setSelectedDates={setSelectedDates}
+            onHanldeShift={handleSubmit(handleAddShiftPlan)}
+            plans={plans}
+            onHandleRemove={handleRemovePlan}
+          />
+
+          <div className="grid grid-cols-2 gap-4 mt-6">
+            <div>
+              <Label className="block mb-2">From</Label>
+              <CustomTimePicker
+                name="startTime"
+                control={control}
+                // rules={{ required: "Start time is required" }}
+              />
+            </div>
+            <div>
+              <Label className="block mb-2">To</Label>
+              <CustomTimePicker
+                name="endTime"
+                control={control}
+                // rules={{ required: "End time is required" }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </Container>

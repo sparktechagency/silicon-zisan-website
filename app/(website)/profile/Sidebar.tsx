@@ -97,7 +97,6 @@ export default function Sidebar() {
       <div className="grid grid-cols-1 gap-4">
         {buttons.map((btn, i) => {
           const active = isActive(btn.path);
-          console.log("path---", pathname);
 
           return (
             <Link

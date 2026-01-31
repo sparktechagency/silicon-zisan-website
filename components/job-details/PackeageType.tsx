@@ -19,8 +19,6 @@ const type = [
 ];
 
 export default function PackeageType({ value, onChange }: Props) {
-  console.log("value", value);
-
   return (
     <div className="flex gap-4">
       {type?.map((item: any, index: number) => (
