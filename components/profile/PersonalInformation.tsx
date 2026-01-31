@@ -9,14 +9,9 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import getProfile from "@/utils/getProfile";
 import { revalidate } from "@/utils/revalidateTag";
+import Link from "next/link";
 
-export default function PersonalInformation({
-  setStatus,
-  data,
-}: {
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
-  data: any;
-}) {
+export default function PersonalInformation({ data }: { data: any }) {
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
   const [fileImage, setFileImage] = React.useState<string | null>(null);
 
@@ -128,12 +123,12 @@ export default function PersonalInformation({
 
       {/* Buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <button
+        <Link
+          href={`/profile/edit-profile`}
           className="custom-btn text-white px-4 py-2 rounded-md"
-          onClick={() => setStatus("Edit Profile")}
         >
           Edit Information
-        </button>
+        </Link>
         {/* <button
           className="flex-1 custom-btn text-white py-2 px-4 rounded-md "
           onClick={() => setStatus("Complete Profile")}

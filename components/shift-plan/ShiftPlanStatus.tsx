@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { StartDateModal } from "./StartDateModal";
+import { EndDateModal } from "./EndDateModal";
 
 export default function ShiftPlanStatus() {
   const router = useRouter();
@@ -46,7 +48,7 @@ export default function ShiftPlanStatus() {
           </Select>
         </div>
         <div>
-          <Select onValueChange={(value) => handleParams("endDate", value)}>
+          {/* <Select onValueChange={(value) => handleParams("endDate", value)}>
             <SelectTrigger className="w-[180px] button-unactive rounded-3xl px-7">
               <SelectValue placeholder="Select Month" />
             </SelectTrigger>
@@ -56,10 +58,11 @@ export default function ShiftPlanStatus() {
                 <SelectItem value="2027-04-01">February</SelectItem>
               </SelectGroup>
             </SelectContent>
-          </Select>
+          </Select> */}
+          <StartDateModal />
         </div>
         <div>
-          <Select onValueChange={(value) => handleParams("startDate", value)}>
+          {/* <Select onValueChange={(value) => handleParams("startDate", value)}>
             <SelectTrigger className="w-[180px] button-unactive rounded-3xl px-7">
               <SelectValue placeholder="Select Year" />
             </SelectTrigger>
@@ -69,7 +72,8 @@ export default function ShiftPlanStatus() {
                 <SelectItem value="2026-04-01">2026</SelectItem>
               </SelectGroup>
             </SelectContent>
-          </Select>
+          </Select> */}
+          <EndDateModal />
         </div>
         <div>
           <Link href="/create-new-plan">

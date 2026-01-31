@@ -36,7 +36,7 @@ export default function SalaryDetailsFormValues({
             required: "Salary amount is required",
           })}
           type="number"
-          placeholder="Salary amount type here €
+          placeholder="Salary amount €
 "
           className="px-3 py-2 text-gray-200 placeholder:text-white"
         />

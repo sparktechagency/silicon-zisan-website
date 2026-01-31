@@ -17,6 +17,7 @@ export default function SidebarCheck() {
     "/view-profile",
     "/factor-authenticaiton",
     "/alert-setting",
+    "/authentication-app",
   ];
 
   const shouldHideSidebar = hideSidebarRoutes.some((route) =>

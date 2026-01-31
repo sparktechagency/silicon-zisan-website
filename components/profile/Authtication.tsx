@@ -93,7 +93,7 @@ export default function TwoFactorAuth() {
         <div>
           <button
             className="bg-card rounded-full button-unactive w-8 h-8 flex items-center justify-center cursor-pointer"
-            onClick={() => router.push("/profile")}
+            onClick={() => router.back()}
           >
             <ArrowLeft />
           </button>

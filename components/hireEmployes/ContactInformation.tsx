@@ -199,7 +199,10 @@ export default function ContractInformation({ data }: any) {
               ],
               [
                 { text: data?.author?.address || "N/A", style: "normalText" },
-                { text: dayjs().format("YYYY-MM-DD"), style: "normalText" },
+                {
+                  text: dayjs(data?.createdAt).format("YYYY-MM-DD"),
+                  style: "normalText",
+                },
               ],
             ],
           },

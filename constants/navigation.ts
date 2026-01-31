@@ -22,17 +22,17 @@ export const footerSections: FooterSection[] = [
     links: [
       { label: "Profile", href: "/profile" },
       { label: "Homepage", href: "/" },
-      { label: "Jobs", href: "/?name=My+Posted+Jobs" },
-      { label: "For Employer", href: "/?name=Hire+Employees" },
+      { label: "Jobs", href: "/my-jobs" },
+      { label: "For Employer", href: "/" },
     ],
   },
   {
     title: "Quick Links",
     links: [
-      { label: "Job Posting", href: "/?name=Post+Job" },
+      { label: "Job Posting", href: "/post-job" },
       { label: "Subscriptions", href: "/subscriptions" },
-      { label: "Salary Calculator", href: "/?name=Salary+Calculator" },
-      { label: "Download Center", href: "/?name=Download+Center" },
+      // { label: "Salary Calculator", href: "/?name=Salary+Calculator" },
+      { label: "Download Center", href: "/download-center" },
     ],
   },
   {
