@@ -85,11 +85,20 @@ export default function Sidebar() {
     });
   };
 
+  const isActive = (label: string) => {
+    if (pathname === "/profile/edit-profile") {
+      return label === "/profile";
+    }
+    return pathname === label;
+  };
+
   return (
     <div className="sm:w-88 text-white">
       <div className="grid grid-cols-1 gap-4">
         {buttons.map((btn, i) => {
-          const active = pathname.startsWith(btn.path);
+          const active = isActive(btn.path);
+          console.log("path---", pathname);
+
           return (
             <Link
               href={btn.path}
