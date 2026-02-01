@@ -7,6 +7,8 @@ export default async function Personal() {
     tags: ["subscription"],
   });
 
+  // const basic = await myFetch("/packages");
+
   return (
     <>
       <MySubscription subscriptions={res?.data} />

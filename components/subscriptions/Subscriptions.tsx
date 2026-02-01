@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import SubscriptionDetails from "../dashboard/dashboardSubscription/SubscriptionDetails";
 import { Info } from "lucide-react";
 
-export default function Subscriptions({ res }: any) {
+export default function Subscriptions({ res, giftSubscription }: any) {
   const swiperRef = useRef<null | any>(null);
   const [loadingId, setLoadingId] = useState<string | null>(null);
 
@@ -45,6 +45,12 @@ export default function Subscriptions({ res }: any) {
       setLoadingId(null);
     }
   };
+
+  const activeSubscription = res?.find(
+    (item: any) => item?.name === giftSubscription?.package?.name,
+  );
+
+  const activePlan = activeSubscription?.name || "Basic";
 
   return (
     <Container className="px-5">
@@ -133,13 +139,17 @@ export default function Subscriptions({ res }: any) {
 
               <div className="mt-auto">
                 <Button
-                  disabled={res[0]?.price === 0 || loadingId === res[0]?._id}
+                  disabled={
+                    activePlan === "Basic"
+                    // res[0]?.price === 0 ||
+                    // loadingId === res[0]?._id
+                  }
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                     loadingId === res[0]?._id && "cursor-not-allowed"
                   }`}
                   onClick={() => handleSubscribe(res[0]?._id)}
                 >
-                  {res[0]?.price === 0
+                  {activePlan === "Basic"
                     ? "Already Actived"
                     : loadingId === res[0]?._id
                       ? "Processing..."
@@ -189,14 +199,6 @@ export default function Subscriptions({ res }: any) {
                     <div className="flex justify-end mb-2">
                       <Image src={logo} className="h-10 w-10" alt="logo" />
                     </div>
-                    {/* <div className="flex flex-col sm:flex-row">
-                      <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
-                        Activated
-                      </button>
-                      <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
-                        Inactive
-                      </button>
-                    </div> */}
                   </div>
                 </div>
 
@@ -209,15 +211,15 @@ export default function Subscriptions({ res }: any) {
 
               <div className="mt-auto">
                 <Button
-                  disabled={loadingId === res[1]?._id}
-                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                    loadingId === res[1]?._id && "cursor-not-allowed"
-                  }`}
+                  disabled={activePlan === "Standard"}
+                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 `}
                   onClick={() => handleSubscribe(res[1]?._id)}
                 >
                   {loadingId === res[1]?._id
                     ? "Processing..."
-                    : "Subscribe Now"}
+                    : activePlan === "Standard"
+                      ? "Actived"
+                      : "Subscribe Now"}
                 </Button>
               </div>
             </div>
@@ -284,7 +286,9 @@ export default function Subscriptions({ res }: any) {
 
                 <div className="mt-auto">
                   <Button
-                    disabled={loadingId === res[2]?._id}
+                    disabled={
+                      activePlan === "Booster" || loadingId === res[2]?._id
+                    }
                     className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                       loadingId === res[2]?._id && "cursor-not-allowed"
                     }`}
@@ -292,7 +296,9 @@ export default function Subscriptions({ res }: any) {
                   >
                     {loadingId === res[2]?._id
                       ? "Processing..."
-                      : "Subscribe Now"}
+                      : activePlan === "Booster"
+                        ? "Actived"
+                        : "Subscribe Now"}
                   </Button>
                 </div>
               </div>
