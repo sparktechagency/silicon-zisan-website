@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { ChatCard } from "./ChartCard";
@@ -17,8 +15,6 @@ const AllUserChart = ({
   selectedChatId,
   onChatSelect,
 }: AllUserChartProps) => {
-  console.log("chats", chats);
-
   return (
     <div
       className=" pr-2 flex flex-col"

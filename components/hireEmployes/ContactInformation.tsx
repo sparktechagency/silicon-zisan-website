@@ -90,8 +90,6 @@ const agreementSections = [
 export default function ContractInformation({ data }: any) {
   const [loading, setLoading] = useState(false);
 
-  console.log("data", data);
-
   const handleHiring = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
