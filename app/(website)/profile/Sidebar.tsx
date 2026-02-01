@@ -93,7 +93,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="sm:w-88 text-white">
+    <div className="md:w-88 text-white">
       <div className="grid grid-cols-1 gap-4">
         {buttons.map((btn, i) => {
           const active = isActive(btn.path);

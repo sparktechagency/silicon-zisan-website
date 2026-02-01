@@ -62,6 +62,8 @@ export default function AddressInput({ setValue, register }: any) {
   }) => {
     isSelectingRef.current = true;
     setValue("address", label, { shouldDirty: true });
+    setValue("location", coordinates);
+
     console.log("coordinates", coordinates);
 
     setOpen(false);

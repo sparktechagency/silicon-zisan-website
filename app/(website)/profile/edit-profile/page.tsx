@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
 import { Label } from "@/components/ui/label";
 import AddressInput from "@/components/profile/AddressSearch";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   name: string;
@@ -20,6 +21,7 @@ type Inputs = {
   deNo: string;
   whatsApp: string;
   about: string;
+  location: [];
 };
 
 type ProfileData = {
@@ -38,6 +40,7 @@ type ProfileData = {
 export default function EditProfile({ title }: { title?: string }) {
   const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState<ProfileData | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,6 +70,7 @@ export default function EditProfile({ title }: { title?: string }) {
       deNo: initialData?.deNo || "",
       whatsApp: initialData?.whatsApp || "", // for whatsapp update page
       about: initialData?.about || "",
+      location: [],
     },
   });
 
@@ -95,8 +99,8 @@ export default function EditProfile({ title }: { title?: string }) {
 
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
-
         await revalidate("profile");
+        router.push("/profile");
       } else {
         toast.error(
           (res as any)?.error[0].message || "Failed to update profile",

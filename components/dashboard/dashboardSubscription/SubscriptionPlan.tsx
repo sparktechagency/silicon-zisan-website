@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 // Import Swiper styles
@@ -18,30 +18,13 @@ import { myFetch } from "@/utils/myFetch";
 import SubscriptionDetails from "./SubscriptionDetails";
 import { toast } from "sonner";
 
-type PackageType = {
-  benefits?: string[];
-  dailyPrice: string;
-  _id: string;
-  description: string;
-  price: number;
-};
-
-export default function SubscriptionPlan() {
+export default function SubscriptionPlan({ data, name }: any) {
   const swiperRef = useRef<null | any>(null);
-  const [data, setData] = useState<PackageType[]>([]);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await myFetch("/packages");
-      setData(res?.data || []);
-    };
-
-    fetchData();
-  }, []);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
 
   const handleSubscribe = async (id: string) => {
-    setLoading(true);
+    setLoadingId(id);
 
     try {
       const res = await myFetch(`/subscriptions/create`, {
@@ -59,12 +42,13 @@ export default function SubscriptionPlan() {
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
     } finally {
-      setLoading(false);
+      setLoadingId(null);
     }
   };
 
-  const two = data?.[2]?._id;
-  const one = data?.[1]?._id;
+  const activeSubscription = data?.find((item: any) => item?.name === name);
+
+  const activePlan = activeSubscription?.name || "Basic";
 
   return (
     <div className="relative px-2 md:px-0">
@@ -133,14 +117,6 @@ export default function SubscriptionPlan() {
                   <div className="flex justify-end mb-2">
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
-                  {/* <div className="flex flex-col sm:flex-row">
-                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
-                      Activated
-                    </button>
-                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
-                      Inactive
-                    </button>
-                  </div> */}
                 </div>
               </div>
 
@@ -154,13 +130,17 @@ export default function SubscriptionPlan() {
             </div>
 
             <Button
-              disabled={data[0]?.price === 0 || loading || !one}
+              disabled={activePlan === "Basic"}
               className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                loading && "cursor-not-allowed"
+                loadingId === data[0]?._id && "cursor-not-allowed"
               }`}
               onClick={() => handleSubscribe(data[0]?._id)}
             >
-              {data[0]?.price === 0 ? "Already Actived" : "Subscribe Now"}
+              {activePlan === "Basic"
+                ? "Already Actived"
+                : loadingId === data[0]?._id
+                  ? "Processing..."
+                  : "Subscribe Now"}
             </Button>
           </div>
         </SwiperSlide>
@@ -207,14 +187,6 @@ export default function SubscriptionPlan() {
                   <div className="flex justify-end mb-2">
                     <Image src={logo} className="h-10 w-10" alt="logo" />
                   </div>
-                  {/* <div className="flex flex-col sm:flex-row">
-                    <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
-                      Activated
-                    </button>
-                    <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
-                      Inactive
-                    </button>
-                  </div> */}
                 </div>
               </div>
 
@@ -229,13 +201,17 @@ export default function SubscriptionPlan() {
 
             <div className="mt-auto">
               <Button
-                disabled={loading || !one}
+                disabled={activePlan === "Standard"}
                 className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                  loading && "cursor-not-allowed"
+                  loadingId === data[1]?._id && "cursor-not-allowed"
                 }`}
                 onClick={() => handleSubscribe(data[1]?._id)}
               >
-                Subscribe Now
+                {activePlan === "Standard"
+                  ? "Actived"
+                  : loadingId === data[1]?._id
+                    ? "Processing..."
+                    : "Subscribe Now"}
               </Button>
             </div>
           </div>
@@ -284,14 +260,6 @@ export default function SubscriptionPlan() {
                     <div className="flex justify-end mb-2">
                       <Image src={logo} className="h-10 w-10" alt="logo" />
                     </div>
-                    {/* <div className="flex flex-col sm:flex-row">
-                      <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
-                        Activated
-                      </button>
-                      <button className="border border-gray-300/50 px-2 text-sm lg:text-md h-8">
-                        Inactive
-                      </button>
-                    </div> */}
                   </div>
                 </div>
 
@@ -306,13 +274,17 @@ export default function SubscriptionPlan() {
 
               <div className="mt-auto">
                 <Button
-                  disabled={loading || !two}
+                  disabled={activePlan === "Booster"}
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                    loading && "cursor-not-allowed"
+                    loadingId === data[2]?._id && "cursor-not-allowed"
                   }`}
                   onClick={() => handleSubscribe(data[2]?._id)}
                 >
-                  Subscribe Now
+                  {activePlan === "Booster"
+                    ? "Actived"
+                    : loadingId === data[2]?._id
+                      ? "Processing..."
+                      : "Subscribe Now"}
                 </Button>
               </div>
             </div>

@@ -1,10 +1,15 @@
 import SubscriptionPlan from "@/components/dashboard/dashboardSubscription/SubscriptionPlan";
-import React from "react";
+import { myFetch } from "@/utils/myFetch";
 
-export default function page() {
+export default async function page() {
+  const res = await myFetch("/packages");
+
+  const gift = await myFetch("/subscriptions/me", {
+    tags: ["subscription"],
+  });
   return (
     <>
-      <SubscriptionPlan />
+      <SubscriptionPlan data={res?.data} name={gift?.data?.package?.name} />
     </>
   );
 }

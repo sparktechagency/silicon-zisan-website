@@ -45,6 +45,7 @@ export default function PersonalInformation({ data }: { data: any }) {
         if (response.success) {
           toast.success("Profile image updated successfully");
           await revalidate("users-profile");
+
           router.refresh();
         } else {
           toast.error(response.message || "Failed to update profile image");
@@ -122,19 +123,13 @@ export default function PersonalInformation({ data }: { data: any }) {
       </div>
 
       {/* Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="">
         <Link
           href={`/profile/edit-profile`}
           className="custom-btn text-white px-4 py-2 rounded-md"
         >
           Edit Information
         </Link>
-        {/* <button
-          className="flex-1 custom-btn text-white py-2 px-4 rounded-md "
-          onClick={() => setStatus("Complete Profile")}
-        >
-          Complete Profile
-        </button> */}
       </div>
     </div>
   );
