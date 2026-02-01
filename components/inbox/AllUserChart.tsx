@@ -17,6 +17,8 @@ const AllUserChart = ({
   selectedChatId,
   onChatSelect,
 }: AllUserChartProps) => {
+  console.log("chats", chats);
+
   return (
     <div
       className=" pr-2 flex flex-col"

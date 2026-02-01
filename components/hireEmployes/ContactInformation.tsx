@@ -90,6 +90,8 @@ const agreementSections = [
 export default function ContractInformation({ data }: any) {
   const [loading, setLoading] = useState(false);
 
+  console.log("data", data);
+
   const handleHiring = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -197,7 +199,7 @@ export default function ContractInformation({ data }: any) {
                 { text: "Date", style: "tableHeader" },
               ],
               [
-                { text: data?.author?.address || "N/A", style: "normalText" },
+                { text: data?.address || "N/A", style: "normalText" },
                 {
                   text: dayjs(data?.createdAt).format("YYYY-MM-DD"),
                   style: "normalText",
@@ -369,7 +371,7 @@ export default function ContractInformation({ data }: any) {
             {/* Confirmation */}
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
-                <p>Place : {data?.author?.address || "No Place"}</p>
+                <p>Place : {data?.address || "No Place"}</p>
                 <p>Date : {dayjs(data?.createdAt).format("YYYY-MM-DD")}</p>
               </div>
               <p className="mt-3">

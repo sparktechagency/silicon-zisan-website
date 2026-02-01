@@ -23,7 +23,7 @@ export const footerSections: FooterSection[] = [
       { label: "Profile", href: "/profile" },
       { label: "Homepage", href: "/" },
       { label: "Jobs", href: "/my-jobs" },
-      { label: "For Employer", href: "/" },
+      // { label: "For Employer", href: "/" },
     ],
   },
   {
@@ -41,7 +41,6 @@ export const footerSections: FooterSection[] = [
       { label: "Terms & Conditions", href: "/terms-condition" },
       { label: "Privacy Policy", href: "/privacy-policy" },
       { label: "Impressum", href: "/impressum" },
-      { label: "About Us", href: "#" },
     ],
   },
 ];

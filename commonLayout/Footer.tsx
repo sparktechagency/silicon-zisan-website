@@ -67,7 +67,7 @@ export default async function Footer() {
                 <li className="flex items-center text-gray-200 text-sm">
                   <WhatsAppIcon />
                   <span className="ml-2">
-                    {res?.data?.phone || "+1234567890"}
+                    {res?.data?.whatsApp || "+1234567890"}
                   </span>
                 </li>
               </Link>
@@ -80,7 +80,7 @@ export default async function Footer() {
                 >
                   <li className="flex items-center text-gray-200 text-sm">
                     <EmailIcon />
-                    <span className="ml-2">{"info@jobsinapp.de"}</span>
+                    <span className="ml-2">{res?.data?.email}</span>
                   </li>
                 </Link>
               </div>
