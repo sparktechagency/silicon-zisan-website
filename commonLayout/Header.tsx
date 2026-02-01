@@ -174,13 +174,20 @@ export default function HeaderTwo() {
               </Link>
             ))}
 
-            <div className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2] w-10">
-              <Image
-                src={call}
-                alt="Zasulehry"
-                className="lg:w-8 lg:h-8 rotate-90"
-              />
-            </div>
+            <Link
+              href="https://wa.me/+88018595439901"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              <div className="rounded-full w-[10%] bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
+                <Image
+                  src={call}
+                  alt="Zasulehry"
+                  className="lg:w-8 lg:h-8 rotate-90"
+                />
+              </div>
+            </Link>
 
             {/* CTA Button */}
             <Link
