@@ -13,7 +13,7 @@ type LocationFeature = {
   };
 };
 
-export default function AddressInput({ setValue, register }: any) {
+export default function AddressInput({ setValue, register, errors }: any) {
   const [input, setInput] = useState("");
 
   const [suggestions, setSuggestions] = useState<LocationFeature[]>([]);
@@ -77,9 +77,13 @@ export default function AddressInput({ setValue, register }: any) {
       <Input
         placeholder="Address"
         className="placeholder:text-gray-400 mt-2"
-        {...register("address")}
+        {...register("address", { required: "Address is required" })}
         onChange={(val) => setInput(val.target.value)}
       />
+
+      {errors.name && (
+        <span className="text-red-400 text-sm">{errors.address.message}</span>
+      )}
 
       {/* DROPDOWN */}
       {open && suggestions.length > 0 && (

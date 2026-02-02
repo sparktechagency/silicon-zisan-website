@@ -87,7 +87,11 @@ const agreementSections = [
   },
 ];
 
-export default function ContractInformation({ data }: any) {
+export default function ContractInformation({
+  data,
+  getProfile,
+  getAdmin,
+}: any) {
   const [loading, setLoading] = useState(false);
 
   const handleHiring = async (e: React.FormEvent) => {
@@ -122,21 +126,28 @@ export default function ContractInformation({ data }: any) {
         },
 
         // Client & Recruiter Info
+        // <p>{getAdmin.email}</p>
+        //     <p>{getAdmin?.whatsApp}</p>
+        //     <p>{getAdmin?.phone}</p>
+        //   </div>
         {
           columns: [
             {
               width: "50%",
               stack: [
                 { text: "Between:", style: "subheader" },
-                { text: "Client", margin: [0, 2, 0, 0] },
-                { text: data?.author?.name || "N/A" },
-                { text: data?.author?.address || "N/A" },
-                { text: data?.author?.phone || "N/A", margin: [0, 0, 0, 8] },
+
+                { text: getProfile?.user?.name || "N/A" },
+                { text: getProfile?.user?.email || "N/A" },
+                {
+                  text: getProfile?.user?.address || "N/A",
+                  margin: [0, 0, 0, 8],
+                },
                 { text: "And:", style: "subheader" },
                 { text: "Recruiter", margin: [0, 2, 0, 0] },
-                { text: "JobsinApp" },
-                { text: "Dhaka, Bangladesh" },
-                { text: "+880132345222" },
+                { text: getAdmin?.email },
+                { text: getAdmin?.whatsApp },
+                { text: getAdmin?.phone },
               ],
             },
             { width: "*", text: "" },
@@ -197,7 +208,10 @@ export default function ContractInformation({ data }: any) {
                 { text: "Date", style: "tableHeader" },
               ],
               [
-                { text: data?.address || "N/A", style: "normalText" },
+                {
+                  text: getProfile?.user?.address.split(",")[0] || "N/A",
+                  style: "normalText",
+                },
                 {
                   text: dayjs(data?.createdAt).format("YYYY-MM-DD"),
                   style: "normalText",
@@ -259,6 +273,8 @@ export default function ContractInformation({ data }: any) {
       );
   };
 
+  console.log("getProfile", getProfile);
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -275,16 +291,17 @@ export default function ContractInformation({ data }: any) {
             <div>
               <div>
                 <h3 className="font-bold text-gray-700 text-xl">Between :</h3>
-                <p>{data?.author?.name}</p>
-                <p>{data?.author?.address}</p>
-                <p>{data?.author?.phone}</p>
+                <p>{getProfile?.user?.name}</p>
+                <p>{getProfile?.user?.email}</p>
+                <p>{getProfile?.user?.address}</p>
               </div>
               <div className="mt-2">
                 <h3 className="font-bold text-gray-700 text-xl">And :</h3>
                 <p>Recruiter</p>
                 <p>JobsinApp</p>
-                <p>Dhaka, Bangladesh</p>
-                <p>+880132345222</p>
+                <p>{getAdmin.email}</p>
+                <p>{getAdmin?.whatsApp}</p>
+                <p>{getAdmin?.phone}</p>
               </div>
             </div>
             <div>
@@ -369,7 +386,10 @@ export default function ContractInformation({ data }: any) {
             {/* Confirmation */}
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
-                <p>Place : {data?.address || "No Place"}</p>
+                <p>
+                  Place :{" "}
+                  {getProfile?.user?.address.split(",")[0] || "No Place"}
+                </p>
                 <p>Date : {dayjs(data?.createdAt).format("YYYY-MM-DD")}</p>
               </div>
               <p className="mt-3">

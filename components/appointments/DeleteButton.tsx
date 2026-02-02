@@ -7,61 +7,88 @@ import {
   DialogClose,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
+import { myFetch } from "@/utils/myFetch";
+import { Input } from "../ui/input";
+import { useState } from "react";
 
-export default function DeleteButton({
-  title,
-  trigger,
-
-  isModalOneOpen2,
-  setIsModalOneOpen2,
-  onOpenSecondModal2,
-}: {
+type Props = {
+  id: string; // REQUIRED
   title?: string;
-  trigger?: React.ReactNode;
-  isModalOneOpen2?: any;
-  setIsModalOneOpen2?: any;
-  onOpenSecondModal2?: any;
-}) {
-  const handleClickModalTwo = () => {
-    setIsModalOneOpen2(false);
-    onOpenSecondModal2(); // trigger second modal from parent
-  };
-  return (
-    <Dialog open={isModalOneOpen2} onOpenChange={setIsModalOneOpen2}>
-      {/* Trigger Button */}
-      <DialogTrigger className="cursor-pointer" asChild>
-        {trigger}
-      </DialogTrigger>
+  trigger: React.ReactNode;
+};
 
-      {/* Dialog Content */}
-      <DialogContent className="bg-gray-500/40 backdrop-blur-sm text-white p-6 rounded-lg  text-center border border-white/10 shadow-lg">
+export default function DeleteButton({ id, title, trigger }: Props) {
+  const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
+  console.log("id", id);
+
+  const handleConfirm = async () => {
+    if (!text.trim()) {
+      toast.error("Please enter cancel reason");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const res = await myFetch(`/appointments/update/${id}`, {
+        method: "PATCH",
+        body: {
+          status: "Cancelled",
+          cancelReason: text,
+        },
+      });
+
+      if (res?.success) {
+        toast.success("Cancelled successfully");
+      } else {
+        toast.error((res as any)?.error[0].message || "Something went wrong");
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Dialog>
+      {/* Trigger */}
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
+
+      {/* Modal */}
+      <DialogContent className="bg-gray-500/40 backdrop-blur-sm text-white p-6 rounded-lg text-center border border-white/10 shadow-lg w-[24vw]">
         <h2 className="text-lg font-semibold mb-6">
           {title ? (
-            <p>
-              Are You Sure You Want To Delete <br /> Whatasapp Link?
-            </p>
+            <>
+              Are You Sure You Want To Delete <br /> Whatsapp Link?
+            </>
           ) : (
-            <p>Are You Sure You Want To Cancel The Appointment?</p>
+            <>Are You Sure You Want To Cancel The Appointment?</>
           )}
         </h2>
-        <div>
-          <div className="flex gap-4">
-            <DialogClose asChild>
-              <Button
-                className="w-[50%] bg-red-600 border-none hover:bg-red-600 cursor-pointer"
-                // variant="outline"
-              >
-                No
-              </Button>
-            </DialogClose>
+
+        <Input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Type cancel reason"
+        />
+
+        <div className="flex gap-4 mt-6">
+          <DialogClose asChild>
+            <Button className="w-1/2 bg-red-600 hover:bg-red-600">No</Button>
+          </DialogClose>
+
+          <DialogClose asChild>
             <Button
-              className="w-[50%] btn"
-              type="submit"
-              onClick={handleClickModalTwo}
+              className="w-1/2 btn"
+              onClick={handleConfirm}
+              disabled={loading}
             >
-              Yes
+              {loading ? "Processing..." : "Yes"}
             </Button>
-          </div>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

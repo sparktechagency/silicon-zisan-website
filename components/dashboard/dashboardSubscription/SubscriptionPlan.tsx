@@ -137,7 +137,7 @@ export default function SubscriptionPlan({ data, name }: any) {
               onClick={() => handleSubscribe(data[0]?._id)}
             >
               {activePlan === "Basic"
-                ? "Already Actived"
+                ? "Activated"
                 : loadingId === data[0]?._id
                   ? "Processing..."
                   : "Subscribe Now"}
@@ -208,7 +208,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                 onClick={() => handleSubscribe(data[1]?._id)}
               >
                 {activePlan === "Standard"
-                  ? "Actived"
+                  ? "Activated"
                   : loadingId === data[1]?._id
                     ? "Processing..."
                     : "Subscribe Now"}
@@ -281,7 +281,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                   onClick={() => handleSubscribe(data[2]?._id)}
                 >
                   {activePlan === "Booster"
-                    ? "Actived"
+                    ? "Activated"
                     : loadingId === data[2]?._id
                       ? "Processing..."
                       : "Subscribe Now"}

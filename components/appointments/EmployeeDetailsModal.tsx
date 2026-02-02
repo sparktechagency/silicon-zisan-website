@@ -5,6 +5,7 @@ import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Clock4 } from "lucide-react";
 interface CancelModalProps {
   trigger?: React.ReactNode;
 
@@ -44,7 +45,7 @@ export default function EmployeeDetailsModal({
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       {/* Dialog Content */}
-      <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg sm:max-w-xl ">
+      <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg sm:max-w-xl w-[40vw]">
         <div>
           <div className="rounded-xl flex gap-4">
             {/* Profile Image */}
@@ -59,13 +60,19 @@ export default function EmployeeDetailsModal({
               <h3 className="sm:text-xl font-semibold">
                 {item?.receiver?.name}
               </h3>
-              <p>{item?._id}</p>
 
               <div className="text-sm flex items-center gap-2">
                 <span className="sm:text-xl">
                   {dayjs(item?.scheduledAt).format("YYYY-MM-DD")}
                 </span>
                 <span className="sm:text-xl">{item?.time}</span>
+              </div>
+
+              <div className="flex items-center gap-1">
+                <Clock4 size={18} />
+                <span className="sm:text-xl">
+                  {dayjs(item.scheduledAt).format("HH:mm") || "No Time  "}
+                </span>
               </div>
 
               <p>{item?.message}</p>

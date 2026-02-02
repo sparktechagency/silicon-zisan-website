@@ -64,7 +64,7 @@ export default async function JobPostHomePage() {
                   </p>
 
                   <p className="text-[18px]">
-                    ${item.salaryAmount}/{item.salaryType}
+                    €{item.salaryAmount}/{item.salaryType}ly
                   </p>
                 </div>
 

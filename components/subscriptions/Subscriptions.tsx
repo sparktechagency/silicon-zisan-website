@@ -146,7 +146,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                   onClick={() => handleSubscribe(res[0]?._id)}
                 >
                   {activePlan === "Basic"
-                    ? "Already Actived"
+                    ? "Activated"
                     : loadingId === res[0]?._id
                       ? "Processing..."
                       : "Subscribe Now"}
@@ -214,7 +214,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                   {loadingId === res[1]?._id
                     ? "Processing..."
                     : activePlan === "Standard"
-                      ? "Actived"
+                      ? "Activated"
                       : "Subscribe Now"}
                 </Button>
               </div>
@@ -293,7 +293,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                     {loadingId === res[2]?._id
                       ? "Processing..."
                       : activePlan === "Booster"
-                        ? "Actived"
+                        ? "Activated"
                         : "Subscribe Now"}
                   </Button>
                 </div>

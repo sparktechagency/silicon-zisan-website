@@ -3,14 +3,12 @@
 import { FaCalendarAlt } from "react-icons/fa";
 import { Clock4, Eye } from "lucide-react";
 import DeleteButton from "./DeleteButton";
-import { useState } from "react";
 import EmployeeDetailsModal from "./EmployeeDetailsModal";
 import CustomImage from "@/utils/CustomImage";
 import dayjs from "dayjs";
 
 export default function AppointmentCardsConfirmed({ data }: any) {
-  const [isModalOneOpen2, setIsModalOneOpen2] = useState(false);
-  const [, setIsModalTwoOpen2] = useState(false);
+  console.log("data", data);
 
   return (
     <>
@@ -53,13 +51,20 @@ export default function AppointmentCardsConfirmed({ data }: any) {
                       {dayjs(item.scheduledAt).format("HH:mm") || "No Time  "}
                     </span>
                   </div>
+                  {item?.cancelReason && (
+                    <div className="flex items-center gap-1">
+                      <span className="sm:text-xl">
+                        Reason : {item?.cancelReason}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Cancel Button */}
-          <div className="flex flex-row sm:flex-col items-center md:items-end space-x-2 my-3">
+          <div className="flex flex-row sm:flex-col items-center md:items-end space-x-2 my-3 ">
             <div>
               {item.status !== "Cancelled" && (
                 <EmployeeDetailsModal
@@ -75,9 +80,7 @@ export default function AppointmentCardsConfirmed({ data }: any) {
             {item.status !== "Cancelled" && (
               <div>
                 <DeleteButton
-                  isModalOneOpen2={isModalOneOpen2}
-                  setIsModalOneOpen2={setIsModalOneOpen2}
-                  onOpenSecondModal2={() => setIsModalTwoOpen2(true)}
+                  id={item?._id}
                   trigger={
                     <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
                       Cancel

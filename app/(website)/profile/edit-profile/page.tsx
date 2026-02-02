@@ -10,6 +10,7 @@ import { revalidate } from "@/utils/revalidateTag";
 import { Label } from "@/components/ui/label";
 import AddressInput from "@/components/profile/AddressSearch";
 import { useRouter } from "next/navigation";
+import { error } from "console";
 
 type Inputs = {
   name: string;
@@ -59,7 +60,8 @@ export default function EditProfile({ title }: { title?: string }) {
     handleSubmit,
     reset,
     setValue,
-    formState: {},
+
+    formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
       name: initialData?.user?.name || "",
@@ -90,6 +92,11 @@ export default function EditProfile({ title }: { title?: string }) {
   }, [initialData, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    if (!values.name || !values.legalForm || !values.address) {
+      toast.error("Please select name, legal form, and address");
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await myFetch("/employers/profile", {
@@ -128,18 +135,31 @@ export default function EditProfile({ title }: { title?: string }) {
           <Input
             id="name"
             placeholder="Enter company name"
-            {...register("name")}
+            {...register("name", { required: "Name is required" })}
           />
+          {errors.name && (
+            <span className="text-red-400 text-sm">{errors.name.message}</span>
+          )}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="legalForm">Legal Form</Label>
+
           <Input
             id="legalForm"
             placeholder="Enter legal form"
-            {...register("legalForm")}
+            {...register("legalForm", {
+              required: "Legal form is required",
+            })}
           />
+
+          {errors.legalForm && (
+            <span className="text-red-400 text-sm">
+              {errors.legalForm.message}
+            </span>
+          )}
         </div>
+
         {/* 
         <div className="space-y-2">
           <Label htmlFor="address">Address</Label>
@@ -150,7 +170,7 @@ export default function EditProfile({ title }: { title?: string }) {
           />
         </div> */}
 
-        <AddressInput setValue={setValue} register={register} />
+        <AddressInput setValue={setValue} register={register} errors={errors} />
 
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
