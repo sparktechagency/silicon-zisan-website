@@ -40,7 +40,7 @@ export function EndDateModal() {
             variant="outline"
             className="justify-start font-normal rounded-full size-12"
           >
-            {date ? dayjs(date).format("YYYY-MM-DD") : "Start Date"}
+            {date ? dayjs(date).format("YYYY-MM-DD") : "End Date"}
           </Button>
         </PopoverTrigger>
 

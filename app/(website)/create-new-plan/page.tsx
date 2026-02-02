@@ -13,6 +13,8 @@ export default async function page({
   const res = await myFetch("/workers/me");
   const editData = await myFetch(`/shift-plans/single/${id}`);
 
+  console.log("editData");
+
   return (
     <Suspense fallback={<Loading />}>
       <CreateNewPlan2 employee={res?.data} editData={editData?.data} />

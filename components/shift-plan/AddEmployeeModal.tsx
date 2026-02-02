@@ -10,6 +10,7 @@ import { myFetch } from "@/utils/myFetch";
 import { useEffect, useState } from "react";
 import { revalidate } from "@/utils/revalidateTag";
 import countryListData from "country-list-with-dial-code-and-flag";
+import { SearchableCountrySelect } from "@/helper/CountryCodeSearch";
 
 type FormData = {
   name: string;
@@ -30,18 +31,21 @@ export default function AddEmployeeForm({
   const countryList = countryListData.getAll();
 
   // 🔹 Split phone for edit mode
-  const splitPhone = (phone = "") => {
-    const match = phone.match(/^(\+\d{1,4})(\d+)$/);
-    return {
-      countryCode: match?.[1] || "+880",
-      phone: match?.[2] || "",
-    };
-  };
+  // const splitPhone = (phone = "") => {
+  //   const match = phone.match(/^(\+\d{1,4})(\d+)$/);
+  //   return {
+  //     countryCode: match?.[1] || "+880",
+  //     phone: match?.[2] || "",
+  //   };
+  // };
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
+    trigger: triggerValidation,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -56,13 +60,13 @@ export default function AddEmployeeForm({
   // 🔹 Reset form on edit
   useEffect(() => {
     if (workerData) {
-      const { countryCode, phone } = splitPhone(workerData.phone);
+      // const { countryCode, phone } = splitPhone(workerData.phone);
 
       reset({
         name: workerData.name || "",
         email: workerData.email || "",
-        countryCode,
-        phone,
+
+        phone: workerData?.phone,
         address: workerData.address || "",
       });
     }
@@ -102,6 +106,8 @@ export default function AddEmployeeForm({
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     }
   };
+
+  console.log("workerData", workerData);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -152,22 +158,15 @@ export default function AddEmployeeForm({
             <div>
               <Label className="mb-1">Contact Number</Label>
               <div className="flex gap-2">
-                <select
-                  {...register("countryCode", {
-                    required: "Country code required",
-                  })}
-                  className="text-white rounded px-2 min-w-[100px] border"
-                >
-                  {countryList.map((item: any, index: number) => (
-                    <option
-                      key={index}
-                      value={item.dial_code}
-                      className="bg-[#3C4751]"
-                    >
-                      {item.flag} {item.dial_code}
-                    </option>
-                  ))}
-                </select>
+                <SearchableCountrySelect
+                  value={watch("countryCode")}
+                  onChange={(dialCode: string) => {
+                    setValue("countryCode", dialCode);
+                    triggerValidation("countryCode");
+                  }}
+                  error={errors.countryCode}
+                  countryList={countryList}
+                />
 
                 <Input
                   type="tel"
