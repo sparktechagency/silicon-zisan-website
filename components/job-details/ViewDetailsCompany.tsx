@@ -73,7 +73,9 @@ export default function ViewDetailsCompany({ data, length }: any) {
           {length > 0 && (
             <div className="space-x-2">
               <Link href={`/applied-jobs/${data?._id}`}>
-                <Button className="custom-btn mt-5">{length} Applied</Button>
+                <Button className="custom-btn mt-3 h-10">
+                  {length} Applied
+                </Button>
               </Link>
             </div>
           )}

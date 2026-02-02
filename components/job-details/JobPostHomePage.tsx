@@ -22,18 +22,11 @@ export default async function JobPostHomePage() {
         return (
           <div
             key={index}
-            className="bg-card sm:flex justify-between space-x-4 border border-gray-300/30 p-3 rounded-md mb-6"
+            className=" bg-card border border-gray-300/30 p-3 rounded-md mb-6"
           >
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               {/* Image / Logo */}
               <div className="shrink-0 w-32 sm:w-36 md:w-40">
-                {/* <CustomImage
-                  src={item?.author?.image}
-                  title="Logo"
-                  width={160}
-                  height={160}
-                  className="w-full h-full object-contain"
-                /> */}
                 {item?.author?.image ? (
                   <CustomImage
                     src={item?.author?.image || "No Image"}
@@ -55,47 +48,45 @@ export default async function JobPostHomePage() {
               </div>
 
               {/* Company Details */}
-              <div className="text-white flex-1 min-w-0">
-                <p className="text-xl my-2">{item.subCategory}</p>
+              <div className="text-white flex-1 items-end">
+                <div className="">
+                  <p className="text-xl my-2">{item.subCategory}</p>
 
-                <div className="flex flex-wrap items-center gap-3">
-                  <p className="border rounded bg-[#465565] px-3 py-0.5">
-                    {item.jobType}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="border rounded bg-[#465565] px-3 py-0.5">
+                      {item.jobType}
+                    </p>
 
-                  <p className="text-[18px]">
-                    €{item.salaryAmount}/{item.salaryType}ly
+                    <p className="text-[18px]">
+                      €{item.salaryAmount}/{item.salaryType}ly
+                    </p>
+                  </div>
+
+                  <p className="mt-3 line-clamp-3">
+                    Company Details : {item.description.slice(0, 90)}....
                   </p>
                 </div>
 
-                <p className="mt-3 line-clamp-3">
-                  Company Details : {item.description}
-                </p>
-                <div className="flex mt-13">
-                  <p>
-                    <UserSearch />
-                  </p>
-                  <p>{getAppliedJob(item?._id)} Applied</p>
-                </div>
-              </div>
-            </div>
-
-            {/* view details */}
-            <div className="text-white flex flex-col justify-between mt-5 sm:mt-0 w-full sm:w-40 shrink-0">
-              <p className="sm:text-right text-sm text-gray-300">
-                {item.postedTime}
-              </p>
-
-              <div>
-                <div className="mt-1">
-                  <Link
-                    href={`/view-details-jobs/${item._id}`}
-                    className="w-full"
-                  >
-                    <button className="custom-btn rounded-md py-2 w-full whitespace-nowrap">
-                      View Details
-                    </button>
-                  </Link>
+                {/* view details */}
+                <div className="text-white flex flex-col sm:flex-row justify-between mt-5 sm:mb-0 w-full  shrink-0 ">
+                  <div className="flex">
+                    <p>
+                      <UserSearch />
+                    </p>
+                    <p>{getAppliedJob(item?._id)} Applied</p>
+                  </div>
+                  <div>
+                    <div className="">
+                      <Link
+                        href={`/view-details-jobs/${item._id}`}
+                        className="w-full"
+                      >
+                        <button className="custom-btn rounded-md py-2 px-2 w-full whitespace-nowrap">
+                          View Details
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

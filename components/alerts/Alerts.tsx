@@ -32,8 +32,12 @@ export default function Alerts({ res }: any) {
           <div key={item?._id} className="mb-4">
             {/* Transaction Info */}
             <div
-              onClick={() => handleClickNotification(item?.referenceId)}
-              className={`flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ${
+              onClick={
+                item.type === "JOB_SEEKER_ALERT"
+                  ? () => handleClickNotification(item?.referenceId)
+                  : undefined
+              }
+              className={`flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 cursor-pointer ${
                 item.isRead === false ? "bg-gray-600" : ""
               }`}
             >

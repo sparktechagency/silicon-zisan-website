@@ -11,25 +11,28 @@ export default function MySubscription({ subscriptions }: any) {
             </p>
             <p className=" mb-2">Price : ${subscriptions?.price || 0}</p>
 
-            <>
-              {" "}
-              <p className=" mb-2">
-                Expiry Date :{" "}
-                {new Date(subscriptions?.currentPeriodEnd).toLocaleString()}
-              </p>
-              <p className=" mb-2 capitalize">
-                Payment Status : {subscriptions?.paymentStatus}
-              </p>
-              <p className="capitalize">Status: {subscriptions?.status}</p>
-            </>
+            {subscriptions?._id && (
+              <>
+                <p className=" mb-2">
+                  Expiry Date :{" "}
+                  {new Date(subscriptions?.currentPeriodEnd).toLocaleString()}
+                </p>
+                <p className=" mb-2 capitalize">
+                  Payment Status : {subscriptions?.paymentStatus}
+                </p>
+                <p className="capitalize">Status: {subscriptions?.status}</p>
+              </>
+            )}
           </div>
         </div>
 
         {/* subscritption button */}
 
-        <div>
-          <SubscriptionCancelModal subscriptionId={subscriptions?._id} />
-        </div>
+        {subscriptions?._id && (
+          <div>
+            <SubscriptionCancelModal subscriptionId={subscriptions?._id} />
+          </div>
+        )}
       </div>
     </>
   );
