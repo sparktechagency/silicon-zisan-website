@@ -66,37 +66,39 @@ export default function ViewProfile({ data }: any) {
       </div>
 
       {/* resume and others */}
-      <div className=" text-white   space-y-6 ">
-        {/* Header */}
-        <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
-          <div className="flex items-center gap-6">
-            <div>
-              <Image src={pdf} alt="Office" width={60} height={50} />
+      {data?.resumeUrl && (
+        <div className=" text-white   space-y-6 ">
+          {/* Header */}
+          <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
+            <div className="flex items-center gap-6">
+              <div>
+                <Image src={pdf} alt="Office" width={60} height={50} />
+              </div>
+              <p>{data?.resumeUrl ? "Resume.Pdf" : "No Pdf"}</p>
             </div>
-            <p>{data?.resumeUrl ? "Resume.Pdf" : "No Pdf"}</p>
-          </div>
-          <div className="flex gap-3">
-            <a
-              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                <EyeIcon className="p-0.5 text-white" />
-              </button>
-            </a>
-            <a
-              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                <DownloadIcon className="p-0.5 text-white" />
-              </button>
-            </a>
+            <div className="flex gap-3">
+              <a
+                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                  <EyeIcon className="p-0.5 text-white" />
+                </button>
+              </a>
+              <a
+                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                  <DownloadIcon className="p-0.5 text-white" />
+                </button>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* images */}
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

@@ -9,10 +9,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-export default function TwoFactorAuth() {
+export default function TwoFactorAuth({ getProfile }: any) {
   const [smsActive, setSmsActive] = useState(false);
   const [authAppActive, setAuthAppActive] = useState(false);
   const router = useRouter();
+
+  console.log("getProfile", getProfile?.authentication);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -116,14 +118,14 @@ export default function TwoFactorAuth() {
         <div className="flex items-center justify-between bg-card px-4 py-3 rounded-lg">
           <div>
             <p className="text-sm">Active</p>
-            <p className="text-base font-medium">01839327833</p>
+            <p className="text-base font-medium">Email</p>
           </div>
           <Switch
-            checked={smsActive}
-            onCheckedChange={(checked) => {
-              setSmsActive(checked);
-              handleActiveIsActive(checked);
-            }}
+            checked={getProfile?.authentication?.is2FAEmailActive}
+            // onCheckedChange={(checked) => {
+            //   setSmsActive(checked);
+            //   handleActiveIsActive(checked);
+            // }}
           />
         </div>
 
@@ -133,11 +135,11 @@ export default function TwoFactorAuth() {
             <p className="text-base font-medium">Google Authenticator App</p>
           </div>
           <Switch
-            checked={authAppActive}
-            onCheckedChange={(checked) => {
-              setAuthAppActive(checked);
-              handleActiveIsActive2(checked);
-            }}
+            checked={getProfile?.authentication?.is2FAAuthenticatorActive}
+            // onCheckedChange={(checked) => {
+            //   setAuthAppActive(checked);
+            //   handleActiveIsActive2(checked);
+            // }}
           />
         </div>
       </div>

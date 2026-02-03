@@ -9,9 +9,19 @@ export default async function ContractInformationHomePage({
   const { id } = await searchParams;
   const res = await myFetch(`/jobs/single/${id}`);
 
+  const getProfile = await myFetch("/employers/me", {
+    tags: ["profile"],
+  });
+
+  const getAdmin = await myFetch("/contact");
+
   return (
     <>
-      <ContractInformation data={res?.data} />
+      <ContractInformation
+        data={res?.data}
+        getProfile={getProfile?.data}
+        getAdmin={getAdmin?.data}
+      />
     </>
   );
 }

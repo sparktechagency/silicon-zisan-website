@@ -13,9 +13,12 @@ import {
 } from "@/components/ui/dialog";
 import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/utils/revalidateTag";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export function SubscriptionCancelModal({ subscriptionId }: any) {
+  const [open, setOpen] = useState(false);
+
   const handleSubscription = async (id: string) => {
     try {
       const res = await myFetch(`/subscriptions/cancel/${id}`, {
@@ -33,7 +36,7 @@ export function SubscriptionCancelModal({ subscriptionId }: any) {
     }
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="bg-red-600 hover:bg-red-700 text-white" size="sm">
           Cancel Subscription

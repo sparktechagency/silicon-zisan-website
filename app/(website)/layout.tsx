@@ -16,13 +16,7 @@ export default async function MainLayout({
         <SidebarCheck />
 
         {/* Content */}
-        <div
-          className="flex-1 px-4 max-h-[83vh] overflow-y-scroll scrollbar-hide"
-          style={{
-            scrollbarWidth: "none", // Firefox
-            msOverflowStyle: "none", // IE 10+
-          }}
-        >
+        <div className="flex-1 px-4 max-h-[83vh] overflow-y-scroll scrollbar-hide">
           {children}
         </div>
       </Container>

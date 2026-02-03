@@ -134,6 +134,8 @@ export default function ShiftPlanDetails({ details }: any) {
       .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
   };
 
+  console.log("details---------", details);
+
   return (
     <div className="max-w-3xl mx-auto">
       {/* PDF content area */}
@@ -184,20 +186,27 @@ export default function ShiftPlanDetails({ details }: any) {
               </tr>
             </thead>
             <tbody>
-              {details?.plans?.map((item: any, index: number) => (
-                <tr key={index} className="border-b border-gray-100">
-                  <td className="px-4 py-2">
-                    {dayjs(item?.days[0]).format("YYYY-MM-DD")}
-                  </td>
-                  <td className="px-4 py-2">
-                    {dayjs(item?.startTime).format("hh:mm A")}
-                  </td>
-                  <td className="px-4 py-2">
-                    {dayjs(item?.endTime).format("hh:mm A")}
-                  </td>
-                  <td className="px-4 py-2">{item?.shift}</td>
-                </tr>
-              ))}
+              {details?.plans?.map((item: any, index: number) => {
+                return (
+                  <tr key={index} className="border-b border-gray-100">
+                    <td className="px-4 py-2">
+                      {item?.days?.map((d: any, i: number) => (
+                        <span key={i}>
+                          {dayjs(d?.days).format("YYYY-MM-DD")}
+                          {i < item.days.length - 1 ? ", " : ""}
+                        </span>
+                      ))}
+                    </td>
+                    <td className="px-4 py-2">
+                      {dayjs(item?.startTime).format("hh:mm A")}
+                    </td>
+                    <td className="px-4 py-2">
+                      {dayjs(item?.endTime).format("hh:mm A")}
+                    </td>
+                    <td className="px-4 py-2">{item?.shift}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -24,7 +24,14 @@ export default function PersonalInformation({ data }: { data: any }) {
     { label: "Email", value: data?.user?.email || "N/A" },
     { label: "Contact", value: data?.user.phone || "N/A" },
     { label: "Location", value: data?.user?.address || "N/A" },
+    { label: "LegalForm", value: data?.legalForm || "N/A" },
+    { label: "TaxNo", value: data?.taxNo || "N/A" },
+    { label: "DeNo", value: data?.deNo || "N/A" },
+    { label: "WhatsApp", value: data?.whatsApp || "N/A" },
+    { label: "About", value: data?.about || "N/A" },
   ];
+
+  console.log("data", data);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -115,9 +122,9 @@ export default function PersonalInformation({ data }: { data: any }) {
       {/* Profile Data */}
       <div className="mb-6">
         {profileData.map(({ label, value }, idx) => (
-          <div key={idx} className="flex gap-10 py-2 ">
+          <div key={idx} className="grid grid-cols-[30%_70%]  py-2 ">
             <span className="text-sm w-[20%]">{label}</span>
-            <span className="text-sm w-[80%]">: {value}</span>
+            <span className="text-sm w-[80%]"> : {value}</span>
           </div>
         ))}
       </div>

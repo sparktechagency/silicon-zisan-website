@@ -33,14 +33,14 @@ export function EndDateModal() {
   };
 
   return (
-    <Field className="mx-auto w-44">
+    <Field className="mx-auto xl:w-44">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             className="justify-start font-normal rounded-full size-12"
           >
-            {date ? dayjs(date).format("YYYY-MM-DD") : "Start Date"}
+            {date ? dayjs(date).format("YYYY-MM-DD") : "End Date"}
           </Button>
         </PopoverTrigger>
 

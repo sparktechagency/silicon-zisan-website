@@ -10,8 +10,11 @@ import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
+import { useRouter } from "next/navigation";
 
 export default function ViewDetailsPerson({ data }: any) {
+  const router = useRouter();
+
   const handleApproved = async (id: string) => {
     try {
       const res = await myFetch(`/applications/update/${id}`, {
@@ -29,6 +32,27 @@ export default function ViewDetailsPerson({ data }: any) {
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
+    }
+  };
+
+  const handleChat = async (id: string) => {
+    try {
+      const res = await myFetch(`/chats/create`, {
+        method: "POST",
+        body: {
+          participants: [id],
+        },
+      });
+
+      if (res.success) {
+        router.push(`/inbox`);
+      } else {
+        toast.error((res as any)?.error[0]?.message);
+      }
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "something went wrong",
+      );
     }
   };
 
@@ -77,9 +101,13 @@ export default function ViewDetailsPerson({ data }: any) {
                 View Profile
               </Button>
             </Link>
-            <Link href="/inbox">
-              <Button className="custom-btn mt-5 h-10 ">Contact</Button>
-            </Link>
+
+            <Button
+              onClick={() => handleChat(data?._id)}
+              className="custom-btn mt-5 h-10 "
+            >
+              Contact
+            </Button>
           </div>
         </div>
       </div>
@@ -92,42 +120,44 @@ export default function ViewDetailsPerson({ data }: any) {
       {/* resume and others */}
       <div className=" text-white   space-y-6 ">
         {/* Header */}
-        <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
-          <div className="flex items-center gap-6">
-            <div>
-              <Image src={pdf} alt="Office" width={60} height={50} />
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold">
-                {data?.resumeUrl ? `Pdf File` : "No Pdf"}
-              </h2>
-              {/* <p className="text-sm text-gray-300">
+        {data?.resumeUrl && (
+          <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
+            <div className="flex items-center gap-6">
+              <div>
+                <Image src={pdf} alt="Office" width={60} height={50} />
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold">
+                  {data?.resumeUrl ? `Pdf File` : "No Pdf"}
+                </h2>
+                {/* <p className="text-sm text-gray-300">
                 {dayjs(data?.createdAt).format("YYYY-MM-DD")}
               </p> */}
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <a
+                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                  <EyeIcon className="p-0.5 text-white" />
+                </button>
+              </a>
+
+              <a
+                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                  <DownloadIcon className="p-0.5 text-white" />
+                </button>
+              </a>
             </div>
           </div>
-          <div className="flex gap-3">
-            <a
-              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                <EyeIcon className="p-0.5 text-white" />
-              </button>
-            </a>
-
-            <a
-              href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                <DownloadIcon className="p-0.5 text-white" />
-              </button>
-            </a>
-          </div>
-        </div>
+        )}
 
         {/* Qualification */}
         <div className=" pt-4 space-y-2">

@@ -1,14 +1,16 @@
+"use client";
 import Container from "@/share/Container";
-import { myFetch } from "@/utils/myFetch";
 import { Bell, Settings } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import NotificationReadApi from "./NotificationReadApi";
+import { useRouter } from "next/navigation";
 
-export default async function Alerts() {
-  const res = await myFetch("/notifications/me", {
-    tags: ["allRead"],
-  });
+export default function Alerts({ res }: any) {
+  const router = useRouter();
+  const handleClickNotification = (id: string) => {
+    router.push(`/view-details-person/${id}`);
+  };
 
   return (
     <Container className="my-16">
@@ -30,7 +32,12 @@ export default async function Alerts() {
           <div key={item?._id} className="mb-4">
             {/* Transaction Info */}
             <div
-              className={`flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ${
+              onClick={
+                item.type === "JOB_SEEKER_ALERT"
+                  ? () => handleClickNotification(item?.referenceId)
+                  : undefined
+              }
+              className={`flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 cursor-pointer ${
                 item.isRead === false ? "bg-gray-600" : ""
               }`}
             >

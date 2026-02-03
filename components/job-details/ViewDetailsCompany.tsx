@@ -73,11 +73,8 @@ export default function ViewDetailsCompany({ data, length }: any) {
           {length > 0 && (
             <div className="space-x-2">
               <Link href={`/applied-jobs/${data?._id}`}>
-                <Button className="custom-btn mt-5">
+                <Button className="custom-btn mt-3 h-10">
                   {length} Applied
-                  {/* <span className="bg-[#374859] h-8 w-8 flex items-center justify-center rounded-full">
-                    {length}
-                  </span> */}
                 </Button>
               </Link>
             </div>
@@ -109,6 +106,10 @@ export default function ViewDetailsCompany({ data, length }: any) {
             <li key={index}>{item}</li>
           ))}
         </ul>
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold mb-2">About </h3>
+        <p className="whitespace-break-spaces">{data?.aboutCompany}</p>
       </div>
 
       {/* Action Buttons */}

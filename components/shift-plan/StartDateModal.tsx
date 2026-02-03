@@ -33,7 +33,7 @@ export function StartDateModal() {
   };
 
   return (
-    <Field className="mx-auto w-44">
+    <Field className="mx-auto xl:w-44">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
