@@ -26,6 +26,8 @@ export default function InboxContainer({
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const selectedChatRef = useRef<Chat | null>(null);
 
+  console.log("message", messages);
+
   // Keep ref in sync for socket callback
   useEffect(() => {
     selectedChatRef.current = selectedChat;

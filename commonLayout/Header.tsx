@@ -12,6 +12,7 @@ import call from "../public/call-header.svg";
 import profile from "../public/profile/avatar.png";
 import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
+import { Chat } from "@/types/chat";
 
 type Profile = {
   user: {
@@ -23,7 +24,7 @@ type Profile = {
 export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileData, setProfileData] = useState<Profile | null>(null);
-
+  const [messageNotification, setMessageNotification] = useState<Chat[]>([]);
   const pathname = usePathname();
 
   const toggleMenu = () => {
@@ -41,6 +42,21 @@ export default function HeaderTwo() {
 
     getProfile();
   }, []);
+
+  useEffect(() => {
+    const getMessage = async () => {
+      const response = await myFetch("/chats");
+      const chats: Chat[] = response.data || [];
+
+      setMessageNotification(chats);
+    };
+
+    getMessage();
+  }, []);
+
+  const count =
+    messageNotification?.reduce((total, item) => total + item.unreadCount, 0) ||
+    0;
 
   return (
     <nav className={`${gradientClasses.primaryBg}  sticky top-0 z-50`}>
@@ -60,19 +76,29 @@ export default function HeaderTwo() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-2 rounded-md text-md lg:text-[20px] font-medium transition-colors duration-200 ${
+                  className={`relative px-3 py-2 rounded-md text-md lg:text-[20px] font-medium transition-colors duration-200 ${
                     pathname === item.href
                       ? "custom-btn"
                       : "text-white hover:text-blue-300"
                   }`}
                 >
-                  {item.label === "Dashboard" || item.label === "Alerts" ? (
-                    <span className="notranslate">{item.label}</span>
-                  ) : (
-                    item.label
-                  )}
+                  <span className="flex items-center gap-2">
+                    {item.label === "Dashboard" || item.label === "Alerts" ? (
+                      <span className="notranslate">{item.label}</span>
+                    ) : (
+                      item.label
+                    )}
+
+                    {/*  Inbox Count */}
+                    {item.label === "Inbox" && count > 0 && (
+                      <span className="min-w-5 h-5 px-1 flex items-center justify-center text-xs font-semibold -mt-3 text-white rounded-full">
+                        {count}
+                      </span>
+                    )}
+                  </span>
                 </Link>
               ))}
+
               <Link
                 href="https://wa.me/+88018595439901"
                 target="_blank"
