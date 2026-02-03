@@ -55,7 +55,7 @@ export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
             ? format(new Date(lastMsg.createdAt), "hh:mm a")
             : ""}
         </p>
-        {chat.unreadCount > 0 && (
+        {chat.unreadCount && (
           <span className="bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full">
             {chat.unreadCount}
           </span>

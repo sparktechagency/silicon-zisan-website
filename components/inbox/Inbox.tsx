@@ -6,6 +6,8 @@ export default async function Inbox({ adminId }: { adminId: string }) {
   const response = await myFetch("/chats");
   const chats: Chat[] = response.data || [];
 
+  console.log("chart", chats);
+
   return (
     <div className="2xl:max-w-[1400px] mx-auto w-full">
       <InboxContainer initialChats={chats} adminId={adminId} />

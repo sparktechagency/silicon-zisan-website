@@ -5,11 +5,15 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import NotificationReadApi from "./NotificationReadApi";
 import { useRouter } from "next/navigation";
+import { myFetch } from "@/utils/myFetch";
 
 export default function Alerts({ res }: any) {
   const router = useRouter();
-  const handleClickNotification = (id: string) => {
+  const handleClickNotification = async (id: string) => {
     router.push(`/view-details-person/${id}`);
+    await myFetch(`/notifications/read/${id}`, {
+      method: "PATCH",
+    });
   };
 
   return (
@@ -37,7 +41,7 @@ export default function Alerts({ res }: any) {
                   ? () => handleClickNotification(item?.referenceId)
                   : undefined
               }
-              className={`flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 cursor-pointer ${
+              className={`flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ${item.type === "JOB_SEEKER_ALERT" && "cursor-pointer"}${
                 item.isRead === false ? "bg-gray-600" : ""
               }`}
             >

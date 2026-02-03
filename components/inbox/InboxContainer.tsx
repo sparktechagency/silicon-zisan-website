@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import AllUserChart from "./AllUserChart";
 import MessageChart from "./MessageChart";
 import { Chat } from "@/types/chat";
@@ -89,6 +89,7 @@ export default function InboxContainer({
       const token = await getToken();
       if (token) {
         const socket = initializeSocket(token);
+        console.log("socket", socket);
 
         // Listener for getMessage (standard)
         socket.on("getMessage", (newMessage: Message) => {
@@ -149,12 +150,12 @@ export default function InboxContainer({
   useEffect(() => {
     const socket = getSocket();
     if (socket && selectedChat) {
-      socket.emit("join-chat-room", selectedChat._id);
+      socket.emit("joinChat", selectedChat._id);
     }
 
     return () => {
       if (socket && selectedChat) {
-        socket.emit("leave-chat-room", selectedChat._id);
+        socket.emit("leaveChat", selectedChat._id);
       }
     };
   }, [selectedChat]);
