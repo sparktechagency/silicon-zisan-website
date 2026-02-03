@@ -5,34 +5,17 @@ import { myFetch } from "@/utils/myFetch";
 import { setCookie } from "cookies-next/client";
 import { ArrowLeft, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 export default function TwoFactorAuth({ getProfile }: any) {
-  const [smsActive, setSmsActive] = useState(false);
-  const [authAppActive, setAuthAppActive] = useState(false);
+  const [smsActive, setSmsActive] = useState(
+    Boolean(getProfile?.authentication?.is2FAEmailActive),
+  );
+  const [authAppActive, setAuthAppActive] = useState(
+    Boolean(getProfile?.authentication?.is2FAAuthenticatorActive),
+  );
   const router = useRouter();
-
-  console.log("getProfile", getProfile?.authentication);
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await myFetch("/users/profile");
-
-        if (res?.success) {
-          // ✅ sync backend value to Switch
-          setSmsActive(Boolean(res.data?.authentication?.is2FAEmailActive));
-        }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        toast.error("Failed to load profile");
-      }
-    };
-
-    fetchProfile();
-  }, []);
 
   const handleAuthentication = async () => {
     try {
@@ -121,11 +104,11 @@ export default function TwoFactorAuth({ getProfile }: any) {
             <p className="text-base font-medium">Email</p>
           </div>
           <Switch
-            checked={getProfile?.authentication?.is2FAEmailActive}
-            // onCheckedChange={(checked) => {
-            //   setSmsActive(checked);
-            //   handleActiveIsActive(checked);
-            // }}
+            checked={smsActive}
+            onCheckedChange={(checked) => {
+              setSmsActive(checked);
+              handleActiveIsActive(checked);
+            }}
           />
         </div>
 
@@ -135,11 +118,11 @@ export default function TwoFactorAuth({ getProfile }: any) {
             <p className="text-base font-medium">Google Authenticator App</p>
           </div>
           <Switch
-            checked={getProfile?.authentication?.is2FAAuthenticatorActive}
-            // onCheckedChange={(checked) => {
-            //   setAuthAppActive(checked);
-            //   handleActiveIsActive2(checked);
-            // }}
+            checked={authAppActive}
+            onCheckedChange={(checked) => {
+              setAuthAppActive(checked);
+              handleActiveIsActive2(checked);
+            }}
           />
         </div>
       </div>
