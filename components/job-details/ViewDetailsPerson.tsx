@@ -15,6 +15,8 @@ import { useRouter } from "next/navigation";
 export default function ViewDetailsPerson({ data }: any) {
   const router = useRouter();
 
+  console.log("data", data);
+
   const handleApproved = async (id: string) => {
     try {
       const res = await myFetch(`/applications/update/${id}`, {
@@ -182,15 +184,15 @@ export default function ViewDetailsPerson({ data }: any) {
 
         {/* Availability & Salary */}
         <div className="flex space-x-10 text-sm text-gray-300">
-          <div>
+          {/* <div>
             <p>Availability</p>
             <p className="text-white">07:00 AM - 08:00 PM</p>
-          </div>
-          <p className="border-l border-l-white" />
+          </div> */}
+          {/* <p className="border-l border-l-white" /> */}
           <div className="">
             <p>Expected Salary</p>
             {data?.expectedSalary ? (
-              <p className="text-white">${data?.expectedSalary}</p>
+              <p className="text-white">€{data?.expectedSalary}</p>
             ) : (
               "No Amount"
             )}

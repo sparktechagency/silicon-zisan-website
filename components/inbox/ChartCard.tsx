@@ -1,8 +1,11 @@
+"use client";
 import { Chat } from "@/types/chat";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import CustomImage from "@/utils/CustomImage";
 import defalutImage from "@/public/default-image.png";
+import { setCookie } from "cookies-next/client";
+import { useEffect } from "react";
 
 interface ChatCardProps {
   chat: Chat;
@@ -11,11 +14,17 @@ interface ChatCardProps {
 }
 
 export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
-  // Assuming the other participant is the one we want to show.
-  // In a real app, we'd filter out the current user.
-  // For now, we'll just take the first participant or logic to be improved if we had current user ID.
   const participant = chat.participants[0];
   const lastMsg = chat.lastMessage;
+
+  // Automatically call when unreadCount changes
+  useEffect(() => {
+    if (chat.unreadCount && chat.unreadCount) {
+      setCookie("list", chat.unreadCount);
+    } else {
+      setCookie("list", chat.unreadCount);
+    }
+  }, [chat.unreadCount]); // Re-run when unreadCount changes
 
   return (
     <div
@@ -55,7 +64,7 @@ export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
             ? format(new Date(lastMsg.createdAt), "hh:mm a")
             : ""}
         </p>
-        {chat.unreadCount > 0 && (
+        {chat.unreadCount && (
           <span className="bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full">
             {chat.unreadCount}
           </span>

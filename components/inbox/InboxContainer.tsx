@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import AllUserChart from "./AllUserChart";
 import MessageChart from "./MessageChart";
 import { Chat } from "@/types/chat";
@@ -9,6 +9,8 @@ import { myFetch } from "@/utils/myFetch";
 import { getToken } from "@/utils/getToken";
 import { initializeSocket, disconnectSocket, getSocket } from "@/utils/socket";
 import getProfile from "@/utils/getProfile";
+import { revalidate } from "@/utils/revalidateTag";
+import { setCookie } from "cookies-next/client";
 
 interface InboxContainerProps {
   initialChats: Chat[];
@@ -25,6 +27,16 @@ export default function InboxContainer({
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const selectedChatRef = useRef<Chat | null>(null);
+
+  // set global count
+  useEffect(() => {
+    const total = initialChats?.reduce(
+      (sum, chat) => sum + (chat.unreadCount || 0),
+      0,
+    );
+
+    setCookie("list", total); // Set cookie
+  }, [initialChats]);
 
   // Keep ref in sync for socket callback
   useEffect(() => {
@@ -93,7 +105,7 @@ export default function InboxContainer({
         // Listener for getMessage (standard)
         socket.on("getMessage", (newMessage: Message) => {
           console.log("Socket received getMessage:", newMessage);
-
+          revalidate("chat");
           // Update chat list
           updateChatList(newMessage);
 
@@ -112,27 +124,21 @@ export default function InboxContainer({
         });
 
         // Listener for getChatList (fallback/alternative based on screenshot)
-        socket.on("getChatList", (data: any) => {
-          console.log("Socket received getChatList:", data);
-          // Check if data looks like a message
-          if (data && (data.text || data.image)) {
-            const newMessage = data as Message;
 
-            // Update chat list
-            updateChatList(newMessage);
+        socket.on("getChatList", (data: Message) => {
+          if (!data || (!data.text && !data.image)) return;
+          revalidate("chatlist");
+          updateChatList(data);
 
-            const currentChatId = selectedChatRef.current?._id;
-            const messageChatId =
-              typeof newMessage.chat === "object"
-                ? (newMessage.chat as any)._id
-                : newMessage.chat;
+          const currentChatId = selectedChatRef.current?._id;
+          const messageChatId =
+            typeof data.chat === "object" ? (data.chat as any)._id : data.chat;
 
-            if (currentChatId && messageChatId === currentChatId) {
-              setMessages((prev) => {
-                if (prev.some((m) => m._id === newMessage._id)) return prev;
-                return [...prev, newMessage];
-              });
-            }
+          if (currentChatId === messageChatId) {
+            setMessages((prev) => {
+              if (prev.some((m) => m._id === data._id)) return prev;
+              return [...prev, data];
+            });
           }
         });
       }
@@ -149,12 +155,12 @@ export default function InboxContainer({
   useEffect(() => {
     const socket = getSocket();
     if (socket && selectedChat) {
-      socket.emit("join-chat-room", selectedChat._id);
+      socket.emit("joinChat", selectedChat._id);
     }
 
     return () => {
       if (socket && selectedChat) {
-        socket.emit("leave-chat-room", selectedChat._id);
+        socket.emit("leaveChat", selectedChat._id);
       }
     };
   }, [selectedChat]);
@@ -163,10 +169,17 @@ export default function InboxContainer({
     setSelectedChat(chat);
     setLoadingMessages(true);
     try {
-      const response = await myFetch(`/messages/chat/${chat._id}`);
+      const response = await myFetch(`/messages/chat/${chat._id}`, {
+        method: "GET",
+        cache: "no-cache",
+        tags: ["chat"],
+      });
+
       if (response.success && response.data) {
         // API returns newest first, so we reverse it to show oldest first (standard chat order)
         setMessages([...response.data].reverse());
+        revalidate("chat");
+        revalidate("chatlist");
       } else {
         setMessages([]);
       }
@@ -203,7 +216,7 @@ export default function InboxContainer({
     <div className="grid grid-cols-1 xl:grid-cols-[35%_auto] py-10">
       <div className="w-[90%] xl:w-[90%] mx-auto">
         <AllUserChart
-          chats={chats}
+          chats={initialChats}
           selectedChatId={selectedChat?._id}
           onChatSelect={handleChatSelect}
         />

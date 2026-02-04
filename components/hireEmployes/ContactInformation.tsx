@@ -273,8 +273,6 @@ export default function ContractInformation({
       );
   };
 
-  console.log("getProfile", getProfile);
-
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -345,7 +343,7 @@ export default function ContractInformation({
                 <p className="text-sm text-gray-500">{data?.author?.address}</p>
                 <div className="mt-2 text-sm text-gray-600">
                   <p>{data?.jobType}</p>
-                  <p>${data?.salaryAmount}</p>
+                  <p>€{data?.salaryAmount}</p>
                   <p className="flex gap-1 items-center">
                     <Clock3 size={18} />{" "}
                     {dayjs(data?.deadline).format("YYYY-MM-DD")}

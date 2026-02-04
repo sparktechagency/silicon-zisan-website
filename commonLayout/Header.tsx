@@ -1,3 +1,4 @@
+// HeaderTwo.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,6 +13,8 @@ import call from "../public/call-header.svg";
 import profile from "../public/profile/avatar.png";
 import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
+import { Chat } from "@/types/chat";
+import { useCookie } from "@/hooks/useCookies";
 
 type Profile = {
   user: {
@@ -23,8 +26,11 @@ type Profile = {
 export default function HeaderTwo() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileData, setProfileData] = useState<Profile | null>(null);
-
+  const [messageNotification, setMessageNotification] = useState<Chat[]>([]);
   const pathname = usePathname();
+
+  // Use custom hook to track cookie changes
+  const checkList = useCookie("list");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,15 +41,35 @@ export default function HeaderTwo() {
       const res = await myFetch("/employers/me", {
         tags: ["profile"],
       });
-
       setProfileData(res?.data);
     };
 
     getProfile();
   }, []);
 
+  // Re-fetch messages when checkList changes
+  useEffect(() => {
+    const getMessage = async () => {
+      const response = await myFetch("/chats", {
+        method: "GET",
+        cache: "no-cache",
+        tags: ["chatlist"],
+      });
+      const chats: Chat[] = response.data || [];
+      console.log("chats get header", chats);
+
+      setMessageNotification(chats);
+    };
+
+    getMessage();
+  }, [checkList]); // Re-run when checkList changes
+
+  const count =
+    messageNotification?.reduce((total, item) => total + item.unreadCount, 0) ||
+    0;
+
   return (
-    <nav className={`${gradientClasses.primaryBg}  sticky top-0 z-50`}>
+    <nav className={`${gradientClasses.primaryBg} sticky top-0 z-50`}>
       <Container>
         <div className="flex justify-between items-center h-24 px-5 lg:px-0">
           {/* Logo */}
@@ -60,25 +86,34 @@ export default function HeaderTwo() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-2 rounded-md text-md lg:text-[20px] font-medium transition-colors duration-200 ${
+                  className={`relative px-3 py-2 rounded-md text-md lg:text-[20px] font-medium transition-colors duration-200 ${
                     pathname === item.href
                       ? "custom-btn"
                       : "text-white hover:text-blue-300"
                   }`}
                 >
-                  {item.label === "Dashboard" || item.label === "Alerts" ? (
-                    <span className="notranslate">{item.label}</span>
-                  ) : (
-                    item.label
-                  )}
+                  <span className="flex items-center gap-2">
+                    {item.label === "Dashboard" || item.label === "Alerts" ? (
+                      <span className="notranslate">{item.label}</span>
+                    ) : (
+                      item.label
+                    )}
+
+                    {/* Inbox Count */}
+                    {item.label === "Inbox" && count > 0 && (
+                      <span className="min-w-5 h-5 px-1 flex items-center justify-center text-xs font-semibold -mt-3 text-white rounded-full">
+                        {count}
+                      </span>
+                    )}
+                  </span>
                 </Link>
               ))}
+
               <Link
                 href="https://wa.me/+88018595439901"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {" "}
                 <div className="rounded-full bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
                   <Image
                     src={call}
@@ -112,7 +147,6 @@ export default function HeaderTwo() {
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
               aria-expanded="false"
             >
-              {/* <span className="sr-only">Open main menu</span> */}
               {!isMenuOpen ? (
                 <svg
                   className="block h-6 w-6"
@@ -179,7 +213,6 @@ export default function HeaderTwo() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {" "}
               <div className="rounded-full w-[10%] bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
                 <Image
                   src={call}
@@ -192,7 +225,7 @@ export default function HeaderTwo() {
             {/* CTA Button */}
             <Link
               href="/profile"
-              className="block  py-2 rounded-md hover:bg-gray-50 transition"
+              className="block py-2 rounded-md hover:bg-gray-50 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               <div className="flex items-center space-x-3">

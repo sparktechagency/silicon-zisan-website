@@ -62,7 +62,7 @@ export default function ViewDetailsCompany({ data, length }: any) {
               {data?.jobType}
             </p>
             <p>
-              ${data?.salaryAmount}/ {data?.salaryType}
+              €{data?.salaryAmount}/ {data?.salaryType}ly
             </p>
           </div>
           <div className="flex gap-4 items-center mt-2 text-sm">
@@ -120,9 +120,9 @@ export default function ViewDetailsCompany({ data, length }: any) {
         {data?.status !== "Closed" && (
           <Button
             onClick={() => handleWithdraw(data?._id)}
-            className="custom-btn"
+            className="bg-red-500"
           >
-            Withdraw
+            Delete
           </Button>
         )}
       </div>

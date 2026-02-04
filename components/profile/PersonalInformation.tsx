@@ -31,8 +31,6 @@ export default function PersonalInformation({ data }: { data: any }) {
     { label: "About", value: data?.about || "N/A" },
   ];
 
-  console.log("data", data);
-
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 

@@ -21,7 +21,6 @@ type Props = {
 export default function DeleteButton({ id, title, trigger }: Props) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log("id", id);
 
   const handleConfirm = async () => {
     if (!text.trim()) {

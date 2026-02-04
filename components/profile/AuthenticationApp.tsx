@@ -2,12 +2,44 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+
 import { getCookie } from "cookies-next/client";
 import Image from "next/image";
+import { Input } from "../ui/input";
+import { toast } from "sonner";
+import { myFetch } from "@/utils/myFetch";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function AuthenticationApp() {
+export default function AuthenticationApp({ getprofile }: any) {
   const qrcode = getCookie("qrcode");
+  console.log("qrcode", qrcode);
+  const router = useRouter();
+
+  const [otp, setOtp] = useState("");
+
+  const handleVeryfyToken = async () => {
+    const payload = {
+      userId: getprofile?._id,
+      otp: otp,
+    };
+
+    try {
+      const res = await myFetch(`/totp/verify-token`, {
+        method: "POST",
+        body: payload,
+      });
+
+      if (res.success) {
+        toast.success("Authentication is Successfully");
+        router.push(`/factor-authenticaiton`);
+      } else {
+        toast.error((res as any)?.error[0].message);
+      }
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "something went wrong");
+    }
+  };
 
   return (
     <div className="bg-card text-white p-6 max-w-xl my-16 mx-auto rounded-lg space-y-6 border border-gray-400/30">
@@ -60,16 +92,21 @@ export default function AuthenticationApp() {
             verification.
           </p>
 
-          {/* <Input
+          <Input
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
             placeholder="Enter Your Code"
             className="mt-2 bg-[#4B5A69] text-white border-white/20"
-          /> */}
+          />
         </div>
       </div>
 
-      <Link href="/factor-authenticaiton">
-        <Button className="w-full custom-btn h-12 mt-4">Confirm</Button>
-      </Link>
+      <Button
+        className="w-full custom-btn h-12 mt-4"
+        onClick={handleVeryfyToken}
+      >
+        Confirm
+      </Button>
     </div>
   );
 }

@@ -8,8 +8,6 @@ export default async function page({ params }: { params: { id: string } }) {
     tags: ["job-seeker-details"],
   });
 
-  console.log("res", res);
-
   return (
     <>
       {res?.data ? (

@@ -3,7 +3,9 @@ import { myFetch } from "@/utils/myFetch";
 import { Chat } from "@/types/chat";
 
 export default async function Inbox({ adminId }: { adminId: string }) {
-  const response = await myFetch("/chats");
+  const response = await myFetch("/chats", {
+    tags: ["chatlist"],
+  });
   const chats: Chat[] = response.data || [];
 
   return (
