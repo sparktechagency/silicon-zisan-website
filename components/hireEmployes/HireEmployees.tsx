@@ -6,7 +6,7 @@ import Link from "next/link";
 import { myFetch } from "@/utils/myFetch";
 
 export default async function HireEmployees() {
-  const res = await myFetch("/jobs?isHiringRequest=true", {
+  const res = await myFetch("/jobs/me?isHiringRequest=true", {
     tags: ["hire-employee"],
   });
 
