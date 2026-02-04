@@ -6,7 +6,7 @@ import Image from "next/image";
 import { UserSearch } from "lucide-react";
 
 export default async function JobPostHomePage() {
-  const res = await myFetch("/jobs/me");
+  const res = await myFetch("/jobs/me?isHiringRequest=false");
 
   const getAppliedJob = async (id: string) => {
     const length = await myFetch(`/applications/job/${id}`);

@@ -36,7 +36,6 @@ export default function SignUpPage() {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (data.password !== data.confirmPassword) {
       toast.error("Password and Confirm password do not match");
-      return;
     }
 
     const payload = {
@@ -110,7 +109,7 @@ export default function SignUpPage() {
             />
           </div>
           {errors.name?.type === "required" && (
-            <p className="text-red-500">Email is required</p>
+            <p className="text-red-500">Name is required</p>
           )}
           {/* email */}
           <div>
@@ -140,7 +139,7 @@ export default function SignUpPage() {
             )}
 
             <span
-              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859] mt-3"
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#d1d8df] mt-3"
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? <Eye /> : <EyeOff />}
@@ -156,12 +155,12 @@ export default function SignUpPage() {
               placeholder="Enter Your Password"
               {...register("confirmPassword", { required: true })}
             />
-            {errors.password?.type === "required" && (
+            {errors.confirmPassword?.type === "required" && (
               <p className="text-red-500">confirmPassword is required</p>
             )}
 
             <span
-              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859] mt-3"
+              className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#e9edf0] mt-3"
               onClick={() => setShowPassword2((prev) => !prev)}
             >
               {showPassword2 ? <Eye /> : <EyeOff />}

@@ -10,7 +10,7 @@ import { myFetch } from "@/utils/myFetch";
 export default function Alerts({ res }: any) {
   const router = useRouter();
   const handleClickNotification = async (id: string) => {
-    router.push(`/view-details-person/${id}`);
+    router.push(`/view-profile?profieID=${id}`);
     await myFetch(`/notifications/read/${id}`, {
       method: "PATCH",
     });
