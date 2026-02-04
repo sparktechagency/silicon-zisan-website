@@ -134,8 +134,6 @@ export default function ShiftPlanDetails({ details }: any) {
       .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
   };
 
-  console.log("details---------", details);
-
   return (
     <div className="max-w-3xl mx-auto">
       {/* PDF content area */}

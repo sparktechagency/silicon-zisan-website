@@ -273,8 +273,6 @@ export default function ContractInformation({
       );
   };
 
-  console.log("getProfile", getProfile);
-
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
