@@ -10,9 +10,18 @@ export default async function page({
 
   const res = await myFetch(`/job-seekers/single/${profieID}`);
 
+  const employeeId: string = res?.data?.user?._id as string;
+
+  const response = await myFetch("/chats/create", {
+    method: "POST",
+    body: {
+      participants: [employeeId],
+    },
+  });
+
   return (
     <>
-      <ViewProfile data={res?.data} />
+      <ViewProfile data={res?.data} chatId={response?.data?._id} />
     </>
   );
 }

@@ -5,19 +5,19 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export default function AdminContact({ adminId }: any) {
+export default function AdminContact({ chatId }: any) {
   const router = useRouter();
   const handleChatWithAdmin = async () => {
     try {
       const res = await myFetch(`/chats/create`, {
         method: "POST",
         body: {
-          participants: [adminId],
+          participants: [chatId],
         },
       });
 
       if (res.success) {
-        router.push(`/inbox`);
+        router.push(`/inbox?id=${chatId}`);
       } else {
         toast.error((res as any)?.error[0]?.message);
       }

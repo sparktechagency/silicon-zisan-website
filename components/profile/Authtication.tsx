@@ -44,7 +44,9 @@ export default function TwoFactorAuth({ getProfile }: any) {
       });
 
       if (res.success) {
-        toast.success(res.message);
+        toast.success(
+          `Email verify otp is ${value ? "on" : "of"} successfully`,
+        );
       } else {
         toast.error((res as any)?.error?.[0]?.message || "Update failed");
       }
@@ -52,23 +54,32 @@ export default function TwoFactorAuth({ getProfile }: any) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     }
   };
-
   const handleActiveIsActive2 = async (value: boolean) => {
+    // ❌ User is trying to TURN ON → go to setup flow
+    if (value === true) {
+      // handleAuthentication(); // generate QR + redirect
+      toast.error("Please click Authenticator App");
+      return;
+    }
+
+    // ✅ User is turning OFF → update backend
     try {
       const res = await myFetch("/users/profile", {
         method: "PATCH",
         body: {
-          is2FAAuthenticatorActive: value, // true | false
+          is2FAAuthenticatorActive: false,
         },
       });
 
       if (res.success) {
-        toast.success(res.message);
+        toast.success("Google Authenticator App is   Closed");
       } else {
         toast.error((res as any)?.error?.[0]?.message || "Update failed");
+        setAuthAppActive(true); // rollback UI
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
+      setAuthAppActive(true); // rollback UI
     }
   };
 
@@ -100,7 +111,7 @@ export default function TwoFactorAuth({ getProfile }: any) {
       <div className="space-y-4">
         <div className="flex items-center justify-between bg-card px-4 py-3 rounded-lg">
           <div>
-            <p className="text-sm">Active</p>
+            <p className="text-sm">{smsActive ? "Active" : "Inactive"}</p>
             <p className="text-base font-medium">Email</p>
           </div>
           <Switch
@@ -114,13 +125,17 @@ export default function TwoFactorAuth({ getProfile }: any) {
 
         <div className="flex items-center justify-between bg-card px-4 py-3 rounded-lg">
           <div>
-            <p className="text-sm">Inactive</p>
+            <p className="text-sm">{authAppActive ? "Active" : "Inactive"}</p>
             <p className="text-base font-medium">Google Authenticator App</p>
           </div>
           <Switch
             checked={authAppActive}
             onCheckedChange={(checked) => {
-              setAuthAppActive(checked);
+              // Optimistic UI only for OFF
+              if (!checked) {
+                setAuthAppActive(false);
+              }
+
               handleActiveIsActive2(checked);
             }}
           />

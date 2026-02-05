@@ -1,9 +1,13 @@
 import AlertsSettingCreate from "@/components/alerts/AlertsSettingCreate";
+import { myFetch } from "@/utils/myFetch";
 
-export default function page() {
+export default async function page() {
+  const res = await myFetch("/employers/me");
+  console.log("res", res);
+
   return (
     <>
-      <AlertsSettingCreate />
+      <AlertsSettingCreate data={res?.data} />
     </>
   );
 }

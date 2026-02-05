@@ -7,7 +7,9 @@ import EmployeeDetailsModal from "./EmployeeDetailsModal";
 import CustomImage from "@/utils/CustomImage";
 import dayjs from "dayjs";
 
-export default function AppointmentCardsConfirmed({ data }: any) {
+export default function AppointmentCardsConfirmed({ data, chatId }: any) {
+  console.log("data", data);
+
   return (
     <>
       {data?.map((item: any) => (
@@ -67,6 +69,7 @@ export default function AppointmentCardsConfirmed({ data }: any) {
               {item.status !== "Cancelled" && (
                 <EmployeeDetailsModal
                   item={item}
+                  chatId={chatId}
                   trigger={
                     <button className="cursor-pointer">
                       <Eye />

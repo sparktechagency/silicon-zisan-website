@@ -4,8 +4,34 @@ import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 import Image from "next/image";
 import pdf from "../../public/dashboard/pdf.png";
 import CustomImage from "@/utils/CustomImage";
+import { Button } from "../ui/button";
+import { myFetch } from "@/utils/myFetch";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-export default function ViewProfile({ data }: any) {
+export default function ViewProfile({ data, chatId }: any) {
+  const router = useRouter();
+  const handleChat = async (id: string) => {
+    try {
+      const res = await myFetch(`/chats/create`, {
+        method: "POST",
+        body: {
+          participants: [id],
+        },
+      });
+
+      if (res.success) {
+        router.push(`/inbox?id=${chatId}`);
+      } else {
+        toast.error((res as any)?.error[0]?.message);
+      }
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "something went wrong",
+      );
+    }
+  };
+
   const personalInfo = [
     { label: "Name", value: data?.user?.name?.trim() || "No Name" },
     { label: "Email", value: data?.user?.email || "No" },
@@ -42,86 +68,104 @@ export default function ViewProfile({ data }: any) {
         </div>
         <p>View Details</p>
       </div>
+      {/* Image */}{" "}
+      <div className="flex justify-between gap-4">
+        <div className="flex gap-4">
+          <CustomImage
+            src={data?.user?.image}
+            title="Office"
+            className="rounded-full h-28 w-28 object-cover"
+            width={10}
+            height={10}
+          />
 
-      {/* Image */}
-      <div className="flex gap-4">
-        <CustomImage
-          src={data?.user?.image}
-          title="Office"
-          className="rounded-full h-28 w-28 object-cover"
-          width={10}
-          height={10}
-        />
-
-        <div className="t">
-          <p className="text-3xl">{data?.user?.name?.trim() || "No Name"}</p>
-          <p className="text-2xl mt-1">Senior Business Analysis</p>
-        </div>
-      </div>
-
-      {/* about details */}
-      <div className="profile-container">
-        {renderInfoSection("Personal Information", personalInfo)}
-        {renderInfoSection("Work Information", workInfo)}
-      </div>
-
-      {/* resume and others */}
-      {data?.resumeUrl && (
-        <div className=" text-white   space-y-6 ">
-          {/* Header */}
-          <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
-            <div className="flex items-center gap-6">
-              <div>
-                <Image src={pdf} alt="Office" width={60} height={50} />
-              </div>
-              <p>{data?.resumeUrl ? "Resume.Pdf" : "No Pdf"}</p>
-            </div>
-            <div className="flex gap-3">
-              <a
-                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                  <EyeIcon className="p-0.5 text-white" />
-                </button>
-              </a>
-              <a
-                href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                  <DownloadIcon className="p-0.5 text-white" />
-                </button>
-              </a>
-            </div>
+          <div className="t">
+            <p className="text-3xl">{data?.user?.name?.trim() || "No Name"}</p>
+            <p className="text-2xl mt-1">Senior Business Analysis</p>
           </div>
         </div>
-      )}
-
-      {/* images */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {data?.attachments?.map((item: any, index: number) => {
-          return (
-            <div key={index} className="image-wrapper">
-              <CustomImage
-                src={item}
-                title={`Office ${index + 1}`}
-                className="image"
-                width={100}
-                height={100}
-              />
+        <div>
+          <Button
+            onClick={() => handleChat(chatId)}
+            className="custom-btn mt-5 h-10 "
+          >
+            Contact
+          </Button>
+        </div>
+      </div>
+      {data?.isProfileVisible === false && (
+        <>
+          {/* about details */}
+          <div className="profile-container">
+            {renderInfoSection("Personal Information", personalInfo)}
+            {renderInfoSection("Work Information", workInfo)}
+          </div>
+          {/* resume and others */}
+          {data?.resumeUrl && (
+            <div className=" text-white   space-y-6 ">
+              {/* Header */}
+              <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
+                <div className="flex items-center gap-6">
+                  <div>
+                    <Image src={pdf} alt="Office" width={60} height={50} />
+                  </div>
+                  <p>{data?.resumeUrl ? "Resume.Pdf" : "No Pdf"}</p>
+                </div>
+                <div className="flex gap-3">
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                      <EyeIcon className="p-0.5 text-white" />
+                    </button>
+                  </a>
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                      <DownloadIcon className="p-0.5 text-white" />
+                    </button>
+                  </a>
+                </div>
+              </div>
             </div>
-          );
-        })}
-      </div>
-
-      {/* work overview */}
-      <div>
-        <h1 className="font-semibold text-2xl">Work Overview</h1>
-        <p className="mt-5">{data?.overview}</p>
-      </div>
+          )}
+          {/* images */}
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {data?.attachments?.map((item: any, index: number) => {
+              return (
+                <div key={index} className="image-wrapper">
+                  <CustomImage
+                    src={item}
+                    title={`Office ${index + 1}`}
+                    className="image"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          {/* work overview */}
+          <div>
+            <h1 className="font-semibold text-2xl">Work Overview</h1>
+            <p className="mt-3">{data?.overview}</p>
+          </div>
+          <div>
+            <h1 className="font-semibold text-2xl">Experiences</h1>
+            <p className="mt-3">
+              Experience : {data?.experiences[0]?.experience} Years
+            </p>
+            <p className="mt-1">
+              Salary : € {data?.experiences[0]?.salaryAmount}
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 }

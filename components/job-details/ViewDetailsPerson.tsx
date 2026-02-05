@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 import { useRouter } from "next/navigation";
 
-export default function ViewDetailsPerson({ data }: any) {
+export default function ViewDetailsPerson({ data, chatId }: any) {
   const router = useRouter();
 
   console.log("data", data);
@@ -47,7 +47,7 @@ export default function ViewDetailsPerson({ data }: any) {
       });
 
       if (res.success) {
-        router.push(`/inbox`);
+        router.push(`/inbox?id=${id}`);
       } else {
         toast.error((res as any)?.error[0]?.message);
       }
@@ -105,7 +105,7 @@ export default function ViewDetailsPerson({ data }: any) {
             </Link>
 
             <Button
-              onClick={() => handleChat(data?._id)}
+              onClick={() => handleChat(chatId)}
               className="custom-btn mt-5 h-10 "
             >
               Contact

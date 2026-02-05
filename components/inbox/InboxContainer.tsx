@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -11,22 +12,31 @@ import { initializeSocket, disconnectSocket, getSocket } from "@/utils/socket";
 import getProfile from "@/utils/getProfile";
 import { revalidate } from "@/utils/revalidateTag";
 import { setCookie } from "cookies-next/client";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface InboxContainerProps {
   initialChats: Chat[];
-  adminId: string;
 }
 
-export default function InboxContainer({
-  initialChats,
-  adminId,
-}: InboxContainerProps) {
-  const [chats, setChats] = useState<Chat[]>(initialChats);
+export default function InboxContainer({ initialChats }: InboxContainerProps) {
+  const [, setChats] = useState<Chat[]>(initialChats);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const selectedChatRef = useRef<Chat | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const chatId = searchParams.get("id");
+
+  // single get chat id
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await myFetch(`/chats/${chatId}`);
+  //     setSelectedChat(res?.data);
+  //   };
+  //   fetchData();
+  // }, [chatId]);
 
   // set global count
   useEffect(() => {
@@ -165,11 +175,11 @@ export default function InboxContainer({
     };
   }, [selectedChat]);
 
-  const handleChatSelect = async (chat: Chat) => {
-    setSelectedChat(chat);
-    setLoadingMessages(true);
+  const handleChatSelect2 = async (chat: string) => {
+    // setSelectedChat(chat);
+    // setLoadingMessages(true);
     try {
-      const response = await myFetch(`/messages/chat/${chat._id}`, {
+      const response = await myFetch(`/messages/chat/${chat}`, {
         method: "GET",
         cache: "no-cache",
         tags: ["chat"],
@@ -191,16 +201,38 @@ export default function InboxContainer({
     }
   };
 
-  // admin chat select
   useEffect(() => {
-    if (!selectedChat && adminId) {
-      const adminChat = chats.find((chat) => chat._id === adminId || adminId);
-
-      if (adminChat) {
-        handleChatSelect(adminChat);
-      }
+    if (chatId) {
+      handleChatSelect2(chatId);
     }
-  }, [adminId, selectedChat, chats]);
+
+    const fetchData = async () => {
+      const res = await myFetch(`/chats/${chatId}`);
+      setSelectedChat(res?.data);
+    };
+    fetchData();
+  }, [chatId]);
+
+  // dublicate function
+  const handleChatSelect = async (chat: Chat) => {
+    // 1. Update URL
+    console.log("call this f");
+
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("id", chat._id);
+    router.push(`?${searchParams.toString()}`, { scroll: false });
+  };
+
+  // admin chat select
+  // useEffect(() => {
+  //   if (!selectedChat && adminId) {
+  //     const adminChat = chats.find((chat) => chat._id === adminId || adminId);
+
+  //     if (adminChat) {
+  //       handleChatSelect(adminChat);
+  //     }
+  //   }
+  // }, [adminId, selectedChat, chats]);
 
   const handleMessageSent = (newMessage: Message) => {
     // Also update chat list for sent messages
@@ -216,7 +248,6 @@ export default function InboxContainer({
     <div className="grid grid-cols-1 xl:grid-cols-[35%_auto] py-10">
       <div className="w-[90%] xl:w-[90%] mx-auto">
         <AllUserChart
-          chats={initialChats}
           selectedChatId={selectedChat?._id}
           onChatSelect={handleChatSelect}
         />
