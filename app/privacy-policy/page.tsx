@@ -1,5 +1,6 @@
 import Container from "@/share/Container";
 import { myFetch } from "@/utils/myFetch";
+import dayjs from "dayjs";
 
 export default async function page() {
   const res = await myFetch("/disclaimers/privacy-policy");
@@ -17,7 +18,7 @@ export default async function page() {
           />
 
           <p>
-            Last Updated : {new Date(res?.data?.updatedAt).toLocaleString()}
+            Last Updated : {dayjs(res?.data?.updatedAt).format("DD-MM-YYYY")}
           </p>
         </div>
       </Container>

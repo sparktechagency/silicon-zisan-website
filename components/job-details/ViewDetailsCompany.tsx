@@ -8,18 +8,20 @@ import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 import CustomImage from "@/utils/CustomImage";
+import { useRouter } from "next/navigation";
 
 export default function ViewDetailsCompany({ data, length }: any) {
+  const router = useRouter();
   const handleWithdraw = async (id: string) => {
     try {
-      const res = await myFetch(`/jobs/update/${id}`, {
-        method: "PATCH",
-        body: { status: "Closed" },
+      const res = await myFetch(`/jobs/delete/${id}`, {
+        method: "DELETE",
       });
 
       if (res.success) {
         toast.success(res.message);
         await revalidate("single-job");
+        router.push("/my-jobs");
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -57,6 +59,7 @@ export default function ViewDetailsCompany({ data, length }: any) {
           <p className="text-lg font-semibold">{data?.author?.name}</p>
           <p className="text-sm text-gray-300">{data?.author?.address}</p>
           <p className="text-md mt-1">{data?.category}</p>
+          <p className="text-md mt-1">{data?.subCategory}</p>
           <div className="flex gap-4 text-sm mt-2">
             <p className="border p-0.5 rounded bg-[#465565] px-3">
               {data?.jobType}

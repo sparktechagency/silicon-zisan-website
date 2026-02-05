@@ -11,12 +11,14 @@ import { toast } from "sonner";
 import { Input } from "../ui/input";
 type CheckedState = boolean | "indeterminate";
 
-export default function AlertsSettingCreate() {
+export default function AlertsSettingCreate({ data }: any) {
   const [frequency, setFrequency] = useState("");
   const [pushEnabled, setPushEnabled] = useState(false);
   const [accepted, setAccepted] = useState<CheckedState>(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(data?.notificationSettings?.email || "");
   const [emailEnabled, setEmailEnabled] = useState(false);
+
+  console.log("data", data);
 
   const handlePushNotification = async () => {
     if (!accepted) {

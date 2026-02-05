@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { SubscriptionCancelModal } from "./modal/SuscriptionCancelModal";
 
 export default function MySubscription({ subscriptions }: any) {
@@ -15,7 +16,7 @@ export default function MySubscription({ subscriptions }: any) {
               <>
                 <p className=" mb-2">
                   Expiry Date :{" "}
-                  {new Date(subscriptions?.currentPeriodEnd).toLocaleString()}
+                  {dayjs(subscriptions?.currentPeriodEnd).format("YYYY-MM-DD")}
                 </p>
                 <p className=" mb-2 capitalize">
                   Payment Status : {subscriptions?.paymentStatus}

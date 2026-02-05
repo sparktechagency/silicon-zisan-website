@@ -8,10 +8,19 @@ export default async function page({ params }: { params: { id: string } }) {
     tags: ["job-seeker-details"],
   });
 
+  const employeeId: string = res?.data?.user?._id as string;
+
+  const response = await myFetch("/chats/create", {
+    method: "POST",
+    body: {
+      participants: [employeeId],
+    },
+  });
+
   return (
     <>
       {res?.data ? (
-        <ViewDetailsPerson data={res.data} />
+        <ViewDetailsPerson data={res.data} chatId={response?.data?._id} />
       ) : (
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <div className="mb-3 rounded-full bg-gray-200 p-4">

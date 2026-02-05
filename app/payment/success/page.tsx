@@ -2,7 +2,23 @@ import React from "react";
 import { CheckCircle, ArrowRight, Home } from "lucide-react";
 import Link from "next/link";
 
-export default function Page() {
+interface PageProps {
+  searchParams: {
+    session_id?: string;
+  };
+}
+
+export default async function Page({ searchParams }: PageProps) {
+  const sessionId = (await searchParams)?.session_id;
+
+  if (!sessionId) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Invalid or missing payment session</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-br from-green-50 via-white to-emerald-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">

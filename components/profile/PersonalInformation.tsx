@@ -120,9 +120,20 @@ export default function PersonalInformation({ data }: { data: any }) {
       {/* Profile Data */}
       <div className="mb-6">
         {profileData.map(({ label, value }, idx) => (
-          <div key={idx} className="grid grid-cols-[30%_70%]  py-2 ">
-            <span className="text-sm w-[20%]">{label}</span>
-            <span className="text-sm w-[80%]"> : {value}</span>
+          <div key={idx} className="grid grid-cols-[30%_90%]  py-2 ">
+            {label === "Name" || label === "Email" || label === "LegalForm" ? (
+              <>
+                {" "}
+                <span className="text-sm w-[20%] notranslate">{label}</span>
+                <span className="text-sm w-[80%] notranslate"> : {value}</span>
+              </>
+            ) : (
+              <>
+                {" "}
+                <span className="text-sm w-[20%]">{label}</span>
+                <span className="text-sm w-[80%]"> : {value}</span>
+              </>
+            )}
           </div>
         ))}
       </div>

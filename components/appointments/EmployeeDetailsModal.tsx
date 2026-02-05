@@ -8,14 +8,14 @@ import { toast } from "sonner";
 import { Clock4 } from "lucide-react";
 interface CancelModalProps {
   trigger?: React.ReactNode;
-
   item?: any;
+  chatId: any;
 }
 
 export default function EmployeeDetailsModal({
   trigger,
-
   item,
+  chatId,
 }: CancelModalProps) {
   const router = useRouter();
 
@@ -87,7 +87,7 @@ export default function EmployeeDetailsModal({
         </Button> */}
 
         <Button
-          onClick={() => handleInbox(item?.receiver?._id)}
+          onClick={() => handleInbox(chatId)}
           className="custom-btn py-2 w-full"
         >
           Inbox

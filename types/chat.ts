@@ -20,4 +20,5 @@ export interface Chat {
   unreadCount: number;
   lastMessage?: LastMessage;
   adminId: string;
+  anotherParticipant: Participant | null;
 }
