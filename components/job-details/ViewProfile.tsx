@@ -41,8 +41,8 @@ export default function ViewProfile({ data, chatId }: any) {
   ];
 
   const workInfo = [
-    { label: "Category", value: data?.experiences[0]?.category || "No" },
-    { label: "Category", value: data?.experiences[0]?.subCategory || "No" },
+    { label: "Category", value: data?.experiences[0]?.category || "N/A" },
+    { label: "Category", value: data?.experiences[0]?.subCategory || "N/A" },
   ];
 
   const renderInfoSection = (title: string, data: any) => (
@@ -93,79 +93,80 @@ export default function ViewProfile({ data, chatId }: any) {
           </Button>
         </div>
       </div>
-      {data?.isProfileVisible === false && (
-        <>
-          {/* about details */}
-          <div className="profile-container">
-            {renderInfoSection("Personal Information", personalInfo)}
-            {renderInfoSection("Work Information", workInfo)}
-          </div>
-          {/* resume and others */}
-          {data?.resumeUrl && (
-            <div className=" text-white   space-y-6 ">
-              {/* Header */}
-              <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
-                <div className="flex items-center gap-6">
-                  <div>
-                    <Image src={pdf} alt="Office" width={60} height={50} />
-                  </div>
-                  <p>{data?.resumeUrl ? "Resume.Pdf" : "No Pdf"}</p>
+      {/* {data?.isProfileVisible === true && ( */}
+      <>
+        {/* about details */}
+        <div className="profile-container">
+          {renderInfoSection("Personal Information", personalInfo)}
+          {renderInfoSection("Work Information", workInfo)}
+        </div>
+        {/* resume and others */}
+        {data?.resumeUrl && (
+          <div className=" text-white   space-y-6 ">
+            {/* Header */}
+            <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
+              <div className="flex items-center gap-6">
+                <div>
+                  <Image src={pdf} alt="Office" width={60} height={50} />
                 </div>
-                <div className="flex gap-3">
-                  <a
-                    href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                      <EyeIcon className="p-0.5 text-white" />
-                    </button>
-                  </a>
-                  <a
-                    href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
-                      <DownloadIcon className="p-0.5 text-white" />
-                    </button>
-                  </a>
-                </div>
+                <p>{data?.resumeUrl ? "Resume.Pdf" : "No Pdf"}</p>
+              </div>
+              <div className="flex gap-3">
+                <a
+                  href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                    <EyeIcon className="p-0.5 text-white" />
+                  </button>
+                </a>
+                <a
+                  href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.resumeUrl}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="w-8 h-8 border border-white rounded-full flex items-center justify-center cursor-pointer">
+                    <DownloadIcon className="p-0.5 text-white" />
+                  </button>
+                </a>
               </div>
             </div>
-          )}
-          {/* images */}
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {data?.attachments?.map((item: any, index: number) => {
-              return (
-                <div key={index} className="image-wrapper">
-                  <CustomImage
-                    src={item}
-                    title={`Office ${index + 1}`}
-                    className="image"
-                    width={100}
-                    height={100}
-                  />
-                </div>
-              );
-            })}
           </div>
-          {/* work overview */}
-          <div>
-            <h1 className="font-semibold text-2xl">Work Overview</h1>
-            <p className="mt-3">{data?.overview}</p>
-          </div>
-          <div>
-            <h1 className="font-semibold text-2xl">Experiences</h1>
-            <p className="mt-3">
-              Experience : {data?.experiences[0]?.experience} Years
-            </p>
-            <p className="mt-1">
-              Salary : € {data?.experiences[0]?.salaryAmount}
-            </p>
-          </div>
-        </>
-      )}
+        )}
+        {/* images */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {data?.attachments?.map((item: any, index: number) => {
+            return (
+              <div key={index} className="image-wrapper">
+                <CustomImage
+                  src={item}
+                  title={`Office ${index + 1}`}
+                  className="image"
+                  width={100}
+                  height={100}
+                />
+              </div>
+            );
+          })}
+        </div>
+        {/* work overview */}
+        <div>
+          <h1 className="font-semibold text-2xl">Work Overview</h1>
+          <p className="mt-3">{data?.overview}</p>
+        </div>
+        <div>
+          <h1 className="font-semibold text-2xl">Experiences</h1>
+          <p className="mt-3">
+            Experience : {data?.experiences[0]?.experience} Years
+          </p>
+          <p className="mt-1">
+            Salary : {data?.experiences[0]?.salaryAmount && <span>€</span>}{" "}
+            {data?.experiences[0]?.salaryAmount || "No Amount"}
+          </p>
+        </div>
+      </>
+      {/* )} */}
     </div>
   );
 }

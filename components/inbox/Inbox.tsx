@@ -2,8 +2,8 @@ import InboxContainer from "./InboxContainer";
 import { myFetch } from "@/utils/myFetch";
 import { Chat } from "@/types/chat";
 
-export default async function Inbox() {
-  const response = await myFetch("/chats", {
+export default async function Inbox({ name }: { name?: string }) {
+  const response = await myFetch(`/chats?searchTerm=${name || ""}`, {
     tags: ["chatlist"],
   });
   const chats: Chat[] = response.data || [];

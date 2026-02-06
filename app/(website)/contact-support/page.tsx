@@ -7,7 +7,6 @@ export default async function ContactSupportPage() {
   console.log("contact", res);
 
   const adminId: string = res?.data?.adminId as string;
-  console.log("e----------", adminId);
 
   const response = await myFetch("/chats/create", {
     method: "POST",
@@ -16,12 +15,12 @@ export default async function ContactSupportPage() {
     },
   });
 
-  console.log("chatId={response?.data?._id} ", response?.data?._id);
+  console.log("res", res);
 
   return (
     <>
       {/* <ContactSupport /> */}
-      <AdminContact chatId={response?.data?._id} />
+      <AdminContact chatId={response?.data?._id} adminContact={res?.data} />
     </>
   );
 }

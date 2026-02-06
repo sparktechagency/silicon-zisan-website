@@ -116,6 +116,7 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
         socket.on("getMessage", (newMessage: Message) => {
           console.log("Socket received getMessage:", newMessage);
           revalidate("chat");
+          revalidate("chatlist");
           // Update chat list
           updateChatList(newMessage);
 
@@ -143,7 +144,7 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
           const currentChatId = selectedChatRef.current?._id;
           const messageChatId =
             typeof data.chat === "object" ? (data.chat as any)._id : data.chat;
-
+          // handleChatSelect2(chatId!);
           if (currentChatId === messageChatId) {
             setMessages((prev) => {
               if (prev.some((m) => m._id === data._id)) return prev;
@@ -201,6 +202,7 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
     }
   };
 
+  // chat id find automatice call this function
   useEffect(() => {
     if (chatId) {
       handleChatSelect2(chatId);
@@ -250,6 +252,7 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
         <AllUserChart
           selectedChatId={selectedChat?._id}
           onChatSelect={handleChatSelect}
+          tallChats={initialChats}
         />
       </div>
       <div className="w-[90%] xl:w-full mx-auto px-1">

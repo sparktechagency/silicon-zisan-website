@@ -136,7 +136,9 @@ export default function HeaderTwo() {
                 height={50}
                 className="h-12 w-12 rounded-full object-cover"
               />
-              <p>{profileData?.user?.name || "No Name"}</p>
+              <p className="notranslate">
+                {profileData?.user?.name || "No Name"}
+              </p>
             </div>
           </Link>
 

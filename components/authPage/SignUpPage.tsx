@@ -94,7 +94,7 @@ export default function SignUpPage() {
 
       <div className="w-[80%] md:w-[50%] border border-[#FFFFFF0D] p-5 rounded-md bg-[#374859]">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-7">
-          Sign Up
+          Register
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full ">
@@ -187,7 +187,7 @@ export default function SignUpPage() {
           </label>
 
           <Button className="custom-btn w-full" type="submit">
-            Sign Up
+            Register
           </Button>
 
           <p className="text-center my-4">Or Continue With</p>

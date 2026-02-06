@@ -103,13 +103,23 @@ export default function ContractInformation({
         method: "POST",
       });
 
-      if (res.success) {
-        toast.success(res.message);
+      if (res?.success) {
+        toast.success(String(res.message));
       } else {
-        toast.error(res?.error || "Failed to send shift plan.");
+        const err = (res as any)?.error?.[0];
+
+        toast.error(
+          typeof err === "string"
+            ? err
+            : err?.message || "Something went wrong",
+        );
       }
-    } catch {
-      toast.error("An error occurred while sending shift plan.");
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while sending shift plan.",
+      );
     } finally {
       setLoading(false);
     }
