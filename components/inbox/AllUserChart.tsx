@@ -3,37 +3,23 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { ChatCard } from "./ChartCard";
 import { Chat } from "@/types/chat";
-import { myFetch } from "@/utils/myFetch";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface AllUserChartProps {
   selectedChatId?: string;
   onChatSelect?: (chat: Chat) => void;
+  tallChats: Chat[];
 }
 
-const AllUserChart = ({ selectedChatId, onChatSelect }: AllUserChartProps) => {
-  const [allChats, setAllChats] = useState<Chat[]>([]); // Fixed type
+const AllUserChart = ({
+  selectedChatId,
+  onChatSelect,
+  tallChats,
+}: AllUserChartProps) => {
   const [value, setValue] = useState("");
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchChats = async () => {
-      const params = new URLSearchParams(searchParams.toString());
-
-      if (value) {
-        params.set("searchTerm", value); // Use set instead of append
-      } else {
-        params.delete("searchTerm");
-      }
-
-      const response = await myFetch(`/chats?${params.toString()}`);
-      setAllChats(response?.data || []);
-    };
-
-    fetchChats();
-  }, [value, searchParams]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
@@ -71,8 +57,8 @@ const AllUserChart = ({ selectedChatId, onChatSelect }: AllUserChartProps) => {
 
       <div className="flex-1 overflow-y-auto space-y-2 hide-scrollbar">
         <div className="xl:mr-4">
-          {allChats.length > 0 ? (
-            allChats.map(
+          {tallChats?.length > 0 ? (
+            tallChats?.map(
               (
                 chat, // Map allChats instead of chats prop
               ) => (

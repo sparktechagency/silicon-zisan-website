@@ -77,145 +77,147 @@ export default function SubscriptionPlan({ data, name }: any) {
         }}
       >
         {/* Slide 1: Basic */}
-        <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
-            <h1 className="text-lg sm:text-2xl font-semibold my-2">
-              JobsinApp Plans
-            </h1>
-            <div className="grid grid-cols-3 gap-4">
-              <button className="custom-btn w-full py-2 rounded-2xl">
-                Basic
-              </button>
-              <button className="button-unactive w-full py-2 rounded-2xl">
-                Standard
-              </button>
-              <button className="button-unactive w-full py-2 rounded-2xl">
-                Booster
-              </button>
-            </div>
-
-            <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-              <div className="flex justify-between items-center">
-                <div className="mt-4">
-                  <h1 className="text-white text-lg lg:text-2xl font-semibold w-40">
-                    Basic Free
-                  </h1>
-                  <div className="flex gap-3 items-center mt-1">
-                    <p className="text-white text-sm ">Free</p>
-
-                    <SubscriptionDetails
-                      bio={data[0]?.description}
-                      trigger={
-                        <p>
-                          <Info />
-                        </p>
-                      }
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-end mb-2">
-                    <Image src={logo} className="h-10 w-10" alt="logo" />
-                  </div>
-                </div>
+        {data[0] && (
+          <SwiperSlide>
+            <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
+              <h1 className="text-lg sm:text-2xl font-semibold my-2">
+                JobsinApp Plans
+              </h1>
+              <div className="grid grid-cols-3 gap-4">
+                <button className="custom-btn w-full py-2 rounded-2xl">
+                  Basic
+                </button>
+                <button className="button-unactive w-full py-2 rounded-2xl">
+                  Standard
+                </button>
+                <button className="button-unactive w-full py-2 rounded-2xl">
+                  Booster
+                </button>
               </div>
 
-              <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                {data[0]?.benefits?.map((item: any, index: number) => (
-                  <li className="" key={index}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+                <div className="flex justify-between items-center">
+                  <div className="mt-4">
+                    <h1 className="text-white text-lg lg:text-2xl font-semibold w-40">
+                      Basic Free
+                    </h1>
+                    <div className="flex gap-3 items-center mt-1">
+                      <p className="text-white text-sm ">Free</p>
 
-            <Button
-              disabled={activePlan === "Basic"}
-              className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                loadingId === data[0]?._id && "cursor-not-allowed"
-              }`}
-              onClick={() => handleSubscribe(data[0]?._id)}
-            >
-              {activePlan === "Basic"
-                ? "Activated"
-                : loadingId === data[0]?._id
-                  ? "Processing..."
-                  : "Subscribe Now"}
-            </Button>
-          </div>
-        </SwiperSlide>
-
-        {/* Slide 2: Standard */}
-        <SwiperSlide>
-          <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
-            <h1 className="text-lg sm:text-2xl font-semibold my-2">
-              JobsinApp Plans
-            </h1>
-            <div className="grid grid-cols-3 gap-4">
-              <button className="button-unactive w-full py-2 rounded-2xl">
-                Basic
-              </button>
-              <button className="custom-btn w-full py-2 rounded-2xl">
-                Standard
-              </button>
-              <button className="button-unactive w-full py-2 rounded-2xl">
-                Booster
-              </button>
-            </div>
-
-            <div className="bg-[#304150] h-[450px] rounded py-6 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-              <div className="flex justify-between items-center">
-                <div className="mt-4">
-                  <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
-                    Standard
-                  </h1>
-                  <div className="flex gap-3 items-center mt-1">
-                    <p className="text-white text-sm ">
-                      € {data[1]?.dailyPrice} Per Day
-                    </p>
-                    <SubscriptionDetails
-                      bio={data[1]?.description}
-                      trigger={
-                        <p>
-                          <Info />
-                        </p>
-                      }
-                    />
+                      <SubscriptionDetails
+                        bio={data[0]?.description}
+                        trigger={
+                          <p>
+                            <Info />
+                          </p>
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-end mb-2">
+                      <Image src={logo} className="h-10 w-10" alt="logo" />
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <div className="flex justify-end mb-2">
-                    <Image src={logo} className="h-10 w-10" alt="logo" />
-                  </div>
-                </div>
+
+                <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
+                  {data[0]?.benefits?.map((item: any, index: number) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
               </div>
 
-              <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                {data[1]?.benefits?.map((item: any, index: number) => (
-                  <li className="" key={index}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-auto">
               <Button
-                disabled={activePlan === "Standard"}
+                disabled={activePlan === "Basic"}
                 className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                  loadingId === data[1]?._id && "cursor-not-allowed"
+                  loadingId === data[0]?._id && "cursor-not-allowed"
                 }`}
-                onClick={() => handleSubscribe(data[1]?._id)}
+                onClick={() => handleSubscribe(data[0]?._id)}
               >
-                {activePlan === "Standard"
+                {activePlan === "Basic"
                   ? "Activated"
-                  : loadingId === data[1]?._id
+                  : loadingId === data[0]?._id
                     ? "Processing..."
                     : "Subscribe Now"}
               </Button>
             </div>
-          </div>
-        </SwiperSlide>
+          </SwiperSlide>
+        )}
+
+        {/* Slide 2: Standard */}
+        {data[1] && (
+          <SwiperSlide>
+            <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
+              <h1 className="text-lg sm:text-2xl font-semibold my-2">
+                JobsinApp Plans
+              </h1>
+              <div className="grid grid-cols-3 gap-4">
+                <button className="button-unactive w-full py-2 rounded-2xl">
+                  Basic
+                </button>
+                <button className="custom-btn w-full py-2 rounded-2xl">
+                  Standard
+                </button>
+                <button className="button-unactive w-full py-2 rounded-2xl">
+                  Booster
+                </button>
+              </div>
+
+              <div className="bg-[#304150] h-[450px] rounded py-6 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+                <div className="flex justify-between items-center">
+                  <div className="mt-4">
+                    <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
+                      Standard
+                    </h1>
+                    <div className="flex gap-3 items-center mt-1">
+                      <p className="text-white text-sm ">
+                        € {data[1]?.dailyPrice} Per Day
+                      </p>
+                      <SubscriptionDetails
+                        bio={data[1]?.description}
+                        trigger={
+                          <p>
+                            <Info />
+                          </p>
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-end mb-2">
+                      <Image src={logo} className="h-10 w-10" alt="logo" />
+                    </div>
+                  </div>
+                </div>
+
+                <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
+                  {data[1]?.benefits?.map((item: any, index: number) => (
+                    <li className="" key={index}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="mt-auto">
+                <Button
+                  disabled={activePlan === "Standard"}
+                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                    loadingId === data[1]?._id && "cursor-not-allowed"
+                  }`}
+                  onClick={() => handleSubscribe(data[1]?._id)}
+                >
+                  {activePlan === "Standard"
+                    ? "Activated"
+                    : loadingId === data[1]?._id
+                      ? "Processing..."
+                      : "Subscribe Now"}
+                </Button>
+              </div>
+            </div>
+          </SwiperSlide>
+        )}
 
         {/* Slide 3: Booster */}
         {data[2] && (
@@ -263,7 +265,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                   </div>
                 </div>
 
-                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
                   {data[2]?.benefits?.map((item: any, index: number) => (
                     <li className="" key={index}>
                       {item}

@@ -4,8 +4,6 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import CustomImage from "@/utils/CustomImage";
 import defalutImage from "@/public/default-image.png";
-import { setCookie } from "cookies-next/client";
-import { useEffect } from "react";
 
 interface ChatCardProps {
   chat: Chat;
@@ -18,13 +16,13 @@ export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
   const lastMsg = chat.lastMessage;
 
   // Automatically call when unreadCount changes
-  useEffect(() => {
-    if (chat.unreadCount && chat.unreadCount) {
-      setCookie("list", chat.unreadCount);
-    } else {
-      setCookie("list", chat.unreadCount);
-    }
-  }, [chat.unreadCount]); // Re-run when unreadCount changes
+  // useEffect(() => {
+  //   if (chat.unreadCount && chat.unreadCount) {
+  //     setCookie("list", chat.unreadCount);
+  //   } else {
+  //     setCookie("list", chat.unreadCount);
+  //   }
+  // }, [chat.unreadCount]); // Re-run when unreadCount changes
 
   return (
     <div
@@ -64,7 +62,7 @@ export const ChatCard = ({ chat, isActive, onClick }: ChatCardProps) => {
             ? format(new Date(lastMsg.createdAt), "hh:mm a")
             : ""}
         </p>
-        {chat.unreadCount && (
+        {chat.unreadCount > 0 && (
           <span className="bg-primary text-white text-[10px] px-1.5 py-0.5 rounded-full">
             {chat.unreadCount}
           </span>

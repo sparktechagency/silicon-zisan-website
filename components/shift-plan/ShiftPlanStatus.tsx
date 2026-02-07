@@ -36,7 +36,7 @@ export default function ShiftPlanStatus() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div>
           <Select onValueChange={(value) => handleParams("shift", value)}>
-            <SelectTrigger className="!w-full lg:w-[180px] button-unactive rounded-3xl px-7">
+            <SelectTrigger className="w-full!  lg:w-[180px] button-unactive rounded-3xl px-7">
               <SelectValue placeholder="Select Plan" />
             </SelectTrigger>
             <SelectContent>
@@ -78,7 +78,7 @@ export default function ShiftPlanStatus() {
         </div>
         <div className="">
           <Link href="/create-new-plan">
-            <Button className="button-active !w-full lg:w-44 py-3 rounded-3xl">
+            <Button className="button-active w-full! lg:w-44 py-3 rounded-3xl">
               Create New Plan
             </Button>
           </Link>

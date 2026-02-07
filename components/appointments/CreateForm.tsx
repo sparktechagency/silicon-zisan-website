@@ -66,6 +66,7 @@ export function CreateForm({ res }: any) {
 
       if (res.success) {
         toast.success(res.message);
+        router.push(`/appointments`);
       } else {
         toast.error((res as any)?.error[0].message);
       }

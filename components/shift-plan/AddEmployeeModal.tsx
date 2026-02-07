@@ -30,15 +30,6 @@ export default function AddEmployeeForm({
   const [open, setOpen] = useState(false);
   const countryList = countryListData.getAll();
 
-  // 🔹 Split phone for edit mode
-  // const splitPhone = (phone = "") => {
-  //   const match = phone.match(/^(\+\d{1,4})(\d+)$/);
-  //   return {
-  //     countryCode: match?.[1] || "+880",
-  //     phone: match?.[2] || "",
-  //   };
-  // };
-
   const {
     register,
     handleSubmit,
@@ -51,7 +42,7 @@ export default function AddEmployeeForm({
     defaultValues: {
       name: "",
       email: "",
-      countryCode: "+880",
+      countryCode: "+49",
       phone: "",
       address: "",
     },
@@ -106,8 +97,6 @@ export default function AddEmployeeForm({
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     }
   };
-
-  console.log("workerData", workerData);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

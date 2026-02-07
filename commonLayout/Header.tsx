@@ -15,6 +15,8 @@ import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
 import { Chat } from "@/types/chat";
 import { useCookie } from "@/hooks/useCookies";
+import { disconnectSocket, initializeSocket } from "@/utils/socket";
+import { revalidate } from "@/utils/revalidateTag";
 
 type Profile = {
   user: {
@@ -23,7 +25,7 @@ type Profile = {
   };
 };
 
-export default function HeaderTwo() {
+export default function HeaderTwo({ notification, token }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileData, setProfileData] = useState<Profile | null>(null);
   const [messageNotification, setMessageNotification] = useState<Chat[]>([]);
@@ -56,7 +58,6 @@ export default function HeaderTwo() {
         tags: ["chatlist"],
       });
       const chats: Chat[] = response.data || [];
-      console.log("chats get header", chats);
 
       setMessageNotification(chats);
     };
@@ -67,6 +68,28 @@ export default function HeaderTwo() {
   const count =
     messageNotification?.reduce((total, item) => total + item.unreadCount, 0) ||
     0;
+
+  // get notifications
+  const socket = initializeSocket(token);
+  // get notifications
+  useEffect(() => {
+    const initNotificationSocket = async () => {
+      // const token = await getToken();
+      if (!token) return;
+
+      const socket = initializeSocket(token);
+
+      socket.on("getNotification", () => {
+        revalidate("Notification");
+      });
+    };
+
+    initNotificationSocket();
+
+    return () => {
+      disconnectSocket();
+    };
+  }, [token, socket]);
 
   return (
     <nav className={`${gradientClasses.primaryBg} sticky top-0 z-50`}>
@@ -105,6 +128,13 @@ export default function HeaderTwo() {
                         {count}
                       </span>
                     )}
+                    {/* Alerts Count */}
+                    {item.label === "Alerts" &&
+                      notification?.unreadCount > 0 && (
+                        <span className="min-w-5 h-5 px-1 flex items-center justify-center text-xs font-semibold -mt-3 bg-gray-400 text-white rounded-full">
+                          {notification?.unreadCount}
+                        </span>
+                      )}
                   </span>
                 </Link>
               ))}
@@ -136,7 +166,9 @@ export default function HeaderTwo() {
                 height={50}
                 className="h-12 w-12 rounded-full object-cover"
               />
-              <p>{profileData?.user?.name || "No Name"}</p>
+              <p className="notranslate">
+                {profileData?.user?.name || "No Name"}
+              </p>
             </div>
           </Link>
 
@@ -235,7 +267,7 @@ export default function HeaderTwo() {
                   title="Profile"
                   width={40}
                   height={40}
-                  className="rounded-full object-cover"
+                  className="rounded-full object-cover h-10"
                 />
                 <p className="text-gray-800 font-medium">
                   {profileData?.user?.name || "No Name"}

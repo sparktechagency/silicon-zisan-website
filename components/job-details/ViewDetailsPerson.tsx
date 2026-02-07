@@ -15,8 +15,6 @@ import { useRouter } from "next/navigation";
 export default function ViewDetailsPerson({ data, chatId }: any) {
   const router = useRouter();
 
-  console.log("data", data);
-
   const handleApproved = async (id: string) => {
     try {
       const res = await myFetch(`/applications/update/${id}`, {

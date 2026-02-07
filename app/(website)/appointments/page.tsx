@@ -1,25 +1,23 @@
 import Appointments from "@/components/appointments/Appointments";
 import { myFetch } from "@/utils/myFetch";
-import React from "react";
 
 export default async function page({
   searchParams,
 }: {
-  searchParams: { status: string };
+  searchParams: { status: string; id: string };
 }) {
   const { status } = await searchParams;
-  const res = await myFetch(`/appointments/requests/me?status=${status}`);
-
-  const employeeId: string = res?.data?.receiver?._id as string;
+  const { id } = await searchParams;
+  const res = await myFetch(`/appointments/requests/me?status=${status}`, {
+    tags: ["status"],
+  });
 
   const response = await myFetch("/chats/create", {
     method: "POST",
     body: {
-      participants: [employeeId],
+      participants: [id],
     },
   });
-
-  console.log(" chatId={response}", response);
 
   return (
     <>

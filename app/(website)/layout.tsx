@@ -1,7 +1,7 @@
 import Footer from "@/commonLayout/Footer";
-import Header from "@/commonLayout/Header";
 import SidebarCheck from "@/components/sidebarCheck/SidebarCheck";
 import Container from "@/share/Container";
+import HeaderParentComponents from "@/share/HeaderParentComponents";
 
 export default async function MainLayout({
   children,
@@ -11,7 +11,7 @@ export default async function MainLayout({
   return (
     <>
       {/* newest code */}
-      <Header />
+      <HeaderParentComponents />
       <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
         <SidebarCheck />
 

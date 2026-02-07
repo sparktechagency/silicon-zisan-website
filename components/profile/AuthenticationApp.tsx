@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 
 export default function AuthenticationApp({ getprofile }: any) {
   const qrcode = getCookie("qrcode");
-  console.log("qrcode", qrcode);
+
   const router = useRouter();
 
   const [otp, setOtp] = useState("");

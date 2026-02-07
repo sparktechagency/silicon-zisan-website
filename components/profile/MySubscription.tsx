@@ -4,8 +4,8 @@ import { SubscriptionCancelModal } from "./modal/SuscriptionCancelModal";
 export default function MySubscription({ subscriptions }: any) {
   return (
     <>
-      <div className="p-4 border border-gray-400 rounded-md bg-card flex justify-between items-end">
-        <div className="space-y-4">
+      <div className="p-4 border border-gray-400 rounded-md bg-card ">
+        <div className="space-y-4 grid grid-cols-1 lg:grid-cols-2">
           <div className=" text-white">
             <p className=" mb-2">
               Package Name : {subscriptions?.package?.name || "Basic"}
@@ -25,15 +25,13 @@ export default function MySubscription({ subscriptions }: any) {
               </>
             )}
           </div>
+
+          {subscriptions?._id && (
+            <div className="flex justify-end items-end">
+              <SubscriptionCancelModal subscriptionId={subscriptions?._id} />
+            </div>
+          )}
         </div>
-
-        {/* subscritption button */}
-
-        {subscriptions?._id && (
-          <div>
-            <SubscriptionCancelModal subscriptionId={subscriptions?._id} />
-          </div>
-        )}
       </div>
     </>
   );

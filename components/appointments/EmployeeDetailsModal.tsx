@@ -3,9 +3,10 @@ import { Button } from "../ui/button";
 import dayjs from "dayjs";
 import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Clock4 } from "lucide-react";
+import { useRef, useState } from "react";
 interface CancelModalProps {
   trigger?: React.ReactNode;
   item?: any;
@@ -18,17 +19,44 @@ export default function EmployeeDetailsModal({
   chatId,
 }: CancelModalProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showInbox, setShowInbox] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleInbox = async (appointmentId: string) => {
+  const handleOpenChange = (open: boolean) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (open) {
+      params.set("id", item?.receiver?._id);
+
+      // ⏳ 1 second delay
+      timerRef.current = setTimeout(() => {
+        setShowInbox(true);
+      }, 1000);
+    } else {
+      params.delete("id");
+
+      // reset state
+      setShowInbox(false);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
+
+  const handleInbox = async (id: string) => {
     try {
       const res = await myFetch(`/chats/create`, {
         method: "POST",
         body: {
-          participants: [appointmentId],
+          participants: [id],
         },
       });
       if (res.success) {
-        router.push(`/inbox`);
+        router.push(`/inbox?id=${id}`);
       } else {
         toast.error((res as any)?.error[0]?.message);
       }
@@ -40,7 +68,7 @@ export default function EmployeeDetailsModal({
   };
 
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleOpenChange}>
       {/* Trigger Button */}
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
@@ -87,6 +115,7 @@ export default function EmployeeDetailsModal({
         </Button> */}
 
         <Button
+          disabled={!showInbox}
           onClick={() => handleInbox(chatId)}
           className="custom-btn py-2 w-full"
         >

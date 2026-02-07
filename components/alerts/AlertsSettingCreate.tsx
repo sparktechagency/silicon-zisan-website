@@ -9,6 +9,7 @@ import CustomBackButton from "@/share/CustomBackButton";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
+import Link from "next/link";
 type CheckedState = boolean | "indeterminate";
 
 export default function AlertsSettingCreate({ data }: any) {
@@ -17,8 +18,6 @@ export default function AlertsSettingCreate({ data }: any) {
   const [accepted, setAccepted] = useState<CheckedState>(false);
   const [email, setEmail] = useState(data?.notificationSettings?.email || "");
   const [emailEnabled, setEmailEnabled] = useState(false);
-
-  console.log("data", data);
 
   const handlePushNotification = async () => {
     if (!accepted) {
@@ -120,9 +119,14 @@ export default function AlertsSettingCreate({ data }: any) {
         <Checkbox checked={accepted} onCheckedChange={setAccepted} />
         <p className="text-sm">
           By Continuing, You Accept The{" "}
-          <span className="font-semibold">Privacy Policy</span> And{" "}
-          <span className="font-semibold">Terms & Conditions</span> of
-          JobsinApp.
+          <Link href={`/privacy-policy`}>
+            <span className="font-semibold underline">Privacy Policy</span>{" "}
+            And{" "}
+          </Link>
+          <Link href={`/terms-condition`}>
+            <span className="font-semibold underline">Terms & Conditions</span>
+          </Link>{" "}
+          of JobsinApp.
         </p>
       </div>
 

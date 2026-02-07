@@ -48,18 +48,25 @@ export default function CreateNewPlan2({ employee, editData }: any) {
   const router = useRouter();
   const [plans, setPlans] = useState<Plan[]>([]);
 
-  const { control, register, watch, handleSubmit, resetField, reset } =
-    useForm<FormValues>({
-      defaultValues: {
-        worker: editData?.worker?._id || "",
-        shift: "",
-        taskInput: "",
-        tasks: [],
-        remarks: "",
-        startTime: null, // Changed from "" to null
-        endTime: null, // Changed from "" to null
-      },
-    });
+  const {
+    control,
+    register,
+    watch,
+    handleSubmit,
+    resetField,
+    reset,
+    formState: {},
+  } = useForm<FormValues>({
+    defaultValues: {
+      worker: editData?.worker?._id || "",
+      shift: "",
+      taskInput: "",
+      tasks: [],
+      remarks: "",
+      startTime: null, // Changed from "" to null
+      endTime: null, // Changed from "" to null
+    },
+  });
   const { fields, append, remove } = useFieldArray({
     control,
     name: "tasks",
@@ -117,6 +124,16 @@ export default function CreateNewPlan2({ employee, editData }: any) {
 
     if (selectedDates.length === 0) {
       toast.error("Please select date");
+      return;
+    }
+
+    if (!data.shift) {
+      toast.error("Please select timeline");
+      return;
+    }
+
+    if (!data.tasks.length) {
+      toast.error("Please add at least one task");
       return;
     }
 
@@ -246,6 +263,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               <Controller
                 name="shift"
                 control={control}
+                // rules={{ required: "Please select an option" }}
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger className="button-unactive text-white w-full">
@@ -259,18 +277,33 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                   </Select>
                 )}
               />
+
+              {/* {errors.shift && (
+                <span className="text-red-400">{errors.shift.message}</span>
+              )} */}
             </div>
 
             {/* Tasks */}
             <div className="space-y-2">
               <Label>Task</Label>
 
-              <div className="flex gap-2">
-                <Input
-                  {...register("taskInput")}
-                  placeholder="Enter task"
-                  className=" text-white"
-                />
+              <div className="grid grid-cols-[80%_20%] gap-2">
+                <div className="flex-col">
+                  <div className="">
+                    <Input
+                      {...register("taskInput")}
+                      placeholder="Enter task"
+                      className=" text-white w-full"
+                    />
+                  </div>
+                  {/* <p>
+                    {errors.taskInput && (
+                      <span className="text-red-400">
+                        {errors.taskInput.message}
+                      </span>
+                    )}
+                  </p> */}
+                </div>
                 <Button
                   className="custom-btn"
                   type="button"

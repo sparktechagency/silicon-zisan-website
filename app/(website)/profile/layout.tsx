@@ -10,7 +10,7 @@ export default async function ProfileLayout({
       <div>
         <Sidebar />
       </div>
-      <div className="flex-1 px-4 max-h-[83vh]">{children}</div>
+      <div className="flex-1 lg:px-4 max-h-[83vh]">{children}</div>
     </div>
   );
 }

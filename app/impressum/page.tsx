@@ -12,8 +12,8 @@ export default async function page() {
 
       <Container>
         <div className="bg-[#2D3E4F] text-white p-6 md:p-10 space-y-8 font-sans">
-          <p
-            className="leading-relaxed mb-4"
+          <div
+            className="text-white [&_*]:!text-white"
             dangerouslySetInnerHTML={{ __html: res?.data?.content }}
           />
 
