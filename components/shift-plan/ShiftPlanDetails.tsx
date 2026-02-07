@@ -19,6 +19,8 @@ export default function ShiftPlanDetails({ details }: any) {
   const { name, email, phone, address } = details?.worker;
   const [loading, setLoading] = useState(false);
 
+  console.log("details", details.plans);
+
   const handleSendShift = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -57,7 +59,7 @@ export default function ShiftPlanDetails({ details }: any) {
           ],
 
           ...details.plans.map((plan: any) => [
-            plan.days.map((d: any) => dayjs(d.days).format("YYYY-MM-DD")),
+            plan.days.map((d: any) => dayjs(d).format("YYYY-MM-DD")),
 
             dayjs(plan?.startTime).format("hh:mm A"),
             dayjs(plan?.endTime).format("hh:mm A"),
@@ -192,7 +194,7 @@ export default function ShiftPlanDetails({ details }: any) {
                     <td className="px-4 py-2">
                       {item?.days?.map((d: any, i: number) => (
                         <span key={i}>
-                          {dayjs(d?.days).format("YYYY-MM-DD")}
+                          {dayjs(d).format("DD-MM-YYYY")}
                           {i < item.days.length - 1 ? ", " : ""}
                         </span>
                       ))}
