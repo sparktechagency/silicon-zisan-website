@@ -218,7 +218,6 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
   // dublicate function
   const handleChatSelect = async (chat: Chat) => {
     // 1. Update URL
-    console.log("call this f");
 
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set("id", chat._id);

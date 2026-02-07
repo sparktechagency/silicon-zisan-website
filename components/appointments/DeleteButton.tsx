@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { Input } from "../ui/input";
 import { useState } from "react";
+import { revalidate } from "@/utils/revalidateTag";
 
 type Props = {
   id: string; // REQUIRED
@@ -41,6 +42,7 @@ export default function DeleteButton({ id, title, trigger }: Props) {
 
       if (res?.success) {
         toast.success("Cancelled successfully");
+        await revalidate("status");
       } else {
         toast.error((res as any)?.error[0].message || "Something went wrong");
       }

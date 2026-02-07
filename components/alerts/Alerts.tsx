@@ -6,14 +6,26 @@ import { Button } from "../ui/button";
 import NotificationReadApi from "./NotificationReadApi";
 import { useRouter } from "next/navigation";
 import { myFetch } from "@/utils/myFetch";
+import { revalidate } from "@/utils/revalidateTag";
 
 export default function Alerts({ res }: any) {
   const router = useRouter();
-  const handleClickNotification = async (id: string) => {
-    router.push(`/view-profile?profieID=${id}`);
-    await myFetch(`/notifications/read/${id}`, {
+  console.log("res", res);
+
+  const handleClickNotification = async (item: any) => {
+    // Mark as read first
+    const res = await myFetch(`/notifications/read/${item._id}`, {
       method: "PATCH",
     });
+
+    if (res?.success) {
+      revalidate("Notification");
+    }
+
+    // Navigate only for JOB_SEEKER_ALERT
+    if (item.type === "JOB_SEEKER_ALERT") {
+      router.push(`/view-profile?profieID=${item.referenceId}`);
+    }
   };
 
   return (
@@ -36,14 +48,10 @@ export default function Alerts({ res }: any) {
           <div key={item?._id} className="mb-4">
             {/* Transaction Info */}
             <div
-              onClick={
-                item.type === "JOB_SEEKER_ALERT"
-                  ? () => handleClickNotification(item?.referenceId)
-                  : undefined
-              }
-              className={`flex items-center justify-between bg-card p-4 rounded border cursor-pointer border-gray-300/30 ${item.type === "JOB_SEEKER_ALERT" && "cursor-pointer"}${
-                item.isRead === false ? "bg-gray-600" : ""
-              }`}
+              onClick={() => handleClickNotification(item)}
+              className={`flex items-center justify-between bg-card p-4 rounded border cursor-pointer border-gray-300/30 ${item.type === "JOB_SEEKER_ALERT" && "cursor-pointer"}
+             
+              ${item.isRead === false ? "bg-gray-600" : ""}`}
             >
               <div className={``}>
                 <p className="text-lg flex gap-3 items-center font">

@@ -19,8 +19,6 @@ export default function AlertsSettingCreate({ data }: any) {
   const [email, setEmail] = useState(data?.notificationSettings?.email || "");
   const [emailEnabled, setEmailEnabled] = useState(false);
 
-  console.log("data", data);
-
   const handlePushNotification = async () => {
     if (!accepted) {
       toast.error("Please accept Terms & Conditions");

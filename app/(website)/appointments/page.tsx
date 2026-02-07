@@ -8,7 +8,9 @@ export default async function page({
 }) {
   const { status } = await searchParams;
   const { id } = await searchParams;
-  const res = await myFetch(`/appointments/requests/me?status=${status}`);
+  const res = await myFetch(`/appointments/requests/me?status=${status}`, {
+    tags: ["status"],
+  });
 
   const response = await myFetch("/chats/create", {
     method: "POST",

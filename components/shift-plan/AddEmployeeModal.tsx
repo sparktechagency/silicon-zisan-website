@@ -85,8 +85,6 @@ export default function AddEmployeeForm({
         body: payload,
       });
 
-      console.log("res", res);
-
       if (res.success) {
         toast.success(res.message);
         await revalidate("shift-plan");
@@ -99,8 +97,6 @@ export default function AddEmployeeForm({
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     }
   };
-
-  console.log("workerData", workerData);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

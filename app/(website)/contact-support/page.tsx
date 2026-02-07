@@ -4,7 +4,6 @@ import AdminContact from "./AdminContact";
 
 export default async function ContactSupportPage() {
   const res = await myFetch(`/contact`);
-  console.log("contact", res);
 
   const adminId: string = res?.data?.adminId as string;
 
@@ -14,8 +13,6 @@ export default async function ContactSupportPage() {
       participants: [adminId],
     },
   });
-
-  console.log("res", res);
 
   return (
     <>

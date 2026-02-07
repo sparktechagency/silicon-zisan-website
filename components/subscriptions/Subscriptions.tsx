@@ -80,46 +80,47 @@ export default function Subscriptions({ res, giftSubscription }: any) {
           }}
         >
           {/* Slide 1: Basic */}
-          <SwiperSlide>
-            <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
-              <h1 className="text-lg sm:text-2xl font-semibold my-2">
-                JobsinApp Plans
-              </h1>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                <button className="custom-btn w-full py-2 rounded-2xl ">
-                  Basic
-                </button>
-                <button className="button-unactive w-full py-2 rounded-2xl ">
-                  Standard
-                </button>
-                <button className="button-unactive w-full py-2 rounded-2xl">
-                  Booster
-                </button>
-              </div>
+          {res[0] && (
+            <SwiperSlide>
+              <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
+                <h1 className="text-lg sm:text-2xl font-semibold my-2">
+                  JobsinApp Plans
+                </h1>
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                  <button className="custom-btn w-full py-2 rounded-2xl ">
+                    Basic
+                  </button>
+                  <button className="button-unactive w-full py-2 rounded-2xl ">
+                    Standard
+                  </button>
+                  <button className="button-unactive w-full py-2 rounded-2xl">
+                    Booster
+                  </button>
+                </div>
 
-              <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-                <div className="flex justify-between items-center">
-                  <div className="mt-4">
-                    <h1 className="text-white text-lg lg:text-2xl font-semibold w-40">
-                      Basic Free
-                    </h1>
-                    <div className="text-white text-sm mt-2 flex items-center gap-2.5">
-                      <p> € {res[0]?.dailyPrice} Per Day</p>
-                      <SubscriptionDetails
-                        bio={res[0]?.description}
-                        trigger={
-                          <p>
-                            <Info />
-                          </p>
-                        }
-                      />
+                <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+                  <div className="flex justify-between items-center">
+                    <div className="mt-4">
+                      <h1 className="text-white text-lg lg:text-2xl font-semibold w-40">
+                        Basic Free
+                      </h1>
+                      <div className="text-white text-sm mt-2 flex items-center gap-2.5">
+                        <p> € {res[0]?.dailyPrice} Per Day</p>
+                        <SubscriptionDetails
+                          bio={res[0]?.description}
+                          trigger={
+                            <p>
+                              <Info />
+                            </p>
+                          }
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-end mb-2">
-                      <Image src={logo} className="h-10 w-10" alt="logo" />
-                    </div>
-                    {/* <div className="flex flex-col sm:flex-row">
+                    <div>
+                      <div className="flex justify-end mb-2">
+                        <Image src={logo} className="h-10 w-10" alt="logo" />
+                      </div>
+                      {/* <div className="flex flex-col sm:flex-row">
                       <button className="custom-btn py-1 px-4 rounded-none text-sm lg:text-md h-8">
                         Activated
                       </button>
@@ -127,99 +128,102 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                         Inactive
                       </button>
                     </div> */}
+                    </div>
                   </div>
+
+                  <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                    {res[0]?.benefits?.map((list: any, index: number) => (
+                      <li key={index}>{list}</li>
+                    ))}
+                  </ul>
                 </div>
 
-                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {res[0]?.benefits?.map((list: any, index: number) => (
-                    <li key={index}>{list}</li>
-                  ))}
-                </ul>
+                <div className="mt-auto">
+                  <Button
+                    disabled={activePlan === "Basic"}
+                    className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
+                      loadingId === res[0]?._id && "cursor-not-allowed"
+                    }`}
+                    onClick={() => handleSubscribe(res[0]?._id)}
+                  >
+                    {activePlan === "Basic"
+                      ? "Activated"
+                      : loadingId === res[0]?._id
+                        ? "Processing..."
+                        : "Subscribe Now"}
+                  </Button>
+                </div>
               </div>
-
-              <div className="mt-auto">
-                <Button
-                  disabled={activePlan === "Basic"}
-                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                    loadingId === res[0]?._id && "cursor-not-allowed"
-                  }`}
-                  onClick={() => handleSubscribe(res[0]?._id)}
-                >
-                  {activePlan === "Basic"
-                    ? "Activated"
-                    : loadingId === res[0]?._id
-                      ? "Processing..."
-                      : "Subscribe Now"}
-                </Button>
-              </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          )}
 
           {/* Slide 2: Standard */}
-          <SwiperSlide>
-            <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
-              <h1 className="text-lg sm:text-2xl font-semibold my-2">
-                JobsinApp Plans
-              </h1>
-              <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                <button className="button-unactive w-full py-2 rounded-2xl">
-                  Basic
-                </button>
-                <button className="custom-btn w-full py-2 rounded-2xl">
-                  Standard
-                </button>
-                <button className="button-unactive w-full py-2 rounded-2xl">
-                  Booster
-                </button>
-              </div>
-
-              <div className="bg-[#304150] h-[450px] rounded py-6 px-5 my-3 border border-gray-300/30 flex flex-col grow">
-                <div className="flex justify-between items-center">
-                  <div className="mt-4">
-                    <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
-                      Standard
-                    </h1>
-                    <div className="text-white text-sm mt-2 flex items-center gap-2.5">
-                      <p> € {res[1]?.dailyPrice} Per Day</p>
-                      <SubscriptionDetails
-                        bio={res[1]?.description}
-                        trigger={
-                          <p>
-                            <Info />
-                          </p>
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-end mb-2">
-                      <Image src={logo} className="h-10 w-10" alt="logo" />
-                    </div>
-                  </div>
+          {res[1] && (
+            <SwiperSlide>
+              <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
+                <h1 className="text-lg sm:text-2xl font-semibold my-2">
+                  JobsinApp Plans
+                </h1>
+                <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                  <button className="button-unactive w-full py-2 rounded-2xl">
+                    Basic
+                  </button>
+                  <button className="custom-btn w-full py-2 rounded-2xl">
+                    Standard
+                  </button>
+                  <button className="button-unactive w-full py-2 rounded-2xl">
+                    Booster
+                  </button>
                 </div>
 
-                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {res[1]?.benefits?.map((list: any, index: number) => (
-                    <li key={index}>{list}</li>
-                  ))}
-                </ul>
-              </div>
+                <div className="bg-[#304150] h-[450px] rounded py-6 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+                  <div className="flex justify-between items-center">
+                    <div className="mt-4">
+                      <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
+                        Standard
+                      </h1>
+                      <div className="text-white text-sm mt-2 flex items-center gap-2.5">
+                        <p> € {res[1]?.dailyPrice} Per Day</p>
+                        <SubscriptionDetails
+                          bio={res[1]?.description}
+                          trigger={
+                            <p>
+                              <Info />
+                            </p>
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-end mb-2">
+                        <Image src={logo} className="h-10 w-10" alt="logo" />
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="mt-auto">
-                <Button
-                  disabled={activePlan === "Standard"}
-                  className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 `}
-                  onClick={() => handleSubscribe(res[1]?._id)}
-                >
-                  {loadingId === res[1]?._id
-                    ? "Processing..."
-                    : activePlan === "Standard"
-                      ? "Activated"
-                      : "Subscribe Now"}
-                </Button>
+                  <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                    {res[1]?.benefits?.map((list: any, index: number) => (
+                      <li key={index}>{list}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-auto">
+                  <Button
+                    disabled={activePlan === "Standard"}
+                    className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 `}
+                    onClick={() => handleSubscribe(res[1]?._id)}
+                  >
+                    {loadingId === res[1]?._id
+                      ? "Processing..."
+                      : activePlan === "Standard"
+                        ? "Activated"
+                        : "Subscribe Now"}
+                  </Button>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
+            </SwiperSlide>
+          )}
 
           {/* Slide 3: Booster */}
           {res[2] && (
