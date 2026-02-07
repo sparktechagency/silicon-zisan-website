@@ -32,7 +32,7 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
                   </h3>
                   <p>
                     {item?.status !== "Pending" &&
-                      (`(${item?.receiver?.phone})` || "No Number")}
+                      `(${item?.receiver?.phone || "No Number"})`}
                   </p>
                 </div>
 

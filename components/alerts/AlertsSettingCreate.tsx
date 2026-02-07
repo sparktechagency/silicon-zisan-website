@@ -1,24 +1,41 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
 import Link from "next/link";
+
 type CheckedState = boolean | "indeterminate";
 
 export default function AlertsSettingCreate({ data }: any) {
+  /* ---------------- STATES ---------------- */
   const [frequency, setFrequency] = useState("");
   const [pushEnabled, setPushEnabled] = useState(false);
-  const [accepted, setAccepted] = useState<CheckedState>(false);
-  const [email, setEmail] = useState(data?.notificationSettings?.email || "");
   const [emailEnabled, setEmailEnabled] = useState(false);
+  const [accepted, setAccepted] = useState<CheckedState>(false);
+  const [email, setEmail] = useState("");
 
+  /* ---------------- SYNC ASYNC DATA ---------------- */
+  useEffect(() => {
+    if (data?.notificationSettings) {
+      setPushEnabled(Boolean(data.notificationSettings.pushNotification));
+      setEmailEnabled(Boolean(data.notificationSettings.emailNotification));
+      setFrequency(data.notificationSettings.repeat || "");
+    }
+
+    if (data?.user?.email) {
+      setEmail(data.user.email);
+    }
+  }, [data]);
+
+  /* ---------------- SUBMIT HANDLER ---------------- */
   const handlePushNotification = async () => {
     if (!accepted) {
       toast.error("Please accept Terms & Conditions");
@@ -26,7 +43,7 @@ export default function AlertsSettingCreate({ data }: any) {
     }
 
     if (!frequency) {
-      toast.error("Please select notification push message");
+      toast.error("Please select notification frequency");
       return;
     }
 
@@ -42,36 +59,38 @@ export default function AlertsSettingCreate({ data }: any) {
     }
 
     try {
-      const res = await myFetch(`/employers/me`, {
+      const res = await myFetch("/employers/me", {
         method: "PATCH",
         body: {
           notificationSettings: {
-            pushNotification: pushEnabled,
-            emailNotification: emailEnabled,
+            pushNotification: Boolean(pushEnabled),
+            emailNotification: Boolean(emailEnabled),
             repeat: frequency,
             email,
           },
         },
       });
 
-      if (res.success) {
-        toast.success(res.message);
-        setFrequency("");
-        setEmail("");
+      console.log("res", res);
+
+      if (res?.success) {
+        toast.success(res.message || "Settings updated");
       } else {
-        toast.error((res as any)?.error?.[0]?.message);
+        toast.error((res as any)?.error[0].message || "Update failed");
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
     }
   };
 
+  /* ---------------- UI ---------------- */
   return (
     <Container className="bg-card p-6 max-w-md mx-auto rounded-lg space-y-6 border border-gray-400/30 my-16">
       <div className="text-xl font-semibold flex gap-2">
         <CustomBackButton /> Settings
       </div>
 
+      {/* PUSH */}
       <div className="space-y-2">
         <label className="font-medium">Push Message</label>
         <div className="flex items-center justify-between mt-1">
@@ -79,62 +98,57 @@ export default function AlertsSettingCreate({ data }: any) {
             <Button
               variant={frequency === "Daily" ? "default" : "outline"}
               onClick={() => setFrequency("Daily")}
-              className={
-                frequency === "Daily" ? "custom-btn rounded " : "border-white "
-              }
+              className={frequency === "Daily" ? "custom-btn" : "border-white"}
             >
               Every Day
             </Button>
+
             <Button
               variant={frequency === "Weekly" ? "default" : "outline"}
               onClick={() => setFrequency("Weekly")}
-              className={
-                frequency === "Weekly" ? "custom-btn " : "border-white rounded"
-              }
+              className={frequency === "Weekly" ? "custom-btn" : "border-white"}
             >
               Weekly
             </Button>
           </div>
+
           <Switch checked={pushEnabled} onCheckedChange={setPushEnabled} />
         </div>
       </div>
 
+      {/* EMAIL */}
       <div className="space-y-2">
         <label className="font-medium">Email Address</label>
         <div className="flex items-center justify-between mt-1">
           <Input
+            className="w-80"
             type="email"
-            required
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-100"
           />
 
           <Switch checked={emailEnabled} onCheckedChange={setEmailEnabled} />
         </div>
       </div>
 
+      {/* TERMS */}
       <div className="flex items-center gap-2 pt-4">
         <Checkbox checked={accepted} onCheckedChange={setAccepted} />
         <p className="text-sm">
           By Continuing, You Accept The{" "}
-          <Link href={`/privacy-policy`}>
-            <span className="font-semibold underline">Privacy Policy</span>{" "}
-            And{" "}
-          </Link>
-          <Link href={`/terms-condition`}>
-            <span className="font-semibold underline">Terms & Conditions</span>
+          <Link href="/privacy-policy" className="font-semibold underline">
+            Privacy Policy
           </Link>{" "}
-          of JobsinApp.
+          And{" "}
+          <Link href="/terms-condition" className="font-semibold underline">
+            Terms & Conditions
+          </Link>
         </p>
       </div>
 
       <div className="flex justify-end">
-        <Button
-          className="sm:w-[15%] custom-btn mt-4"
-          onClick={handlePushNotification}
-        >
+        <Button className="custom-btn mt-4" onClick={handlePushNotification}>
           Submit
         </Button>
       </div>
