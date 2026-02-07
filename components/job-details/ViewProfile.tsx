@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function ViewProfile({ data, chatId }: any) {
+  console.log("data", data);
+
   const router = useRouter();
   const handleChat = async (id: string) => {
     try {
@@ -97,11 +99,12 @@ export default function ViewProfile({ data, chatId }: any) {
       <>
         {/* about details */}
         <div className="profile-container">
-          {renderInfoSection("Personal Information", personalInfo)}
+          {data.isProfileVisible === true &&
+            renderInfoSection("Personal Information", personalInfo)}
           {renderInfoSection("Work Information", workInfo)}
         </div>
         {/* resume and others */}
-        {data?.resumeUrl && (
+        {data.isProfileVisible === true && data?.resumeUrl && (
           <div className=" text-white   space-y-6 ">
             {/* Header */}
             <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
@@ -136,35 +139,40 @@ export default function ViewProfile({ data, chatId }: any) {
         )}
         {/* images */}
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {data?.attachments?.map((item: any, index: number) => {
-            return (
-              <div key={index} className="image-wrapper">
-                <CustomImage
-                  src={item}
-                  title={`Office ${index + 1}`}
-                  className="image"
-                  width={100}
-                  height={100}
-                />
-              </div>
-            );
-          })}
+          {data.isProfileVisible === true &&
+            data?.attachments?.map((item: any, index: number) => {
+              return (
+                <div key={index} className="image-wrapper">
+                  <CustomImage
+                    src={item}
+                    title={`Office ${index + 1}`}
+                    className="image"
+                    width={100}
+                    height={100}
+                  />
+                </div>
+              );
+            })}
         </div>
         {/* work overview */}
-        <div>
-          <h1 className="font-semibold text-2xl">Work Overview</h1>
-          <p className="mt-3">{data?.overview}</p>
-        </div>
-        <div>
-          <h1 className="font-semibold text-2xl">Experiences</h1>
-          <p className="mt-3">
-            Experience : {data?.experiences[0]?.experience} Years
-          </p>
-          <p className="mt-1">
-            Salary : {data?.experiences[0]?.salaryAmount && <span>€</span>}{" "}
-            {data?.experiences[0]?.salaryAmount || "No Amount"}
-          </p>
-        </div>
+        {data.isProfileVisible === true && (
+          <div>
+            <h1 className="font-semibold text-2xl">Work Overview</h1>
+            <p className="mt-3">{data?.overview}</p>
+          </div>
+        )}
+        {data.isProfileVisible === true && (
+          <div>
+            <h1 className="font-semibold text-2xl">Experiences</h1>
+            <p className="mt-3">
+              Experience : {data?.experiences[0]?.experience} Years
+            </p>
+            <p className="mt-1">
+              Salary : {data?.experiences[0]?.salaryAmount && <span>€</span>}{" "}
+              {data?.experiences[0]?.salaryAmount || "No Amount"}
+            </p>
+          </div>
+        )}
       </>
       {/* )} */}
     </div>

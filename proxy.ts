@@ -49,6 +49,8 @@ export async function proxy(request: NextRequest) {
     "/authentication-verify",
     "/new-password",
     "/method",
+    "/privacy-policy",
+    "/terms-condition",
   ].includes(path);
 
   const token = await getToken();

@@ -131,7 +131,7 @@ export default function HeaderTwo({ notification, token }: any) {
                     {/* Alerts Count */}
                     {item.label === "Alerts" &&
                       notification?.unreadCount > 0 && (
-                        <span className="min-w-5 h-5 px-1 flex items-center justify-center text-xs font-semibold -mt-3 text-white rounded-full">
+                        <span className="min-w-5 h-5 px-1 flex items-center justify-center text-xs font-semibold -mt-3 bg-gray-400 text-white rounded-full">
                           {notification?.unreadCount}
                         </span>
                       )}
@@ -267,7 +267,7 @@ export default function HeaderTwo({ notification, token }: any) {
                   title="Profile"
                   width={40}
                   height={40}
-                  className="rounded-full object-cover"
+                  className="rounded-full object-cover h-10"
                 />
                 <p className="text-gray-800 font-medium">
                   {profileData?.user?.name || "No Name"}

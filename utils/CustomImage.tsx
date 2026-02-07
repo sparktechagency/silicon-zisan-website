@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from "next/image";
+import defaultImage from "@/public/default-image.png";
 
 interface CustomImageProps {
   src?: string | null;
@@ -15,14 +16,13 @@ export default function CustomImage({
   width = 100,
   height = 100,
   className = "",
-  fallback = "/default.jpg", // optional fallback image
 }: CustomImageProps) {
   // Return fallback if no SRC
 
   if (!src) {
     return (
       <Image
-        src={fallback}
+        src={defaultImage}
         alt={title || "image"}
         width={width}
         height={height}

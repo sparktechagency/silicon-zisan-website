@@ -121,11 +121,9 @@ export default function SubscriptionPlan({ data, name }: any) {
                   </div>
                 </div>
 
-                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
                   {data[0]?.benefits?.map((item: any, index: number) => (
-                    <li className="" key={index}>
-                      {item}
-                    </li>
+                    <li key={index}>{item}</li>
                   ))}
                 </ul>
               </div>
@@ -193,7 +191,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                   </div>
                 </div>
 
-                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
                   {data[1]?.benefits?.map((item: any, index: number) => (
                     <li className="" key={index}>
                       {item}
@@ -267,7 +265,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                   </div>
                 </div>
 
-                <ul className="py-10 px-1 sm:px-5 list-disc list-inside space-y-1 text-white text-[14px] sm:text-[16px]">
+                <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
                   {data[2]?.benefits?.map((item: any, index: number) => (
                     <li className="" key={index}>
                       {item}

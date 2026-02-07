@@ -175,13 +175,13 @@ export default function SignUpPage() {
             />
             <span>
               By Continuing, You Accept The{" "}
-              <a href="#" className="underline font-semibold">
+              <Link href="/privacy-policy" className="underline font-semibold">
                 Privacy Policy
-              </a>
+              </Link>
               And{" "}
-              <a href="#" className="underline font-semibold">
+              <Link href="/terms-condition" className="underline font-semibold">
                 Terms & Conditions
-              </a>{" "}
+              </Link>{" "}
               of JobsinApp.
             </span>
           </label>

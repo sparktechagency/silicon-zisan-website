@@ -55,8 +55,10 @@ export default function ShiftPlanDetails({ details }: any) {
             { text: "Until", style: "tableHeader" },
             { text: "Shift", style: "tableHeader" },
           ],
+
           ...details.plans.map((plan: any) => [
-            dayjs(plan?.days?.[0]).format("YYYY-MM-DD"),
+            plan.days.map((d: any) => dayjs(d.days).format("YYYY-MM-DD")),
+
             dayjs(plan?.startTime).format("hh:mm A"),
             dayjs(plan?.endTime).format("hh:mm A"),
             plan?.shift || "—",

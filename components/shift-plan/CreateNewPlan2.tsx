@@ -23,8 +23,6 @@ import CustomTimePicker from "../appointments/CustomTimePicker";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/utils/revalidateTag";
-import { error } from "console";
-import { Span } from "next/dist/trace";
 
 type FormValues = {
   worker: string;
@@ -57,7 +55,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     handleSubmit,
     resetField,
     reset,
-    formState: { errors },
+    formState: {},
   } = useForm<FormValues>({
     defaultValues: {
       worker: editData?.worker?._id || "",

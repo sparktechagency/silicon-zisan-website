@@ -49,7 +49,7 @@ export default function Alerts({ res }: any) {
             {/* Transaction Info */}
             <div
               onClick={() => handleClickNotification(item)}
-              className={`flex items-center justify-between bg-card p-4 rounded border cursor-pointer border-gray-300/30 ${item.type === "JOB_SEEKER_ALERT" && "cursor-pointer"}
+              className={`flex items-center justify-between  p-4 rounded border cursor-pointer border-gray-300/30
              
               ${item.isRead === false ? "bg-gray-600" : ""}`}
             >
