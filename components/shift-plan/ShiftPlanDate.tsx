@@ -31,20 +31,23 @@ export default function ShiftPlanDate({
           {/* Calendar */}
           <div className="">
             <Calendar
-              disabled={disabledDate}
               mode="multiple"
               selected={selectedDates}
               onSelect={setSelectedDates}
               month={date}
               onMonthChange={setDate}
               captionLayout="dropdown"
-              className="bg-card sm:w-[400px] dropdown:text-black calendar-dropdown"
+              className="bg-card sm:w-100 dropdown:text-black calendar-dropdown"
               modifiers={{
                 selected: (date) =>
                   selectedDates.some((selected: Date) =>
                     isSameDay(selected, date),
                   ),
               }}
+              disabled={(date) =>
+                date < new Date(new Date().setHours(0, 0, 0, 0)) ||
+                disabledDate?.(date)
+              }
             />
           </div>
 
