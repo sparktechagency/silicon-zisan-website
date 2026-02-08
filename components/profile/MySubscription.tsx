@@ -10,7 +10,7 @@ export default function MySubscription({ subscriptions }: any) {
             <p className=" mb-2">
               Package Name : {subscriptions?.package?.name || "Basic"}
             </p>
-            <p className=" mb-2">Price : ${subscriptions?.price || 0}</p>
+            <p className=" mb-2">Price : €{subscriptions?.price || 0}</p>
 
             {subscriptions?._id && (
               <>

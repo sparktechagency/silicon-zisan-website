@@ -29,15 +29,6 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
   const searchParams = useSearchParams();
   const chatId = searchParams.get("id");
 
-  // single get chat id
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await myFetch(`/chats/${chatId}`);
-  //     setSelectedChat(res?.data);
-  //   };
-  //   fetchData();
-  // }, [chatId]);
-
   // set global count
   useEffect(() => {
     const total = initialChats?.reduce(
@@ -115,7 +106,7 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
         // Listener for getMessage (standard)
         socket.on("getMessage", (newMessage: Message) => {
           console.log("Socket received getMessage:", newMessage);
-          revalidate("chat");
+          revalidate("chatMessages");
           revalidate("chatlist");
           // Update chat list
           updateChatList(newMessage);
@@ -144,7 +135,6 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
           const currentChatId = selectedChatRef.current?._id;
           const messageChatId =
             typeof data.chat === "object" ? (data.chat as any)._id : data.chat;
-          // handleChatSelect2(chatId!);
           if (currentChatId === messageChatId) {
             setMessages((prev) => {
               if (prev.some((m) => m._id === data._id)) return prev;
@@ -179,17 +169,17 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
   const handleChatSelect2 = async (chat: string) => {
     // setSelectedChat(chat);
     // setLoadingMessages(true);
+
     try {
       const response = await myFetch(`/messages/chat/${chat}`, {
         method: "GET",
         cache: "no-cache",
-        tags: ["chat"],
+        tags: ["chatMessages"],
       });
 
       if (response.success && response.data) {
         // API returns newest first, so we reverse it to show oldest first (standard chat order)
         setMessages([...response.data].reverse());
-        revalidate("chat");
         revalidate("chatlist");
       } else {
         setMessages([]);
@@ -223,17 +213,6 @@ export default function InboxContainer({ initialChats }: InboxContainerProps) {
     searchParams.set("id", chat._id);
     router.push(`?${searchParams.toString()}`, { scroll: false });
   };
-
-  // admin chat select
-  // useEffect(() => {
-  //   if (!selectedChat && adminId) {
-  //     const adminChat = chats.find((chat) => chat._id === adminId || adminId);
-
-  //     if (adminChat) {
-  //       handleChatSelect(adminChat);
-  //     }
-  //   }
-  // }, [adminId, selectedChat, chats]);
 
   const handleMessageSent = (newMessage: Message) => {
     // Also update chat list for sent messages

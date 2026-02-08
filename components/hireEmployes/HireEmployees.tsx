@@ -39,7 +39,7 @@ export default async function HireEmployees() {
               </button>
               <div className="flex items-center justify-center h-full">
                 <Link href={`/hire-employees-details?id=${item?._id}`}>
-                  <button className="button-unactive p-1 h-9 w-9 rounded-full flex items-center justify-center">
+                  <button className="button-unactive p-1 h-9 w-9 rounded-full flex items-center justify-center cursor-pointer">
                     <Eye />
                   </button>
                 </Link>

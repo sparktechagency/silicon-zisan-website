@@ -4,9 +4,7 @@ export default function InvoicePayments({ data }: any) {
   return (
     <>
       <div className="flex gap-4">
-        <button className={`flex-1 py-3 px-4 text-white rounded custom-btn`}>
-          Invoice
-        </button>
+        <h1 className="text-2xl font-medium"> Invoice</h1>
       </div>
       {<Invoice data={data} />}
       {/* {selectedTab === "card" && <PaymentSystem />} */}

@@ -10,7 +10,6 @@ import { revalidate } from "@/utils/revalidateTag";
 
 export default function Alerts({ res }: any) {
   const router = useRouter();
-  console.log("res", res);
 
   const handleClickNotification = async (item: any) => {
     // Mark as read first

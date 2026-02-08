@@ -52,6 +52,9 @@ export function DatePicker({ value, onChange }: Props) {
                 onMonthChange={onChange}
                 captionLayout="dropdown"
                 className="w-full bg-card calendar-dropdown"
+                disabled={(date) =>
+                  date < new Date(new Date().setHours(0, 0, 0, 0))
+                }
               />
             </div>
 

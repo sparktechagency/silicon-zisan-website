@@ -13,8 +13,6 @@ const CustomPaginationSuspense = ({ totalPages = 1 }) => {
 
   const startPage = Math.max(1, currentPage - MAX_PAGE_WINDOW + 1);
   const endPage = Math.min(totalPages, startPage + MAX_PAGE_WINDOW - 1);
-  console.log("start page", startPage);
-  console.log("end page", endPage);
 
   const pageNumbers = [];
   for (let i = startPage; i <= endPage; i++) {

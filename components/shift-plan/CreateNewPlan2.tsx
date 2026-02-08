@@ -168,10 +168,10 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       return;
     }
 
-    // const method = editData?._id ? "PATCH" : "POST";
-    // const url = editData?._id
-    //   ? `/shift-plans/update/${editData._id}` // ✅ Use editData._id, not 'id'
-    //   : "/shift-plans/create";
+    const method = editData?._id ? "PATCH" : "POST";
+    const url = editData?._id
+      ? `/shift-plans/update/${editData._id}` // ✅ Use editData._id, not 'id'
+      : "/shift-plans/create";
 
     const payload = {
       worker: data.worker,
@@ -179,8 +179,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     };
 
     try {
-      const res = await myFetch("/shift-plans/create", {
-        method: "POST",
+      const res = await myFetch(url, {
+        method: method,
         body: payload,
       });
 
@@ -206,8 +206,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       <div className="flex items-center ml-8 my-8">
         <CustomBackButton />
         <h2 className="text-2xl font-semibold px-5">
-          {/* {editData?._id ? "Edit Shift Plan" : "Create Shift Plan"} */}
-          Create Shift Plan
+          {editData?._id ? "Edit Shift Plan" : "Create Shift Plan"}
+          {/* Create Shift Plan */}
         </h2>
       </div>
 
@@ -354,7 +354,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               type="submit"
               className="custom-btn w-full text-lg"
             >
-              Create Now
+              {editData?._id ? "Update Now" : "Create Now"}
             </Button>
           </form>
         </div>

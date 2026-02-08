@@ -35,7 +35,7 @@ export default function SubscriptionPlan({ data, name }: any) {
       });
 
       if (res.success) {
-        window.open(res.data, "_blank");
+        window.open(res.data);
       } else {
         toast.error(res?.message);
       }

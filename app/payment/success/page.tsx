@@ -1,6 +1,5 @@
-import React from "react";
-import { CheckCircle, ArrowRight, Home } from "lucide-react";
-import Link from "next/link";
+import { CheckCircle } from "lucide-react";
+import SuccessPage from "./SuccessPage";
 
 interface PageProps {
   searchParams: {
@@ -57,22 +56,16 @@ export default async function Page({ searchParams }: PageProps) {
             </button> */}
 
             {/* Go to Dashboard Button */}
-            <Link
-              href="/"
-              className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
-            >
-              Go to Dashboard
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            <SuccessPage />
 
             {/* Home Button */}
-            <Link
+            {/* <Link
               href="/"
               className="w-full text-gray-600 hover:text-gray-900 font-medium py-2 transition-colors duration-200 flex items-center justify-center gap-2"
             >
               <Home className="w-4 h-4" />
               Return to Home
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -85,7 +78,7 @@ export default async function Page({ searchParams }: PageProps) {
         </div> */}
 
         {/* Help Text */}
-        <div className="mt-4 text-center">
+        {/* <div className="mt-4 text-center">
           <p className="text-gray-600 text-sm">
             Questions?{" "}
             <Link
@@ -95,7 +88,7 @@ export default async function Page({ searchParams }: PageProps) {
               Contact Support
             </Link>
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

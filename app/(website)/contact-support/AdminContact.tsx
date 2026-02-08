@@ -30,22 +30,22 @@ export default function AdminContact({ chatId, adminContact }: any) {
   };
   return (
     <div className="">
-      <div className="border rounded p-2 flex justify-between items-center mt-4 custom-btn">
-        <Link
-          href={`https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${adminContact?.email}`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+      <Link
+        href={`https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${adminContact?.email}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="border rounded p-2 flex justify-between items-center mt-4 custom-btn">
           <div className="">
             <p className="text-gray-300">Email Support</p>
             <p className="text-gray-400">{adminContact?.email}</p>
           </div>
-        </Link>
 
-        <p>
-          <ChevronRight />
-        </p>
-      </div>
+          <p>
+            <ChevronRight />
+          </p>
+        </div>
+      </Link>
       <Link
         href={`https://wa.me/${adminContact?.whatsApp}`}
         target="_blank"

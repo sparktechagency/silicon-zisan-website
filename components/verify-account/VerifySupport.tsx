@@ -1,167 +1,62 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { Label } from "../ui/label";
-import Image from "next/image";
-import { Upload, FileText } from "lucide-react";
-import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import VerifyModal from "./VerifyModal";
 import { myFetch } from "@/utils/myFetch";
-import { toast } from "sonner";
-import { se } from "date-fns/locale";
+import { EyeIcon } from "lucide-react";
 
-export default function VerifyAccount() {
-  const [preview1, setPreview1] = useState<string | null>(null);
-  const [preview2, setPreview2] = useState<string | null>(null);
-  const [file1, setFile1] = useState<File | null>(null);
-  const [file2, setFile2] = useState<File | null>(null);
-
-  const handleFile1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFile1(file);
-      if (file.type === "application/pdf") {
-        setPreview1("pdf");
-      } else {
-        setPreview1(URL.createObjectURL(file));
-      }
-    }
-  };
-
-  const handleFile2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFile2(file);
-      if (file.type === "application/pdf") {
-        setPreview2("pdf");
-      } else {
-        setPreview2(URL.createObjectURL(file));
-      }
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!file1 || !file2) {
-      toast.error("Please upload both documents");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("doc", file1);
-    formData.append("doc", file2);
-
-    try {
-      const res = await myFetch("/verifications/create", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (res.success) {
-        toast.success(res.message);
-      } else {
-        toast.error((res as any)?.error[0].message);
-      }
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "An error occurred");
-    } finally {
-      setFile1(null);
-      setFile2(null);
-      setPreview1(null);
-      setPreview2(null);
-    }
-  };
-
+export default async function VerifySupport() {
+  const res = await myFetch(`/verifications/me`, {
+    tags: ["verifications"],
+  });
   return (
-    <div>
-      <Label className="sm:text-xl md:text-2xl">
-        Upload Business Documents
-      </Label>
-
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-4 mt-3">
-          {/* First Upload */}
-          <div>
-            <label className="border rounded flex items-center justify-center p-4 cursor-pointer mt-2">
-              <div className="w-32 h-32 p-2 flex flex-col items-center justify-center rounded bg-[#4B5A69] text-white">
-                <Upload className="text-[#69b8ca]" />
-                <p>Upload</p>
-              </div>
-              <Input
-                type="file"
-                accept="application/pdf"
-                onChange={handleFile1Change}
-                className="hidden"
-              />
-            </label>
-
-            {preview1 && (
-              <div className="mt-4">
-                {preview1 === "pdf" ? (
-                  <div className="border rounded p-4 flex items-center gap-3">
-                    <FileText className="w-12 h-12 text-red-500" />
-                    <div>
-                      <p className="font-medium">{file1?.name}</p>
-                      <p className="text-sm text-gray-500">PDF Document</p>
-                    </div>
-                  </div>
-                ) : (
-                  <Image
-                    src={preview1}
-                    alt="Preview 1"
-                    width={400}
-                    height={300}
-                    className="w-full h-auto object-cover rounded"
-                  />
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Second Upload */}
-          <div>
-            <label className="border rounded flex items-center justify-center p-4 cursor-pointer mt-2">
-              <div className="w-32 h-32 p-2 flex flex-col items-center justify-center rounded bg-[#4B5A69] text-white">
-                <Upload className="text-[#69b8ca]" />
-                <p>Upload</p>
-              </div>
-              <Input
-                type="file"
-                accept="application/pdf"
-                onChange={handleFile2Change}
-                className="hidden"
-              />
-            </label>
-
-            {preview2 && (
-              <div className="mt-4">
-                {preview2 === "pdf" ? (
-                  <div className="border rounded p-4 flex items-center gap-3">
-                    <FileText className="w-12 h-12 text-red-500" />
-                    <div>
-                      <p className="font-medium">{file2?.name}</p>
-                      <p className="text-sm text-gray-500">PDF Document</p>
-                    </div>
-                  </div>
-                ) : (
-                  <Image
-                    src={preview2}
-                    alt="Preview 2"
-                    width={400}
-                    height={300}
-                    className="w-full h-auto object-cover rounded"
-                  />
-                )}
-              </div>
-            )}
-          </div>
+    <>
+      <div className="flex justify-between items-center">
+        <div>
+          <Label className="sm:text-xl md:text-2xl">
+            Upload Business Documents
+          </Label>
         </div>
 
-        <div className="flex justify-end">
-          <button className="custom-btn w-[49%] px-12 py-2 rounded-md mt-7">
-            Confirm
-          </button>
+        <div>
+          <VerifyModal
+            trigger={
+              <Button className="custom-btn  px-12 py-2 rounded-md">
+                Confirm
+              </Button>
+            }
+          />
         </div>
-      </form>
-    </div>
+      </div>
+
+      {/* data show get  */}
+
+      <div className="mt-10">
+        {res?.data?.map((item: any, index: any) => (
+          <div key={index} className="mb-4">
+            {/* Transaction Info */}
+            <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
+              <div>
+                <p className="text-lg font-semibold">
+                  {item?.documents[0] || "No PDF"}
+                </p>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <a
+                  href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item?.documents[0]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer mt-1">
+                    <EyeIcon className="w-5 h-5" />
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }

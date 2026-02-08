@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function ViewProfile({ data, chatId }: any) {
-  console.log("data", data);
-
   const router = useRouter();
   const handleChat = async (id: string) => {
     try {
@@ -44,14 +42,17 @@ export default function ViewProfile({ data, chatId }: any) {
 
   const workInfo = [
     { label: "Category", value: data?.experiences[0]?.category || "N/A" },
-    { label: "Category", value: data?.experiences[0]?.subCategory || "N/A" },
+    {
+      label: "Sub Category",
+      value: data?.experiences[0]?.subCategory || "N/A",
+    },
   ];
 
   const renderInfoSection = (title: string, data: any) => (
     <div className="section mt-9">
       <h2 className="text-2xl">{title}</h2>
       {data.map((item: any, index: number) => (
-        <div className="grid grid-cols-2 mb-3 mt-3" key={index}>
+        <div className="grid grid-cols-2 mb-3 mt-3 max-w-2xl" key={index}>
           <div className="label">{item.label}</div>
           <div className="value">: {item.value}</div>
         </div>
@@ -95,16 +96,16 @@ export default function ViewProfile({ data, chatId }: any) {
           </Button>
         </div>
       </div>
-      {/* {data?.isProfileVisible === true && ( */}
+      {/* {data?.isProfileVisible === false && ( */}
       <>
         {/* about details */}
         <div className="profile-container">
-          {data.isProfileVisible === true &&
+          {data.isProfileVisible === false &&
             renderInfoSection("Personal Information", personalInfo)}
           {renderInfoSection("Work Information", workInfo)}
         </div>
         {/* resume and others */}
-        {data.isProfileVisible === true && data?.resumeUrl && (
+        {data.isProfileVisible === false && data?.resumeUrl && (
           <div className=" text-white   space-y-6 ">
             {/* Header */}
             <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
@@ -139,14 +140,14 @@ export default function ViewProfile({ data, chatId }: any) {
         )}
         {/* images */}
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {data.isProfileVisible === true &&
+          {data.isProfileVisible === false &&
             data?.attachments?.map((item: any, index: number) => {
               return (
                 <div key={index} className="image-wrapper">
                   <CustomImage
                     src={item}
                     title={`Office ${index + 1}`}
-                    className="image"
+                    className="object-cover w-80 h-80"
                     width={100}
                     height={100}
                   />
@@ -155,13 +156,13 @@ export default function ViewProfile({ data, chatId }: any) {
             })}
         </div>
         {/* work overview */}
-        {data.isProfileVisible === true && (
+        {data.isProfileVisible === false && (
           <div>
             <h1 className="font-semibold text-2xl">Work Overview</h1>
             <p className="mt-3">{data?.overview}</p>
           </div>
         )}
-        {data.isProfileVisible === true && (
+        {data.isProfileVisible === false && (
           <div>
             <h1 className="font-semibold text-2xl">Experiences</h1>
             <p className="mt-3">

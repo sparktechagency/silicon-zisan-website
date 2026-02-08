@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, Clock3 } from "lucide-react";
+import { ArrowLeft, Clock3, Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -96,6 +96,9 @@ export default function ContractInformation({
 
   const handleHiring = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const loadingToastId = toast.loading("Processing your request...");
+
     setLoading(true);
 
     try {
@@ -104,7 +107,9 @@ export default function ContractInformation({
       });
 
       if (res?.success) {
-        toast.success(String(res.message));
+        toast.success(res.message || "Request sent successfully", {
+          id: loadingToastId,
+        });
       } else {
         const err = (res as any)?.error?.[0];
 
@@ -112,6 +117,7 @@ export default function ContractInformation({
           typeof err === "string"
             ? err
             : err?.message || "Something went wrong",
+          { id: loadingToastId },
         );
       }
     } catch (error) {
@@ -119,6 +125,7 @@ export default function ContractInformation({
         error instanceof Error
           ? error.message
           : "An error occurred while sending shift plan.",
+        { id: loadingToastId },
       );
     } finally {
       setLoading(false);
