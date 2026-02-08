@@ -1,23 +1,28 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Status() {
-  const tabs = ["Confirmed", "Pending", "Cancelled", "Completed"];
+  const tabs = ["Pending", "Confirmed", "Cancelled", "Completed"];
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const activeStatus = searchParams.get("status");
+  const activeStatus = searchParams.get("status") || "Pending";
+
+  // ✅ set default query param
+  useEffect(() => {
+    if (!searchParams.get("status")) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("status", "Pending");
+      router.replace(`?${params.toString()}`);
+    }
+  }, [searchParams, router]);
 
   const handleClick = (tab: string) => {
     const params = new URLSearchParams(searchParams.toString());
-
-    if (tab) {
-      params.set("status", tab);
-    } else {
-      params.delete("status");
-    }
+    params.set("status", tab);
     router.push(`?${params.toString()}`);
   };
 
@@ -31,12 +36,8 @@ export default function Status() {
             <button
               key={tab}
               onClick={() => handleClick(tab)}
-              className={`py-2 px-6 md:py-3 rounded-md font-medium text-sm transition-all duration-300 xl:text-xl cursor-pointer
-                ${
-                  isActive && tab !== "Create New"
-                    ? "btn"
-                    : "bg-[#415161] text-white shadow-md"
-                }`}
+              className={`py-2 px-6 md:py-3 rounded-md font-medium text-sm transition-all duration-300 xl:text-xl
+                ${isActive ? "btn" : "bg-[#415161] text-white shadow-md"}`}
             >
               {tab}
             </button>

@@ -71,8 +71,6 @@ export default function AlertsSettingCreate({ data }: any) {
         },
       });
 
-      console.log("res", res);
-
       if (res?.success) {
         toast.success(res.message || "Settings updated");
       } else {

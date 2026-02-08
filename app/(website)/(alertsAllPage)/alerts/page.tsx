@@ -7,11 +7,6 @@ export default async function AlertsPage() {
     tags: ["Notification"],
   });
 
-  console.log("Initial data from server:", {
-    dataLength: res?.data?.data?.length,
-    pagination: res?.data?.pagination,
-  });
-
   return (
     <>
       <Alerts res={res} />

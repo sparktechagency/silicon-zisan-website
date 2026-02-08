@@ -74,16 +74,17 @@ export default function DeleteButton({ id, title, trigger }: Props) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Type cancel reason"
+          maxLength={80}
         />
 
         <div className="flex gap-4 mt-6">
           <DialogClose asChild>
-            <Button className="w-1/2 bg-red-600 hover:bg-red-600">No</Button>
+            <Button className="w-1/2 btn">No</Button>
           </DialogClose>
 
           <DialogClose asChild>
             <Button
-              className="w-1/2 btn"
+              className="w-1/2  bg-red-600 hover:bg-red-600"
               onClick={handleConfirm}
               disabled={loading}
             >

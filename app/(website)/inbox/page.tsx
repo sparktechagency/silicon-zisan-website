@@ -3,13 +3,13 @@ import Inbox from "@/components/inbox/Inbox";
 export default async function InboxPage({
   searchParams,
 }: {
-  searchParams: { name: string };
+  searchParams: { name: string; id: string };
 }) {
-  const name = (await searchParams)?.name;
+  const { name, id } = await searchParams;
 
   return (
     <>
-      <Inbox name={name} />
+      <Inbox name={name} id={id} />
     </>
   );
 }

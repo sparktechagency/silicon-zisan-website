@@ -1,4 +1,4 @@
-import { ArrowDown, EyeIcon } from "lucide-react";
+import { EyeIcon } from "lucide-react";
 
 export default function DownloadCenter({ data }: any) {
   return (
@@ -23,7 +23,7 @@ export default function DownloadCenter({ data }: any) {
                   <EyeIcon className="w-5 h-5" />
                 </button>
               </a>
-              <a
+              {/* <a
                 href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${item.url}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -31,7 +31,7 @@ export default function DownloadCenter({ data }: any) {
                 <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
                   <ArrowDown className="w-5 h-5" />
                 </button>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>

@@ -120,14 +120,13 @@ export default function ViewDetailsCompany({ data, length }: any) {
         <Link href={`/edit-job-post/${data?._id}`}>
           <Button className="custom-btn">Edit Now</Button>
         </Link>
-        {data?.status !== "Closed" && (
-          <Button
-            onClick={() => handleWithdraw(data?._id)}
-            className="bg-red-500"
-          >
-            Delete
-          </Button>
-        )}
+
+        <Button
+          onClick={() => handleWithdraw(data?._id)}
+          className="bg-red-500"
+        >
+          Delete
+        </Button>
       </div>
     </div>
   );

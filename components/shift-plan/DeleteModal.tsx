@@ -48,13 +48,16 @@ export default function DeleteModal({
           <DialogFooter className="mt-5">
             <DialogClose asChild>
               <Button
-                className="w-[50%] bg-red-500 border-none"
+                className="w-[50%]  border-none custom-btn"
                 variant="outline"
               >
                 No
               </Button>
             </DialogClose>
-            <Button className="custom-btn w-[50%]" onClick={handleDelete}>
+            <Button
+              className=" w-[50%] bg-red-500 border-none"
+              onClick={handleDelete}
+            >
               Yes
             </Button>
           </DialogFooter>

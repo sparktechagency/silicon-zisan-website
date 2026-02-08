@@ -61,7 +61,7 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
           )}
         </div>
         <div className="flex justify-end">
-          <Button className="custom-btn h-12 text-xl mt-3">Add</Button>
+          <Button className="custom-btn h-12 text-xl mt-3">Save</Button>
         </div>
       </form>
     </div>
