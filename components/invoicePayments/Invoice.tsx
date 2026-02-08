@@ -27,7 +27,7 @@ export default function Invoice({ data }: any) {
                   <EyeIcon className="w-5 h-5" />
                 </button>
               </a>
-              <a
+              {/* <a
                 href={`${item?.hostedInvoiceUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -35,7 +35,7 @@ export default function Invoice({ data }: any) {
                 <button className="p-1 rounded hover:bg-gray-500 transition cursor-pointer">
                   <ArrowDown className="w-5 h-5" />
                 </button>
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
