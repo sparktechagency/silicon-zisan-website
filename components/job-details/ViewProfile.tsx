@@ -96,16 +96,16 @@ export default function ViewProfile({ data, chatId }: any) {
           </Button>
         </div>
       </div>
-      {/* {data?.isProfileVisible === false && ( */}
+      {/* {data?.isProfileVisible === true && ( */}
       <>
         {/* about details */}
         <div className="profile-container">
-          {data.isProfileVisible === false &&
+          {data.isProfileVisible === true &&
             renderInfoSection("Personal Information", personalInfo)}
           {renderInfoSection("Work Information", workInfo)}
         </div>
         {/* resume and others */}
-        {data.isProfileVisible === false && data?.resumeUrl && (
+        {data.isProfileVisible === true && data?.resumeUrl && (
           <div className=" text-white   space-y-6 ">
             {/* Header */}
             <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
@@ -140,7 +140,7 @@ export default function ViewProfile({ data, chatId }: any) {
         )}
         {/* images */}
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {data.isProfileVisible === false &&
+          {data.isProfileVisible === true &&
             data?.attachments?.map((item: any, index: number) => {
               return (
                 <div key={index} className="image-wrapper">
@@ -156,13 +156,13 @@ export default function ViewProfile({ data, chatId }: any) {
             })}
         </div>
         {/* work overview */}
-        {data.isProfileVisible === false && (
+        {data.isProfileVisible === true && (
           <div>
             <h1 className="font-semibold text-2xl">Work Overview</h1>
             <p className="mt-3">{data?.overview}</p>
           </div>
         )}
-        {data.isProfileVisible === false && (
+        {data.isProfileVisible === true && (
           <div>
             <h1 className="font-semibold text-2xl">Experiences</h1>
             <p className="mt-3">
