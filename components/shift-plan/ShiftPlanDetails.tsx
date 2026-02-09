@@ -18,6 +18,7 @@ type TDocumentDefinitions = any;
 export default function ShiftPlanDetails({ details }: any) {
   const { name, email, phone, address } = details?.worker;
   const [loading, setLoading] = useState(false);
+  console.log("details", details);
 
   const handleSendShift = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,15 +56,15 @@ export default function ShiftPlanDetails({ details }: any) {
             { text: "Until", style: "tableHeader" },
             { text: "Shift", style: "tableHeader" },
           ],
-
-          ...details.plans.map((plan: any) => [
-            plan.days.map((d: any) => dayjs(d).format("DD-MM-YYYY")),
-
-            plan?.startTime.slice(11, 16),
-            plan?.endTime.slice(11, 16),
-            // dayjs(plan?.endTime).format("hh:mm A"),
-            plan?.shift || "—",
-          ]),
+          // rows
+          ...details.plans.flatMap((plan: any) =>
+            plan.days.map((d: any) => [
+              dayjs(d).format("DD-MM-YYYY"), // Date
+              plan?.startTime.slice(11, 16), // From
+              plan?.endTime.slice(11, 16), // Until
+              plan?.shift || "—", // Shift
+            ]),
+          ),
         ],
       },
       layout: "lightHorizontalLines",
@@ -187,26 +188,43 @@ export default function ShiftPlanDetails({ details }: any) {
               </tr>
             </thead>
             <tbody>
-              {details?.plans?.map((item: any, index: number) => {
+              {/* {details?.plans?.map((item: any, index: number) => {
                 return (
                   <tr key={index} className="border-b border-gray-100">
                     <td className="px-4 py-2 grid grid-cols-2">
                       {item?.days?.map((d: any, i: number) => (
                         <span key={i}>
                           {dayjs(d).format("DD-MM-YYYY")}
-                          {/* {i < item.days.length - 1 ? ", " : ""} */}
+                          {i < item.days.length - 1 ? ", " : ""}
                         </span>
                       ))}
                     </td>
                     <td className="px-4 py-2">
-                      {/* {dayjs(item?.startTime).format("hh:mm A")} */}
+                      {dayjs(item?.startTime).format("hh:mm A")}
                       {item?.startTime.slice(11, 16)}
                     </td>
                     <td className="px-4 py-2">{item?.endTime.slice(11, 16)}</td>
                     <td className="px-4 py-2">{item?.shift}</td>
                   </tr>
                 );
-              })}
+              })} */}
+              {details?.plans?.map((plan: any, planIndex: number) =>
+                plan?.days?.map((d: any, dayIndex: number) => (
+                  <tr
+                    key={`${planIndex}-${dayIndex}`}
+                    className="border-b border-gray-100"
+                  >
+                    <td className="px-4 py-2">
+                      {dayjs(d).format("DD-MM-YYYY")}
+                    </td>
+                    <td className="px-4 py-2">
+                      {plan?.startTime.slice(11, 16)}
+                    </td>
+                    <td className="px-4 py-2">{plan?.endTime.slice(11, 16)}</td>
+                    <td className="px-4 py-2">{plan?.shift || "—"}</td>
+                  </tr>
+                )),
+              )}
             </tbody>
           </table>
         </div>
