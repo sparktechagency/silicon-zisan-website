@@ -110,6 +110,7 @@ export default function ContractInformation({
         toast.success(res.message || "Request sent successfully", {
           id: loadingToastId,
         });
+        // window.location.reload();
       } else {
         const err = (res as any)?.error?.[0];
 
@@ -142,11 +143,6 @@ export default function ContractInformation({
           margin: [0, 0, 0, 20],
         },
 
-        // Client & Recruiter Info
-        // <p>{getAdmin.email}</p>
-        //     <p>{getAdmin?.whatsApp}</p>
-        //     <p>{getAdmin?.phone}</p>
-        //   </div>
         {
           columns: [
             {
@@ -164,7 +160,7 @@ export default function ContractInformation({
                 { text: "Recruiter", margin: [0, 2, 0, 0] },
                 { text: getAdmin?.email },
                 { text: getAdmin?.whatsApp },
-                { text: getAdmin?.phone },
+                // { text: getAdmin?.phone },
               ],
             },
             { width: "*", text: "" },
@@ -191,7 +187,7 @@ export default function ContractInformation({
             `Job Title: ${data?.category || "N/A"}`,
             `Job Type: ${data?.jobType || "N/A"}`,
             `Salary: $${data?.salaryAmount || "N/A"}`,
-            `Deadline: ${dayjs(data?.deadline).format("YYYY-MM-DD")}`,
+            `Deadline: ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
           ],
           margin: [0, 5, 0, 15],
         },
@@ -230,7 +226,7 @@ export default function ContractInformation({
                   style: "normalText",
                 },
                 {
-                  text: dayjs(data?.createdAt).format("YYYY-MM-DD"),
+                  text: dayjs(data?.createdAt).format("DD-MM-YYYY"),
                   style: "normalText",
                 },
               ],
@@ -316,7 +312,7 @@ export default function ContractInformation({
                 <p>JobsinApp</p>
                 <p>{getAdmin.email}</p>
                 <p>{getAdmin?.whatsApp}</p>
-                <p>{getAdmin?.phone}</p>
+                {/* <p>{getAdmin?.phone}</p> */}
               </div>
             </div>
             <div>
@@ -363,7 +359,7 @@ export default function ContractInformation({
                   <p>€{data?.salaryAmount}</p>
                   <p className="flex gap-1 items-center">
                     <Clock3 size={18} />{" "}
-                    {dayjs(data?.deadline).format("YYYY-MM-DD")}
+                    {dayjs(data?.deadline).format("DD-MM-YYYY")}
                   </p>
                 </div>
               </div>
@@ -405,7 +401,7 @@ export default function ContractInformation({
                   Place :{" "}
                   {getProfile?.user?.address.split(",")[0] || "No Place"}
                 </p>
-                <p>Date : {dayjs(data?.createdAt).format("YYYY-MM-DD")}</p>
+                <p>Date : {dayjs(data?.createdAt).format("DD-MM-YYYY")}</p>
               </div>
               <p className="mt-3">
                 The client confirmed the contract by selecting the checkbox, so

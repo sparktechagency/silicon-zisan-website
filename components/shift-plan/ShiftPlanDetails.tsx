@@ -57,10 +57,11 @@ export default function ShiftPlanDetails({ details }: any) {
           ],
 
           ...details.plans.map((plan: any) => [
-            plan.days.map((d: any) => dayjs(d).format("YYYY-MM-DD")),
+            plan.days.map((d: any) => dayjs(d).format("DD-MM-YYYY")),
 
-            dayjs(plan?.startTime).format("hh:mm A"),
-            dayjs(plan?.endTime).format("hh:mm A"),
+            plan?.startTime.slice(11, 16),
+            plan?.endTime.slice(11, 16),
+            // dayjs(plan?.endTime).format("hh:mm A"),
             plan?.shift || "—",
           ]),
         ],
@@ -189,20 +190,19 @@ export default function ShiftPlanDetails({ details }: any) {
               {details?.plans?.map((item: any, index: number) => {
                 return (
                   <tr key={index} className="border-b border-gray-100">
-                    <td className="px-4 py-2">
+                    <td className="px-4 py-2 grid grid-cols-2">
                       {item?.days?.map((d: any, i: number) => (
                         <span key={i}>
                           {dayjs(d).format("DD-MM-YYYY")}
-                          {i < item.days.length - 1 ? ", " : ""}
+                          {/* {i < item.days.length - 1 ? ", " : ""} */}
                         </span>
                       ))}
                     </td>
                     <td className="px-4 py-2">
-                      {dayjs(item?.startTime).format("hh:mm A")}
+                      {/* {dayjs(item?.startTime).format("hh:mm A")} */}
+                      {item?.startTime.slice(11, 16)}
                     </td>
-                    <td className="px-4 py-2">
-                      {dayjs(item?.endTime).format("hh:mm A")}
-                    </td>
+                    <td className="px-4 py-2">{item?.endTime.slice(11, 16)}</td>
                     <td className="px-4 py-2">{item?.shift}</td>
                   </tr>
                 );

@@ -75,13 +75,15 @@ export default function EmployeeDetailsModal({
       {/* Dialog Content */}
       <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg sm:max-w-xl w-[40vw]">
         <div>
-          <div className="rounded-xl flex gap-4">
+          <div className="rounded-xl grid grid-cols-[20%_80%]">
             {/* Profile Image */}
-            <CustomImage
-              src={item?.receiver?.image}
-              title={item?.receiver?.name}
-              className="sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-700"
-            />
+            <div>
+              <CustomImage
+                src={item?.receiver?.image}
+                title={item?.receiver?.name}
+                className="sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-700"
+              />
+            </div>
 
             {/* Info Section */}
             <div>
@@ -103,7 +105,21 @@ export default function EmployeeDetailsModal({
                 </span>
               </div>
 
-              <p>{item?.message}</p>
+              {item?.address ? (
+                <p className="sm:text-xl my-2">
+                  An Appointment Is Available For You. Kindly Confirm It In Your
+                  JobsinApp Account. Please Come To This Address {item.address}.
+                </p>
+              ) : (
+                <p className="sm:text-xl my-2">
+                  {" "}
+                  An appointment is available for you. Kindly confirm it in your
+                  JobsinApp Account and share your active contact number. We
+                  will call you.
+                </p>
+              )}
+
+              <p className="sm:text-xl">Reason : {item?.message}</p>
             </div>
           </div>
         </div>

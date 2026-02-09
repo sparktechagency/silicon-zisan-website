@@ -31,6 +31,8 @@ export default function Categories({
   const subCategories =
     categories?.find((c) => c.name === selectedCategory)?.subCategories || [];
 
+  console.log("subCategories", subCategories);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       {/* Category */}
@@ -49,7 +51,7 @@ export default function Categories({
                 <SelectGroup>
                   {categories.map((item, index) => (
                     <SelectItem key={`${item.name}-${index}`} value={item.name}>
-                      {item.name}
+                      <span> {item.name}</span>
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -77,8 +79,8 @@ export default function Categories({
               <SelectContent>
                 <SelectGroup>
                   {subCategories.map((sub, index) => (
-                    <SelectItem key={`${sub}-${index}`} value={sub}>
-                      {sub}
+                    <SelectItem key={`${index}`} value={String(sub)}>
+                      <span className="notranslate"> {sub}</span>
                     </SelectItem>
                   ))}
                 </SelectGroup>

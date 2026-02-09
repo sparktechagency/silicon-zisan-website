@@ -30,7 +30,7 @@ export default function JobType({ control, register, errors }: any) {
                 <SelectGroup>
                   {jobTypes?.map((item, index) => (
                     <SelectItem key={index} value={item}>
-                      {item}
+                      <span className="notranslate"> {item}</span>
                     </SelectItem>
                   ))}
                 </SelectGroup>
