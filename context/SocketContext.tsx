@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { disconnectSocket, getSocket } from "@/utils/socket";
@@ -21,6 +20,7 @@ export const SocketProvider = ({
 
     const s = getSocket(token);
     s.connect();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSocket(s);
 
     return () => {

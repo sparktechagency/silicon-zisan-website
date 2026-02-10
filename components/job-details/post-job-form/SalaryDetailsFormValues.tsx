@@ -35,7 +35,7 @@ export default function SalaryDetailsFormValues({
           {...register("salaryAmount", {
             required: "Salary amount is required",
             // valueAsNumber: true,
-            validate: (v) =>
+            validate: (v: any) =>
               /^\d+(\.\d{1})?$/.test(String(v)) || "Only 1 decimal allowed",
           })}
           type="number"

@@ -97,7 +97,7 @@ const MessageChart3 = ({
     setFile(selectedFile);
   };
 
-  if (!singleData._id) {
+  if (!singleData?._id) {
     return (
       <div
         className="rounded-md flex flex-col items-center justify-center bg-card border border-gray-400/30"
