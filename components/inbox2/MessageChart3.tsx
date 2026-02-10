@@ -49,10 +49,10 @@ const MessageChart3 = ({
   const handleMessageSend = async () => {
     console.log("click");
 
-    if (!singleData._id) return;
+    if (!singleData?._id) return;
     if (userTextMessage.trim() === "" && !file) return;
 
-    console.log("singleData._id", singleData._id);
+    console.log("singleData._id", singleData?._id);
 
     const formData = new FormData();
     formData.append("chat", singleData._id);
