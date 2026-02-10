@@ -34,25 +34,22 @@ export default function SalaryDetailsFormValues({
         <Input
           {...register("salaryAmount", {
             required: "Salary amount is required",
-            valueAsNumber: true,
-            validate: (value: any) => {
-              if (!Number.isInteger(Number(value))) {
-                return "Only whole numbers are allowed";
-              }
-              return true;
-            },
+            // valueAsNumber: true,
+            validate: (v) =>
+              /^\d+(\.\d{1})?$/.test(String(v)) || "Only 1 decimal allowed",
           })}
           type="number"
+          step="any"
+          min="0"
           placeholder="Salary amount €"
           className="px-3 py-2 text-gray-200 placeholder:text-white"
-          step="1"
-          min="0"
           onKeyDown={(e) => {
-            if ([".", "e", "E", "+", "-"].includes(e.key)) {
+            if ([",", "e", "E", "+", "-"].includes(e.key)) {
               e.preventDefault();
             }
           }}
         />
+
         {errors?.salaryAmount && (
           <span className="text-red-400">{errors.salaryAmount.message}</span>
         )}

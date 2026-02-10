@@ -13,9 +13,7 @@ import call from "../public/call-header.svg";
 import profile from "../public/profile/avatar.png";
 import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
-import { Chat } from "@/types/chat";
-import { useCookie } from "@/hooks/useCookies";
-import { disconnectSocket, initializeSocket } from "@/utils/socket";
+import { disconnectSocket, getSocket } from "@/utils/socket";
 import { revalidate } from "@/utils/revalidateTag";
 
 type Profile = {
@@ -25,14 +23,14 @@ type Profile = {
   };
 };
 
-export default function HeaderTwo({ notification, token }: any) {
+export default function HeaderTwo({
+  notification,
+  token,
+  messageNotification,
+}: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [profileData, setProfileData] = useState<Profile | null>(null);
-  const [messageNotification, setMessageNotification] = useState<Chat[]>([]);
   const pathname = usePathname();
-
-  // Use custom hook to track cookie changes
-  const checkList = useCookie("list");
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -49,38 +47,24 @@ export default function HeaderTwo({ notification, token }: any) {
     getProfile();
   }, []);
 
-  // Re-fetch messages when checkList changes
-  useEffect(() => {
-    const getMessage = async () => {
-      const response = await myFetch("/chats", {
-        method: "GET",
-        cache: "no-cache",
-        tags: ["chatlist"],
-      });
-      const chats: Chat[] = response.data || [];
-
-      setMessageNotification(chats);
-    };
-
-    getMessage();
-  }, [checkList]); // Re-run when checkList changes
-
   const count =
-    messageNotification?.reduce((total, item) => total + item.unreadCount, 0) ||
-    0;
+    messageNotification?.reduce(
+      (total: any, item: any) => total + item.unreadCount,
+      0,
+    ) || 0;
 
   // get notifications
-  const socket = initializeSocket(token);
+  const socket = getSocket(token);
   // get notifications
   useEffect(() => {
     const initNotificationSocket = async () => {
       // const token = await getToken();
       if (!token) return;
 
-      const socket = initializeSocket(token);
+      const socket = getSocket(token);
 
       socket.on("getNotification", () => {
-        revalidate("Notification");
+        revalidate("chatlist");
       });
     };
 

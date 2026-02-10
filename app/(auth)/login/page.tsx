@@ -26,7 +26,7 @@ export default function page() {
 
       <div className="md:w-[50%] border border-[#FFFFFF0D] p-8 rounded-md bg-[#374859]">
         <h1 className="text-center text-3xl font-semibold text-white pt-3 pb-10">
-          Log In
+          Log In (Employer)
         </h1>
         {/* form component here */}
         <LoginPage />

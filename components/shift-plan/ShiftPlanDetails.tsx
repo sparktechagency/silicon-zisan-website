@@ -170,7 +170,7 @@ export default function ShiftPlanDetails({ details }: any) {
         {/* Plan Info */}
         <div className="mt-5">
           <h1 className="capitalize text-xl font-medium">
-            plan for January {dayjs(details?.days).format("YYYY")}
+            plan for {dayjs(details?.days).format("YYYY")}
           </h1>
           {/* <p>holiday weekend</p> */}
         </div>

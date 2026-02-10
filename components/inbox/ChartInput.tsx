@@ -42,7 +42,7 @@ const ChatInput = ({
               alt="preview"
               width={100}
               height={100}
-              className="rounded-lg object-cover max-h-[150px] w-auto border border-gray-300"
+              className="rounded-lg object-cover max-h-37.5 w-auto border border-gray-300"
             />
             <button
               onClick={onRemoveFile}
@@ -71,7 +71,7 @@ const ChatInput = ({
 
         <input
           type="file"
-          accept="image/*"
+          accept=".png, .jpg, .jpeg, image/png, image/jpeg"
           className="hidden"
           ref={inputRef}
           onChange={onChange}
