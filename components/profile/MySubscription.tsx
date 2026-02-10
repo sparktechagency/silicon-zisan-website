@@ -16,7 +16,7 @@ export default function MySubscription({ subscriptions }: any) {
               <>
                 <p className=" mb-2">
                   Expiry Date :{" "}
-                  {dayjs(subscriptions?.currentPeriodEnd).format("YYYY-MM-DD")}
+                  {dayjs(subscriptions?.currentPeriodEnd).format("DD-MM-YYYY")}
                 </p>
                 <p className=" mb-2 capitalize">
                   Payment Status : {subscriptions?.paymentStatus}

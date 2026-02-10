@@ -1,7 +1,6 @@
 import HeaderTwo from "@/commonLayout/Header";
 import { getToken } from "@/utils/getToken";
 import { myFetch } from "@/utils/myFetch";
-import React from "react";
 
 export default async function HeaderParentComponents() {
   const res = await myFetch("/notifications/me", {
@@ -11,9 +10,18 @@ export default async function HeaderParentComponents() {
 
   const token = await getToken();
 
+  const response = await myFetch("/chats", {
+    // cache: "no-cache",
+    tags: ["chatlist"],
+  });
+
   return (
     <>
-      <HeaderTwo notification={res?.data} token={token} />
+      <HeaderTwo
+        notification={res?.data}
+        token={token}
+        messageNotification={response?.data}
+      />
     </>
   );
 }

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const MAX_PAGE_WINDOW = 6;
+const MAX_PAGE_WINDOW = 10;
 
 const CustomPaginationSuspense = ({ totalPages = 1 }) => {
   const searchParams = useSearchParams();

@@ -42,6 +42,7 @@ const PostJobForm = () => {
     handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
@@ -77,6 +78,9 @@ const PostJobForm = () => {
   });
 
   const name = searchParams.get("name");
+
+  const selectedSubCategory = categories[Number(watch("subCategory"))];
+  console.log("selectedSubCategory", selectedSubCategory);
 
   useEffect(() => {
     const fetchCategories = async () => {

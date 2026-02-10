@@ -1,15 +1,18 @@
 import Footer from "@/commonLayout/Footer";
 import SidebarCheck from "@/components/sidebarCheck/SidebarCheck";
+import { SocketProvider } from "@/context/SocketContext";
 import Container from "@/share/Container";
 import HeaderParentComponents from "@/share/HeaderParentComponents";
+import { getToken } from "@/utils/getToken";
 
 export default async function MainLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const token = await getToken();
   return (
-    <>
+    <SocketProvider token={token!}>
       {/* newest code */}
       <HeaderParentComponents />
       <Container className="flex flex-col xl:flex-row gap-4 my-12 px-2 md:px-10 lg:px-0">
@@ -21,6 +24,6 @@ export default async function MainLayout({
         </div>
       </Container>
       <Footer />
-    </>
+    </SocketProvider>
   );
 }
