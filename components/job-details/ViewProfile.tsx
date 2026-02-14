@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function ViewProfile({ data, chatId }: any) {
-  console.log("data", data);
-
   const router = useRouter();
   const handleChat = async (id: string) => {
     try {

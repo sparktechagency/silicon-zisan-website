@@ -39,9 +39,11 @@ export function CreateForm({ res }: any) {
       return;
     }
 
-    console.log("time value:", data.time);
-    console.log("typeof:", typeof data.time);
-    const [hour = 0, minute = 0] = data.time.split(":").map(Number);
+    if (!data.scheduledAt || !data.time) return;
+
+    const [hour, minute] = (data.time as unknown as string)
+      .split(":")
+      .map(Number);
 
     const localIsoString = dayjs(data.scheduledAt)
       .hour(hour)
@@ -49,6 +51,8 @@ export function CreateForm({ res }: any) {
       .second(0)
       .millisecond(0)
       .toISOString();
+
+    // if (!data.scheduledAt || !data.time) return;
 
     // const localIsoString = dayjs(data.scheduledAt)
     //   .hour(data.time.hour())

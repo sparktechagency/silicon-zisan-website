@@ -7,8 +7,6 @@ export default async function AlertsPage() {
     tags: ["Notification"],
   });
 
-  console.log("res", res);
-
   return (
     <>
       <Alerts res={res} />

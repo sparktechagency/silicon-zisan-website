@@ -80,7 +80,6 @@ const PostJobForm = () => {
   const name = searchParams.get("name");
 
   const selectedSubCategory = categories[Number(watch("subCategory"))];
-  console.log("selectedSubCategory", selectedSubCategory);
 
   useEffect(() => {
     const fetchCategories = async () => {

@@ -31,8 +31,6 @@ export default function Categories({
   const subCategories =
     categories?.find((c) => c.name === selectedCategory)?.subCategories || [];
 
-  console.log("subCategories", subCategories);
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       {/* Category */}
