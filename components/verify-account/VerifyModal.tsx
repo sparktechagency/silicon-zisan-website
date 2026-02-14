@@ -6,12 +6,16 @@ import { Input } from "../ui/input";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Button } from "../ui/button";
+import { revalidate } from "@/utils/revalidateTag";
 
 export default function VerifyModal({ trigger }: any) {
   const [preview1, setPreview1] = useState<string | null>(null);
   const [preview2, setPreview2] = useState<string | null>(null);
   const [file1, setFile1] = useState<File | null>(null);
   const [file2, setFile2] = useState<File | null>(null);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleFile1Change = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -39,6 +43,8 @@ export default function VerifyModal({ trigger }: any) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setOpen(true);
 
     if (!file1 || !file2) {
       toast.error("Please upload both documents");
@@ -57,6 +63,7 @@ export default function VerifyModal({ trigger }: any) {
 
       if (res.success) {
         toast.success(res.message);
+        revalidate("verifications");
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -67,11 +74,13 @@ export default function VerifyModal({ trigger }: any) {
       setFile2(null);
       setPreview1(null);
       setPreview2(null);
+      setOpen(false);
+      setLoading(false);
     }
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>{trigger}</DialogTrigger>
       <DialogContent className="w-[50vw] border-none">
         <form onSubmit={handleSubmit}>
@@ -170,9 +179,12 @@ export default function VerifyModal({ trigger }: any) {
           </div>
 
           <div className="flex justify-end">
-            <button className="custom-btn w-[49%] px-12 py-2 rounded-md mt-7">
+            <Button
+              disabled={loading}
+              className="custom-btn w-[49%] px-12 py-2 rounded-md mt-7"
+            >
               Confirm
-            </button>
+            </Button>
           </div>
         </form>
       </DialogContent>
