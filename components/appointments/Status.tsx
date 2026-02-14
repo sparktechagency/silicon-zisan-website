@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Status() {
-  const tabs = ["Pending", "Confirmed", "Cancelled", "Completed"];
+  const tabs = ["Pending", "Confirmed", "Cancelled"];
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -28,7 +28,7 @@ export default function Status() {
 
   return (
     <div>
-      <div className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 2xl:grid-cols-3 gap-4">
         {tabs.map((tab) => {
           const isActive = activeStatus === tab;
 

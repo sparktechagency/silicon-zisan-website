@@ -26,7 +26,7 @@ export default function MySubscription({ subscriptions }: any) {
             )}
           </div>
 
-          {subscriptions?._id && (
+          {subscriptions?.status !== "canceled" && subscriptions?._id && (
             <div className="flex justify-end items-end">
               <SubscriptionCancelModal subscriptionId={subscriptions?._id} />
             </div>

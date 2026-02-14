@@ -39,12 +39,23 @@ export function CreateForm({ res }: any) {
       return;
     }
 
+    console.log("time value:", data.time);
+    console.log("typeof:", typeof data.time);
+    const [hour = 0, minute = 0] = data.time.split(":").map(Number);
+
     const localIsoString = dayjs(data.scheduledAt)
-      .hour(data.time.hour())
-      .minute(data.time.minute())
+      .hour(hour)
+      .minute(minute)
       .second(0)
       .millisecond(0)
       .toISOString();
+
+    // const localIsoString = dayjs(data.scheduledAt)
+    //   .hour(data.time.hour())
+    //   .minute(data.time.minute())
+    //   .second(0)
+    //   .millisecond(0)
+    //   .toISOString();
 
     const payload = {
       receiver: res?.user?._id,
