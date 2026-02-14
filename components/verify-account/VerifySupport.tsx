@@ -22,7 +22,7 @@ export default async function VerifySupport() {
           <VerifyModal
             trigger={
               <Button className="custom-btn  px-12 py-2 rounded-md">
-                Confirm
+                Add Document
               </Button>
             }
           />

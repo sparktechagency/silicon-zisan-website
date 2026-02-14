@@ -23,6 +23,7 @@ import CustomTimePicker from "../appointments/CustomTimePicker";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/utils/revalidateTag";
+import dayjs from "dayjs";
 
 type FormValues = {
   worker: string;
@@ -47,6 +48,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const router = useRouter();
   const [plans, setPlans] = useState<Plan[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const {
     control,
@@ -137,14 +139,26 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       return;
     }
 
+    const convertToLocalISO = (time: string) => {
+      const today = dayjs().format("YYYY-MM-DD");
+      const [hour, minute] = time.split(":");
+
+      return dayjs(`${today}T${hour}:${minute}:00`).toISOString();
+    };
+
+    console.log(data.startTime, data.endTime);
+
     const payload = {
-      startTime: data.startTime,
-      endTime: data.endTime,
+      startTime: convertToLocalISO(data.startTime),
+      endTime: convertToLocalISO(data.endTime),
       days: selectedDates.map((d) => d.toISOString()),
       tasks: data.tasks.map((t) => t.value),
       remarks: data.remarks,
       shift: data.shift,
     };
+
+    console.log("payload", payload);
+    // console.log('');
 
     setPlans((prev) => [...prev, payload]);
     setSelectedDates([]);
@@ -168,6 +182,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       return;
     }
 
+    setLoading(true);
+
     const method = editData?._id ? "PATCH" : "POST";
     const url = editData?._id
       ? `/shift-plans/update/${editData._id}` // ✅ Use editData._id, not 'id'
@@ -184,6 +200,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         body: payload,
       });
 
+      console.log("res", res);
+
       if (res.status === 402) {
         router.push("/subscriptions");
       }
@@ -198,6 +216,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -350,7 +370,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
             </div>
 
             <Button
-              disabled={plans.length === 0}
+              disabled={plans.length === 0 || loading}
               type="submit"
               className="custom-btn w-full text-lg"
             >
