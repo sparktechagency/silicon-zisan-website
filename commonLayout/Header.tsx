@@ -15,6 +15,7 @@ import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
 import { disconnectSocket, getSocket } from "@/utils/socket";
 import { revalidate } from "@/utils/revalidateTag";
+import { useChatSocket } from "@/hooks/useChatSocket";
 
 type Profile = {
   user: {
@@ -35,6 +36,13 @@ export default function HeaderTwo({
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  useChatSocket({
+    onChatList: (chats: any) => chats,
+    onMessage: (msg: any) => msg,
+    // onMessage: (msg) => setMessages((prev: any) => [...prev, msg]),
+    onError: (err: any) => console.error(err),
+  });
 
   useEffect(() => {
     const getProfile = async () => {

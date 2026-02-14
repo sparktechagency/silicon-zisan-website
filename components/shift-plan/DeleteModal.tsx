@@ -19,7 +19,9 @@ export default function DeleteModal({
   id: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const handleDelete = async () => {
+    setLoading(true);
     try {
       const res = await myFetch(`/shift-plans/delete/${id}`, {
         method: "DELETE",
@@ -34,6 +36,8 @@ export default function DeleteModal({
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -55,6 +59,7 @@ export default function DeleteModal({
               </Button>
             </DialogClose>
             <Button
+              disabled={loading}
               className=" w-[50%] bg-red-500 border-none"
               onClick={handleDelete}
             >

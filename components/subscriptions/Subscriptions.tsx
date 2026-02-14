@@ -34,6 +34,8 @@ export default function Subscriptions({ res, giftSubscription }: any) {
         },
       });
 
+      console.log("res", res);
+
       if (res.success) {
         window.open(res.data, "_blank");
       } else {
