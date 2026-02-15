@@ -37,7 +37,7 @@ export default function Status() {
               key={tab}
               onClick={() => handleClick(tab)}
               className={`py-2 px-6 md:py-3 rounded-md font-medium text-sm transition-all duration-300 xl:text-xl
-                ${isActive ? "btn" : "bg-[#415161] text-white shadow-md"}`}
+                ${isActive ? "btn" : "bg-[#415161] text-white shadow-md cursor-pointer"}`}
             >
               {tab}
             </button>

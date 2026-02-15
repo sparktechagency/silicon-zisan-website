@@ -99,7 +99,7 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
                 <DeleteButton
                   id={item?._id}
                   trigger={
-                    <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
+                    <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md cursor-pointer">
                       Cancel
                     </button>
                   }

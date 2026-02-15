@@ -15,6 +15,10 @@ export default async function ContractInformationHomePage({
 
   const getAdmin = await myFetch("/contact");
 
+  console.log("data", res?.data);
+  console.log("getProfile", getProfile?.data);
+  console.log("getAdmin", getAdmin?.data);
+
   return (
     <>
       <ContractInformation

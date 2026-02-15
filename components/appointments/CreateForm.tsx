@@ -13,6 +13,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type FormValues = {
   option: "call" | "address";
@@ -24,6 +25,7 @@ type FormValues = {
 
 export function CreateForm({ res }: any) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const { control, register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       option: "call",
@@ -35,6 +37,7 @@ export function CreateForm({ res }: any) {
   });
 
   const onSubmit = async (data: FormValues) => {
+    setLoading(true);
     if (!data.scheduledAt || !data.time) {
       return;
     }
@@ -87,6 +90,8 @@ export function CreateForm({ res }: any) {
       }
     } catch (err) {
       toast.error(err instanceof Error ? res?.message : "something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,6 +187,7 @@ export function CreateForm({ res }: any) {
 
         <div className="flex justify-end">
           <Button
+            disabled={loading}
             className="w-60 custom-btn text-white sm:text-lg"
             type="submit"
           >
