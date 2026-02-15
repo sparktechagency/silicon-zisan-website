@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Status() {
-  const tabs = ["Pending", "Confirmed", "Cancelled", "Completed"];
+  const tabs = ["Pending", "Confirmed", "Cancelled"];
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -28,7 +28,7 @@ export default function Status() {
 
   return (
     <div>
-      <div className="grid grid-cols-2 2xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 2xl:grid-cols-3 gap-4">
         {tabs.map((tab) => {
           const isActive = activeStatus === tab;
 
@@ -37,7 +37,7 @@ export default function Status() {
               key={tab}
               onClick={() => handleClick(tab)}
               className={`py-2 px-6 md:py-3 rounded-md font-medium text-sm transition-all duration-300 xl:text-xl
-                ${isActive ? "btn" : "bg-[#415161] text-white shadow-md"}`}
+                ${isActive ? "btn" : "bg-[#415161] text-white shadow-md cursor-pointer"}`}
             >
               {tab}
             </button>

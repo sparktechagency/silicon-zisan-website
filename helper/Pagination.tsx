@@ -25,8 +25,6 @@ const CustomPaginationSuspense = ({ totalPages = 1 }) => {
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
-  console.log("page numbers", pageNumbers);
-
   return (
     <div className="flex justify-center items-center gap-2 mt-8">
       <button

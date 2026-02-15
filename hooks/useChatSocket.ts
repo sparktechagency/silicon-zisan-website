@@ -13,7 +13,6 @@ export const useChatSocket = ({
   onError: (error: any) => void;
 }) => {
   const socket = useSocket();
-  console.log("socket data", socket);
 
   useEffect(() => {
     if (!socket) {

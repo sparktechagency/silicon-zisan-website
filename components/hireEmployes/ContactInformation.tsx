@@ -1,15 +1,14 @@
 "use client";
 
-import { ArrowLeft, Clock3, Loader2 } from "lucide-react";
+import { ArrowLeft, Clock3 } from "lucide-react";
 import { Button } from "../ui/button";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import Image from "next/image";
 import agreement from "../../public/hire-employees/agreement.png";
 import dayjs from "dayjs";
-import { useState } from "react";
-import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
+import HireEmployeeButton from "./HireEmployeeButton";
 
 (pdfMake as any).vfs = pdfFonts.vfs;
 
@@ -92,198 +91,183 @@ export default function ContractInformation({
   getProfile,
   getAdmin,
 }: any) {
-  const [loading, setLoading] = useState(false);
-
-  const handleHiring = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const loadingToastId = toast.loading("Processing your request...");
-
-    setLoading(true);
+  const handleDownloadPdf = () => {
+    // Validation
+    if (!data || !getProfile || !getAdmin) {
+      toast.error("Required data is missing");
+      return;
+    }
 
     try {
-      const res = await myFetch(`/jobs/send-hiring-post/${data._id}`, {
-        method: "POST",
-      });
+      const docDefinition: any = {
+        pageMargins: [40, 40, 40, 40],
+        content: [
+          {
+            text: "Personnel Placement Agreement",
+            style: "header",
+            margin: [0, 0, 0, 20],
+          },
 
-      if (res?.success) {
-        toast.success(res.message || "Request sent successfully", {
-          id: loadingToastId,
-        });
-        // window.location.reload();
-      } else {
-        const err = (res as any)?.error?.[0];
+          {
+            columns: [
+              {
+                width: "50%",
+                stack: [
+                  { text: "Between:", style: "subheader" },
 
-        toast.error(
-          typeof err === "string"
-            ? err
-            : err?.message || "Something went wrong",
-          { id: loadingToastId },
+                  { text: getProfile?.user?.name || "N/A" },
+                  { text: getProfile?.user?.email || "N/A" },
+                  {
+                    text: getProfile?.user?.address || "N/A",
+                    margin: [0, 0, 0, 8],
+                  },
+                  { text: "And:", style: "subheader" },
+                  { text: "Recruiter", margin: [0, 2, 0, 0] },
+                  { text: getAdmin?.email },
+                  { text: getAdmin?.whatsApp },
+                  // { text: getAdmin?.phone },
+                ],
+              },
+              { width: "*", text: "" },
+            ],
+            margin: [0, 0, 0, 20],
+          },
+
+          { text: "Contents of the Agreement", style: "sectionHeader" },
+          {
+            text: "The Client commissions the Recruiter to search for suitable candidates for an open position within the Client’s company. This agreement governs the conditions of the personnel placement process and the mutual rights and obligations of the contracting parties.",
+            margin: [0, 5, 0, 15],
+          },
+
+          // Agreement sections
+          ...agreementSections.flatMap((section) => [
+            { text: section?.title, style: "sectionTitle" },
+            {
+              ul: section?.items.map((item) => ({
+                text: item,
+                style: "normalText",
+              })),
+              margin: [0, 5, 0, 15],
+            },
+          ]),
+
+          // Job Details
+          {
+            text: "Job Details",
+            style: "sectionHeader",
+            margin: [0, 10, 0, 5],
+          },
+          {
+            ul: [
+              `Job Title: ${data?.category || "N/A"}`,
+              `Job Type: ${data?.jobType || "N/A"}`,
+              `Salary: $${data?.salaryAmount || "N/A"}`,
+              `Deadline: ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
+            ],
+            margin: [0, 5, 0, 15],
+          },
+
+          // Responsibilities
+          { text: "Responsibilities", style: "sectionTitle" },
+          {
+            ul: data?.responsibilities?.length
+              ? data?.responsibilities
+              : ["N/A"],
+            margin: [0, 5, 0, 15],
+          },
+
+          // Qualifications
+          { text: "Qualifications", style: "sectionTitle" },
+          {
+            ul: data?.qualifications?.length ? data?.qualifications : ["N/A"],
+            margin: [0, 5, 0, 15],
+          },
+
+          // Confirmation Table
+          {
+            text: "Confirmation",
+            style: "sectionHeader",
+            margin: [0, 10, 0, 5],
+          },
+          {
+            table: {
+              widths: ["*", "*"],
+              body: [
+                [
+                  { text: "Place", style: "tableHeader" },
+                  { text: "Date", style: "tableHeader" },
+                ],
+                [
+                  {
+                    text: getProfile?.user?.address.split(",")[0] || "N/A",
+                    style: "normalText",
+                  },
+                  {
+                    text: dayjs(data?.createdAt).format("DD-MM-YYYY"),
+                    style: "normalText",
+                  },
+                ],
+              ],
+            },
+            layout: "lightHorizontalLines",
+            margin: [0, 5, 0, 10],
+          },
+          {
+            text: "The client confirmed the contract by selecting the checkbox, so no signature was required, and the agreement is now in effect.",
+            style: "normalText",
+            margin: [0, 0, 0, 10],
+          },
+        ],
+
+        styles: {
+          header: {
+            fontSize: 20,
+            bold: true,
+            alignment: "center",
+            color: "#333333",
+          },
+          subheader: {
+            fontSize: 14,
+            bold: true,
+            color: "#333333",
+            margin: [0, 5, 0, 2],
+          },
+          sectionHeader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5],
+            color: "#333333",
+          },
+          sectionTitle: {
+            fontSize: 14,
+            bold: true,
+            margin: [0, 10, 0, 5],
+            color: "#333333",
+          },
+          normalText: { fontSize: 12, color: "#555555" },
+          tableHeader: {
+            fontSize: 12,
+            bold: true,
+            fillColor: "#eeeeee",
+            color: "#333333",
+          },
+        },
+
+        defaultStyle: { fontSize: 11, color: "#444444" },
+      };
+
+      pdfMake
+        .createPdf(docDefinition)
+        .download(
+          `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
         );
-      }
     } catch (error) {
       toast.error(
         error instanceof Error
           ? error.message
-          : "An error occurred while sending shift plan.",
-        { id: loadingToastId },
+          : "An error occurred while generating the PDF.",
       );
-    } finally {
-      setLoading(false);
     }
-  };
-
-  const handleDownloadPdf = () => {
-    const docDefinition: any = {
-      pageMargins: [40, 40, 40, 40],
-      content: [
-        {
-          text: "Personnel Placement Agreement",
-          style: "header",
-          margin: [0, 0, 0, 20],
-        },
-
-        {
-          columns: [
-            {
-              width: "50%",
-              stack: [
-                { text: "Between:", style: "subheader" },
-
-                { text: getProfile?.user?.name || "N/A" },
-                { text: getProfile?.user?.email || "N/A" },
-                {
-                  text: getProfile?.user?.address || "N/A",
-                  margin: [0, 0, 0, 8],
-                },
-                { text: "And:", style: "subheader" },
-                { text: "Recruiter", margin: [0, 2, 0, 0] },
-                { text: getAdmin?.email },
-                { text: getAdmin?.whatsApp },
-                // { text: getAdmin?.phone },
-              ],
-            },
-            { width: "*", text: "" },
-          ],
-          margin: [0, 0, 0, 20],
-        },
-
-        { text: "Contents of the Agreement", style: "sectionHeader" },
-        {
-          text: "The Client commissions the Recruiter to search for suitable candidates for an open position within the Client’s company. This agreement governs the conditions of the personnel placement process and the mutual rights and obligations of the contracting parties.",
-          margin: [0, 5, 0, 15],
-        },
-
-        // Agreement sections
-        ...agreementSections.flatMap((section) => [
-          { text: section.title, style: "sectionTitle" },
-          { ul: section.items, margin: [0, 5, 0, 15] },
-        ]),
-
-        // Job Details
-        { text: "Job Details", style: "sectionHeader", margin: [0, 10, 0, 5] },
-        {
-          ul: [
-            `Job Title: ${data?.category || "N/A"}`,
-            `Job Type: ${data?.jobType || "N/A"}`,
-            `Salary: $${data?.salaryAmount || "N/A"}`,
-            `Deadline: ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
-          ],
-          margin: [0, 5, 0, 15],
-        },
-
-        // Responsibilities
-        { text: "Responsibilities", style: "sectionTitle" },
-        {
-          ul: data?.responsibilities?.length ? data.responsibilities : ["N/A"],
-          margin: [0, 5, 0, 15],
-        },
-
-        // Qualifications
-        { text: "Qualifications", style: "sectionTitle" },
-        {
-          ul: data?.qualifications?.length ? data.qualifications : ["N/A"],
-          margin: [0, 5, 0, 15],
-        },
-
-        // Confirmation Table
-        {
-          text: "Confirmation",
-          style: "sectionHeader",
-          margin: [0, 10, 0, 5],
-        },
-        {
-          table: {
-            widths: ["*", "*"],
-            body: [
-              [
-                { text: "Place", style: "tableHeader" },
-                { text: "Date", style: "tableHeader" },
-              ],
-              [
-                {
-                  text: getProfile?.user?.address.split(",")[0] || "N/A",
-                  style: "normalText",
-                },
-                {
-                  text: dayjs(data?.createdAt).format("DD-MM-YYYY"),
-                  style: "normalText",
-                },
-              ],
-            ],
-          },
-          layout: "lightHorizontalLines",
-          margin: [0, 5, 0, 10],
-        },
-        {
-          text: "The client confirmed the contract by selecting the checkbox, so no signature was required, and the agreement is now in effect.",
-          style: "normalText",
-          margin: [0, 0, 0, 10],
-        },
-      ],
-
-      styles: {
-        header: {
-          fontSize: 20,
-          bold: true,
-          alignment: "center",
-          color: "#333333",
-        },
-        subheader: {
-          fontSize: 14,
-          bold: true,
-          color: "#333333",
-          margin: [0, 5, 0, 2],
-        },
-        sectionHeader: {
-          fontSize: 16,
-          bold: true,
-          margin: [0, 10, 0, 5],
-          color: "#333333",
-        },
-        sectionTitle: {
-          fontSize: 14,
-          bold: true,
-          margin: [0, 10, 0, 5],
-          color: "#333333",
-        },
-        normalText: { fontSize: 12, color: "#555555" },
-        tableHeader: {
-          fontSize: 12,
-          bold: true,
-          fillColor: "#eeeeee",
-          color: "#333333",
-        },
-      },
-
-      defaultStyle: { fontSize: 11, color: "#444444" },
-    };
-
-    pdfMake
-      .createPdf(docDefinition)
-      .download(
-        `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
-      );
   };
 
   return (
@@ -310,7 +294,7 @@ export default function ContractInformation({
                 <h3 className="font-bold text-gray-700 text-xl">And :</h3>
                 <p>Recruiter</p>
                 <p>JobsinApp</p>
-                <p>{getAdmin.email}</p>
+                <p>{getAdmin?.email}</p>
                 <p>{getAdmin?.whatsApp}</p>
                 {/* <p>{getAdmin?.phone}</p> */}
               </div>
@@ -339,7 +323,7 @@ export default function ContractInformation({
                 </h4>
                 <ul className="list-disc ml-6 space-y-1">
                   {section.items.map((item, i) => (
-                    <li key={i} className="text-[12px]">
+                    <li key={i} className="text-[13px]">
                       {item}
                     </li>
                   ))}
@@ -420,13 +404,14 @@ export default function ContractInformation({
         >
           Download Pdf
         </Button>
-        <Button
+        {/* <Button
           disabled={loading}
           onClick={handleHiring}
           className="w-full sm:w-[48%] custom-btn"
         >
           Send
-        </Button>
+        </Button> */}
+        <HireEmployeeButton data={data} />
       </div>
     </div>
   );

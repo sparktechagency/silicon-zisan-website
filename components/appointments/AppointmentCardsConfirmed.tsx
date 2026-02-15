@@ -8,8 +8,6 @@ import CustomImage from "@/utils/CustomImage";
 import dayjs from "dayjs";
 
 export default function AppointmentCardsConfirmed({ data, chatId }: any) {
-  console.log("data", data);
-
   return (
     <>
       {data?.map((item: any) => (
@@ -54,12 +52,16 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
                 </div>
 
                 <div>
-                  {item?.address ? (
-                    <p className="sm:text-xl my-2">
+                  {item?.status !== "Cancelled" && item?.address ? (
+                    <p
+                      className={`sm:text-xl my-2 ${item?.status === "Cancelled" && "hidden"}`}
+                    >
                       An Appointment Is Available For You. Kindly Confirm It ...
                     </p>
                   ) : (
-                    <p className="sm:text-xl my-2">
+                    <p
+                      className={`sm:text-xl my-2 ${item?.status === "Cancelled" && "hidden"}`}
+                    >
                       An appointment is available for you. Kindly confirm it
                     </p>
                   )}
@@ -97,7 +99,7 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
                 <DeleteButton
                   id={item?._id}
                   trigger={
-                    <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md">
+                    <button className="bg-red-600 hover:bg-red-500 text-white text-sm px-3 py-1 rounded-md cursor-pointer">
                       Cancel
                     </button>
                   }

@@ -146,8 +146,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       return dayjs(`${today}T${hour}:${minute}:00`).toISOString();
     };
 
-    console.log(data.startTime, data.endTime);
-
     const payload = {
       startTime: convertToLocalISO(data.startTime),
       endTime: convertToLocalISO(data.endTime),
@@ -156,9 +154,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       remarks: data.remarks,
       shift: data.shift,
     };
-
-    console.log("payload", payload);
-    // console.log('');
 
     setPlans((prev) => [...prev, payload]);
     setSelectedDates([]);
@@ -199,8 +194,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         method: method,
         body: payload,
       });
-
-      console.log("res", res);
 
       if (res.status === 402) {
         router.push("/subscriptions");

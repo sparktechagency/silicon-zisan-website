@@ -47,12 +47,8 @@ const MessageChart3 = ({
   }, [messages]);
 
   const handleMessageSend = async () => {
-    console.log("click");
-
     if (!singleData?._id) return;
     if (userTextMessage.trim() === "" && !file) return;
-
-    console.log("singleData._id", singleData?._id);
 
     const formData = new FormData();
     formData.append("chat", singleData._id);
@@ -68,8 +64,6 @@ const MessageChart3 = ({
         method: "POST",
         body: formData,
       });
-
-      console.log("res", response);
 
       if (response.success && response.data) {
         revalidate("messageList");
