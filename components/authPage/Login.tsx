@@ -42,8 +42,6 @@ export default function LoginPage() {
         body: data,
       });
 
-      console.log("res", res);
-
       if (res?.success) {
         // check user role. allow only employer
         if (res?.data?.role !== "Employer") {

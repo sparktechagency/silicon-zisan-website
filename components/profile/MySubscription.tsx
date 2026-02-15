@@ -21,7 +21,11 @@ export default function MySubscription({ subscriptions }: any) {
                 <p className=" mb-2 capitalize">
                   Payment Status : {subscriptions?.paymentStatus}
                 </p>
-                <p className="capitalize">Status: {subscriptions?.status}</p>
+                {subscriptions?.status === "canceled" ? (
+                  <p className="capitalize">Status: Cancelled</p>
+                ) : (
+                  <p className="capitalize">Status: {subscriptions?.status}</p>
+                )}
               </>
             )}
           </div>

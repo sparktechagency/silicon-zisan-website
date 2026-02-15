@@ -19,6 +19,7 @@ export default function ShiftPlanDetails({ details }: any) {
   const { name, email, phone, address } = details?.worker;
   const [loading, setLoading] = useState(false);
 
+  /* ================= SEND SHIFT ================= */
   const handleSendShift = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -40,10 +41,32 @@ export default function ShiftPlanDetails({ details }: any) {
     }
   };
 
-  const handleDownload = () => {
+  /* ================= CONVERT IMAGE TO BASE64 ================= */
+  const getBase64ImageFromUrl = async (imageUrl: string) => {
+    const res = await fetch(imageUrl);
+    const blob = await res.blob();
+
+    return new Promise<string>((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  /* ================= DOWNLOAD PDF ================= */
+  const handleDownload = async () => {
     if (!details) return;
 
-    /* ---------------- Schedule Table ---------------- */
+    // Convert logo to base64 properly
+    const response = await fetch(logo.src);
+    const blob = await response.blob();
+
+    const logoBase64: string = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
+
     const scheduleTable = {
       table: {
         headerRows: 1,
@@ -55,13 +78,12 @@ export default function ShiftPlanDetails({ details }: any) {
             { text: "Until", style: "tableHeader" },
             { text: "Shift", style: "tableHeader" },
           ],
-          // rows
           ...details.plans.flatMap((plan: any) =>
             plan.days.map((d: any) => [
-              dayjs(d).format("DD-MM-YYYY"), // Date
-              plan?.startTime.slice(11, 16), // From
-              plan?.endTime.slice(11, 16), // Until
-              plan?.shift || "—", // Shift
+              dayjs(d).format("DD-MM-YYYY"),
+              plan?.startTime.slice(11, 16),
+              plan?.endTime.slice(11, 16),
+              plan?.shift || "—",
             ]),
           ),
         ],
@@ -70,7 +92,6 @@ export default function ShiftPlanDetails({ details }: any) {
       margin: [0, 10, 0, 15],
     };
 
-    /* ---------------- Remarks Section ---------------- */
     const remarksSection =
       details?.plans?.length > 0
         ? {
@@ -88,33 +109,48 @@ export default function ShiftPlanDetails({ details }: any) {
           }
         : null;
 
-    /* ---------------- Document Definition ---------------- */
     const docDefinition: TDocumentDefinitions = {
       pageMargins: [40, 40, 40, 40],
+
+      // ✅ Proper image dictionary
+      images: {
+        companyLogo: logoBase64,
+      },
+
       content: [
         {
-          text: "Personal Information",
-          style: "sectionHeader",
-        },
-        {
-          stack: [
-            { text: `Name: ${name || "—"}` },
-            { text: `Email: ${email || "—"}` },
-            { text: `Address: ${address || "—"}` },
-            { text: `Contact: ${phone || "—"}` },
+          columns: [
+            {
+              width: "*",
+              stack: [
+                { text: "Personal Information", style: "sectionHeader" },
+                { text: `Name: ${name || "—"}`, style: "normalText" },
+                { text: `Email: ${email || "—"}`, style: "normalText" },
+                { text: `Address: ${address || "—"}`, style: "normalText" },
+                { text: `Contact: ${phone || "—"}`, style: "normalText" },
+              ],
+            },
+            {
+              // width: "auto",
+              image: "companyLogo", // reference by name
+              width: 120,
+              alignment: "right",
+            },
           ],
-          style: "normalText",
-          margin: [0, 0, 0, 15],
         },
+
         {
-          text: "Schedule",
+          text: `Shift Plan for ${dayjs(details?.plans[0]?.days[0]).format(
+            "MMMM YYYY",
+          )}`,
           style: "sectionHeader",
         },
+
         scheduleTable,
 
-        // ✅ Append remarks only if available
         ...(remarksSection ? [remarksSection] : []),
       ],
+
       styles: {
         sectionHeader: {
           fontSize: 16,
@@ -131,7 +167,6 @@ export default function ShiftPlanDetails({ details }: any) {
       },
     };
 
-    /* ---------------- Download PDF ---------------- */
     pdfMake
       .createPdf(docDefinition)
       .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
@@ -139,11 +174,8 @@ export default function ShiftPlanDetails({ details }: any) {
 
   return (
     <div className="max-w-3xl mx-auto">
-      {/* PDF content area */}
-      <div
-        // ref={contentRef}
-        className="bg-white p-6 rounded-md shadow-md border border-gray-200 text-gray-900 my-10"
-      >
+      {/* PDF Preview Content */}
+      <div className="bg-white p-6 rounded-md shadow-md border border-gray-200 text-gray-900 my-10">
         <div className="flex justify-between items-center">
           <div className="mb-6 flex items-center gap-3">
             <button
@@ -155,23 +187,23 @@ export default function ShiftPlanDetails({ details }: any) {
             <p className="text-xl capitalize">shift plan view</p>
           </div>
           <div>
-            <Image src={logo} alt="logo" />
+            <Image src={logo} alt="logo" className="w-36" />
           </div>
         </div>
+
         {/* Personal Info */}
-        <div className="grid sm:grid-cols-2 gap-1 mt-7 ">
+        <div className="grid sm:grid-cols-2 gap-1 mt-7">
           <p>Name: {name}</p>
           <p>Email: {email}</p>
-          <p>Address:{address}</p>
+          <p>Address: {address}</p>
           <p>Contact: {phone}</p>
         </div>
 
         {/* Plan Info */}
         <div className="mt-5">
           <h1 className="capitalize text-xl font-medium">
-            plan for {dayjs(details?.days).format("YYYY")}
+            plan for {dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}
           </h1>
-          {/* <p>holiday weekend</p> */}
         </div>
 
         {/* Schedule Table */}
@@ -180,33 +212,12 @@ export default function ShiftPlanDetails({ details }: any) {
             <thead className="text-gray-700 border-b border-gray-300">
               <tr>
                 <th className="px-4 py-2">Date</th>
-                {/* <th className="px-4 py-2">Day</th> */}
                 <th className="px-4 py-2">To</th>
                 <th className="px-4 py-2">Form</th>
                 <th className="px-4 py-2">Timeline</th>
               </tr>
             </thead>
             <tbody>
-              {/* {details?.plans?.map((item: any, index: number) => {
-                return (
-                  <tr key={index} className="border-b border-gray-100">
-                    <td className="px-4 py-2 grid grid-cols-2">
-                      {item?.days?.map((d: any, i: number) => (
-                        <span key={i}>
-                          {dayjs(d).format("DD-MM-YYYY")}
-                          {i < item.days.length - 1 ? ", " : ""}
-                        </span>
-                      ))}
-                    </td>
-                    <td className="px-4 py-2">
-                      {dayjs(item?.startTime).format("hh:mm A")}
-                      {item?.startTime.slice(11, 16)}
-                    </td>
-                    <td className="px-4 py-2">{item?.endTime.slice(11, 16)}</td>
-                    <td className="px-4 py-2">{item?.shift}</td>
-                  </tr>
-                );
-              })} */}
               {details?.plans?.map((plan: any, planIndex: number) =>
                 plan?.days?.map((d: any, dayIndex: number) => (
                   <tr
@@ -230,12 +241,10 @@ export default function ShiftPlanDetails({ details }: any) {
 
         {/* Remarks */}
         <div className="mt-6 ml-4">
-          <p className="text-sm">
-            <strong>Remarks</strong>
-            {details?.plans?.map((item: any, index: number) => (
-              <p key={index}>{item.remarks}</p>
-            ))}
-          </p>
+          <strong>Remarks</strong>
+          {details?.plans?.map((item: any, index: number) => (
+            <p key={index}>{item.remarks}</p>
+          ))}
         </div>
       </div>
 

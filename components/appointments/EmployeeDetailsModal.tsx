@@ -119,7 +119,7 @@ export default function EmployeeDetailsModal({
                 </p>
               )}
 
-              <p className="sm:text-xl">Reason : {item?.message}</p>
+              <p className="sm:text-xl">Message : {item?.message}</p>
             </div>
           </div>
         </div>

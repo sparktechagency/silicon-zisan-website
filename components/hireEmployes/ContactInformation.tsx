@@ -91,7 +91,16 @@ export default function ContractInformation({
   getProfile,
   getAdmin,
 }: any) {
-  const handleDownloadPdf = () => {
+  const handleDownloadPdf = async () => {
+    // Convert logo to base64 properly
+    const response = await fetch(agreement.src);
+    const blob = await response.blob();
+
+    const logoBase64: string = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
     // Validation
     if (!data || !getProfile || !getAdmin) {
       toast.error("Required data is missing");
@@ -101,6 +110,9 @@ export default function ContractInformation({
     try {
       const docDefinition: any = {
         pageMargins: [40, 40, 40, 40],
+        images: {
+          companyLogo: logoBase64,
+        },
         content: [
           {
             text: "Personnel Placement Agreement",
@@ -111,10 +123,9 @@ export default function ContractInformation({
           {
             columns: [
               {
-                width: "50%",
+                width: "70%",
                 stack: [
                   { text: "Between:", style: "subheader" },
-
                   { text: getProfile?.user?.name || "N/A" },
                   { text: getProfile?.user?.email || "N/A" },
                   {
@@ -123,12 +134,19 @@ export default function ContractInformation({
                   },
                   { text: "And:", style: "subheader" },
                   { text: "Recruiter", margin: [0, 2, 0, 0] },
-                  { text: getAdmin?.email },
-                  { text: getAdmin?.whatsApp },
-                  // { text: getAdmin?.phone },
+                  { text: getAdmin?.address },
                 ],
               },
-              { width: "*", text: "" },
+              {
+                width: "30%", // ✅ 70% column width
+                stack: [
+                  {
+                    image: "companyLogo",
+                    width: 100, // control actual visual size here
+                    alignment: "right",
+                  },
+                ],
+              },
             ],
             margin: [0, 0, 0, 20],
           },
@@ -293,9 +311,9 @@ export default function ContractInformation({
               <div className="mt-2">
                 <h3 className="font-bold text-gray-700 text-xl">And :</h3>
                 <p>Recruiter</p>
-                <p>JobsinApp</p>
-                <p>{getAdmin?.email}</p>
-                <p>{getAdmin?.whatsApp}</p>
+                <p>JobsInApp</p>
+                <p>{getAdmin?.address}</p>
+                {/* <p>{adminInformation?.whatsApp}</p> */}
                 {/* <p>{getAdmin?.phone}</p> */}
               </div>
             </div>
