@@ -13,8 +13,6 @@ export default function HireEmployeeButton({ data }: any) {
       id: "hiring-toast",
     });
 
-    console.log("get id--", data?._id);
-
     setLoading(true);
 
     try {

@@ -26,7 +26,7 @@ export function SubscriptionCancelModal({ subscriptionId }: any) {
       });
 
       if (res.success) {
-        toast.success(res.message);
+        toast.success("Subscription cancelled successfully");
         await revalidate("subscription");
       } else {
         toast.error((res as any)?.error[0].message);

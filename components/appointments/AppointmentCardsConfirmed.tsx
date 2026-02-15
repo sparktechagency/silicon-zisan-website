@@ -41,7 +41,7 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
                 <div className="flex items-center gap-1">
                   <FaCalendarAlt />
                   <span className="sm:text-xl">
-                    {dayjs(item.scheduledAt).format("YYYY-MM-DD")}
+                    {dayjs(item.scheduledAt).format("DD-MM-YYYY")}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">

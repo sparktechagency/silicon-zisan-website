@@ -5,30 +5,42 @@ import { Input } from "../ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
+import { SearchableCountrySelect } from "@/helper/CountryCodeSearch";
+import countryListData from "country-list-with-dial-code-and-flag";
 
 type Inputs = {
   whatsApp: string;
+  countryCode: string;
 };
 
 export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
+  const countryList = countryListData.getAll();
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
+    trigger: triggerValidation,
     formState: { errors },
   } = useForm<Inputs>({
-    defaultValues: { whatsApp: whatsApp || "" },
+    defaultValues: { whatsApp: whatsApp || "", countryCode: "+49" },
   });
+
+  // const cleanedPhone = whatsApp.replace(/^0+/, "");
 
   useEffect(() => {
     reset({ whatsApp });
   }, [whatsApp, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const payload = {
+      whatsApp: `${data.countryCode}${data.whatsApp.replace(/^0+/, "")}`,
+    };
     try {
       const res = await myFetch(`/employers/me`, {
         method: "PATCH",
-        body: data,
+        body: payload,
       });
 
       if (res.success) {
@@ -45,23 +57,50 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
 
   return (
     <div className="rounded">
-      <h1 className="text-xl">WhatsApp</h1>
+      <h1 className="text-xl">WhatsApp Number</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-3">
-          <Input
+          {/* <Input
             {...register("whatsApp", {
               required: "Phone number is required",
             })}
             type="tel"
             placeholder="Enter Number Here"
             className="border"
-          />
+          /> */}
+
+          <div className="flex gap-2">
+            <SearchableCountrySelect
+              value={watch("countryCode")}
+              onChange={(dialCode: string) => {
+                setValue("countryCode", dialCode);
+                triggerValidation("countryCode");
+              }}
+              error={errors.countryCode}
+              countryList={countryList}
+            />
+
+            <Input
+              type="tel"
+              {...register("whatsApp", {
+                required: "Phone number required",
+                pattern: {
+                  value: /^[0-9]{6,14}$/,
+                  message: "Invalid phone number",
+                },
+              })}
+              placeholder="Phone number"
+            />
+          </div>
+
           {errors.whatsApp && (
             <p className="text-red-500 text-sm">{errors.whatsApp.message}</p>
           )}
         </div>
         <div className="flex justify-end">
-          <Button className="custom-btn h-12 text-xl mt-3">Save</Button>
+          <Button className="custom-btn h-12 text-xl mt-3">
+            Update Number
+          </Button>
         </div>
       </form>
     </div>

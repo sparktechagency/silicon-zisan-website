@@ -10,7 +10,8 @@ import { revalidate } from "@/utils/revalidateTag";
 import { Label } from "@/components/ui/label";
 import AddressInput from "@/components/profile/AddressSearch";
 import { useRouter } from "next/navigation";
-import { error } from "console";
+import { SearchableCountrySelect } from "@/helper/CountryCodeSearch";
+import countryListData from "country-list-with-dial-code-and-flag";
 
 type Inputs = {
   name: string;
@@ -23,6 +24,7 @@ type Inputs = {
   whatsApp: string;
   about: string;
   location: [];
+  countryCode: string;
 };
 
 type ProfileData = {
@@ -42,6 +44,7 @@ export default function EditProfile({ title }: { title?: string }) {
   const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState<ProfileData | null>(null);
   const router = useRouter();
+  const countryList = countryListData.getAll();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +63,8 @@ export default function EditProfile({ title }: { title?: string }) {
     handleSubmit,
     reset,
     setValue,
-
+    watch,
+    trigger: triggerValidation,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: {
@@ -96,12 +100,19 @@ export default function EditProfile({ title }: { title?: string }) {
       toast.error("Please select name, legal form, and address");
       return;
     }
+    const { countryCode, ...rest } = values;
+
+    const payload = {
+      ...rest,
+      whatsApp: `${countryCode}${values.whatsApp.replace(/^0+/, "")}`,
+      phone: `${countryCode}${values.phone.replace(/^0+/, "")}`,
+    };
 
     setLoading(true);
     try {
       const res = await myFetch("/employers/profile", {
         method: "PATCH",
-        body: values,
+        body: payload,
       });
 
       if (res?.success) {
@@ -174,11 +185,35 @@ export default function EditProfile({ title }: { title?: string }) {
 
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
-          <Input
+          {/* <Input
             id="phone"
             placeholder="Enter phone number"
             {...register("phone")}
-          />
+          /> */}
+
+          <div className="flex gap-2">
+            <SearchableCountrySelect
+              value={watch("countryCode")}
+              onChange={(dialCode: string) => {
+                setValue("countryCode", dialCode);
+                triggerValidation("countryCode");
+              }}
+              error={errors.countryCode}
+              countryList={countryList}
+            />
+
+            <Input
+              type="tel"
+              {...register("phone", {
+                required: "Phone number required",
+                pattern: {
+                  value: /^[0-9]{6,14}$/,
+                  message: "Invalid phone number",
+                },
+              })}
+              placeholder="Phone number"
+            />
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -201,11 +236,34 @@ export default function EditProfile({ title }: { title?: string }) {
 
         <div className="space-y-2">
           <Label htmlFor="whatsApp">WhatsApp Number</Label>
-          <Input
+          {/* <Input
             id="whatsApp"
             placeholder="Enter WhatsApp number"
             {...register("whatsApp")}
-          />
+          /> */}
+          <div className="flex gap-2">
+            <SearchableCountrySelect
+              value={watch("countryCode")}
+              onChange={(dialCode: string) => {
+                setValue("countryCode", dialCode);
+                triggerValidation("countryCode");
+              }}
+              error={errors.countryCode}
+              countryList={countryList}
+            />
+
+            <Input
+              type="tel"
+              {...register("whatsApp", {
+                required: "Phone number required",
+                pattern: {
+                  value: /^[0-9]{6,14}$/,
+                  message: "Invalid phone number",
+                },
+              })}
+              placeholder="Phone number"
+            />
+          </div>
         </div>
 
         <div className="space-y-2">
