@@ -90,13 +90,13 @@ export default function EditJobPost({ data }: any) {
     replaceResponsibilities(
       data.responsibilities?.length
         ? data.responsibilities.map((r: string) => ({ value: r }))
-        : [{ value: "" }]
+        : [{ value: "" }],
     );
 
     replaceQualifications(
       data.qualifications?.length
         ? data.qualifications.map((q: string) => ({ value: q }))
-        : [{ value: "" }]
+        : [{ value: "" }],
     );
   }, [data, reset, replaceResponsibilities, replaceQualifications]);
 
@@ -124,6 +124,7 @@ export default function EditJobPost({ data }: any) {
       deadline: values.deadline
         ? new Date(values.deadline).toISOString()
         : null,
+      salaryAmount: values.salaryAmount ? Number(values.salaryAmount) : null,
       responsibilities: values.responsibilities.map((r) => r.value),
       qualifications: values.qualifications.map((q) => q.value),
     };
