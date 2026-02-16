@@ -29,7 +29,7 @@ export default function Alerts({ res }: any) {
 
   return (
     <Container className="my-16">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4">
         <h1 className="text-2xl font-semibold">All Alerts</h1>
 
         <div className="flex gap-3">

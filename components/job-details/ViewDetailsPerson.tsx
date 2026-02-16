@@ -85,7 +85,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
         />
 
         <div className="mt-4 sm:mt-0">
-          <p className="text-xl sm:text-3xl">
+          <p className="text-xl sm:text-3xl notranslate">
             {data?.user?.name?.trim() ? data?.user?.name : "No Name"}
           </p>
           <p className="tex-xl sm:text-2xl mt-1">{data?.job?.subCategory}</p>

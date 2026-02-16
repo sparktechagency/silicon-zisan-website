@@ -73,15 +73,15 @@ export default function EmployeeDetailsModal({
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       {/* Dialog Content */}
-      <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg sm:max-w-xl w-[40vw]">
+      <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg  sm:w-[40vw] xl:w-[30vw]">
         <div>
-          <div className="rounded-xl grid grid-cols-[20%_80%]">
+          <div className="rounded-xl grid grid-cols-[20%_80%] gap-4">
             {/* Profile Image */}
             <div>
               <CustomImage
                 src={item?.receiver?.image}
                 title={item?.receiver?.name}
-                className="sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gray-700"
+                className="w-20 h-20 sm:w-20 sm:h-20 rounded-full  border-2 border-gray-700"
               />
             </div>
 

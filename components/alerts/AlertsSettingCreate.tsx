@@ -28,6 +28,7 @@ export default function AlertsSettingCreate({ data }: any) {
       setPushEnabled(Boolean(data.notificationSettings.pushNotification));
       setEmailEnabled(Boolean(data.notificationSettings.emailNotification));
       setFrequency(data.notificationSettings.repeat || "");
+      setAccepted(Boolean(data.notificationSettings.repeat));
     }
 
     if (data?.user?.email) {

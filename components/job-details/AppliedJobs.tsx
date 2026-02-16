@@ -31,7 +31,7 @@ export default function AppliedJobs({ data }: any) {
               </h2>
               <p className="text-sm text-gray-300">Senior Business Analytics</p>
               <p className="text-sm text-gray-400">
-                Applied : {dayjs(item?.createdAt).format("YYYY-MM-DD")}
+                Applied : {dayjs(item?.createdAt).format("DD-MM-YYYY")}
               </p>
 
               {/* Action Button */}
