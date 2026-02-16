@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  SubmitHandler,
+  Controller,
+} from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
@@ -19,10 +24,20 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+
 type FormValues = {
   category: string;
   subCategory: string;
   jobType: string;
+  experience: string;
   deadline: string;
   salaryType: string;
   salaryAmount: string;
@@ -49,6 +64,7 @@ const HireEmployeeForm = () => {
       category: "",
       subCategory: "",
       jobType: "",
+      experience: "",
       deadline: "",
       salaryType: "",
       salaryAmount: "",
@@ -101,7 +117,6 @@ const HireEmployeeForm = () => {
       responsibilities: data.responsibilities.map((item) => item.value),
       qualifications: data.qualifications.map((item) => item.value),
       salaryAmount: Number(data.salaryAmount),
-      experience: "With Experience",
       isHiringRequest: true,
     };
     try {
@@ -152,6 +167,36 @@ const HireEmployeeForm = () => {
 
           {/* Job Type & Deadline */}
           <JobType control={control} register={register} errors={errors} />
+
+          {/* with out exprience */}
+          <div className="mb-3">
+            <Label className="block text-sm mb-1">Exprience</Label>
+            <Controller
+              name="experience"
+              control={control}
+              rules={{ required: "Exprience is required" }}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full border">
+                    <SelectValue placeholder="Select Experience Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="With Experience">
+                        With Experience
+                      </SelectItem>
+                      <SelectItem value="Without Experience">
+                        Without Experience
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors?.experience && (
+              <span className="text-red-400">{errors.experience.message}</span>
+            )}
+          </div>
 
           {/* Salary Type*/}
           <SalaryDetailsFormValues

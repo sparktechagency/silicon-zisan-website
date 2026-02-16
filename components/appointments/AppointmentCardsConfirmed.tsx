@@ -8,6 +8,8 @@ import CustomImage from "@/utils/CustomImage";
 import dayjs from "dayjs";
 
 export default function AppointmentCardsConfirmed({ data, chatId }: any) {
+  console.log("data", data[0]);
+
   return (
     <>
       {data?.map((item: any) => (
@@ -52,6 +54,14 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
                 </div>
 
                 <div>
+                  {item?.status !== "Cancelled" && item?.message && (
+                    <p className="sm:text-xl whitespace-pre-wrap">
+                      {item?.message?.split("\n\n").slice(1).join("\n\n")}
+                    </p>
+                  )}
+                </div>
+
+                {/* <div>
                   {item?.status !== "Cancelled" && item?.address ? (
                     <p
                       className={`sm:text-xl my-2 ${item?.status === "Cancelled" && "hidden"}`}
@@ -65,13 +75,13 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
                       An appointment is available for you. Kindly confirm it
                     </p>
                   )}
-                </div>
+                </div> */}
 
                 {/* reason */}
                 {item?.cancelReason && (
                   <div className="flex items-center gap-1">
                     <span className="sm:text-xl">
-                      Reason : {item?.cancelReason}
+                      Reason : {item?.cancelReason.slice(0, 150)}
                     </span>
                   </div>
                 )}

@@ -119,7 +119,7 @@ const MessageChart3 = ({
           className="w-11 h-11 rounded-full object-cover"
         />
         <div className="font-medium">
-          <h1 className="2xl:text-xl">
+          <h1 className="2xl:text-xl notranslate">
             {singleData?.anotherParticipant?.name || "Unknown User"}
           </h1>
           {/* <p className="text-xs">Typing...</p> */}
