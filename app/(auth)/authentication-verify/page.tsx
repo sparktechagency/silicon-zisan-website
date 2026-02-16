@@ -18,7 +18,7 @@ export default function AuthenticationVerifyPage() {
           height={24}
           className="w-24 md:w-40"
         />
-        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[17px] capitalize">
+        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[16px] capitalize">
           where dream job meets top talent
         </h1>
       </div>

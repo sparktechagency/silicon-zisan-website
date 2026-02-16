@@ -19,7 +19,7 @@ export default function page() {
           className="w-24 md:w-40"
           priority
         />
-        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[18px] font-medium capitalize">
+        <h1 className="mt-2 md:mt-5 text-center text-white text-[9px] xl:text-[16px] font-medium capitalize">
           where dream job meets top talent
         </h1>
       </div>

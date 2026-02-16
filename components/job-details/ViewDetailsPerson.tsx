@@ -92,7 +92,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
 
           <div className="flex gap-4 items-center mt-2 text-sm">
             <p className="text-xl sm:text-2xl gap-2">
-              Applied : {dayjs(data?.createdAt).format("YYYY-MM-DD")}
+              Applied : {dayjs(data?.createdAt).format("DD-MM-YYYY")}
             </p>
           </div>
           <div className="flex gap-5">

@@ -1,10 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  SubmitHandler,
+  Controller,
+} from "react-hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import Container from "@/share/Container";
-import CustomBackButton from "@/share/CustomBackButton";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Categories from "../job-details/post-job-form/Categories";
@@ -14,14 +19,21 @@ import AddQualificationAndResposibilities from "../job-details/post-job-form/Add
 import { myFetch } from "@/utils/myFetch";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Checkbox } from "../ui/checkbox";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 type FormValues = {
   category: string;
   subCategory: string;
   jobType: string;
+  experience: string;
   deadline: string;
   salaryType: string;
   salaryAmount: string;
@@ -49,6 +61,7 @@ const PostJobForm = () => {
       category: "",
       subCategory: "",
       jobType: "",
+      experience: "",
       deadline: "",
       salaryType: "",
       salaryAmount: "",
@@ -103,7 +116,6 @@ const PostJobForm = () => {
       responsibilities: data.responsibilities.map((item) => item.value),
       qualifications: data.qualifications.map((item) => item.value),
       salaryAmount: Number(data.salaryAmount),
-      experience: "With Experience",
     };
 
     try {
@@ -151,7 +163,38 @@ const PostJobForm = () => {
           />
 
           {/* Job Type & Deadline */}
+
           <JobType control={control} register={register} errors={errors} />
+
+          {/* with out exprience */}
+          <div>
+            <Label className="block text-sm mb-1">Exprience</Label>
+            <Controller
+              name="experience"
+              control={control}
+              rules={{ required: "Exprience is required" }}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full border">
+                    <SelectValue placeholder="Select Experience Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="With Experience">
+                        With Experience
+                      </SelectItem>
+                      <SelectItem value="Without Experience">
+                        Without Experience
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors?.experience && (
+              <span className="text-red-400">{errors.experience.message}</span>
+            )}
+          </div>
 
           {/* Salary Type*/}
           <SalaryDetailsFormValues

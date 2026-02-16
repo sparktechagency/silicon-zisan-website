@@ -1,6 +1,11 @@
 "use client";
 
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  SubmitHandler,
+  Controller,
+} from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -15,11 +20,21 @@ import { myFetch } from "@/utils/myFetch";
 import { Button } from "@/components/ui/button";
 import { revalidate } from "@/utils/revalidateTag";
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { se } from "date-fns/locale";
 
 type FormValues = {
   category: string;
   subCategory: string;
   jobType: string;
+  experience: string;
   deadline: string;
   salaryType: string;
   salaryAmount: string;
@@ -31,6 +46,7 @@ type FormValues = {
 
 export default function EditJobPost({ data }: any) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<any[]>([]);
   const {
     register,
@@ -43,6 +59,7 @@ export default function EditJobPost({ data }: any) {
       category: data?.category || "",
       subCategory: data?.subCategory || "",
       jobType: data?.jobType || "",
+      experience: data?.experience || "",
       deadline: "",
       salaryType: "",
       salaryAmount: "",
@@ -80,6 +97,7 @@ export default function EditJobPost({ data }: any) {
       category: data.category ?? "",
       subCategory: data.subCategory ?? "",
       jobType: data.jobType ?? "",
+      experience: data.experience ?? "",
       deadline: data.deadline.slice(0, 10),
       salaryType: data.salaryType ?? "",
       salaryAmount: data.salaryAmount ?? "",
@@ -115,6 +133,7 @@ export default function EditJobPost({ data }: any) {
   }, []);
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
+    setLoading(true);
     if (!values.jobType) {
       toast.error("Please select job type");
       return;
@@ -146,6 +165,8 @@ export default function EditJobPost({ data }: any) {
       const errorMessage =
         err instanceof Error ? err.message : "An error occurred";
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -169,6 +190,36 @@ export default function EditJobPost({ data }: any) {
 
           {/* Job Type & Deadline */}
           <JobType control={control} register={register} errors={errors} />
+
+          {/* with out exprience */}
+          <div className="mb-3">
+            <Label className="block text-sm mb-1">Exprience</Label>
+            <Controller
+              name="experience"
+              control={control}
+              rules={{ required: "Exprience is required" }}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full border">
+                    <SelectValue placeholder="Select Experience Level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="With Experience">
+                        With Experience
+                      </SelectItem>
+                      <SelectItem value="Without Experience">
+                        Without Experience
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors?.experience && (
+              <span className="text-red-400">{errors.experience.message}</span>
+            )}
+          </div>
 
           {/* Salary Type*/}
           <SalaryDetailsFormValues
@@ -201,6 +252,7 @@ export default function EditJobPost({ data }: any) {
           {/* Confirm Button */}
           <div className="flex justify-end mt-6">
             <Button
+              disabled={loading}
               type="submit"
               className="custom-btn text-white font-medium sm:px-6 py-2 rounded-md hover:opacity-90 transition px-2"
             >

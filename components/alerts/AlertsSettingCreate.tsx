@@ -117,7 +117,7 @@ export default function AlertsSettingCreate({ data }: any) {
       {/* EMAIL */}
       <div className="space-y-2">
         <label className="font-medium">Email Address</label>
-        <div className="flex items-center justify-between mt-1">
+        <div className="flex items-center justify-between mt-1 gap-2">
           <Input
             className="w-80"
             type="email"

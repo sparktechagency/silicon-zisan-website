@@ -55,22 +55,23 @@ export function CreateForm({ res }: any) {
       .millisecond(0)
       .toISOString();
 
-    // if (!data.scheduledAt || !data.time) return;
+    const radioMessage =
+      data.option === "call"
+        ? `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time} utc. kindly, confirm it in your JobsinApp Account and share one active contact number. We will call you`
+        : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time} utc. kindly confirm it in your JobsinApp Account. Please come to this address.`;
 
-    // const localIsoString = dayjs(data.scheduledAt)
-    //   .hour(data.time.hour())
-    //   .minute(data.time.minute())
-    //   .second(0)
-    //   .millisecond(0)
-    //   .toISOString();
+    // const finalMessage = radioMessage + " " + (data.message || "");
+    const finalMessage = `${res?.user?.name}\n\n${radioMessage}\n\n${data.message || ""}`;
 
     const payload = {
       receiver: res?.user?._id,
       job: res?.job?._id,
       scheduledAt: localIsoString,
       address: data?.address,
-      message: data?.message,
+      message: finalMessage,
     };
+
+    console.log("payload", payload);
 
     try {
       const res = await myFetch("/appointments/create", {

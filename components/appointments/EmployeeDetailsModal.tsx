@@ -105,7 +105,7 @@ export default function EmployeeDetailsModal({
                 </span>
               </div>
 
-              {item?.address ? (
+              {/* {item?.address ? (
                 <p className="sm:text-xl my-2">
                   An Appointment Is Available For You. Kindly Confirm It In Your
                   JobsinApp Account. Please Come To This Address {item.address}.
@@ -117,9 +117,12 @@ export default function EmployeeDetailsModal({
                   JobsinApp Account and share your active contact number. We
                   will call you.
                 </p>
-              )}
+              )} */}
 
-              <p className="sm:text-xl">Message : {item?.message}</p>
+              <p className="sm:text-xl whitespace-pre-wrap">
+                {item?.message?.split("\n\n").slice(1).join("\n\n")}
+              </p>
+              {/* <p className="sm:text-xl mt-4">Location : {item?.address}</p> */}
             </div>
           </div>
         </div>
