@@ -11,17 +11,15 @@ export default async function VerifySupport() {
   });
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row justify-between items-center ">
         <div>
-          <Label className="sm:text-xl md:text-2xl">
-            Upload Business Documents
-          </Label>
+          <Label className="text-[22px]">Upload Business Documents</Label>
         </div>
 
         <div>
           <VerifyModal
             trigger={
-              <Button className="custom-btn  px-12 py-2 rounded-md">
+              <Button className="custom-btn  px-12 py-2 rounded-md mt-2">
                 Add Document
               </Button>
             }

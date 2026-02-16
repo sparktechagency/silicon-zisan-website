@@ -82,9 +82,9 @@ export default function VerifyModal({ trigger }: any) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>{trigger}</DialogTrigger>
-      <DialogContent className="w-[50vw] border-none">
+      <DialogContent className="sm:w-[80vw] xl:w-[50vw] border-none">
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-4 mt-3">
+          <div className="grid sm:grid-cols-2 gap-4 mt-3">
             {/* First Upload */}
             <div>
               <label className="border rounded flex items-center justify-center p-4 cursor-pointer mt-2">
@@ -105,17 +105,20 @@ export default function VerifyModal({ trigger }: any) {
                   {preview1 === "pdf" ? (
                     <div className="border rounded p-4 flex items-center gap-3">
                       <FileText className="w-12 h-12 text-red-500" />
-                      <div className="flex justify-between gap-5">
+
+                      <div className="flex justify-between items-start w-full">
                         <div>
                           <p className="font-medium">{file2?.name}</p>
                           <p className="text-sm text-gray-500">PDF Document</p>
                         </div>
-                        <div
-                          className="text-red-500 -mt-3 ml-9 text-2xl cursor-pointer"
+
+                        <button
+                          type="button"
+                          className="text-red-500 text-xl font-semibold cursor-pointer hover:text-red-700 transition"
                           onClick={() => setPreview1(null)}
                         >
-                          x
-                        </div>
+                          X
+                        </button>
                       </div>
                     </div>
                   ) : (
@@ -151,17 +154,20 @@ export default function VerifyModal({ trigger }: any) {
                   {preview2 === "pdf" ? (
                     <div className="border rounded p-4 flex items-center gap-3">
                       <FileText className="w-12 h-12 text-red-500" />
-                      <div className="flex justify-between gap-5">
+
+                      <div className="flex justify-between items-start w-full">
                         <div>
                           <p className="font-medium">{file2?.name}</p>
                           <p className="text-sm text-gray-500">PDF Document</p>
                         </div>
-                        <div
-                          className="text-red-500 -mt-3 ml-9 text-2xl cursor-pointer"
-                          onClick={() => setPreview2(null)}
+
+                        <button
+                          type="button"
+                          className="text-red-500 text-xl font-semibold cursor-pointer hover:text-red-700 transition"
+                          onClick={() => setPreview1(null)}
                         >
-                          x
-                        </div>
+                          X
+                        </button>
                       </div>
                     </div>
                   ) : (

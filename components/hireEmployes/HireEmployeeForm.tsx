@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 type FormValues = {
   category: string;
@@ -196,13 +197,19 @@ const HireEmployeeForm = () => {
               />
               <span>
                 By Continuing, You Accept The{" "}
-                <a href="#" className="underline font-semibold">
+                <Link
+                  href="/privacy-policy"
+                  className="underline font-semibold"
+                >
                   Privacy Policy
-                </a>
+                </Link>
                 And{" "}
-                <a href="#" className="underline font-semibold">
-                  Terms & Conditions
-                </a>{" "}
+                <Link
+                  href="/terms-condition"
+                  className="underline font-semibold"
+                >
+                  Terms & Condition
+                </Link>{" "}
                 of JobsinApp.
               </span>
             </label>

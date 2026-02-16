@@ -52,7 +52,7 @@ export default function ViewProfile({ data, chatId }: any) {
     <div className="section mt-9">
       <h2 className="text-2xl">{title}</h2>
       {data.map((item: any, index: number) => (
-        <div className="grid grid-cols-2 mb-3 mt-3 max-w-2xl" key={index}>
+        <div className="grid grid-cols-2 mb-3 mt-3" key={index}>
           <div className="label">{item.label}</div>
           <div className="value">: {item.value}</div>
         </div>
@@ -72,7 +72,7 @@ export default function ViewProfile({ data, chatId }: any) {
         <p>View Details</p>
       </div>
       {/* Image */}{" "}
-      <div className="flex justify-between gap-4">
+      <div className="flex flex-col sm:flex-row justify-between gap-4">
         <div className="flex gap-4">
           <CustomImage
             src={data?.user?.image}
@@ -82,7 +82,7 @@ export default function ViewProfile({ data, chatId }: any) {
             height={10}
           />
 
-          <div className="t">
+          <div className="">
             <p className="text-3xl">{data?.user?.name?.trim() || "No Name"}</p>
             <p className="text-2xl mt-1">Senior Business Analysis</p>
           </div>

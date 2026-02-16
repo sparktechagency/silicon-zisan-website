@@ -13,7 +13,7 @@ export default function SalaryDetailsFormValues({
     <div>
       <div className="mb-4">
         {/* Salary Type */}
-        <div className="flex items-center space-x-5 my-5">
+        <div className="flex-col sm:flex-row items-center space-x-5 my-5">
           <Label className="block text-sm mb-1">Salary Type</Label>
           <Controller
             name="salaryType"

@@ -16,18 +16,18 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
           key={item?._id}
         >
           {/* Profile Image */}
-          <div className="grid grid-cols-[15%_85%] gap-3">
+          <div className="grid sm:grid-cols-[15%_85%] gap-3">
             <div className="flex-1">
               <CustomImage
                 src={item?.receiver?.image}
                 title={item?.receiver?.name}
-                className="sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
+                className="w-20 h-20 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
               />
             </div>
 
             {/* Info Section */}
             <div className="">
-              <div className="flex flex-col sm:flex-row items-center">
+              <div className="flex flex-col sm:flex-row">
                 <h3 className="sm:text-xl font-semibold">
                   {item?.receiver?.name}
                 </h3>
