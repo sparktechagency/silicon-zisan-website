@@ -11,9 +11,12 @@ import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { revalidate } from "@/utils/revalidateTag";
 import { useRouter } from "next/navigation";
+import CustomImage from "@/utils/CustomImage";
 
 export default function ViewDetailsPerson({ data, chatId }: any) {
   const router = useRouter();
+
+  // console.log("data?.user?.jobSeeker?.about", data?.user.jobSeeker.about);
 
   const handleApproved = async (id: string) => {
     try {
@@ -71,7 +74,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
 
       {/* Image */}
       <div className="sm:flex gap-4">
-        <Image
+        {/* <Image
           src={
             data?.user?.image
               ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${data?.user?.image}`
@@ -82,6 +85,12 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
           width={10}
           height={10}
           unoptimized
+        /> */}
+
+        <CustomImage
+          src={data?.user?.image}
+          title={data?.user?.name || "User Image"}
+          className="rounded-md w-44 h-44 object-cover"
         />
 
         <div className="mt-4 sm:mt-0">
@@ -90,10 +99,11 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
           </p>
           <p className="tex-xl sm:text-2xl mt-1">{data?.job?.subCategory}</p>
 
-          <div className="flex gap-4 items-center mt-2 text-sm">
+          <div className=" text-sm">
             <p className="text-xl sm:text-2xl gap-2">
               Applied : {dayjs(data?.createdAt).format("DD-MM-YYYY")}
             </p>
+            {/* <p className="text-2xl mt-2">Job Type : {data?.job?.jobType}</p> */}
           </div>
           <div className="flex gap-5">
             <Link href={`/view-profile?profieID=${data?.user?._id}`}>
@@ -112,9 +122,26 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
         </div>
       </div>
 
+      {/* <div className="space-y-2">
+        <div className="grid grid-cols-[150px_10px_1fr] items-center">
+          <h1 className="">Category</h1>
+          <span>:</span>
+          <h1 className="capitalize">{data?.job?.category || "N/A"}</h1>
+        </div>
+
+        <div className="grid grid-cols-[150px_10px_1fr] items-center">
+          <h1 className="">Sub Category</h1>
+          <span>:</span>
+          <h1 className="capitalize">{data?.job?.subCategory || "N/A"}</h1>
+        </div>
+      </div> */}
+
       <div>
-        <h1 className="text-3xl">About Me</h1>
-        <p className="mt-4">{data?.about}</p>
+        <h1 className="text-xl">About Me</h1>
+        <p className="mt-4 text-gray-300 w-[80%]">
+          {data?.user?.jobSeeker?.about ||
+            "Your first step is to identify who you are as a professional. Most people use their current job title, but you can also use descriptive words like"}
+        </p>
       </div>
 
       {/* resume and others */}
@@ -160,7 +187,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
         )}
 
         {/* Qualification */}
-        <div className=" pt-4 space-y-2">
+        {/* <div className=" pt-4 space-y-2">
           <h3 className="text-lg font-semibold">Qualification</h3>
           <div className=" gap-4 text-sm text-gray-300 list-disc">
             <ul className="list-disc pl-5 text-sm text-gray-300 space-y-2">
@@ -169,45 +196,58 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
               ))}
             </ul>
           </div>
-        </div>
+        </div> */}
 
-        <div className=" pt-4 space-y-2">
-          <h3 className="text-lg font-semibold">Education</h3>
+        {/* resposibilites */}
+        {/* <div className=" pt-4 space-y-2">
+          <h3 className="text-lg font-semibold">Responsibilities</h3>
           <div className=" gap-4 text-sm text-gray-300 list-disc">
             <ul className="list-disc pl-5 text-sm text-gray-300 space-y-2">
-              {data?.resume?.educations?.map((item: string, index: number) => (
-                // <li key={index}>{item}</li>
-                <div key={index}>{/* <p>{item}</p> */}</div>
-              ))}
+              {data?.job?.responsibilities?.map(
+                (item: string, index: number) => (
+                  <li key={index}>{item}</li>
+                ),
+              )}
             </ul>
           </div>
-        </div>
+        </div> */}
 
-        {/* // <div
-              //   key={index}
-              //   className={`${
-              //     index !== data.length - 1 ? "sm:border-r border-l-white" : ""
-              //   }`}
-              // >
-              //   <p>{item}</p>
-              // </div> */}
+        {data?.resume?.educations && (
+          <div className=" pt-4 space-y-2">
+            <h3 className="text-lg font-semibold">Qualification</h3>
+            <div className=" gap-4 text-sm text-gray-300 list-disc">
+              {data?.resume?.educations?.map((item: any, index: number) => (
+                <div key={index} className="">
+                  <p className="py-1">Degree : {item.degree}</p>
+                  <p className="py-1">Institution : {item.institute}</p>
+                  <p className="py-1">Grade : {item.grade}</p>
+                  <p className="py-1">Year : {item.year}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Availability & Salary */}
-        <div className="flex space-x-10 text-sm text-gray-300">
-          {/* <div>
-            <p>Availability</p>
-            <p className="text-white">07:00 AM - 08:00 PM</p>
-          </div> */}
-          {/* <p className="border-l border-l-white" /> */}
+        <div className="">
           <div className="">
-            <p>Expected Salary</p>
-            {data?.expectedSalary ? (
-              <p className="text-white">€{data?.expectedSalary}</p>
-            ) : (
-              "No Amount"
+            <h1 className="text-lg font-semibold">Expected Salary</h1>
+            {data?.expectedSalary && (
+              <p className="text-gray-300">€{data?.expectedSalary || "N/A"}</p>
             )}
           </div>
+
+          {/* <div className="mt-4">
+            <h1 className="text-lg font-semibold">Experience</h1>
+            {<p className="text-gray-300">{data?.job?.experience}</p>}
+          </div> */}
         </div>
+
+        {/* about company */}
+        {/* <div>
+          <h1 className="text-lg font-semibold">About Company</h1>
+          <p className="mt-2 text-gray-300">{data?.job?.aboutCompany}</p>
+        </div> */}
 
         {/* Action Buttons */}
         <div className="flex gap-4  pt-4">
