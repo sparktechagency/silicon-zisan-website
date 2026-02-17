@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import defaultImage from "@/public/default-image.png";
+import defaultImage from "@/public/logo.png";
 
 interface CustomImageProps {
   src?: string | null;
@@ -26,9 +26,9 @@ export default function CustomImage({
         alt={title || "image"}
         width={width}
         height={height}
-        className={`object-cover ${className}`}
+        className={`object-contain ${className}`}
         loading="lazy"
-        sizes="100vh"
+        sizes="100vw"
       />
     );
   }

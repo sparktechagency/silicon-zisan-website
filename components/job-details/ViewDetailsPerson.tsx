@@ -16,7 +16,10 @@ import CustomImage from "@/utils/CustomImage";
 export default function ViewDetailsPerson({ data, chatId }: any) {
   const router = useRouter();
 
-  // console.log("data?.user?.jobSeeker?.about", data?.user.jobSeeker.about);
+  console.log(
+    "data?.user?.jobSeeker?.about",
+    data?.resume?.personalInfo?.aboutMe,
+  );
 
   const handleApproved = async (id: string) => {
     try {
@@ -139,8 +142,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
       <div>
         <h1 className="text-xl">About Me</h1>
         <p className="mt-4 text-gray-300 w-[80%]">
-          {data?.user?.jobSeeker?.about ||
-            "Your first step is to identify who you are as a professional. Most people use their current job title, but you can also use descriptive words like"}
+          {data?.resume?.personalInfo?.aboutMe || "No information provided"}
         </p>
       </div>
 
@@ -233,7 +235,9 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
           <div className="">
             <h1 className="text-lg font-semibold">Expected Salary</h1>
             {data?.expectedSalary && (
-              <p className="text-gray-300">€{data?.expectedSalary || "N/A"}</p>
+              <p className="text-gray-300">
+                €{data?.expectedSalary || "N/A"} {data?.salaryType}ly
+              </p>
             )}
           </div>
 
