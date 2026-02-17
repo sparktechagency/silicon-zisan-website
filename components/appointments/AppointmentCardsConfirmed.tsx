@@ -8,11 +8,6 @@ import CustomImage from "@/utils/CustomImage";
 import dayjs from "dayjs";
 
 export default function AppointmentCardsConfirmed({ data, chatId }: any) {
-  console.log(
-    "get data",
-    data.map((item: any) => item?.message),
-  );
-
   return (
     <>
       {data?.map((item: any) => (

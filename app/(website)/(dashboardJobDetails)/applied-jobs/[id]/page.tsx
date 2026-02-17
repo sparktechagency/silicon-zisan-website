@@ -7,7 +7,6 @@ export default async function page({ params }: { params: { id: string } }) {
 
   const limit = res?.data?.hasLimitation;
   const jobs = res?.data?.data || [];
-  console.log("jobs", limit);
 
   return (
     <>

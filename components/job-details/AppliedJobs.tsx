@@ -6,8 +6,6 @@ import dayjs from "dayjs";
 import CustomImage from "@/utils/CustomImage";
 
 export default function AppliedJobs({ data, limit }: any) {
-  console.log("data", data);
-
   return (
     <Container className="my-10">
       <CustomBackButton />

@@ -17,8 +17,6 @@ export default async function page({ params }: { params: { id: string } }) {
     },
   });
 
-  console.log("res", res);
-
   return (
     <>
       {res?.data ? (
