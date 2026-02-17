@@ -64,7 +64,10 @@ export default async function JobPostHomePage() {
                   </div>
 
                   <p className="mt-3 line-clamp-3">
-                    Company Details : {item.description.slice(0, 90)}....
+                    Job Description:{" "}
+                    {item.description.length > 80
+                      ? item.description.slice(0, 80) + "..."
+                      : item.description}
                   </p>
                 </div>
 

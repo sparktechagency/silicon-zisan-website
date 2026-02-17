@@ -224,11 +224,31 @@ export default function HeaderTwo({
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                {item.label === "Dashboard" || item.label === "Alerts" ? (
+                {/* {item.label === "Dashboard" || item.label === "Alerts" ? (
                   <span className="notranslate">{item.label}</span>
                 ) : (
                   item.label
-                )}
+                )} */}
+                <span className="flex items-center gap-2">
+                  {item.label === "Dashboard" || item.label === "Alerts" ? (
+                    <span className="notranslate">{item.label}</span>
+                  ) : (
+                    item.label
+                  )}
+
+                  {/* Inbox Count */}
+                  {item.label === "Inbox" && count > 0 && (
+                    <span className="min-w-5 h-5 px-1 flex items-center justify-center text-xs font-semibold -mt-3  rounded-full">
+                      {count}
+                    </span>
+                  )}
+                  {/* Alerts Count */}
+                  {item.label === "Alerts" && notification?.unreadCount > 0 && (
+                    <span className="min-w-5 h-5 px-1 flex items-center justify-center text-xs font-semibold -mt-3 bg-gray-400 text-white rounded-full">
+                      {notification?.unreadCount}
+                    </span>
+                  )}
+                </span>
               </Link>
             ))}
 

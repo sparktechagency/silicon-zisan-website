@@ -13,7 +13,7 @@ import { Controller } from "react-hook-form";
 
 export default function JobType({ control, register, errors }: any) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-4 mb-4">
       <div>
         <Label className="block text-sm mb-1">Job Type</Label>
         <Controller

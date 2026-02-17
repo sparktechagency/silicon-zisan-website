@@ -85,7 +85,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
         />
 
         <div className="mt-4 sm:mt-0">
-          <p className="text-xl sm:text-3xl">
+          <p className="text-xl sm:text-3xl notranslate">
             {data?.user?.name?.trim() ? data?.user?.name : "No Name"}
           </p>
           <p className="tex-xl sm:text-2xl mt-1">{data?.job?.subCategory}</p>
@@ -166,6 +166,18 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
             <ul className="list-disc pl-5 text-sm text-gray-300 space-y-2">
               {data?.job?.qualifications?.map((item: string, index: number) => (
                 <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className=" pt-4 space-y-2">
+          <h3 className="text-lg font-semibold">Education</h3>
+          <div className=" gap-4 text-sm text-gray-300 list-disc">
+            <ul className="list-disc pl-5 text-sm text-gray-300 space-y-2">
+              {data?.resume?.educations?.map((item: string, index: number) => (
+                // <li key={index}>{item}</li>
+                <div key={index}>{/* <p>{item}</p> */}</div>
               ))}
             </ul>
           </div>

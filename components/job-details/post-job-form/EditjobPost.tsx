@@ -44,6 +44,8 @@ type FormValues = {
   aboutCompany: string;
 };
 
+const expriences = ["With Experience", "Without Experience"];
+
 export default function EditJobPost({ data }: any) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -205,12 +207,11 @@ export default function EditJobPost({ data }: any) {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="With Experience">
-                        With Experience
-                      </SelectItem>
-                      <SelectItem value="Without Experience">
-                        Without Experience
-                      </SelectItem>
+                      {expriences?.map((sub, index) => (
+                        <SelectItem key={`${index}`} value={String(sub)}>
+                          <span className="notranslate"> {sub}</span>
+                        </SelectItem>
+                      ))}
                     </SelectGroup>
                   </SelectContent>
                 </Select>

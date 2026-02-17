@@ -24,6 +24,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
+const expriences = ["With Experience", "Without Experience"];
+
 import {
   Select,
   SelectContent,
@@ -181,14 +183,11 @@ const HireEmployeeForm = () => {
                     <SelectValue placeholder="Select Experience Level" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
-                      <SelectItem value="With Experience">
-                        With Experience
+                    {expriences?.map((sub, index) => (
+                      <SelectItem key={`${index}`} value={String(sub)}>
+                        <span className="notranslate"> {sub}</span>
                       </SelectItem>
-                      <SelectItem value="Without Experience">
-                        Without Experience
-                      </SelectItem>
-                    </SelectGroup>
+                    ))}
                   </SelectContent>
                 </Select>
               )}

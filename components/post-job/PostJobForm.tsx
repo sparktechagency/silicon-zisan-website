@@ -29,6 +29,8 @@ import {
   SelectValue,
 } from "../ui/select";
 
+const expriences = ["With Experience", "Without Experience"];
+
 type FormValues = {
   category: string;
   subCategory: string;
@@ -180,12 +182,11 @@ const PostJobForm = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="With Experience">
-                        With Experience
-                      </SelectItem>
-                      <SelectItem value="Without Experience">
-                        Without Experience
-                      </SelectItem>
+                      {expriences?.map((sub, index) => (
+                        <SelectItem key={`${index}`} value={String(sub)}>
+                          <span className="notranslate"> {sub}</span>
+                        </SelectItem>
+                      ))}
                     </SelectGroup>
                   </SelectContent>
                 </Select>
