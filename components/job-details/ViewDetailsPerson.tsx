@@ -171,6 +171,18 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
           </div>
         </div>
 
+        <div className=" pt-4 space-y-2">
+          <h3 className="text-lg font-semibold">Education</h3>
+          <div className=" gap-4 text-sm text-gray-300 list-disc">
+            <ul className="list-disc pl-5 text-sm text-gray-300 space-y-2">
+              {data?.resume?.educations?.map((item: string, index: number) => (
+                // <li key={index}>{item}</li>
+                <div key={index}>{/* <p>{item}</p> */}</div>
+              ))}
+            </ul>
+          </div>
+        </div>
+
         {/* // <div
               //   key={index}
               //   className={`${
