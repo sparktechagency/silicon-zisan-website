@@ -9,6 +9,7 @@ export default function HireEmployeeButton({ data }: any) {
   const [loading, setLoading] = useState(false);
   const handleHiring = async () => {
     if (loading) return;
+    setLoading(true);
     const loadingToastId = toast.loading("Processing your request...", {
       id: "hiring-toast",
     });
@@ -48,7 +49,7 @@ export default function HireEmployeeButton({ data }: any) {
   };
   return (
     <Button
-      //   disabled={loading}
+      disabled={loading}
       onClick={handleHiring}
       className="w-full sm:w-[48%] custom-btn"
     >

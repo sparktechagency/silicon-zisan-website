@@ -5,10 +5,13 @@ export default async function page({ params }: { params: { id: string } }) {
   const id = (await params)?.id;
   const res = await myFetch(`/applications/job/${id}`);
 
+  const limit = res?.data?.hasLimitation;
+  const jobs = res?.data?.data || [];
+
   return (
     <>
-      {res?.data?.data?.length > 0 ? (
-        <AppliedJobs data={res?.data?.data} />
+      {jobs.length > 0 ? (
+        <AppliedJobs data={jobs} limit={limit} />
       ) : (
         <p className="text-center my-4">No Applications</p>
       )}

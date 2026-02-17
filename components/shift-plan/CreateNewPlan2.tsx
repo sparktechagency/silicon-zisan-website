@@ -44,6 +44,8 @@ type Plan = {
   remarks: string;
 };
 
+const names = ["Morning", "Evening", "Night"];
+
 export default function CreateNewPlan2({ employee, editData }: any) {
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const router = useRouter();
@@ -261,7 +263,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                           value={item?._id}
                           disabled={!!field.value}
                         >
-                          {item?.name}
+                          <span className="notranslate"> {item?.name}</span>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -283,9 +285,11 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                       <SelectValue placeholder="Select Timeline" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Morning">Morning</SelectItem>
-                      <SelectItem value="Evening">Evening</SelectItem>
-                      <SelectItem value="Night">Night</SelectItem>
+                      {names.map((name) => (
+                        <SelectItem key={name} value={String(name)}>
+                          <span className="notranslate">{name}</span>
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}

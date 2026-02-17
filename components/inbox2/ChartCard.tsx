@@ -55,7 +55,7 @@ export const ChatCard = ({ chat }: ChatCardProps) => {
           />
         </div>
         <div>
-          <h4 className="text-xs 2xl:text-[15px] font-medium">
+          <h4 className="text-xs 2xl:text-[15px] font-medium notranslate">
             {participant?.name || "Unknown User"}
           </h4>
           <div className="flex items-center gap-1">

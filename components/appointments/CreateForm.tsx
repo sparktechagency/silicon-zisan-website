@@ -71,8 +71,6 @@ export function CreateForm({ res }: any) {
       message: finalMessage,
     };
 
-    console.log("payload", payload);
-
     try {
       const res = await myFetch("/appointments/create", {
         method: "POST",

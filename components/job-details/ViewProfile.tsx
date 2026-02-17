@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export default function ViewProfile({ data, chatId }: any) {
-  console.log("data", data);
-
   const router = useRouter();
   const handleChat = async (id: string) => {
     try {
@@ -54,7 +52,7 @@ export default function ViewProfile({ data, chatId }: any) {
     <div className="section mt-9">
       <h2 className="text-2xl">{title}</h2>
       {data.map((item: any, index: number) => (
-        <div className="grid grid-cols-[120px_auto_1fr] mb-3 mt-3" key={index}>
+        <div className="grid grid-cols-[100px_auto_1fr] mb-3 mt-3" key={index}>
           <span className="label">{item.label}</span>
           <span> : </span>
           <span className="value notranslate  ml-2">{item.value}</span>
