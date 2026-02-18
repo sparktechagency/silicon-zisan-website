@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -21,6 +20,7 @@ export default function AlertsSettingCreate({ data }: any) {
   const [emailEnabled, setEmailEnabled] = useState(false);
   const [accepted, setAccepted] = useState<CheckedState>(false);
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   /* ---------------- SYNC ASYNC DATA ---------------- */
   useEffect(() => {
@@ -42,16 +42,17 @@ export default function AlertsSettingCreate({ data }: any) {
       toast.error("Please accept Terms & Conditions");
       return;
     }
+    setLoading(true);
 
     if (!frequency) {
       toast.error("Please select notification frequency");
       return;
     }
 
-    if (!emailEnabled && !pushEnabled) {
-      toast.error("Please enable at least one notification method");
-      return;
-    }
+    // if (!emailEnabled && !pushEnabled) {
+    //   toast.error("Please enable at least one notification method");
+    //   return;
+    // }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailEnabled && !emailRegex.test(email)) {
@@ -79,6 +80,8 @@ export default function AlertsSettingCreate({ data }: any) {
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -147,7 +150,11 @@ export default function AlertsSettingCreate({ data }: any) {
       </div>
 
       <div className="flex justify-end">
-        <Button className="custom-btn mt-4" onClick={handlePushNotification}>
+        <Button
+          disabled={loading}
+          className="custom-btn mt-4"
+          onClick={handlePushNotification}
+        >
           Submit
         </Button>
       </div>

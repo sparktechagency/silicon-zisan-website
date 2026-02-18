@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-red-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#374859] flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Main Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
@@ -45,7 +45,7 @@ export default function Page() {
 
             {/* Go Back Button */}
             <Link
-              href="/dashboard"
+              href="/my-jobs"
               className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
             >
               <ArrowLeft className="w-5 h-5" />

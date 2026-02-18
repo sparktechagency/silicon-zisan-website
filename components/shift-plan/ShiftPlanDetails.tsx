@@ -99,10 +99,11 @@ export default function ShiftPlanDetails({ details }: any) {
             stack: [
               { text: "Remarks", style: "sectionHeader" },
               {
-                ul: details.plans.map(
-                  (plan: any, index: number) =>
-                    plan?.remarks || `Remark ${index + 1}`,
-                ),
+                ul: details.plans
+                  .map((plan: any) =>
+                    plan?.remarks ? { text: plan.remarks } : null,
+                  )
+                  .filter(Boolean), // ✅ null remove করবে
                 style: "normalText",
               },
             ],
