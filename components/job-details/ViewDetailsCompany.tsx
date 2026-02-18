@@ -58,7 +58,9 @@ export default function ViewDetailsCompany({ data, length }: any) {
         </div>
 
         <div className="mt-4 sm:mt-0">
-          <p className="text-lg font-semibold">{data?.author?.name}</p>
+          <p className="text-lg font-semibold notranslate">
+            {data?.author?.name}
+          </p>
           <p className="text-sm text-gray-300">{data?.author?.address}</p>
           <p className="text-md mt-1">{data?.category}</p>
           <p className="text-md mt-1">{data?.subCategory}</p>

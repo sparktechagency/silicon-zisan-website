@@ -62,6 +62,8 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
     }
   };
 
+  console.log("data get", data);
+
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6 my-12">
       {/* Header */}
