@@ -57,8 +57,8 @@ export function CreateForm({ res }: any) {
 
     const radioMessage =
       data.option === "call"
-        ? `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time} utc. kindly, confirm it in your JobsinApp Account and share one active contact number. We will call you`
-        : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time} utc. kindly confirm it in your JobsinApp Account. Please come to this address.`;
+        ? `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly, confirm it in your JobsinApp Account and share one active contact number. We will call you`
+        : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly confirm it in your JobsinApp Account. Please come to this address.`;
 
     // const finalMessage = radioMessage + " " + (data.message || "");
     const finalMessage = `${res?.user?.name}\n\n${radioMessage}\n\n${data.message || ""}`;

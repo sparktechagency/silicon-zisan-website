@@ -46,14 +46,19 @@ export default function VerifyModal({ trigger }: any) {
     setLoading(true);
     setOpen(true);
 
-    if (!file1 || !file2) {
-      toast.error("Please upload both documents");
-      return;
-    }
+    // if (!file1 || !file2) {
+    //   toast.error("Please upload both documents");
+    //   return;
+    // }
 
     const formData = new FormData();
-    formData.append("doc", file1);
-    formData.append("doc", file2);
+    if (file1) {
+      formData.append("doc", file1);
+    }
+
+    if (file2) {
+      formData.append("doc", file2);
+    }
 
     try {
       const res = await myFetch("/verifications/create", {
