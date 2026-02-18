@@ -39,7 +39,7 @@ export default function AppliedJobs({ data, limit }: any) {
 
                 {/* Info Section */}
                 <div>
-                  <h2 className="text-xl font-semibold">
+                  <h2 className="text-xl font-semibold notranslate">
                     {item?.user?.name?.trim() ? item.user.name : "No Name"}
                   </h2>
 
