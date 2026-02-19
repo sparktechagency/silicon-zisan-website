@@ -78,7 +78,7 @@ export default function PersonalInformation({ data }: { data: any }) {
   }, [previewImage]);
 
   return (
-    <div className="w-full max-w-[400px] bg-card p-5 rounded-lg border border-gray-300/30 ">
+    <div className="w-full max-w-120 bg-card p-5 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
         {/* {fileImage ? (
@@ -120,7 +120,10 @@ export default function PersonalInformation({ data }: { data: any }) {
       {/* Profile Data */}
       <div className="mb-6">
         {profileData.map(({ label, value }, idx) => (
-          <div key={idx} className="grid grid-cols-[30%_90%]  py-2 ">
+          <div
+            key={idx}
+            className="grid grid-cols-[40%_80%] sm:grid-cols-[200px_80%]  py-2 "
+          >
             {label === "Name" || label === "Email" || label === "LegalForm" ? (
               <>
                 {" "}
