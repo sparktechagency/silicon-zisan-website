@@ -11,6 +11,9 @@ export default async function VerifySupport() {
     tags: ["verifications"],
   });
 
+  const statusList = res?.data?.map((item: any) => item.status) || [];
+  const isApproved = statusList.includes("Approved");
+
   return (
     <>
       <div className="flex flex-col sm:flex-row justify-between items-center ">
@@ -18,15 +21,22 @@ export default async function VerifySupport() {
           <Label className="text-[22px]">Upload Business Documents</Label>
         </div>
 
-        <div>
+        {isApproved ? (
+          <Button
+            disabled
+            className="custom-btn px-12 py-2 rounded-md mt-2 opacity-50 cursor-not-allowed"
+          >
+            Add Document
+          </Button>
+        ) : (
           <VerifyModal
             trigger={
-              <Button className="custom-btn  px-12 py-2 rounded-md mt-2">
+              <Button className="custom-btn px-12 py-2 rounded-md mt-2">
                 Add Document
               </Button>
             }
           />
-        </div>
+        )}
       </div>
 
       {/* data show get  */}

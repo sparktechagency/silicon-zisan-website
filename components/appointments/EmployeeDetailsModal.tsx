@@ -87,7 +87,7 @@ export default function EmployeeDetailsModal({
 
             {/* Info Section */}
             <div>
-              <h3 className="sm:text-xl font-semibold">
+              <h3 className="sm:text-xl font-semibold notranslate">
                 {item?.receiver?.name}
               </h3>
 

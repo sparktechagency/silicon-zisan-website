@@ -194,8 +194,8 @@ export default function ShiftPlanDetails({ details }: any) {
 
         {/* Personal Info */}
         <div className="grid sm:grid-cols-2 gap-1 mt-7">
-          <p>Name: {name}</p>
-          <p>Email: {email}</p>
+          <p className="notranslate">Name: {name}</p>
+          <p className="notranslate">Email: {email}</p>
           <p>Address: {address}</p>
           <p>Contact: {phone}</p>
         </div>
