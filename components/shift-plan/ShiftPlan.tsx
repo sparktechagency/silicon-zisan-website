@@ -51,7 +51,7 @@ export default function ShiftPlan({ data }: any) {
           <TableBody>
             {data?.map((item: any, index: number) => (
               <TableRow key={index}>
-                <TableCell className="font-medium">
+                <TableCell className="font-medium notranslate">
                   {item?.worker?.name}
                 </TableCell>
                 <TableCell>

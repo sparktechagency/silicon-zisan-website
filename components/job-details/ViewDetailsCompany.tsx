@@ -62,8 +62,8 @@ export default function ViewDetailsCompany({ data, length }: any) {
             {data?.author?.name}
           </p>
           <p className="text-sm text-gray-300">{data?.author?.address}</p>
-          <p className="text-md mt-1">{data?.category}</p>
-          <p className="text-md mt-1">{data?.subCategory}</p>
+          <p className="text-md mt-1 notranslate">{data?.category}</p>
+          <p className="text-md mt-1 notranslate">{data?.subCategory}</p>
           <div className="flex gap-4 text-sm mt-2">
             <p className="border p-0.5 rounded bg-[#465565] px-3">
               {data?.jobType}

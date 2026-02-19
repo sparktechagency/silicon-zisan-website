@@ -28,7 +28,7 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
             {/* Info Section */}
             <div className="">
               <div className="flex flex-col sm:flex-row">
-                <h3 className="sm:text-xl font-semibold">
+                <h3 className="sm:text-xl font-semibold notranslate">
                   {item?.receiver?.name}
                 </h3>
                 <p>
