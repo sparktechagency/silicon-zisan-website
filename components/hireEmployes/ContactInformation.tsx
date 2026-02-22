@@ -538,20 +538,24 @@ export default function ContractInformation({
             onClick={() => history.back()}
             className="cursor-pointer mr-2"
           />
-          <p>Personnel Placement Agreement</p>
+          <p className="notranslate">Personnel Placement Agreement</p>
         </div>
 
         <div className="space-y-3">
           <div className="flex space-x-72 items-start">
             <div>
               <div>
-                <h3 className="font-bold text-gray-700 text-xl">Between :</h3>
+                <h3 className="font-bold text-gray-700 text-xl notranslate">
+                  Between :
+                </h3>
                 <p>{getProfile?.user?.name}</p>
                 <p>{getProfile?.user?.email}</p>
                 <p>{getProfile?.user?.address}</p>
               </div>
               <div className="mt-2">
-                <h3 className="font-bold text-gray-700 text-xl">And :</h3>
+                <h3 className="font-bold text-gray-700 text-xl notranslate">
+                  And :
+                </h3>
                 <p>Recruiter</p>
                 <p>JobsInApp</p>
                 <p>{getAdmin?.address}</p>
@@ -594,13 +598,15 @@ export default function ContractInformation({
             {/* Job Details */}
             <div className="w-[90%] mx-auto bg-white rounded-lg p-3 border border-gray-200">
               <div className="mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">
+                <h2 className="text-xl font-semibold text-gray-800 notranslate">
                   {data?.category}
                 </h2>
-                <p className="text-sm text-gray-500">{data?.author?.address}</p>
+                <p className="text-sm text-gray-500 notranslate">
+                  {data?.author?.address}
+                </p>
                 <div className="mt-2 text-sm text-gray-600">
-                  <p>{data?.jobType}</p>
-                  <p>€{data?.salaryAmount}</p>
+                  <p className="notranslate">{data?.jobType}</p>
+                  <p className="notranslate">€{data?.salaryAmount}</p>
                   <p className="flex gap-1 items-center">
                     <Clock3 size={18} />{" "}
                     {dayjs(data?.deadline).format("DD-MM-YYYY")}
