@@ -10,6 +10,9 @@ import dayjs from "dayjs";
 import { toast } from "sonner";
 import HireEmployeeButton from "./HireEmployeeButton";
 
+import { useCookie } from "@/hooks/useCookies";
+import { agreementTranslations } from "@/hooks/translate";
+
 (pdfMake as any).vfs = pdfFonts.vfs;
 
 const agreementSections = [
@@ -91,6 +94,10 @@ export default function ContractInformation({
   getProfile,
   getAdmin,
 }: any) {
+  const googtrans = useCookie("googtrans");
+  const currentLang = googtrans?.split("/")[2] || "en";
+  const t = agreementTranslations[currentLang] ?? agreementTranslations["en"];
+
   const handleDownloadPdf = async () => {
     // Convert logo to base64 properly
     const response = await fetch(agreement.src);
@@ -288,6 +295,241 @@ export default function ContractInformation({
     }
   };
 
+  const handleDownloadPdf2 = async () => {
+    const response = await fetch(agreement.src);
+    const blob = await response.blob();
+
+    const logoBase64: string = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
+
+    // Validation
+    if (!data || !getProfile || !getAdmin) {
+      toast.error("Required data is missing");
+      return;
+    }
+
+    try {
+      const docDefinition: any = {
+        pageMargins: [40, 40, 40, 40],
+        images: {
+          companyLogo: logoBase64,
+        },
+        content: [
+          // ✅ Title - translated
+          {
+            text: "Personnel Placement Agreement",
+            style: "header",
+            margin: [0, 0, 0, 20],
+          },
+
+          // ✅ Between / And section - translated
+          {
+            columns: [
+              {
+                width: "70%",
+                stack: [
+                  { text: "Between:", style: "subheader" },
+                  { text: getProfile?.user?.name || "N/A" },
+                  { text: getProfile?.user?.email || "N/A" },
+                  {
+                    text: getProfile?.user?.address || "N/A",
+                    margin: [0, 0, 0, 8],
+                  },
+                  { text: "And:", style: "subheader" },
+                  { text: "Recruiter", margin: [0, 2, 0, 0] },
+                  { text: getAdmin?.address },
+                ],
+              },
+              {
+                width: "30%",
+                stack: [
+                  {
+                    image: "companyLogo",
+                    width: 100,
+                    alignment: "right",
+                  },
+                ],
+              },
+            ],
+            margin: [0, 0, 0, 20],
+          },
+
+          // ✅ Contents - translated
+          { text: t.contentsTitle, style: "sectionHeader" },
+          {
+            text: t.contentsText,
+            margin: [0, 5, 0, 15],
+          },
+
+          // Agreement sections (dynamic content - same as before)
+          ...agreementSections.flatMap((section) => [
+            { text: section?.title, style: "sectionTitle" },
+            {
+              ul: section?.items?.map((item) => ({
+                text: item,
+                style: "normalText",
+              })),
+              margin: [0, 5, 0, 15],
+            },
+          ]),
+
+          // ✅ Job Details - translated
+          {
+            text: data?.category,
+
+            style: "sectionHeader",
+            margin: [0, 10, 0, 5],
+          },
+          {
+            text: data?.author?.address,
+            style: "normalText",
+            margin: [0, 0, 0, 0],
+          },
+
+          {
+            stack: [
+              `${data?.jobType || "N/A"}`,
+              `€${data?.salaryAmount || "N/A"}`,
+              `🕐 ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
+            ].map((text) => ({
+              text: `${text}`,
+              style: "normalText",
+              margin: [0, 2, 0, 2],
+            })),
+            margin: [0, 5, 0, 15],
+          },
+
+          {
+            text: t.jobDescription,
+            style: "sectionTitle",
+          },
+          {
+            text: data?.description || "N/A",
+            style: "normalText",
+            margin: [0, 5, 0, 15],
+          },
+
+          // ✅ Responsibilities - translated
+          { text: t.responsibilities, style: "sectionTitle" },
+          {
+            ul:
+              data?.responsibilities?.length > 0
+                ? data?.responsibilities?.map((item: string) => item)
+                : ["N/A"],
+            margin: [0, 5, 0, 15],
+          },
+
+          // ✅ Qualifications - translated
+          { text: t.qualifications, style: "sectionTitle" },
+          {
+            ul:
+              data?.qualifications?.length > 0
+                ? data?.qualifications?.map((item: string) => item)
+                : ["N/A"],
+            margin: [0, 5, 0, 15],
+          },
+
+          {
+            table: {
+              widths: ["*"],
+              body: [
+                // ✅ Place & Date row
+                [
+                  {
+                    border: [true, true, true, false], // bottom border নেই
+                    margin: [5, 5, 5, 5],
+                    columns: [
+                      {
+                        text: `Place : ${getProfile?.user?.address.split(",")[0] || "N/A"}`,
+                        bold: true,
+                        alignment: "center",
+                        width: "50%",
+                      },
+                      {
+                        text: `Date : ${dayjs(data?.createdAt).format("DD-MM-YYYY")}`,
+                        bold: true,
+                        alignment: "center",
+                        width: "50%",
+                      },
+                    ],
+                  },
+                ],
+
+                [
+                  {
+                    border: [true, false, true, true], // top border নেই
+                    text: t.confirmationText,
+                    style: "normalText",
+                    margin: [5, 8, 5, 8],
+                  },
+                ],
+              ],
+            },
+            layout: {
+              hLineWidth: (i: number, node: any) =>
+                i === 0 || i === node.table.body.length ? 1 : 0, // শুধু top ও bottom
+              vLineWidth: () => 1,
+              hLineColor: () => "#cccccc",
+              vLineColor: () => "#cccccc",
+            },
+            margin: [0, 5, 0, 10],
+          },
+        ],
+
+        styles: {
+          header: {
+            fontSize: 20,
+            bold: true,
+            alignment: "center",
+            color: "#333333",
+          },
+          subheader: {
+            fontSize: 14,
+            bold: true,
+            color: "#333333",
+            margin: [0, 5, 0, 2],
+          },
+          sectionHeader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5],
+            color: "#333333",
+          },
+          sectionTitle: {
+            fontSize: 14,
+            bold: true,
+            margin: [0, 10, 0, 5],
+            color: "#333333",
+          },
+          normalText: { fontSize: 12, color: "#555555" },
+          tableHeader: {
+            fontSize: 12,
+            bold: true,
+            fillColor: "#eeeeee",
+            color: "#333333",
+          },
+        },
+
+        defaultStyle: { fontSize: 11, color: "#444444" },
+      };
+
+      pdfMake
+        .createPdf(docDefinition)
+        .download(
+          `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
+        );
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while generating the PDF.",
+      );
+    }
+  };
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -296,20 +538,24 @@ export default function ContractInformation({
             onClick={() => history.back()}
             className="cursor-pointer mr-2"
           />
-          <p>Personnel Placement Agreement</p>
+          <p className="notranslate">Personnel Placement Agreement</p>
         </div>
 
         <div className="space-y-3">
           <div className="flex space-x-72 items-start">
             <div>
               <div>
-                <h3 className="font-bold text-gray-700 text-xl">Between :</h3>
+                <h3 className="font-bold text-gray-700 text-xl notranslate">
+                  Between :
+                </h3>
                 <p>{getProfile?.user?.name}</p>
                 <p>{getProfile?.user?.email}</p>
                 <p>{getProfile?.user?.address}</p>
               </div>
               <div className="mt-2">
-                <h3 className="font-bold text-gray-700 text-xl">And :</h3>
+                <h3 className="font-bold text-gray-700 text-xl notranslate">
+                  And :
+                </h3>
                 <p>Recruiter</p>
                 <p>JobsInApp</p>
                 <p>{getAdmin?.address}</p>
@@ -352,13 +598,15 @@ export default function ContractInformation({
             {/* Job Details */}
             <div className="w-[90%] mx-auto bg-white rounded-lg p-3 border border-gray-200">
               <div className="mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">
+                <h2 className="text-xl font-semibold text-gray-800 notranslate">
                   {data?.category}
                 </h2>
-                <p className="text-sm text-gray-500">{data?.author?.address}</p>
+                <p className="text-sm text-gray-500 notranslate">
+                  {data?.author?.address}
+                </p>
                 <div className="mt-2 text-sm text-gray-600">
-                  <p>{data?.jobType}</p>
-                  <p>€{data?.salaryAmount}</p>
+                  <p className="notranslate">{data?.jobType}</p>
+                  <p className="notranslate">€{data?.salaryAmount}</p>
                   <p className="flex gap-1 items-center">
                     <Clock3 size={18} />{" "}
                     {dayjs(data?.deadline).format("DD-MM-YYYY")}
@@ -379,7 +627,9 @@ export default function ContractInformation({
                 </h4>
                 <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                   {data?.responsibilities?.map((item: any, index: number) => (
-                    <li key={index}>{item}</li>
+                    <li key={index} className="notranslate">
+                      {item}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -390,7 +640,9 @@ export default function ContractInformation({
                 </h4>
                 <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                   {data?.qualifications?.map((item: any, index: number) => (
-                    <li key={index}>{item}</li>
+                    <li key={index} className="notranslate">
+                      {item}
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -399,11 +651,13 @@ export default function ContractInformation({
             {/* Confirmation */}
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
-                <p>
+                <p className="notranslate">
                   Place :{" "}
                   {getProfile?.user?.address.split(",")[0] || "No Place"}
                 </p>
-                <p>Date : {dayjs(data?.createdAt).format("DD-MM-YYYY")}</p>
+                <p className="notranslate">
+                  Date : {dayjs(data?.createdAt).format("DD-MM-YYYY")}
+                </p>
               </div>
               <p className="mt-3">
                 The client confirmed the contract by selecting the checkbox, so
@@ -418,7 +672,7 @@ export default function ContractInformation({
       <div className="mt-7 flex flex-col sm:flex-row gap-7">
         <Button
           className="w-full sm:w-[48%] custom-btn"
-          onClick={handleDownloadPdf}
+          onClick={handleDownloadPdf2}
         >
           Download Pdf
         </Button>
