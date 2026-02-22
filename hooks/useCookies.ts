@@ -1,21 +1,24 @@
 // hooks/useCookie.ts
-import { useState, useEffect } from "react";
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import { getCookie } from "cookies-next/client";
 
 export function useCookie(key: string) {
   const [value, setValue] = useState(() => getCookie(key) || "");
+  const valueRef = useRef(value); // track latest value
 
   useEffect(() => {
-    // Poll for cookie changes every 500ms
     const interval = setInterval(() => {
       const newValue = getCookie(key) || "";
-      if (newValue !== value) {
+      if (newValue !== valueRef.current) {
+        valueRef.current = newValue;
         setValue(newValue);
       }
-    }, 500);
+    }, 500); // poll every 500ms
 
     return () => clearInterval(interval);
-  }, [key, value]);
+  }, [key]);
 
   return value;
 }
