@@ -10,7 +10,6 @@ import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { useState } from "react";
-import i18n from "i18next";
 import { translations } from "@/hooks/translate";
 import { useCookie } from "@/hooks/useCookies";
 
@@ -21,8 +20,15 @@ type TDocumentDefinitions = any;
 export default function ShiftPlanDetails({ details }: any) {
   const { name, email, phone, address } = details?.worker;
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
+
   const googtrans = useCookie("googtrans");
-  console.log("lang", googtrans);
+  // const googtrans = useCookie("googtrans")?.value || "/en/en";
+  const currentLang = googtrans
+    .replace(/^\/en\//, "") // remove /en/ at the start
+    .replace(/^en\//, "") // remove en/ at the start if no leading slash
+    .replace(/\/$/, "");
+  console.log("parts", currentLang);
 
   /* ================= SEND SHIFT ================= */
   const handleSendShift = async (e: React.FormEvent) => {
@@ -32,6 +38,7 @@ export default function ShiftPlanDetails({ details }: any) {
     try {
       const res = await myFetch(`/shift-plans/send-worker/${details._id}`, {
         method: "POST",
+        body: { language: currentLang },
       });
 
       if (res.success) {
@@ -46,138 +53,6 @@ export default function ShiftPlanDetails({ details }: any) {
     }
   };
 
-  /* ================= CONVERT IMAGE TO BASE64 ================= */
-  // const getBase64ImageFromUrl = async (imageUrl: string) => {
-  //   const res = await fetch(imageUrl);
-  //   const blob = await res.blob();
-
-  //   return new Promise<string>((resolve) => {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => resolve(reader.result as string);
-  //     reader.readAsDataURL(blob);
-  //   });
-  // };
-
-  /* ================= DOWNLOAD PDF ================= */
-  const handleDownload = async () => {
-    if (!details) return;
-
-    // Convert logo to base64 properly
-    const response = await fetch(logo.src);
-    const blob = await response.blob();
-
-    const logoBase64: string = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.readAsDataURL(blob);
-    });
-
-    const scheduleTable = {
-      table: {
-        headerRows: 1,
-        widths: ["*", "*", "*", "*"],
-        body: [
-          [
-            { text: "Date", style: "tableHeader" },
-            { text: "From", style: "tableHeader" },
-            { text: "Until", style: "tableHeader" },
-            { text: "Shift", style: "tableHeader" },
-          ],
-          ...details.plans.flatMap((plan: any) =>
-            plan.days.map((d: any) => [
-              dayjs(d).format("DD-MM-YYYY"),
-              plan?.startTime.slice(11, 16),
-              plan?.endTime.slice(11, 16),
-              plan?.shift || "—",
-            ]),
-          ),
-        ],
-      },
-      layout: "lightHorizontalLines",
-      margin: [0, 10, 0, 15],
-    };
-
-    const remarksSection =
-      details?.plans?.length > 0
-        ? {
-            margin: [0, 10, 0, 0],
-            stack: [
-              { text: "Remarks", style: "sectionHeader" },
-              {
-                ul: details.plans
-                  .map((plan: any) =>
-                    plan?.remarks ? { text: plan.remarks } : null,
-                  )
-                  .filter(Boolean), // ✅ null remove করবে
-                style: "normalText",
-              },
-            ],
-          }
-        : null;
-
-    const docDefinition: TDocumentDefinitions = {
-      pageMargins: [40, 40, 40, 40],
-
-      // ✅ Proper image dictionary
-      images: {
-        companyLogo: logoBase64,
-      },
-
-      content: [
-        {
-          columns: [
-            {
-              width: "*",
-              stack: [
-                { text: "Personal Information", style: "sectionHeader" },
-                { text: `Name: ${name || "—"}`, style: "normalText" },
-                { text: `Email: ${email || "—"}`, style: "normalText" },
-                { text: `Address: ${address || "—"}`, style: "normalText" },
-                { text: `Contact: ${phone || "—"}`, style: "normalText" },
-              ],
-            },
-            {
-              // width: "auto",
-              image: "companyLogo", // reference by name
-              width: 120,
-              alignment: "right",
-            },
-          ],
-        },
-
-        {
-          text: `Shift Plan for ${dayjs(details?.plans[0]?.days[0]).format(
-            "MMMM YYYY",
-          )}`,
-          style: "sectionHeader",
-        },
-
-        scheduleTable,
-
-        ...(remarksSection ? [remarksSection] : []),
-      ],
-
-      styles: {
-        sectionHeader: {
-          fontSize: 16,
-          bold: true,
-          margin: [0, 10, 0, 5],
-        },
-        normalText: {
-          fontSize: 11,
-        },
-        tableHeader: {
-          bold: true,
-          fillColor: "#eeeeee",
-        },
-      },
-    };
-
-    pdfMake
-      .createPdf(docDefinition)
-      .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
-  };
-
   const handleDownload3 = async () => {
     if (!details) return;
 
@@ -185,6 +60,7 @@ export default function ShiftPlanDetails({ details }: any) {
     console.log("currentLang", currentLang);
 
     // ✅ Step 2: Translation array থেকে texts নিন
+    console.log("parts", currentLang);
     const translated = translations[currentLang] ?? translations["en"];
 
     const [
@@ -193,8 +69,8 @@ export default function ShiftPlanDetails({ details }: any) {
       t_email, // [2]
       t_address, // [3]
       t_contact, // [4]
-      // t_shiftPlan, // [5]
-      // t_remarks, // [6]
+      t_shiftPlan, // [5]
+      t_remarks, // [6]
       t_date, // [7]
       t_from, // [8]
       t_until, // [9]
@@ -225,10 +101,10 @@ export default function ShiftPlanDetails({ details }: any) {
           ],
           ...details.plans.flatMap((plan: any) =>
             plan.days.map((d: any) => [
-              dayjs(d).format("DD-MM-YYYY"),
-              plan?.startTime.slice(11, 16),
-              plan?.endTime.slice(11, 16),
-              plan?.shift || "—",
+              { text: dayjs(d).format("DD-MM-YYYY") },
+              { text: plan?.startTime.slice(11, 16) },
+              { text: plan?.endTime.slice(11, 16) },
+              { text: plan?.shift },
             ]),
           ),
         ],
@@ -243,7 +119,7 @@ export default function ShiftPlanDetails({ details }: any) {
         ? {
             margin: [0, 10, 0, 0],
             stack: [
-              { text: "Remarks", style: "sectionHeader" },
+              { text: t_remarks, style: "sectionHeader" },
               {
                 ul: details.plans
                   .map((plan: any) =>
@@ -286,7 +162,7 @@ export default function ShiftPlanDetails({ details }: any) {
           ],
         },
         {
-          text: ` Plan For ${dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}`,
+          text: `${t_shiftPlan} ${dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}`,
           style: "sectionHeader",
         },
         scheduleTable,
@@ -313,6 +189,168 @@ export default function ShiftPlanDetails({ details }: any) {
       .createPdf(docDefinition)
       .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
   };
+
+  const handleDownload4 = async () => {
+    setLoading2(true);
+    if (!details) return;
+
+    const currentLang = googtrans.split("/")[2] || "en";
+    console.log("currentLang", currentLang);
+
+    // ✅ Step 1: Translate texts dynamically
+    const t_personalInfo = await translateText(
+      "Personal Information",
+      currentLang,
+    );
+    // const t_name = await translateText("Name", currentLang);
+    // const t_email = await translateText("Email", currentLang);
+    const t_address = await translateText("Address", currentLang);
+    const t_contact = await translateText("Contact", currentLang);
+    const t_shiftPlan = await translateText("Shift Plan", currentLang);
+    const t_remarks = await translateText("Remarks", currentLang);
+    const t_date = await translateText("Date", currentLang);
+    const t_from = await translateText("From", currentLang);
+    const t_until = await translateText("Until", currentLang);
+    const t_shift = await translateText("Shift", currentLang);
+    // const t_re = await translateText("Shift", currentLang);
+
+    // ✅ Step 2: Logo fetch (same as before)
+    const response = await fetch(logo.src);
+    const blob = await response.blob();
+    const logoBase64: string = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
+
+    // 1️⃣ Translate all table rows before building PDF body
+    const tableBody = [
+      [
+        { text: t_date, style: "tableHeader" },
+        { text: t_from, style: "tableHeader" },
+        { text: t_until, style: "tableHeader" },
+        { text: t_shift, style: "tableHeader" },
+      ],
+      // Rows
+      ...(await Promise.all(
+        details.plans.flatMap((plan: any) =>
+          plan.days.map(async (d: any) => [
+            { text: dayjs(d).format("DD-MM-YYYY") },
+            { text: plan?.startTime.slice(11, 16) },
+            { text: plan?.endTime.slice(11, 16) },
+            { text: await translateText(plan?.shift, currentLang) }, // translated shift
+          ]),
+        ),
+      )),
+    ];
+
+    // 2️⃣ Build scheduleTable
+    const scheduleTable = {
+      table: {
+        headerRows: 1,
+        widths: ["*", "*", "*", "*"],
+        body: tableBody,
+      },
+      layout: "lightHorizontalLines",
+      margin: [0, 10, 0, 15],
+    };
+
+    // ✅ Step 4: Remarks section
+    const remarksSection =
+      details?.plans?.length > 0
+        ? {
+            margin: [0, 10, 0, 0],
+            stack: [
+              { text: t_remarks, style: "sectionHeader" }, // already translated header
+              {
+                // Translate each remark dynamically
+                ul: await Promise.all(
+                  details.plans
+                    .map((plan: any) => plan?.remarks ?? null)
+                    .filter(Boolean)
+                    .map(async (remark: string) => {
+                      const translatedRemark = await translateText(
+                        remark,
+                        currentLang,
+                      );
+                      return { text: translatedRemark };
+                    }),
+                ),
+                style: "normalText",
+              },
+            ],
+          }
+        : null;
+    // ✅ Step 5: PDF definition
+
+    try {
+      const docDefinition: TDocumentDefinitions = {
+        pageMargins: [40, 40, 40, 40],
+        images: { companyLogo: logoBase64 },
+        content: [
+          {
+            columns: [
+              {
+                width: "*",
+                stack: [
+                  { text: t_personalInfo, style: "sectionHeader" },
+                  { text: `Name: ${name || "—"}`, style: "normalText" },
+                  { text: `Email : ${email || "—"}`, style: "normalText" },
+                  {
+                    text: `${t_address}: ${address || "—"}`,
+                    style: "normalText",
+                  },
+                  {
+                    text: `${t_contact}: ${phone || "—"}`,
+                    style: "normalText",
+                  },
+                ],
+              },
+              { image: "companyLogo", width: 120, alignment: "right" },
+            ],
+          },
+          {
+            text: `${t_shiftPlan} ${dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}`,
+            style: "sectionHeader",
+          },
+          scheduleTable,
+          ...(remarksSection ? [remarksSection] : []),
+        ],
+        styles: {
+          sectionHeader: { fontSize: 16, bold: true, margin: [0, 10, 0, 5] },
+          normalText: { fontSize: 11 },
+          tableHeader: { bold: true, fillColor: "#eeeeee" },
+        },
+      };
+
+      // ✅ Step 6: Download PDF
+      pdfMake
+        .createPdf(docDefinition)
+        .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while generating the PDF.",
+      );
+    } finally {
+      setLoading2(false);
+    }
+  };
+
+  // Helper: Google Translate API function
+  async function translateText(text: string, target: string) {
+    const res = await fetch(
+      `https://translation.googleapis.com/language/translate/v2?key=AIzaSyARXva7qI4_CvSGbZkNdanQnYFpXwX9Rwg`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ q: text, target, format: "text" }),
+      },
+    );
+    const data = await res.json();
+    return data.data.translations[0].translatedText;
+  }
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -343,7 +381,7 @@ export default function ShiftPlanDetails({ details }: any) {
 
         {/* Plan Info */}
         <div className="mt-5">
-          <h1 className="capitalize text-xl font-medium notranslate">
+          <h1 className="capitalize text-xl font-medium ">
             plan for {dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}
           </h1>
         </div>
@@ -373,9 +411,7 @@ export default function ShiftPlanDetails({ details }: any) {
                       {plan?.startTime.slice(11, 16)}
                     </td>
                     <td className="px-4 py-2">{plan?.endTime.slice(11, 16)}</td>
-                    <td className="px-4 py-2 notranslate">
-                      {plan?.shift || "—"}
-                    </td>
+                    <td className="px-4 py-2 ">{plan?.shift || "—"}</td>
                   </tr>
                 )),
               )}
@@ -385,9 +421,9 @@ export default function ShiftPlanDetails({ details }: any) {
 
         {/* Remarks */}
         <div className="mt-6 ml-4">
-          <strong className="notranslate">Remarks</strong>
+          <strong className="">Remarks</strong>
           {details?.plans?.map((item: any, index: number) => (
-            <p key={index} className="notranslate">
+            <p key={index} className="">
               {item.remarks}
             </p>
           ))}
@@ -396,7 +432,11 @@ export default function ShiftPlanDetails({ details }: any) {
 
       {/* Action Buttons */}
       <div className="flex justify-end mb-6 gap-4">
-        <Button className="custom-btn" onClick={handleDownload3}>
+        <Button
+          disabled={loading2}
+          className="custom-btn"
+          onClick={handleDownload4}
+        >
           Download Pdf
         </Button>
         <Button

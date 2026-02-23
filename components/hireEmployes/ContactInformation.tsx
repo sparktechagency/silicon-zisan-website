@@ -12,288 +12,220 @@ import HireEmployeeButton from "./HireEmployeeButton";
 
 import { useCookie } from "@/hooks/useCookies";
 import { agreementTranslations } from "@/hooks/translate";
+import { agreementSections } from "@/demoData/data";
+import { useState } from "react";
 
 (pdfMake as any).vfs = pdfFonts.vfs;
-
-const agreementSections = [
-  {
-    title: "§ 1 Subject of the Agreement",
-    items: [
-      "The Recruiter undertakes to search for and present suitable candidates to the Employer for a position advertised by the Employer.",
-      "The Client undertakes to provide the Recruiter with all relevant information necessary for the search, such as candidate requirements and a detailed job description.",
-    ],
-  },
-  {
-    title: "§ 2 Services of the Recruiter",
-    items: [
-      "The Recruiter will identify suitable candidates for the advertised position and propose them to the Employer for selection.",
-      "The Recruiter will conduct a preliminary selection of candidates, verify their qualifications, and, if applicable, conduct interviews.",
-      "The Recruiter will provide the Client with a list of suitable candidates.",
-      "The Recruiter will advise the Client during the selection process and assist in organizing interviews.",
-    ],
-  },
-  {
-    title: "§ 3 Obligations of the Client",
-    items: [
-      "The Employer shall provide the Recruiter in a timely manner with all necessary information regarding the position to be filled, including qualification requirements, job description, and contact data.",
-      "The Client undertakes to review the proposed candidates and to maintain communication with the Recruiter.",
-      "The Client conducts interviews and makes the final decision regarding the hiring of a candidate.",
-      "The Client undertakes to immediately inform the Recruiter in writing once a candidate has been hired and to allow the agreed fee to be invoiced accordingly.",
-    ],
-  },
-  {
-    title: "§ 4 Compensation and Payment Terms",
-    items: [
-      "Placement Fee: The Client agrees to pay the Recruiter a placement fee amounting to 25% (excluding VAT) of the agreed gross annual salary of the successfully placed candidate.",
-      "Payment Term: The placement fee shall be due no later than 14 days after the start of the employment relationship.",
-      "Additional Costs: Any additional costs (e.g., travel or application expenses) shall only be borne by the Client if expressly agreed upon in advance.",
-    ],
-  },
-  {
-    title: "§ 5 Guarantees and Refunds",
-    items: [
-      "Should the placed candidate resign from the employment within three (3) months after commencing work, the Client shall be entitled to a refund of fifty percent (50%) of the agreed placement fee.",
-      "If the placed candidate resigns after three (3) months but within six (6) months after commencing work, the Client shall be entitled to a refund of thirty percent (30%) of the agreed placement fee.",
-      "The right to a refund lapses if the placed candidate is later re-employed by the Client or by an affiliated or partner company.",
-      "For the purposes of this agreement, an affiliated or partner company refers to any company: • that is legally or economically connected to the Client (in particular, subsidiary, parent, or sister companies pursuant to §§ 15 et seq. AktG), or • that is contractually or factually cooperating with the Client in a way that involves the joint use or exchange of personnel, services, or projects. This provision shall only take effect upon mutual written consent of both the Client and the Recruiter and shall form part of the respective individual agreement or placement contract.",
-    ],
-  },
-  {
-    title: "§ 6 Confidentiality and Data Protection",
-    items: [
-      "Both parties agree to treat all confidential information received under this contract, particularly personal data of candidates, in accordance with the provisions of the BDSG (Federal Data Protection Act) and the GDPR (General Data Protection Regulation), and to use such data exclusively for the purposes of personnel placement.",
-      "The confidentiality obligation remains in effect even after termination of this contract.",
-    ],
-  },
-  {
-    title: "§ 7 Liability",
-    items: [
-      "The Recruiter shall not be liable for the accuracy or completeness of information provided by proposed candidates.",
-      "The Client assumes full responsibility for the final selection and decision regarding the hiring of a candidate.",
-      "The Recruiter shall not be liable for damages resulting from incomplete or incorrect information provided by the Client.",
-    ],
-  },
-  {
-    title: "§ 8 Duration and Termination of the Contract",
-    items: [
-      "The contract becomes effective upon confirmation (checkmark) by the Client on the JobsinApp platform.",
-      "The contract may be terminated by either party with 14 days’ written notice.",
-    ],
-  },
-  {
-    title: "§ 9 Final Provisions",
-    items: [
-      "Any amendments or supplements to this agreement must be made in writing. Oral agreements are only valid if confirmed in writing.",
-      "Should individual provisions of this agreement be invalid or unenforceable, the remainder of the agreement shall remain in effect. The invalid provision shall be replaced by a valid one that most closely reflects the economic intent of the invalid provision.",
-    ],
-  },
-];
 
 export default function ContractInformation({
   data,
   getProfile,
   getAdmin,
 }: any) {
+  const [loading, setLoading] = useState(false);
   const googtrans = useCookie("googtrans");
   const currentLang = googtrans?.split("/")[2] || "en";
   const t = agreementTranslations[currentLang] ?? agreementTranslations["en"];
 
-  const handleDownloadPdf = async () => {
-    // Convert logo to base64 properly
-    const response = await fetch(agreement.src);
-    const blob = await response.blob();
+  const place = "Place";
+  const date = "Date";
 
-    const logoBase64: string = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.readAsDataURL(blob);
-    });
-    // Validation
-    if (!data || !getProfile || !getAdmin) {
-      toast.error("Required data is missing");
-      return;
-    }
+  // const handleDownloadPdf = async () => {
+  //   // Convert logo to base64 properly
+  //   const response = await fetch(agreement.src);
+  //   const blob = await response.blob();
 
-    try {
-      const docDefinition: any = {
-        pageMargins: [40, 40, 40, 40],
-        images: {
-          companyLogo: logoBase64,
-        },
-        content: [
-          {
-            text: "Personnel Placement Agreement",
-            style: "header",
-            margin: [0, 0, 0, 20],
-          },
+  //   const logoBase64: string = await new Promise((resolve) => {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => resolve(reader.result as string);
+  //     reader.readAsDataURL(blob);
+  //   });
+  //   // Validation
+  //   if (!data || !getProfile || !getAdmin) {
+  //     toast.error("Required data is missing");
+  //     return;
+  //   }
 
-          {
-            columns: [
-              {
-                width: "70%",
-                stack: [
-                  { text: "Between:", style: "subheader" },
-                  { text: getProfile?.user?.name || "N/A" },
-                  { text: getProfile?.user?.email || "N/A" },
-                  {
-                    text: getProfile?.user?.address || "N/A",
-                    margin: [0, 0, 0, 8],
-                  },
-                  { text: "And:", style: "subheader" },
-                  { text: "Recruiter", margin: [0, 2, 0, 0] },
-                  { text: getAdmin?.address },
-                ],
-              },
-              {
-                width: "30%", // ✅ 70% column width
-                stack: [
-                  {
-                    image: "companyLogo",
-                    width: 100, // control actual visual size here
-                    alignment: "right",
-                  },
-                ],
-              },
-            ],
-            margin: [0, 0, 0, 20],
-          },
+  //   try {
+  //     const docDefinition: any = {
+  //       pageMargins: [40, 40, 40, 40],
+  //       images: {
+  //         companyLogo: logoBase64,
+  //       },
+  //       content: [
+  //         {
+  //           text: "Personnel Placement Agreement",
+  //           style: "header",
+  //           margin: [0, 0, 0, 20],
+  //         },
 
-          { text: "Contents of the Agreement", style: "sectionHeader" },
-          {
-            text: "The Client commissions the Recruiter to search for suitable candidates for an open position within the Client’s company. This agreement governs the conditions of the personnel placement process and the mutual rights and obligations of the contracting parties.",
-            margin: [0, 5, 0, 15],
-          },
+  //         {
+  //           columns: [
+  //             {
+  //               width: "70%",
+  //               stack: [
+  //                 { text: "Between:", style: "subheader" },
+  //                 { text: getProfile?.user?.name || "N/A" },
+  //                 { text: getProfile?.user?.email || "N/A" },
+  //                 {
+  //                   text: getProfile?.user?.address || "N/A",
+  //                   margin: [0, 0, 0, 8],
+  //                 },
+  //                 { text: "And:", style: "subheader" },
+  //                 { text: "Recruiter", margin: [0, 2, 0, 0] },
+  //                 { text: getAdmin?.address },
+  //               ],
+  //             },
+  //             {
+  //               width: "30%", // ✅ 70% column width
+  //               stack: [
+  //                 {
+  //                   image: "companyLogo",
+  //                   width: 100, // control actual visual size here
+  //                   alignment: "right",
+  //                 },
+  //               ],
+  //             },
+  //           ],
+  //           margin: [0, 0, 0, 20],
+  //         },
 
-          // Agreement sections
-          ...agreementSections.flatMap((section) => [
-            { text: section?.title, style: "sectionTitle" },
-            {
-              ul: section?.items.map((item) => ({
-                text: item,
-                style: "normalText",
-              })),
-              margin: [0, 5, 0, 15],
-            },
-          ]),
+  //         { text: "Contents of the Agreement", style: "sectionHeader" },
+  //         {
+  //           text: "The Client commissions the Recruiter to search for suitable candidates for an open position within the Client’s company. This agreement governs the conditions of the personnel placement process and the mutual rights and obligations of the contracting parties.",
+  //           margin: [0, 5, 0, 15],
+  //         },
 
-          // Job Details
-          {
-            text: "Job Details",
-            style: "sectionHeader",
-            margin: [0, 10, 0, 5],
-          },
-          {
-            ul: [
-              `Job Title: ${data?.category || "N/A"}`,
-              `Job Type: ${data?.jobType || "N/A"}`,
-              `Salary: $${data?.salaryAmount || "N/A"}`,
-              `Deadline: ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
-            ],
-            margin: [0, 5, 0, 15],
-          },
+  //         // Agreement sections
+  //         ...agreementSections.flatMap((section) => [
+  //           { text: section?.title, style: "sectionTitle" },
+  //           {
+  //             ul: section?.items.map((item) => ({
+  //               text: item,
+  //               style: "normalText",
+  //             })),
+  //             margin: [0, 5, 0, 15],
+  //           },
+  //         ]),
 
-          // Responsibilities
-          { text: "Responsibilities", style: "sectionTitle" },
-          {
-            ul: data?.responsibilities?.length
-              ? data?.responsibilities
-              : ["N/A"],
-            margin: [0, 5, 0, 15],
-          },
+  //         // Job Details
+  //         {
+  //           text: "Job Details",
+  //           style: "sectionHeader",
+  //           margin: [0, 10, 0, 5],
+  //         },
+  //         {
+  //           ul: [
+  //             `Job Title: ${data?.category || "N/A"}`,
+  //             `Job Type: ${data?.jobType || "N/A"}`,
+  //             `Salary: $${data?.salaryAmount || "N/A"}`,
+  //             `Deadline: ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
+  //           ],
+  //           margin: [0, 5, 0, 15],
+  //         },
 
-          // Qualifications
-          { text: "Qualifications", style: "sectionTitle" },
-          {
-            ul: data?.qualifications?.length ? data?.qualifications : ["N/A"],
-            margin: [0, 5, 0, 15],
-          },
+  //         // Responsibilities
+  //         { text: "Responsibilities", style: "sectionTitle" },
+  //         {
+  //           ul: data?.responsibilities?.length
+  //             ? data?.responsibilities
+  //             : ["N/A"],
+  //           margin: [0, 5, 0, 15],
+  //         },
 
-          // Confirmation Table
-          {
-            text: "Confirmation",
-            style: "sectionHeader",
-            margin: [0, 10, 0, 5],
-          },
-          {
-            table: {
-              widths: ["*", "*"],
-              body: [
-                [
-                  { text: "Place", style: "tableHeader" },
-                  { text: "Date", style: "tableHeader" },
-                ],
-                [
-                  {
-                    text: getProfile?.user?.address.split(",")[0] || "N/A",
-                    style: "normalText",
-                  },
-                  {
-                    text: dayjs(data?.createdAt).format("DD-MM-YYYY"),
-                    style: "normalText",
-                  },
-                ],
-              ],
-            },
-            layout: "lightHorizontalLines",
-            margin: [0, 5, 0, 10],
-          },
-          {
-            text: "The client confirmed the contract by selecting the checkbox, so no signature was required, and the agreement is now in effect.",
-            style: "normalText",
-            margin: [0, 0, 0, 10],
-          },
-        ],
+  //         // Qualifications
+  //         { text: "Qualifications", style: "sectionTitle" },
+  //         {
+  //           ul: data?.qualifications?.length ? data?.qualifications : ["N/A"],
+  //           margin: [0, 5, 0, 15],
+  //         },
 
-        styles: {
-          header: {
-            fontSize: 20,
-            bold: true,
-            alignment: "center",
-            color: "#333333",
-          },
-          subheader: {
-            fontSize: 14,
-            bold: true,
-            color: "#333333",
-            margin: [0, 5, 0, 2],
-          },
-          sectionHeader: {
-            fontSize: 16,
-            bold: true,
-            margin: [0, 10, 0, 5],
-            color: "#333333",
-          },
-          sectionTitle: {
-            fontSize: 14,
-            bold: true,
-            margin: [0, 10, 0, 5],
-            color: "#333333",
-          },
-          normalText: { fontSize: 12, color: "#555555" },
-          tableHeader: {
-            fontSize: 12,
-            bold: true,
-            fillColor: "#eeeeee",
-            color: "#333333",
-          },
-        },
+  //         // Confirmation Table
+  //         {
+  //           text: "Confirmation",
+  //           style: "sectionHeader",
+  //           margin: [0, 10, 0, 5],
+  //         },
+  //         {
+  //           table: {
+  //             widths: ["*", "*"],
+  //             body: [
+  //               [
+  //                 { text: "Place", style: "tableHeader" },
+  //                 { text: "Date", style: "tableHeader" },
+  //               ],
+  //               [
+  //                 {
+  //                   text: getProfile?.user?.address.split(",")[0] || "N/A",
+  //                   style: "normalText",
+  //                 },
+  //                 {
+  //                   text: dayjs(data?.createdAt).format("DD-MM-YYYY"),
+  //                   style: "normalText",
+  //                 },
+  //               ],
+  //             ],
+  //           },
+  //           layout: "lightHorizontalLines",
+  //           margin: [0, 5, 0, 10],
+  //         },
+  //         {
+  //           text: "The client confirmed the contract by selecting the checkbox, so no signature was required, and the agreement is now in effect.",
+  //           style: "normalText",
+  //           margin: [0, 0, 0, 10],
+  //         },
+  //       ],
 
-        defaultStyle: { fontSize: 11, color: "#444444" },
-      };
+  //       styles: {
+  //         header: {
+  //           fontSize: 20,
+  //           bold: true,
+  //           alignment: "center",
+  //           color: "#333333",
+  //         },
+  //         subheader: {
+  //           fontSize: 14,
+  //           bold: true,
+  //           color: "#333333",
+  //           margin: [0, 5, 0, 2],
+  //         },
+  //         sectionHeader: {
+  //           fontSize: 16,
+  //           bold: true,
+  //           margin: [0, 10, 0, 5],
+  //           color: "#333333",
+  //         },
+  //         sectionTitle: {
+  //           fontSize: 14,
+  //           bold: true,
+  //           margin: [0, 10, 0, 5],
+  //           color: "#333333",
+  //         },
+  //         normalText: { fontSize: 12, color: "#555555" },
+  //         tableHeader: {
+  //           fontSize: 12,
+  //           bold: true,
+  //           fillColor: "#eeeeee",
+  //           color: "#333333",
+  //         },
+  //       },
 
-      pdfMake
-        .createPdf(docDefinition)
-        .download(
-          `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
-        );
-    } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "An error occurred while generating the PDF.",
-      );
-    }
-  };
+  //       defaultStyle: { fontSize: 11, color: "#444444" },
+  //     };
+
+  //     pdfMake
+  //       .createPdf(docDefinition)
+  //       .download(
+  //         `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
+  //       );
+  //   } catch (error) {
+  //     toast.error(
+  //       error instanceof Error
+  //         ? error.message
+  //         : "An error occurred while generating the PDF.",
+  //     );
+  //   }
+  // };
 
   const handleDownloadPdf2 = async () => {
     const response = await fetch(agreement.src);
@@ -326,6 +258,7 @@ export default function ContractInformation({
           },
 
           // ✅ Between / And section - translated
+          // not translate
           {
             columns: [
               {
@@ -356,6 +289,8 @@ export default function ContractInformation({
             ],
             margin: [0, 0, 0, 20],
           },
+
+          // not translate up data
 
           // ✅ Contents - translated
           { text: t.contentsTitle, style: "sectionHeader" },
@@ -443,13 +378,13 @@ export default function ContractInformation({
                     margin: [5, 5, 5, 5],
                     columns: [
                       {
-                        text: `Place : ${getProfile?.user?.address.split(",")[0] || "N/A"}`,
+                        text: `${place} : ${getProfile?.user?.address.split(",")[0] || "N/A"}`,
                         bold: true,
                         alignment: "center",
                         width: "50%",
                       },
                       {
-                        text: `Date : ${dayjs(data?.createdAt).format("DD-MM-YYYY")}`,
+                        text: `${date} : ${dayjs(data?.createdAt).format("DD-MM-YYYY")}`,
                         bold: true,
                         alignment: "center",
                         width: "50%",
@@ -530,6 +465,282 @@ export default function ContractInformation({
     }
   };
 
+  const handleDownloadPdf4 = async () => {
+    setLoading(true);
+    if (!data || !getProfile || !getAdmin) {
+      toast.error("Required data is missing");
+      return;
+    }
+
+    const currentLang = googtrans?.split("/")[2] || "en";
+    const t = agreementTranslations[currentLang] ?? agreementTranslations["en"];
+
+    try {
+      // ✅ Logo convert
+      const response = await fetch(agreement.src);
+      const blob = await response.blob();
+
+      const logoBase64: string = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
+
+      // ✅ Translate helper
+      const translateText = async (text: string) => {
+        if (!text || currentLang === "en") return text;
+
+        try {
+          const res = await fetch(
+            `https://translation.googleapis.com/language/translate/v2?key=AIzaSyARXva7qI4_CvSGbZkNdanQnYFpXwX9Rwg`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                q: text,
+                target: currentLang,
+                format: "text",
+              }),
+            },
+          );
+
+          const json = await res.json();
+          return json?.data?.translations?.[0]?.translatedText || text;
+        } catch (err) {
+          console.error("Translate error:", err);
+          return text;
+        }
+      };
+
+      // ================================
+      // ✅ TRANSLATE ALL DYNAMIC DATA
+      // ================================
+
+      const translatedName = await translateText(
+        getProfile?.user?.name || "N/A",
+      );
+      const translatedEmail = await translateText(
+        getProfile?.user?.email || "N/A",
+      );
+      const translatedAddress = await translateText(
+        getProfile?.user?.address || "N/A",
+      );
+
+      const translatedCategory = await translateText(data?.category || "N/A");
+      const translatedAuthorAddress = await translateText(
+        data?.author?.address || "N/A",
+      );
+      const translatedJobType = await translateText(data?.jobType || "N/A");
+      const translatedDescription = await translateText(
+        data?.description || "N/A",
+      );
+
+      const translatedResponsibilities = await Promise.all(
+        (data?.responsibilities || []).map((r: string) => translateText(r)),
+      );
+
+      const translatedQualifications = await Promise.all(
+        (data?.qualifications || []).map((q: string) => translateText(q)),
+      );
+
+      const translatedPlace = await translateText("Place");
+      const translatedDateLabel = await translateText("Date");
+
+      // Agreement Sections
+      const translatedSections = await Promise.all(
+        agreementSections.flatMap(async (section: any) => [
+          {
+            text: await translateText(section?.title || ""),
+            style: "sectionTitle",
+          },
+          {
+            ul: await Promise.all(
+              (section?.items || []).map((item: string) => translateText(item)),
+            ),
+            margin: [0, 5, 0, 15],
+          },
+        ]),
+      );
+
+      // ================================
+      // ✅ CONFIRMATION TABLE
+      // ================================
+
+      const shortAddress = translatedAddress?.split(",")?.[0] || "N/A";
+
+      const formattedDate = dayjs(data?.createdAt).format("DD-MM-YYYY");
+
+      const confirmationTable = {
+        table: {
+          widths: ["*"],
+          body: [
+            [
+              {
+                border: [true, true, true, false],
+                margin: [5, 5, 5, 5],
+                columns: [
+                  {
+                    text: `${translatedPlace} : ${shortAddress}`,
+                    bold: true,
+                    alignment: "center",
+                    width: "50%",
+                  },
+                  {
+                    text: `${translatedDateLabel} : ${formattedDate}`,
+                    bold: true,
+                    alignment: "center",
+                    width: "50%",
+                  },
+                ],
+              },
+            ],
+            [
+              {
+                border: [true, false, true, true],
+                text: t.confirmationText,
+                style: "normalText",
+                margin: [5, 8, 5, 8],
+              },
+            ],
+          ],
+        },
+        layout: {
+          hLineWidth: (i: number, node: any) =>
+            i === 0 || i === node.table.body.length ? 1 : 0,
+          vLineWidth: () => 1,
+          hLineColor: () => "#cccccc",
+          vLineColor: () => "#cccccc",
+        },
+        margin: [0, 10, 0, 10],
+      };
+
+      // ================================
+      // ✅ PDF DOCUMENT
+      // ================================
+
+      const docDefinition: any = {
+        pageMargins: [40, 40, 40, 40],
+        images: { companyLogo: logoBase64 },
+
+        content: [
+          {
+            text: t.personnelAgreement,
+            style: "header",
+            margin: [0, 0, 0, 20],
+          },
+
+          {
+            columns: [
+              {
+                width: "70%",
+                stack: [
+                  { text: t.between, style: "subheader" },
+                  { text: translatedName },
+                  { text: translatedEmail },
+                  { text: translatedAddress, margin: [0, 0, 0, 8] },
+                  { text: t.and, style: "subheader" },
+                  { text: "Recruiter" },
+                  { text: getAdmin?.address || "N/A" },
+                ],
+              },
+              {
+                width: "30%",
+                stack: [
+                  {
+                    image: "companyLogo",
+                    width: 100,
+                    alignment: "right",
+                  },
+                ],
+              },
+            ],
+            margin: [0, 0, 0, 20],
+          },
+
+          { text: t.contentsTitle, style: "sectionHeader" },
+          { text: t.contentsText, margin: [0, 5, 0, 15] },
+
+          ...translatedSections.flat(),
+
+          {
+            text: translatedCategory,
+            style: "sectionHeader",
+            margin: [0, 10, 0, 5],
+          },
+
+          {
+            text: translatedAuthorAddress,
+            style: "normalText",
+          },
+
+          {
+            stack: [
+              translatedJobType,
+              `€${data?.salaryAmount || "N/A"}`,
+              `🕐 ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
+            ].map((text) => ({
+              text,
+              style: "normalText",
+              margin: [0, 2, 0, 2],
+            })),
+            margin: [0, 5, 0, 15],
+          },
+
+          { text: t.jobDescription, style: "sectionTitle" },
+          {
+            text: translatedDescription,
+            style: "normalText",
+            margin: [0, 5, 0, 15],
+          },
+
+          { text: t.responsibilities, style: "sectionTitle" },
+          { ul: translatedResponsibilities, margin: [0, 5, 0, 15] },
+
+          { text: t.qualifications, style: "sectionTitle" },
+          { ul: translatedQualifications, margin: [0, 5, 0, 15] },
+
+          confirmationTable,
+        ],
+
+        styles: {
+          header: {
+            fontSize: 20,
+            bold: true,
+            alignment: "center",
+          },
+          subheader: {
+            fontSize: 14,
+            bold: true,
+            margin: [0, 5, 0, 2],
+          },
+          sectionHeader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5],
+          },
+          sectionTitle: {
+            fontSize: 14,
+            bold: true,
+            margin: [0, 10, 0, 5],
+          },
+          normalText: { fontSize: 12 },
+        },
+      };
+
+      pdfMake
+        .createPdf(docDefinition)
+        .download(
+          `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
+        );
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "PDF generation failed",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -548,8 +759,8 @@ export default function ContractInformation({
                 <h3 className="font-bold text-gray-700 text-xl notranslate">
                   Between :
                 </h3>
-                <p>{getProfile?.user?.name}</p>
-                <p>{getProfile?.user?.email}</p>
+                <p className="notranslate">{getProfile?.user?.name}</p>
+                <p className="notranslate">{getProfile?.user?.email}</p>
                 <p>{getProfile?.user?.address}</p>
               </div>
               <div className="mt-2">
@@ -598,15 +809,15 @@ export default function ContractInformation({
             {/* Job Details */}
             <div className="w-[90%] mx-auto bg-white rounded-lg p-3 border border-gray-200">
               <div className="mb-4">
-                <h2 className="text-xl font-semibold text-gray-800 notranslate">
+                <h2 className="text-xl font-semibold text-gray-800 ">
                   {data?.category}
                 </h2>
-                <p className="text-sm text-gray-500 notranslate">
+                <p className="text-sm text-gray-500 ">
                   {data?.author?.address}
                 </p>
                 <div className="mt-2 text-sm text-gray-600">
-                  <p className="notranslate">{data?.jobType}</p>
-                  <p className="notranslate">€{data?.salaryAmount}</p>
+                  <p className="">{data?.jobType}</p>
+                  <p className="">€{data?.salaryAmount}</p>
                   <p className="flex gap-1 items-center">
                     <Clock3 size={18} />{" "}
                     {dayjs(data?.deadline).format("DD-MM-YYYY")}
@@ -627,7 +838,7 @@ export default function ContractInformation({
                 </h4>
                 <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                   {data?.responsibilities?.map((item: any, index: number) => (
-                    <li key={index} className="notranslate">
+                    <li key={index} className="">
                       {item}
                     </li>
                   ))}
@@ -640,7 +851,7 @@ export default function ContractInformation({
                 </h4>
                 <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
                   {data?.qualifications?.map((item: any, index: number) => (
-                    <li key={index} className="notranslate">
+                    <li key={index} className="">
                       {item}
                     </li>
                   ))}
@@ -651,11 +862,11 @@ export default function ContractInformation({
             {/* Confirmation */}
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
-                <p className="notranslate">
+                <p className="">
                   Place :{" "}
                   {getProfile?.user?.address.split(",")[0] || "No Place"}
                 </p>
-                <p className="notranslate">
+                <p className="">
                   Date : {dayjs(data?.createdAt).format("DD-MM-YYYY")}
                 </p>
               </div>
@@ -671,8 +882,9 @@ export default function ContractInformation({
       {/* Download Buttons */}
       <div className="mt-7 flex flex-col sm:flex-row gap-7">
         <Button
+          disabled={loading}
           className="w-full sm:w-[48%] custom-btn"
-          onClick={handleDownloadPdf2}
+          onClick={handleDownloadPdf4}
         >
           Download Pdf
         </Button>

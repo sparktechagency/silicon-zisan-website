@@ -149,7 +149,7 @@ export const translations: Record<string, string[]> = {
     "Email", // [2]
     "Address", // [3]
     "Contact", // [4]
-    "Shift Plan for", // [5]
+    "Plan for", // [5]
     "Remarks", // [6]
     "Date", // [7]
     "From", // [8]
@@ -162,8 +162,8 @@ export const translations: Record<string, string[]> = {
     "Email",
     "Adresse",
     "Kontakt",
-    // "Schichtplan für",
-    // "Bemerkungen",
+    "Schichtplan für",
+    "Anmerkungen",
     "Datum",
     "Zu",
     "Bilden",
@@ -175,8 +175,8 @@ export const translations: Record<string, string[]> = {
     "Email",
     "Adresse",
     "Contact",
-    // "Plan de travail pour",
-    // "Remarques",
+    "Plan pour",
+    "Remarques",
     "Date",
     "À",
     "Formulaire",
@@ -188,8 +188,8 @@ export const translations: Record<string, string[]> = {
     "Email",
     "Adres",
     "Contact",
-    // "Dienstrooster voor",
-    // "Opmerkingen",
+    "Plan Voor",
+    "Opmerkingen",
     "Datum",
     "Naar",
     "Formulier",
@@ -201,8 +201,8 @@ export const translations: Record<string, string[]> = {
     "Email",
     "Adresă",
     "Contact",
-    // "Planul de tură pentru",
-    // "Observații",
+    "Plan Pentru ",
+    "Observații",
     "Dată",
     "La",
     "Formă",
@@ -214,8 +214,8 @@ export const translations: Record<string, string[]> = {
     "Email",
     "Adres",
     "Kontakt",
-    // "Plan zmian dla",
-    // "Uwagi",
+    "Plan Na",
+    "Uwagi",
     "Data",
     "Do",
     "Formularz",
@@ -227,8 +227,8 @@ export const translations: Record<string, string[]> = {
     "Еmail",
     "Адреса",
     "Контакт",
-    // "План змін для",
-    // "Примітки",
+    "план Hа",
+    "Зауваження",
     "Дата",
     "До",
     "Форма",
@@ -240,8 +240,8 @@ export const translations: Record<string, string[]> = {
     "Еmail",
     "Indirizzo",
     "Contatto",
-    // "Piano turni per",
-    // "Note",
+    "Piano Per ",
+    "Osservazioni",
     "Data",
     "A",
     "Modulo",
@@ -283,6 +283,7 @@ export const agreementTranslations: Record<string, Record<string, string>> = {
     confirmation: "Confirmation",
     place: "Place",
     date: "Date",
+
     confirmationText:
       "The client confirmed the contract by selecting the checkbox, so no signature was required, and the agreement is now in effect.",
   },
