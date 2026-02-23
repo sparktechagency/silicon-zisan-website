@@ -210,8 +210,8 @@ export default function ShiftPlanDetails({ details }: any) {
     const t_remarks = await translateText("Remarks", currentLang);
     const t_date = await translateText("Date", currentLang);
     const t_from = await translateText("From", currentLang);
-    const t_until = await translateText("Until", currentLang);
-    const t_shift = await translateText("Shift", currentLang);
+    const t_until = await translateText("To", currentLang);
+    const t_shift = await translateText("Timeline", currentLang);
     // const t_re = await translateText("Shift", currentLang);
 
     // ✅ Step 2: Logo fetch (same as before)
