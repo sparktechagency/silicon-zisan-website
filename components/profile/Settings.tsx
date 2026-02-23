@@ -1,8 +1,25 @@
+"use  client";
 import { ChevronRight, Fingerprint, Globe } from "lucide-react";
-import PasswordModal from "./modal/PasswordModal";
 import Link from "next/link";
+import { ChangePasswordOtp } from "@/app/(website)/profile/my-settings/ChangePasswordOtp";
+import { myFetch } from "@/utils/myFetch";
+import { toast } from "sonner";
 
 export default function Setting() {
+  const handleOtp = async () => {
+    try {
+      const res = await myFetch("/auth/forget-password", {
+        method: "POST",
+        body: {
+          email: "juyelrana7752@gmail.com",
+        },
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "An error occurred";
+      toast.error(message);
+    }
+  };
   return (
     <div className="flex flex-col space-y-4 ">
       <Link href="/factor-authenticaiton">
@@ -20,52 +37,14 @@ export default function Setting() {
           </p>
         </div>
       </Link>
-      {/* <CountryModal
-        title="Select Language"
-        trigger={
-          <div
-            className={`flex justify-between items-center pl-7 cursor-pointer  
-              bg-card border border-gray-400  font-semibold py-3 rounded-lg  `}
-          >
-            <button className="flex  items-center capitalize">
-              <span className="mr-2 text-nowrap">
-                <Globe />
-              </span>
-              language
-            </button>
-            <p>
-              <ChevronRight />
-            </p>
-          </div>
-        }
-      /> */}
-      {/* <CountryModal
-        title="Country"
-        trigger={
-          <div
-            className={`flex justify-between items-center pl-7 cursor-pointer  
-              bg-card border border-gray-400  font-semibold py-3 rounded-lg  `}
-          >
-            <button className="flex  items-center capitalize">
-              <span className="mr-2 text-nowrap">
-                <MapPin size={27} />
-              </span>
-              country
-            </button>
-            <p>
-              <ChevronRight />
-            </p>
-          </div>
-        }
-      /> */}
 
-      <PasswordModal
+      <ChangePasswordOtp
         trigger={
           <div
             className={`flex justify-between items-center pl-7 cursor-pointer  
     bg-card border border-gray-400 font-semibold py-3 rounded-lg`}
           >
-            <button className="flex items-center capitalize">
+            <button className="flex items-center capitalize cursor-pointer">
               <span className="mr-2 text-nowrap">
                 <Globe />
               </span>
@@ -76,6 +55,7 @@ export default function Setting() {
             </p>
           </div>
         }
+        onOtpRequest={handleOtp}
       />
     </div>
   );

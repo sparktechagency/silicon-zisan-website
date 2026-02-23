@@ -62,8 +62,8 @@ export default function ViewDetailsCompany({ data, length }: any) {
             {data?.author?.name}
           </p>
           <p className="text-sm text-gray-300">{data?.author?.address}</p>
-          <p className="text-md mt-1 notranslate">{data?.category}</p>
-          <p className="text-md mt-1 notranslate">{data?.subCategory}</p>
+          <p className="text-md mt-1 ">{data?.category}</p>
+          <p className="text-md mt-1 ">{data?.subCategory}</p>
           <div className="flex gap-4 text-sm mt-2">
             <p className="border p-0.5 rounded bg-[#465565] px-3">
               {data?.jobType}
@@ -81,7 +81,7 @@ export default function ViewDetailsCompany({ data, length }: any) {
             <div className="space-x-2">
               <Link href={`/applied-jobs/${data?._id}`}>
                 <Button className="custom-btn mt-3 h-10">
-                  {length} Applied
+                  {length} Applicant
                 </Button>
               </Link>
             </div>

@@ -15,15 +15,11 @@ type Inputs = {
   confirmPassword: string;
 };
 
-export default function PasswordModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+export default function PasswordModal({ open, onOpenChange }: any) {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
   const {
     register,
@@ -46,7 +42,7 @@ export default function PasswordModal({
 
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
-        setOpen(false);
+        onOpenChange(false);
       } else {
         toast.error(
           (res as any)?.error[0].message || "Failed to update profile",
@@ -58,8 +54,8 @@ export default function PasswordModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {/* <DialogTrigger asChild>{trigger}</DialogTrigger> */}
 
       <DialogContent className="sm:max-w-xl bg-[#3C4751] rounded-lg p-6 w-full max-w-md shadow-lg opacity-80 backdrop-blur-sm border border-white/22">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-8">
