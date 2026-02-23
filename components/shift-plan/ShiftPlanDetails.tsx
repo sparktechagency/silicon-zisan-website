@@ -20,6 +20,7 @@ type TDocumentDefinitions = any;
 export default function ShiftPlanDetails({ details }: any) {
   const { name, email, phone, address } = details?.worker;
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
 
   const googtrans = useCookie("googtrans");
   // const googtrans = useCookie("googtrans")?.value || "/en/en";
@@ -190,6 +191,7 @@ export default function ShiftPlanDetails({ details }: any) {
   };
 
   const handleDownload4 = async () => {
+    setLoading2(true);
     if (!details) return;
 
     const currentLang = googtrans.split("/")[2] || "en";
@@ -280,46 +282,60 @@ export default function ShiftPlanDetails({ details }: any) {
           }
         : null;
     // ✅ Step 5: PDF definition
-    const docDefinition: TDocumentDefinitions = {
-      pageMargins: [40, 40, 40, 40],
-      images: { companyLogo: logoBase64 },
-      content: [
-        {
-          columns: [
-            {
-              width: "*",
-              stack: [
-                { text: t_personalInfo, style: "sectionHeader" },
-                { text: `Name: ${name || "—"}`, style: "normalText" },
-                { text: `Email : ${email || "—"}`, style: "normalText" },
-                {
-                  text: `${t_address}: ${address || "—"}`,
-                  style: "normalText",
-                },
-                { text: `${t_contact}: ${phone || "—"}`, style: "normalText" },
-              ],
-            },
-            { image: "companyLogo", width: 120, alignment: "right" },
-          ],
-        },
-        {
-          text: `${t_shiftPlan} ${dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}`,
-          style: "sectionHeader",
-        },
-        scheduleTable,
-        ...(remarksSection ? [remarksSection] : []),
-      ],
-      styles: {
-        sectionHeader: { fontSize: 16, bold: true, margin: [0, 10, 0, 5] },
-        normalText: { fontSize: 11 },
-        tableHeader: { bold: true, fillColor: "#eeeeee" },
-      },
-    };
 
-    // ✅ Step 6: Download PDF
-    pdfMake
-      .createPdf(docDefinition)
-      .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
+    try {
+      const docDefinition: TDocumentDefinitions = {
+        pageMargins: [40, 40, 40, 40],
+        images: { companyLogo: logoBase64 },
+        content: [
+          {
+            columns: [
+              {
+                width: "*",
+                stack: [
+                  { text: t_personalInfo, style: "sectionHeader" },
+                  { text: `Name: ${name || "—"}`, style: "normalText" },
+                  { text: `Email : ${email || "—"}`, style: "normalText" },
+                  {
+                    text: `${t_address}: ${address || "—"}`,
+                    style: "normalText",
+                  },
+                  {
+                    text: `${t_contact}: ${phone || "—"}`,
+                    style: "normalText",
+                  },
+                ],
+              },
+              { image: "companyLogo", width: 120, alignment: "right" },
+            ],
+          },
+          {
+            text: `${t_shiftPlan} ${dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}`,
+            style: "sectionHeader",
+          },
+          scheduleTable,
+          ...(remarksSection ? [remarksSection] : []),
+        ],
+        styles: {
+          sectionHeader: { fontSize: 16, bold: true, margin: [0, 10, 0, 5] },
+          normalText: { fontSize: 11 },
+          tableHeader: { bold: true, fillColor: "#eeeeee" },
+        },
+      };
+
+      // ✅ Step 6: Download PDF
+      pdfMake
+        .createPdf(docDefinition)
+        .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
+    } catch (error) {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "An error occurred while generating the PDF.",
+      );
+    } finally {
+      setLoading2(false);
+    }
   };
 
   // Helper: Google Translate API function
@@ -416,7 +432,11 @@ export default function ShiftPlanDetails({ details }: any) {
 
       {/* Action Buttons */}
       <div className="flex justify-end mb-6 gap-4">
-        <Button className="custom-btn" onClick={handleDownload4}>
+        <Button
+          disabled={loading2}
+          className="custom-btn"
+          onClick={handleDownload4}
+        >
           Download Pdf
         </Button>
         <Button

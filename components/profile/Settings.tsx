@@ -1,25 +1,24 @@
-"use  client";
 import { ChevronRight, Fingerprint, Globe } from "lucide-react";
 import Link from "next/link";
 import { ChangePasswordOtp } from "@/app/(website)/profile/my-settings/ChangePasswordOtp";
 import { myFetch } from "@/utils/myFetch";
-import { toast } from "sonner";
 
-export default function Setting() {
-  const handleOtp = async () => {
-    try {
-      const res = await myFetch("/auth/forget-password", {
-        method: "POST",
-        body: {
-          email: "juyelrana7752@gmail.com",
-        },
-      });
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "An error occurred";
-      toast.error(message);
-    }
-  };
+export default async function Setting() {
+  const getProfile = await myFetch(`/users/profile`);
+  // const handleOtp = async () => {
+  //   try {
+  //     const res = await myFetch("/auth/forget-password", {
+  //       method: "POST",
+  //       body: {
+  //         email: "juyelrana7752@gmail.com",
+  //       },
+  //     });
+  //   } catch (error) {
+  //     const message =
+  //       error instanceof Error ? error.message : "An error occurred";
+  //     toast.error(message);
+  //   }
+  // };
   return (
     <div className="flex flex-col space-y-4 ">
       <Link href="/factor-authenticaiton">
@@ -39,6 +38,7 @@ export default function Setting() {
       </Link>
 
       <ChangePasswordOtp
+        email={getProfile?.data?.email}
         trigger={
           <div
             className={`flex justify-between items-center pl-7 cursor-pointer  
@@ -55,7 +55,7 @@ export default function Setting() {
             </p>
           </div>
         }
-        onOtpRequest={handleOtp}
+        // onOtpRequest={handleOtp}
       />
     </div>
   );

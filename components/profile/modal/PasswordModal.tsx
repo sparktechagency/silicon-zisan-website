@@ -19,11 +19,13 @@ export default function PasswordModal({ open, onOpenChange }: any) {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const [open, setOpen] = useState(false);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: {},
   } = useForm<Inputs>({
     defaultValues: {
@@ -34,6 +36,7 @@ export default function PasswordModal({ open, onOpenChange }: any) {
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    setLoading(true);
     try {
       const res = await myFetch("/auth/change-password", {
         method: "POST",
@@ -50,13 +53,14 @@ export default function PasswordModal({ open, onOpenChange }: any) {
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "An error occurred");
+    } finally {
+      setLoading(false);
+      reset();
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {/* <DialogTrigger asChild>{trigger}</DialogTrigger> */}
-
       <DialogContent className="sm:max-w-xl bg-[#3C4751] rounded-lg p-6 w-full max-w-md shadow-lg opacity-80 backdrop-blur-sm border border-white/22">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-8">
           {/* Current Password */}
@@ -111,7 +115,11 @@ export default function PasswordModal({ open, onOpenChange }: any) {
             </button>
           </div>
 
-          <Button type="submit" className="w-full custom-btn">
+          <Button
+            disabled={loading}
+            type="submit"
+            className="w-full custom-btn"
+          >
             Confirm
           </Button>
         </form>

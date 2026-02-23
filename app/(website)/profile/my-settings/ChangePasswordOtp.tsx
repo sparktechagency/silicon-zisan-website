@@ -14,10 +14,10 @@ import PasswordModal from "@/components/profile/modal/PasswordModal";
 
 interface Props {
   trigger: React.ReactNode;
-  onOtpRequest: () => Promise<boolean>;
+  email: string;
 }
 
-export function ChangePasswordOtp({ trigger, onOtpRequest }: Props) {
+export function ChangePasswordOtp({ trigger, email }: Props) {
   const [otp, setOtp] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
@@ -25,14 +25,15 @@ export function ChangePasswordOtp({ trigger, onOtpRequest }: Props) {
 
   // 🔹 Trigger click handler
   const handleTriggerClick = async () => {
+    handleOtp();
     setLoading(true);
-    await onOtpRequest();
     setLoading(false);
-    setOpen(true); // open modal only if API success
+    setOpen(true);
   };
 
   // 🔹 Verify OTP
   const handleVerifyOtp = async (e: React.FormEvent) => {
+    setLoading(true);
     e.preventDefault();
 
     if (otp.length !== 6) {
@@ -40,17 +41,13 @@ export function ChangePasswordOtp({ trigger, onOtpRequest }: Props) {
       return;
     }
 
-    const email = "juyelrana7752@gmail.com";
-
     try {
       const res = await myFetch("/auth/verify-email", {
         method: "POST",
         body: { email, oneTimeCode: Number(otp) },
       });
-      console.log("success0", res);
 
       if (res?.success) {
-        // toast.success(res.message);
         setOpen(false);
         setOpen2(true);
         setOtp("");
@@ -59,6 +56,23 @@ export function ChangePasswordOtp({ trigger, onOtpRequest }: Props) {
       }
     } catch {
       toast.error("Verification failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOtp = async () => {
+    try {
+      await myFetch("/auth/forget-password", {
+        method: "POST",
+        body: {
+          email: email,
+        },
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "An error occurred";
+      toast.error(message);
     }
   };
 
@@ -90,13 +104,6 @@ export function ChangePasswordOtp({ trigger, onOtpRequest }: Props) {
                   </InputOTPGroup>
                 </InputOTP>
               </div>
-
-              {/* <div
-                className="text-center text-sm text-white my-5 cursor-pointer"
-                onClick={handleResendOtp}
-              >
-                Resend OTP
-              </div> */}
 
               <Button
                 disabled={loading}

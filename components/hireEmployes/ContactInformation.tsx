@@ -13,6 +13,7 @@ import HireEmployeeButton from "./HireEmployeeButton";
 import { useCookie } from "@/hooks/useCookies";
 import { agreementTranslations } from "@/hooks/translate";
 import { agreementSections } from "@/demoData/data";
+import { useState } from "react";
 
 (pdfMake as any).vfs = pdfFonts.vfs;
 
@@ -21,6 +22,7 @@ export default function ContractInformation({
   getProfile,
   getAdmin,
 }: any) {
+  const [loading, setLoading] = useState(false);
   const googtrans = useCookie("googtrans");
   const currentLang = googtrans?.split("/")[2] || "en";
   const t = agreementTranslations[currentLang] ?? agreementTranslations["en"];
@@ -256,6 +258,7 @@ export default function ContractInformation({
           },
 
           // ✅ Between / And section - translated
+          // not translate
           {
             columns: [
               {
@@ -286,6 +289,8 @@ export default function ContractInformation({
             ],
             margin: [0, 0, 0, 20],
           },
+
+          // not translate up data
 
           // ✅ Contents - translated
           { text: t.contentsTitle, style: "sectionHeader" },
@@ -460,6 +465,282 @@ export default function ContractInformation({
     }
   };
 
+  const handleDownloadPdf4 = async () => {
+    setLoading(true);
+    if (!data || !getProfile || !getAdmin) {
+      toast.error("Required data is missing");
+      return;
+    }
+
+    const currentLang = googtrans?.split("/")[2] || "en";
+    const t = agreementTranslations[currentLang] ?? agreementTranslations["en"];
+
+    try {
+      // ✅ Logo convert
+      const response = await fetch(agreement.src);
+      const blob = await response.blob();
+
+      const logoBase64: string = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(blob);
+      });
+
+      // ✅ Translate helper
+      const translateText = async (text: string) => {
+        if (!text || currentLang === "en") return text;
+
+        try {
+          const res = await fetch(
+            `https://translation.googleapis.com/language/translate/v2?key=AIzaSyARXva7qI4_CvSGbZkNdanQnYFpXwX9Rwg`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                q: text,
+                target: currentLang,
+                format: "text",
+              }),
+            },
+          );
+
+          const json = await res.json();
+          return json?.data?.translations?.[0]?.translatedText || text;
+        } catch (err) {
+          console.error("Translate error:", err);
+          return text;
+        }
+      };
+
+      // ================================
+      // ✅ TRANSLATE ALL DYNAMIC DATA
+      // ================================
+
+      const translatedName = await translateText(
+        getProfile?.user?.name || "N/A",
+      );
+      const translatedEmail = await translateText(
+        getProfile?.user?.email || "N/A",
+      );
+      const translatedAddress = await translateText(
+        getProfile?.user?.address || "N/A",
+      );
+
+      const translatedCategory = await translateText(data?.category || "N/A");
+      const translatedAuthorAddress = await translateText(
+        data?.author?.address || "N/A",
+      );
+      const translatedJobType = await translateText(data?.jobType || "N/A");
+      const translatedDescription = await translateText(
+        data?.description || "N/A",
+      );
+
+      const translatedResponsibilities = await Promise.all(
+        (data?.responsibilities || []).map((r: string) => translateText(r)),
+      );
+
+      const translatedQualifications = await Promise.all(
+        (data?.qualifications || []).map((q: string) => translateText(q)),
+      );
+
+      const translatedPlace = await translateText("Place");
+      const translatedDateLabel = await translateText("Date");
+
+      // Agreement Sections
+      const translatedSections = await Promise.all(
+        agreementSections.flatMap(async (section: any) => [
+          {
+            text: await translateText(section?.title || ""),
+            style: "sectionTitle",
+          },
+          {
+            ul: await Promise.all(
+              (section?.items || []).map((item: string) => translateText(item)),
+            ),
+            margin: [0, 5, 0, 15],
+          },
+        ]),
+      );
+
+      // ================================
+      // ✅ CONFIRMATION TABLE
+      // ================================
+
+      const shortAddress = translatedAddress?.split(",")?.[0] || "N/A";
+
+      const formattedDate = dayjs(data?.createdAt).format("DD-MM-YYYY");
+
+      const confirmationTable = {
+        table: {
+          widths: ["*"],
+          body: [
+            [
+              {
+                border: [true, true, true, false],
+                margin: [5, 5, 5, 5],
+                columns: [
+                  {
+                    text: `${translatedPlace} : ${shortAddress}`,
+                    bold: true,
+                    alignment: "center",
+                    width: "50%",
+                  },
+                  {
+                    text: `${translatedDateLabel} : ${formattedDate}`,
+                    bold: true,
+                    alignment: "center",
+                    width: "50%",
+                  },
+                ],
+              },
+            ],
+            [
+              {
+                border: [true, false, true, true],
+                text: t.confirmationText,
+                style: "normalText",
+                margin: [5, 8, 5, 8],
+              },
+            ],
+          ],
+        },
+        layout: {
+          hLineWidth: (i: number, node: any) =>
+            i === 0 || i === node.table.body.length ? 1 : 0,
+          vLineWidth: () => 1,
+          hLineColor: () => "#cccccc",
+          vLineColor: () => "#cccccc",
+        },
+        margin: [0, 10, 0, 10],
+      };
+
+      // ================================
+      // ✅ PDF DOCUMENT
+      // ================================
+
+      const docDefinition: any = {
+        pageMargins: [40, 40, 40, 40],
+        images: { companyLogo: logoBase64 },
+
+        content: [
+          {
+            text: t.personnelAgreement,
+            style: "header",
+            margin: [0, 0, 0, 20],
+          },
+
+          {
+            columns: [
+              {
+                width: "70%",
+                stack: [
+                  { text: t.between, style: "subheader" },
+                  { text: translatedName },
+                  { text: translatedEmail },
+                  { text: translatedAddress, margin: [0, 0, 0, 8] },
+                  { text: t.and, style: "subheader" },
+                  { text: "Recruiter" },
+                  { text: getAdmin?.address || "N/A" },
+                ],
+              },
+              {
+                width: "30%",
+                stack: [
+                  {
+                    image: "companyLogo",
+                    width: 100,
+                    alignment: "right",
+                  },
+                ],
+              },
+            ],
+            margin: [0, 0, 0, 20],
+          },
+
+          { text: t.contentsTitle, style: "sectionHeader" },
+          { text: t.contentsText, margin: [0, 5, 0, 15] },
+
+          ...translatedSections.flat(),
+
+          {
+            text: translatedCategory,
+            style: "sectionHeader",
+            margin: [0, 10, 0, 5],
+          },
+
+          {
+            text: translatedAuthorAddress,
+            style: "normalText",
+          },
+
+          {
+            stack: [
+              translatedJobType,
+              `€${data?.salaryAmount || "N/A"}`,
+              `🕐 ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
+            ].map((text) => ({
+              text,
+              style: "normalText",
+              margin: [0, 2, 0, 2],
+            })),
+            margin: [0, 5, 0, 15],
+          },
+
+          { text: t.jobDescription, style: "sectionTitle" },
+          {
+            text: translatedDescription,
+            style: "normalText",
+            margin: [0, 5, 0, 15],
+          },
+
+          { text: t.responsibilities, style: "sectionTitle" },
+          { ul: translatedResponsibilities, margin: [0, 5, 0, 15] },
+
+          { text: t.qualifications, style: "sectionTitle" },
+          { ul: translatedQualifications, margin: [0, 5, 0, 15] },
+
+          confirmationTable,
+        ],
+
+        styles: {
+          header: {
+            fontSize: 20,
+            bold: true,
+            alignment: "center",
+          },
+          subheader: {
+            fontSize: 14,
+            bold: true,
+            margin: [0, 5, 0, 2],
+          },
+          sectionHeader: {
+            fontSize: 16,
+            bold: true,
+            margin: [0, 10, 0, 5],
+          },
+          sectionTitle: {
+            fontSize: 14,
+            bold: true,
+            margin: [0, 10, 0, 5],
+          },
+          normalText: { fontSize: 12 },
+        },
+      };
+
+      pdfMake
+        .createPdf(docDefinition)
+        .download(
+          `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
+        );
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "PDF generation failed",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -528,10 +809,10 @@ export default function ContractInformation({
             {/* Job Details */}
             <div className="w-[90%] mx-auto bg-white rounded-lg p-3 border border-gray-200">
               <div className="mb-4">
-                <h2 className="text-xl font-semibold text-gray-800 notranslate">
+                <h2 className="text-xl font-semibold text-gray-800 ">
                   {data?.category}
                 </h2>
-                <p className="text-sm text-gray-500 notranslate">
+                <p className="text-sm text-gray-500 ">
                   {data?.author?.address}
                 </p>
                 <div className="mt-2 text-sm text-gray-600">
@@ -601,8 +882,9 @@ export default function ContractInformation({
       {/* Download Buttons */}
       <div className="mt-7 flex flex-col sm:flex-row gap-7">
         <Button
+          disabled={loading}
           className="w-full sm:w-[48%] custom-btn"
-          onClick={handleDownloadPdf2}
+          onClick={handleDownloadPdf4}
         >
           Download Pdf
         </Button>
