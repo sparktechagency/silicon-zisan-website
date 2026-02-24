@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 
-export default function HireEmployeeButton({ data }: any) {
+export default function HireEmployeeButton({ data, currentLang }: any) {
   const [loading2, setLoading2] = useState(false);
   const handleHiring = async () => {
     if (loading2) return;
@@ -19,6 +19,7 @@ export default function HireEmployeeButton({ data }: any) {
     try {
       const res = await myFetch(`/jobs/send-hiring-post/${data?._id}`, {
         method: "POST",
+        body: { language: currentLang },
       });
 
       if (res?.success) {

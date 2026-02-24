@@ -42,10 +42,10 @@ export default function AppliedJobs({ data, limit }: any) {
                   <h2 className="text-xl font-semibold notranslate">
                     {item?.user?.name?.trim() ? item.user.name : "No Name"}
                   </h2>
-
+                  {/* 
                   <p className="text-sm text-gray-300">
                     Senior Business Analytics
-                  </p>
+                  </p> */}
 
                   <p className="text-sm text-gray-400">
                     Applied : {dayjs(item?.createdAt).format("DD-MM-YYYY")}

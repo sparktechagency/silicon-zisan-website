@@ -6,6 +6,7 @@ import Image from "next/image";
 import logo from "../public/logo.png";
 import Container from "@/share/Container";
 import { myFetch } from "@/utils/myFetch";
+import { Phone } from "lucide-react";
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
@@ -59,22 +60,16 @@ export default async function Footer() {
               Contact Info
             </h3>
             <ul className="space-y-3">
-              <Link
-                href="https://wa.me/+88018595439901"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <li className="flex items-center text-gray-200 text-sm">
-                  <WhatsAppIcon />
-                  <span className="ml-2">
-                    {res?.data?.whatsApp || "+1234567890"}
-                  </span>
-                </li>
-              </Link>
+              <li className="flex items-center text-gray-200 text-sm">
+                <Phone size={17} />
+                <span className="ml-2">
+                  {res?.data?.phone || "+1234567890"}
+                </span>
+              </li>
 
               <div className="mt-3">
                 <Link
-                  href="https://mail.google.com/mail/u/0/?view=cm&fs=1&to=info@jobsinapp.de"
+                  href="mailto:info@jobsinapp.de"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

@@ -77,7 +77,7 @@ export default async function JobPostHomePage() {
                     <p>
                       <UserSearch />
                     </p>
-                    <p>{getAppliedJob(item?._id)} Applied</p>
+                    <p>{getAppliedJob(item?._id)} Applicant</p>
                   </div>
                   <div>
                     <div className="">

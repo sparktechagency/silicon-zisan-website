@@ -55,9 +55,9 @@ export function VerifyOtpphoneNumber() {
         <h1 className="text-center text-xl sm:text-3xl font-semibold text-white pt-3 pb-2">
           Verify OTP
         </h1>
-        <p className="text-white">we have sent the OTP to your phone number </p>
+        <p className="text-white">We have sent the OTP to your phone number </p>
         <div className="flex items-center justify-center mt-6">
-          <InputOTP
+          {/* <InputOTP
             maxLength={6}
             value={value}
             onChange={(value) => setValue(value)}
@@ -69,6 +69,13 @@ export function VerifyOtpphoneNumber() {
               <InputOTPSlot index={3} />
               <InputOTPSlot index={4} />
               <InputOTPSlot index={5} />
+            </InputOTPGroup>
+          </InputOTP> */}
+          <InputOTP maxLength={6} value={value} onChange={setValue}>
+            <InputOTPGroup className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+              {[...Array(5)].map((_, i) => (
+                <InputOTPSlot className="notranslate" key={i} index={i} />
+              ))}
             </InputOTPGroup>
           </InputOTP>
         </div>

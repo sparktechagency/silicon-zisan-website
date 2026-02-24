@@ -26,9 +26,9 @@ export default function PersonalInformation({ data }: { data: any }) {
     { label: "Location", value: data?.user?.address || "N/A" },
     { label: "LegalForm", value: data?.legalForm || "N/A" },
     { label: "TaxNo", value: data?.taxNo || "N/A" },
-    { label: "DeNo", value: data?.deNo || "N/A" },
-    { label: "WhatsApp", value: data?.whatsApp || "N/A" },
-    { label: "About", value: data?.about || "N/A" },
+    { label: "DENo", value: data?.deNo || "N/A" },
+    { label: "Category", value: data?.businessCategory || "N/A" },
+    { label: "About Company", value: data?.about || "N/A" },
   ];
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,21 +122,20 @@ export default function PersonalInformation({ data }: { data: any }) {
         {profileData.map(({ label, value }, idx) => (
           <div
             key={idx}
-            className="grid grid-cols-[40%_80%] sm:grid-cols-[200px_80%]  py-2 "
+            // className="grid grid-cols-[40%_80%] sm:grid-cols-[200px_80%]  py-2 "
           >
-            {label === "Name" || label === "Email" || label === "LegalForm" ? (
+            {/* {label === "Name" || label === "Email" || label === "LegalForm" ? (
               <>
                 {" "}
                 <span className="text-sm w-[20%] notranslate">{label}</span>
                 <span className="text-sm w-[80%] notranslate"> : {value}</span>
               </>
-            ) : (
-              <>
-                {" "}
-                <span className="text-sm w-[20%]">{label}</span>
-                <span className="text-sm w-[80%]"> : {value}</span>
-              </>
-            )}
+            ) : ( */}
+            <div className="grid grid-cols-[40%_80%] sm:grid-cols-[200px_80%]  py-2 ">
+              {" "}
+              <div className="text-sm  ">{label}</div>
+              <div className="text-sm "> : {value}</div>
+            </div>
           </div>
         ))}
       </div>

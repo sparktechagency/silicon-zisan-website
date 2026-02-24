@@ -82,7 +82,7 @@ export function VerifyOtp() {
           <InputOTP maxLength={6} value={otp} onChange={setOtp}>
             <InputOTPGroup className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {[...Array(6)].map((_, i) => (
-                <InputOTPSlot key={i} index={i} />
+                <InputOTPSlot className="notranslate" key={i} index={i} />
               ))}
             </InputOTPGroup>
           </InputOTP>

@@ -36,15 +36,17 @@ export default function ShiftPlanDetails({ details }: any) {
     setLoading(true);
 
     try {
-      const res = await myFetch(`/shift-plans/send-worker/${details._id}`, {
+      const res = await myFetch(`/shift-plans/send-worker/${details?._id}`, {
         method: "POST",
-        body: { language: currentLang },
+        body: { language: currentLang || "en" },
       });
 
       if (res.success) {
         toast.success(res.message);
       } else {
-        toast.error(res?.error || "Failed to send shift plan.");
+        toast.error(
+          (res as any)?.error[0].message || "Failed to send shift plan.",
+        );
       }
     } catch {
       toast.error("An error occurred while sending shift plan.");
@@ -197,6 +199,8 @@ export default function ShiftPlanDetails({ details }: any) {
     const currentLang = googtrans.split("/")[2] || "en";
     console.log("currentLang", currentLang);
 
+    console.log("PDF lang:", currentLang);
+
     // ✅ Step 1: Translate texts dynamically
     const t_personalInfo = await translateText(
       "Personal Information",
@@ -209,8 +213,8 @@ export default function ShiftPlanDetails({ details }: any) {
     const t_shiftPlan = await translateText("Shift Plan", currentLang);
     const t_remarks = await translateText("Remarks", currentLang);
     const t_date = await translateText("Date", currentLang);
-    const t_from = await translateText("From", currentLang);
-    const t_until = await translateText("To", currentLang);
+    const t_from = await translateText("Start", currentLang);
+    const t_until = await translateText("End", currentLang);
     const t_shift = await translateText("Timeline", currentLang);
     // const t_re = await translateText("Shift", currentLang);
 
@@ -256,26 +260,50 @@ export default function ShiftPlanDetails({ details }: any) {
     };
 
     // ✅ Step 4: Remarks section
+    // const remarksSection =
+    //   details?.plans?.length > 0
+    //     ? {
+    //         margin: [0, 10, 0, 0],
+    //         stack: [
+    //           { text: t_remarks, style: "sectionHeader" }, // already translated header
+    //           {
+    //             // Translate each remark dynamically
+    //             ul: await Promise.all(
+    //               details.plans
+    //                 .map((plan: any) => plan?.remarks ?? null)
+    //                 .filter(Boolean)
+    //                 .map(async (remark: string) => {
+    //                   const translatedRemark = await translateText(
+    //                     remark,
+    //                     currentLang,
+    //                   );
+    //                   // return { text: translatedRemark };
+    //                 }),
+    //             ),
+    //             style: "normalText",
+    //           },
+    //         ],
+    //       }
+    //     : null;
+
     const remarksSection =
       details?.plans?.length > 0
         ? {
             margin: [0, 10, 0, 0],
             stack: [
-              { text: t_remarks, style: "sectionHeader" }, // already translated header
+              { text: t_remarks, style: "sectionHeader" },
               {
-                // Translate each remark dynamically
-                ul: await Promise.all(
-                  details.plans
-                    .map((plan: any) => plan?.remarks ?? null)
-                    .filter(Boolean)
-                    .map(async (remark: string) => {
-                      const translatedRemark = await translateText(
-                        remark,
-                        currentLang,
-                      );
-                      return { text: translatedRemark };
+                ul: (
+                  await Promise.all(
+                    details.plans.map(async (p: any) => {
+                      console.log("p", p.remarks);
+
+                      if (!p?.remarks) return null;
+
+                      return await translateText(p.remarks, currentLang);
                     }),
-                ),
+                  )
+                ).filter(Boolean),
                 style: "normalText",
               },
             ],
@@ -349,6 +377,11 @@ export default function ShiftPlanDetails({ details }: any) {
       },
     );
     const data = await res.json();
+    console.log(
+      "data.data.translations[0].translatedText",
+      data.data.translations[0].translatedText,
+    );
+
     return data.data.translations[0].translatedText;
   }
 
@@ -392,8 +425,8 @@ export default function ShiftPlanDetails({ details }: any) {
             <thead className="text-gray-700 border-b border-gray-300">
               <tr>
                 <th className="px-4 py-2">Date</th>
-                <th className="px-4 py-2">To</th>
-                <th className="px-4 py-2">Form</th>
+                <th className="px-4 py-2">Start</th>
+                <th className="px-4 py-2">End</th>
                 <th className="px-4 py-2">Timeline</th>
               </tr>
             </thead>

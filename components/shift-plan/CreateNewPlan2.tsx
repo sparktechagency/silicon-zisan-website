@@ -384,6 +384,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
             onHanldeShift={handleSubmit(handleAddShiftPlan)}
             plans={plans}
             onHandleRemove={handleRemovePlan}
+            reset={reset}
           />
 
           <div className="grid grid-cols-2 gap-4 mt-6">

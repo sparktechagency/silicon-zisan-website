@@ -37,7 +37,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
       if (res.success) {
         window.open(res.data, "_blank");
       } else {
-        toast.error(res?.message);
+        toast.error((res as any)?.error[0].message);
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
