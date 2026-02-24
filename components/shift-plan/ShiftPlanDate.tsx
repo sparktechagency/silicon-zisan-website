@@ -15,7 +15,6 @@ export default function ShiftPlanDate({
   onHanldeShift,
   plans,
   onHandleRemove,
-  reset,
 }: any) {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
@@ -66,10 +65,7 @@ export default function ShiftPlanDate({
                   ? "custom-btn"
                   : "bg-card border border-gray-400/400"
               }`}
-              onClick={() => {
-                onHanldeShift();
-                reset();
-              }}
+              onClick={onHanldeShift}
             >
               Add Plan
             </Button>

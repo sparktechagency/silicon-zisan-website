@@ -9,7 +9,6 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { MdOutlineVerifiedUser } from "react-icons/md";
 import { TfiHeadphoneAlt } from "react-icons/tfi";
 import { PiNoteThin } from "react-icons/pi";
-import { CiCalculator1 } from "react-icons/ci";
 import { MdPodcasts } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -367,5 +366,47 @@ export const agreementSections = [
       "Any amendments or supplements to this agreement must be made in writing. Oral agreements are only valid if confirmed in writing.",
       "Should individual provisions of this agreement be invalid or unenforceable, the remainder of the agreement shall remain in effect. The invalid provision shall be replaced by a valid one that most closely reflects the economic intent of the invalid provision.",
     ],
+  },
+];
+
+export const shiftOptions = [
+  {
+    value: "morning",
+    label: {
+      en: "Morning",
+      de: "Morgen",
+      fr: "Matin",
+      nl: "Ochtend",
+      ro: "Dimineața",
+      pl: "Rano",
+      uk: "Ранок",
+      it: "Mattina",
+    },
+  },
+  {
+    value: "evening",
+    label: {
+      en: "Evening",
+      de: "Abend",
+      fr: "Soir",
+      nl: "Avond",
+      ro: "Seara",
+      pl: "Wieczór",
+      uk: "Вечір",
+      it: "Sera",
+    },
+  },
+  {
+    value: "night",
+    label: {
+      en: "Night",
+      de: "Nacht",
+      fr: "Nuit",
+      nl: "Nacht",
+      ro: "Noapte",
+      pl: "Noc",
+      uk: "Ніч",
+      it: "Notte",
+    },
   },
 ];

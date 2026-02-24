@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/utils/revalidateTag";
 import dayjs from "dayjs";
+import { shiftOptions } from "@/demoData/data";
 
 type FormValues = {
   worker: string;
@@ -161,10 +162,11 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     setSelectedDates([]);
     reset({
       worker: data.worker,
-      shift: "",
+      shift: undefined,
       tasks: [],
       taskInput: "",
     });
+    // reset();
 
     toast.success("Shift added");
   };
@@ -278,23 +280,32 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               <Controller
                 name="shift"
                 control={control}
-                // rules={{ required: "Please select an option" }}
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="button-unactive text-white w-full">
-                      <SelectValue placeholder="Select Timeline" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {names.map((name) => (
-                        <SelectItem key={name} value={String(name)}>
-                          <span className="notranslate">{name}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
+                render={({ field }) => {
+                  const currentLang = "en"; // replace with your dynamic language, e.g., from useCookie or context
 
+                  return (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className="button-unactive text-white w-full">
+                        {/* <SelectValue placeholder="Select Timeline" /> */}
+                        <SelectValue>
+                          {field.value
+                            ? shiftOptions.find(
+                                (opt) => opt.value === field.value,
+                              )?.label[currentLang]
+                            : "Select Timeline"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {shiftOptions.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label[currentLang]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  );
+                }}
+              />
               {/* {errors.shift && (
                 <span className="text-red-400">{errors.shift.message}</span>
               )} */}
@@ -384,7 +395,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
             onHanldeShift={handleSubmit(handleAddShiftPlan)}
             plans={plans}
             onHandleRemove={handleRemovePlan}
-            reset={reset}
           />
 
           <div className="grid grid-cols-2 gap-4 mt-6">
