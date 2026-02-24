@@ -104,7 +104,7 @@ export default function LoginPage() {
           />
 
           <span
-            className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-[#374859]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-white"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <Eye /> : <EyeOff />}

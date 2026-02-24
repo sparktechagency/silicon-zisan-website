@@ -5,20 +5,21 @@ import { Button } from "../ui/button";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 
-export default function HireEmployeeButton({ data }: any) {
-  const [loading, setLoading] = useState(false);
+export default function HireEmployeeButton({ data, currentLang }: any) {
+  const [loading2, setLoading2] = useState(false);
   const handleHiring = async () => {
-    if (loading) return;
-    setLoading(true);
+    if (loading2) return;
+    setLoading2(true);
     const loadingToastId = toast.loading("Processing your request...", {
       id: "hiring-toast",
     });
 
-    setLoading(true);
+    setLoading2(true);
 
     try {
       const res = await myFetch(`/jobs/send-hiring-post/${data?._id}`, {
         method: "POST",
+        body: { language: currentLang },
       });
 
       if (res?.success) {
@@ -44,12 +45,12 @@ export default function HireEmployeeButton({ data }: any) {
         { id: loadingToastId },
       );
     } finally {
-      setLoading(false);
+      setLoading2(false);
     }
   };
   return (
     <Button
-      disabled={loading}
+      disabled={loading2}
       onClick={handleHiring}
       className="w-full sm:w-[48%] custom-btn"
     >

@@ -50,8 +50,8 @@ export default async function JobPostHomePage() {
               {/* Company Details */}
               <div className="text-white flex-1 items-end">
                 <div className="">
-                  <p className="text-xl my-2 notranslate">{item.category}</p>
-                  <p className="text-xl my-2 notranslate">{item.subCategory}</p>
+                  <p className="text-xl my-2 ">{item.category}</p>
+                  <p className="text-xl my-2 ">{item.subCategory}</p>
 
                   <div className="flex flex-wrap items-center gap-3">
                     <p className="border rounded bg-[#465565] px-3 py-0.5">
@@ -77,7 +77,7 @@ export default async function JobPostHomePage() {
                     <p>
                       <UserSearch />
                     </p>
-                    <p>{getAppliedJob(item?._id)} Applied</p>
+                    <p>{getAppliedJob(item?._id)} Applicant</p>
                   </div>
                   <div>
                     <div className="">

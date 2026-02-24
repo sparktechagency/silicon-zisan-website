@@ -24,16 +24,17 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
-const expriences = ["With Experience", "Without Experience"];
+// const expriences = ["With Experience", "Without Experience"];
 
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useCookie } from "@/hooks/useCookies";
+import { experiences } from "@/demoData/data";
 
 type FormValues = {
   category: string;
@@ -55,6 +56,13 @@ const HireEmployeeForm = () => {
   const [loading, setLoading] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
   const router = useRouter();
+
+  const googtrans = useCookie("googtrans");
+
+  const currentLang = (googtrans
+    .replace(/^\/en\//, "") // remove /en/ at the start
+    .replace(/^en\//, "") // remove en/ at the start if no leading slash
+    .replace(/\/$/, "") || "en") as keyof (typeof experiences)[0]["label"];
 
   const {
     register,
@@ -179,13 +187,18 @@ const HireEmployeeForm = () => {
               rules={{ required: "Exprience is required" }}
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full border">
-                    <SelectValue placeholder="Select Experience Level" />
+                  <SelectTrigger className="button-unactive text-white w-full">
+                    <SelectValue>
+                      {field.value
+                        ? experiences?.find((opt) => opt.value === field.value)
+                            ?.label[currentLang]
+                        : "Select Timeline"}
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    {expriences?.map((sub, index) => (
-                      <SelectItem key={`${index}`} value={String(sub)}>
-                        <span className="notranslate"> {sub}</span>
+                    {experiences?.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label[currentLang]}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -18,6 +18,9 @@ export default async function ContractInformationHomePage({
   const adminInformation = await myFetch(`/users/profile`, {
     tags: ["profile"],
   });
+
+  console.log("res", res?.data);
+
   return (
     <>
       <ContractInformation

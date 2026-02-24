@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
 import { myFetch } from "@/utils/myFetch";
@@ -15,19 +15,16 @@ type Inputs = {
   confirmPassword: string;
 };
 
-export default function PasswordModal({
-  trigger,
-}: {
-  trigger: React.ReactNode;
-}) {
+export default function PasswordModal({ open, onOpenChange }: any) {
   const [showCurrent, setShowCurrent] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: {},
   } = useForm<Inputs>({
     defaultValues: {
@@ -38,6 +35,7 @@ export default function PasswordModal({
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    setLoading(true);
     try {
       const res = await myFetch("/auth/change-password", {
         method: "POST",
@@ -46,7 +44,7 @@ export default function PasswordModal({
 
       if (res?.success) {
         toast.success(res?.message || "Profile updated successfully");
-        setOpen(false);
+        onOpenChange(false);
       } else {
         toast.error(
           (res as any)?.error[0].message || "Failed to update profile",
@@ -54,13 +52,14 @@ export default function PasswordModal({
       }
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "An error occurred");
+    } finally {
+      setLoading(false);
+      reset();
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
-
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-xl bg-[#3C4751] rounded-lg p-6 w-full max-w-md shadow-lg opacity-80 backdrop-blur-sm border border-white/22">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 mt-8">
           {/* Current Password */}
@@ -115,7 +114,11 @@ export default function PasswordModal({
             </button>
           </div>
 
-          <Button type="submit" className="w-full custom-btn">
+          <Button
+            disabled={loading}
+            type="submit"
+            className="w-full custom-btn"
+          >
             Confirm
           </Button>
         </form>

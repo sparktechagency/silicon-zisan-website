@@ -33,14 +33,16 @@ export function VerifyOtp() {
         body: { email, oneTimeCode: Number(otp) },
       });
 
+      console.log("verify token", res);
+
       if (res?.success) {
         if (res?.data) {
           // if reset token is available then redirect reset password page
-          toast.success(res.message);
+          // toast.success(res.message);
           router.push(`/new-password?token=${res?.data}`);
         } else {
           // if not reset token, redirect to login page
-          toast.success(res.message);
+          // toast.success(res.message);
           router.push(`/login`);
         }
       } else {
@@ -80,7 +82,7 @@ export function VerifyOtp() {
           <InputOTP maxLength={6} value={otp} onChange={setOtp}>
             <InputOTPGroup className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {[...Array(6)].map((_, i) => (
-                <InputOTPSlot key={i} index={i} />
+                <InputOTPSlot className="notranslate" key={i} index={i} />
               ))}
             </InputOTPGroup>
           </InputOTP>

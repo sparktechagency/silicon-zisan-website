@@ -38,6 +38,9 @@ export default function NewPassword() {
         },
         token: token,
       });
+      console.log("token", token);
+
+      console.log("res", res);
 
       if (res?.success) {
         toast.success(res.message);
@@ -50,7 +53,7 @@ export default function NewPassword() {
       toast.error(
         err instanceof Error
           ? err.message
-          : "Password reset failed. Please try again."
+          : "Password reset failed. Please try again.",
       );
     }
   };

@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
-import { ArrowDown, EyeIcon } from "lucide-react";
+import { EyeIcon } from "lucide-react";
 
 export default function Invoice({ data }: any) {
+  console.log("data", data);
+
   return (
     <>
       {data?.map((item: any, index: any) => (
@@ -9,9 +11,7 @@ export default function Invoice({ data }: any) {
           {/* Transaction Info */}
           <div className="flex items-center justify-between bg-card p-4 rounded border border-gray-300/30 ">
             <div>
-              <p className="text-lg font-semibold">
-                {item?.stripeInvoiceId.slice(0, 10)}
-              </p>
+              <p className="text-lg font-semibold">{item?.invoiceNumber}</p>
               <p className="text-sm ">
                 {dayjs(item?.createdAt).format("YYYY-MM-DD")}
               </p>
