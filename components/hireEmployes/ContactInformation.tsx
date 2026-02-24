@@ -30,6 +30,8 @@ export default function ContractInformation({
   const place = "Place";
   const date = "Date";
 
+  console.log("currentLang", currentLang);
+
   // const handleDownloadPdf = async () => {
   //   // Convert logo to base64 properly
   //   const response = await fetch(agreement.src);
@@ -492,7 +494,7 @@ export default function ContractInformation({
 
         try {
           const res = await fetch(
-            `https://translation.googleapis.com/language/translate/v2?key=AIzaSyARXva7qI4_CvSGbZkNdanQnYFpXwX9Rwg`,
+            `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_TRANSLATE_KEY}`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -677,7 +679,7 @@ export default function ContractInformation({
             stack: [
               translatedJobType,
               `€${data?.salaryAmount || "N/A"}`,
-              `🕐 ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
+              ` ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
             ].map((text) => ({
               text,
               style: "normalText",
@@ -756,19 +758,15 @@ export default function ContractInformation({
           <div className="flex space-x-72 items-start">
             <div>
               <div>
-                <h3 className="font-bold text-gray-700 text-xl notranslate">
-                  Between :
-                </h3>
+                <h3 className="font-bold text-gray-700 text-xl">Between :</h3>
                 <p className="notranslate">{getProfile?.user?.name}</p>
                 <p className="notranslate">{getProfile?.user?.email}</p>
                 <p>{getProfile?.user?.address}</p>
               </div>
               <div className="mt-2">
-                <h3 className="font-bold text-gray-700 text-xl notranslate">
-                  And :
-                </h3>
+                <h3 className="font-bold text-gray-700 text-xl">And :</h3>
                 <p>Recruiter</p>
-                <p>JobsInApp</p>
+                <p className="notranslate">JobsInApp</p>
                 <p>{getAdmin?.address}</p>
                 {/* <p>{adminInformation?.whatsApp}</p> */}
                 {/* <p>{getAdmin?.phone}</p> */}
@@ -895,7 +893,7 @@ export default function ContractInformation({
         >
           Send
         </Button> */}
-        <HireEmployeeButton data={data} />
+        <HireEmployeeButton data={data} currentLang={currentLang} />
       </div>
     </div>
   );

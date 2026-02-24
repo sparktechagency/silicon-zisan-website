@@ -24,6 +24,8 @@ import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/utils/revalidateTag";
 import dayjs from "dayjs";
+import { shiftOptions } from "@/demoData/data";
+import { useCookie } from "@/hooks/useCookies";
 
 type FormValues = {
   worker: string;
@@ -44,13 +46,21 @@ type Plan = {
   remarks: string;
 };
 
-const names = ["Morning", "Evening", "Night"];
+// const names = ["Morning", "Evening", "Nigh t"];
 
 export default function CreateNewPlan2({ employee, editData }: any) {
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const router = useRouter();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const googtrans = useCookie("googtrans");
+  // const googtrans = useCookie("googtrans")?.value || "/en/en";
+  const currentLang = (googtrans
+    .replace(/^\/en\//, "") // remove /en/ at the start
+    .replace(/^en\//, "") // remove en/ at the start if no leading slash
+    .replace(/\/$/, "") || "en") as keyof (typeof shiftOptions)[0]["label"];
+  console.log("parts", currentLang);
 
   const {
     control,
@@ -157,14 +167,17 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       shift: data.shift,
     };
 
+    console.log("payload", payload);
+
     setPlans((prev) => [...prev, payload]);
     setSelectedDates([]);
     reset({
       worker: data.worker,
-      shift: "",
+      shift: undefined,
       tasks: [],
       taskInput: "",
     });
+    // reset();
 
     toast.success("Shift added");
   };
@@ -278,22 +291,52 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               <Controller
                 name="shift"
                 control={control}
-                // rules={{ required: "Please select an option" }}
+                render={({ field }) => {
+                  return (
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className="button-unactive text-white w-full">
+                        <SelectValue>
+                          {field.value
+                            ? shiftOptions.find(
+                                (opt) => opt.value === field.value,
+                              )?.label[currentLang]
+                            : "Select Timeline"}
+                        </SelectValue>
+                      </SelectTrigger>
+                      <SelectContent>
+                        {shiftOptions?.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.label[currentLang]}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  );
+                }}
+              />
+
+              {/* <Controller
+                name="shift"
+                control={control}
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
+                    {" "}
                     <SelectTrigger className="button-unactive text-white w-full">
-                      <SelectValue placeholder="Select Timeline" />
-                    </SelectTrigger>
+                      {" "}
+                      <SelectValue placeholder="" />{" "}
+                    </SelectTrigger>{" "}
                     <SelectContent>
+                      {" "}
                       {names.map((name) => (
-                        <SelectItem key={name} value={String(name)}>
-                          <span className="notranslate">{name}</span>
+                        <SelectItem key={name} value={name}>
+                          {" "}
+                          <span className="">{name}</span>{" "}
                         </SelectItem>
-                      ))}
-                    </SelectContent>
+                      ))}{" "}
+                    </SelectContent>{" "}
                   </Select>
                 )}
-              />
+              /> */}
 
               {/* {errors.shift && (
                 <span className="text-red-400">{errors.shift.message}</span>
