@@ -494,7 +494,7 @@ export default function ContractInformation({
 
         try {
           const res = await fetch(
-            `https://translation.googleapis.com/language/translate/v2?key=AIzaSyARXva7qI4_CvSGbZkNdanQnYFpXwX9Rwg`,
+            `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_TRANSLATE_KEY}`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },

@@ -25,6 +25,7 @@ import { myFetch } from "@/utils/myFetch";
 import { revalidate } from "@/utils/revalidateTag";
 import dayjs from "dayjs";
 import { shiftOptions } from "@/demoData/data";
+import { useCookie } from "@/hooks/useCookies";
 
 type FormValues = {
   worker: string;
@@ -45,13 +46,21 @@ type Plan = {
   remarks: string;
 };
 
-const names = ["Morning", "Evening", "Night"];
+// const names = ["Morning", "Evening", "Nigh t"];
 
 export default function CreateNewPlan2({ employee, editData }: any) {
   const [selectedDates, setSelectedDates] = useState<Date[]>([]);
   const router = useRouter();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const googtrans = useCookie("googtrans");
+  // const googtrans = useCookie("googtrans")?.value || "/en/en";
+  const currentLang = (googtrans
+    .replace(/^\/en\//, "") // remove /en/ at the start
+    .replace(/^en\//, "") // remove en/ at the start if no leading slash
+    .replace(/\/$/, "") || "en") as keyof (typeof shiftOptions)[0]["label"];
+  console.log("parts", currentLang);
 
   const {
     control,
@@ -157,6 +166,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       remarks: data.remarks,
       shift: data.shift,
     };
+
+    console.log("payload", payload);
 
     setPlans((prev) => [...prev, payload]);
     setSelectedDates([]);
@@ -281,12 +292,9 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                 name="shift"
                 control={control}
                 render={({ field }) => {
-                  const currentLang = "en"; // replace with your dynamic language, e.g., from useCookie or context
-
                   return (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="button-unactive text-white w-full">
-                        {/* <SelectValue placeholder="Select Timeline" /> */}
                         <SelectValue>
                           {field.value
                             ? shiftOptions.find(
@@ -296,7 +304,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                         </SelectValue>
                       </SelectTrigger>
                       <SelectContent>
-                        {shiftOptions.map((opt) => (
+                        {shiftOptions?.map((opt) => (
                           <SelectItem key={opt.value} value={opt.value}>
                             {opt.label[currentLang]}
                           </SelectItem>
@@ -306,6 +314,30 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                   );
                 }}
               />
+
+              {/* <Controller
+                name="shift"
+                control={control}
+                render={({ field }) => (
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    {" "}
+                    <SelectTrigger className="button-unactive text-white w-full">
+                      {" "}
+                      <SelectValue placeholder="" />{" "}
+                    </SelectTrigger>{" "}
+                    <SelectContent>
+                      {" "}
+                      {names.map((name) => (
+                        <SelectItem key={name} value={name}>
+                          {" "}
+                          <span className="">{name}</span>{" "}
+                        </SelectItem>
+                      ))}{" "}
+                    </SelectContent>{" "}
+                  </Select>
+                )}
+              /> */}
+
               {/* {errors.shift && (
                 <span className="text-red-400">{errors.shift.message}</span>
               )} */}

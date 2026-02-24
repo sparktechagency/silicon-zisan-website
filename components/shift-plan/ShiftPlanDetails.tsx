@@ -193,6 +193,11 @@ export default function ShiftPlanDetails({ details }: any) {
   };
 
   const handleDownload4 = async () => {
+    console.log(
+      "process.env.GOOGLE_TRANSLATE_KEY",
+      process.env.GOOGLE_TRANSLATE_KEY,
+    );
+
     setLoading2(true);
     if (!details) return;
 
@@ -369,7 +374,7 @@ export default function ShiftPlanDetails({ details }: any) {
   // Helper: Google Translate API function
   async function translateText(text: string, target: string) {
     const res = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=AIzaSyARXva7qI4_CvSGbZkNdanQnYFpXwX9Rwg`,
+      `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_TRANSLATE_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

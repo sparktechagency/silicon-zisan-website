@@ -91,7 +91,7 @@ function TimePicker({ field, fieldState }: any) {
             <SelectGroup>
               {hours.map((h) => (
                 <SelectItem key={h} value={h}>
-                  <span className="notranslate">{h}</span>
+                  <span className="notranslate">{h || 0}</span>
                 </SelectItem>
               ))}
             </SelectGroup>

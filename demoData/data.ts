@@ -287,12 +287,84 @@ export const jobRoles = [
 ];
 
 export const jobTypes = [
-  "Full Time",
-  "Part Time",
-  "Mini Job",
-  "Ausbildung",
-  "Temporary Work",
-  "Career Changer",
+  {
+    value: "Full Time",
+    label: {
+      en: "Full Time",
+      de: "Vollzeit",
+      fr: "Temps plein",
+      nl: "Voltijds",
+      ro: "Normă întreagă",
+      pl: "Pełny etat",
+      uk: "Повна зайнятість",
+      it: "Tempo pieno",
+    },
+  },
+  {
+    value: "Part Time",
+    label: {
+      en: "Part Time",
+      de: "Teilzeit",
+      fr: "Temps partiel",
+      nl: "Deeltijds",
+      ro: "Part-time",
+      pl: "Niepełny etat",
+      uk: "Неповна зайнятість",
+      it: "Tempo parziale",
+    },
+  },
+  {
+    value: "Mini Job",
+    label: {
+      en: "Mini Job",
+      de: "Minijob",
+      fr: "Mini emploi",
+      nl: "Mini-job",
+      ro: "Mini job",
+      pl: "Mini praca",
+      uk: "Міні-робота",
+      it: "Mini lavoro",
+    },
+  },
+  {
+    value: "Ausbildung",
+    label: {
+      en: "Ausbildung",
+      de: "Ausbildung",
+      fr: "Formation professionnelle",
+      nl: "Beroepsopleiding",
+      ro: "Ucenicie",
+      pl: "Praktyka zawodowa",
+      uk: "Професійне навчання",
+      it: "Formazione professionale",
+    },
+  },
+  {
+    value: "Temporary Work",
+    label: {
+      en: "Temporary Work",
+      de: "Zeitarbeit",
+      fr: "Travail temporaire",
+      nl: "Tijdelijk werk",
+      ro: "Muncă temporară",
+      pl: "Praca tymczasowa",
+      uk: "Тимчасова робота",
+      it: "Lavoro temporaneo",
+    },
+  },
+  {
+    value: "Career Changer",
+    label: {
+      en: "Career Changer",
+      de: "Quereinsteiger",
+      fr: "Reconversion professionnelle",
+      nl: "Carrièreswitch",
+      ro: "Schimbare de carieră",
+      pl: "Zmiana zawodu",
+      uk: "Зміна кар'єри",
+      it: "Cambio carriera",
+    },
+  },
 ];
 
 export const agreementSections = [
@@ -371,7 +443,7 @@ export const agreementSections = [
 
 export const shiftOptions = [
   {
-    value: "morning",
+    value: "Morning",
     label: {
       en: "Morning",
       de: "Morgen",
@@ -384,7 +456,7 @@ export const shiftOptions = [
     },
   },
   {
-    value: "evening",
+    value: "Evening",
     label: {
       en: "Evening",
       de: "Abend",
@@ -397,7 +469,7 @@ export const shiftOptions = [
     },
   },
   {
-    value: "night",
+    value: "Night",
     label: {
       en: "Night",
       de: "Nacht",
@@ -407,6 +479,35 @@ export const shiftOptions = [
       pl: "Noc",
       uk: "Ніч",
       it: "Notte",
+    },
+  },
+];
+
+export const experiences = [
+  {
+    value: "With Experience",
+    label: {
+      en: "With Experience",
+      de: "Mit Erfahrung",
+      fr: "Avec expérience",
+      nl: "Met ervaring",
+      ro: "Cu experiență",
+      pl: "Z doświadczeniem",
+      uk: "З досвідом",
+      it: "Con esperienza",
+    },
+  },
+  {
+    value: "Without Experience",
+    label: {
+      en: "Without Experience",
+      de: "Ohne Erfahrung",
+      fr: "Sans expérience",
+      nl: "Zonder ervaring",
+      ro: "Fără experiență",
+      pl: "Bez doświadczenia",
+      uk: "Без досвіду",
+      it: "Senza esperienza",
     },
   },
 ];
