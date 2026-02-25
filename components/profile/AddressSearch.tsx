@@ -79,7 +79,7 @@ export default function AddressInput({ setValue, register, errors }: any) {
         onChange={(val) => setInput(val.target.value)}
       />
 
-      {errors.name && (
+      {errors.address && (
         <span className="text-red-400 text-sm">{errors.address.message}</span>
       )}
 

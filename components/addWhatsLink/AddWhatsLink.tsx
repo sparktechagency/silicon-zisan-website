@@ -54,6 +54,7 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
 
       if (res.success) {
         toast.success("Number is updated Successfully");
+        reset();
       } else {
         toast.error((res as any)?.error[0].message);
       }

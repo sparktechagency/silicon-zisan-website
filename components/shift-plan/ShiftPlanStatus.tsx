@@ -58,7 +58,7 @@ export default function ShiftPlanStatus() {
                   }}
                 >
                   <SelectTrigger className="button-unactive text-white w-full rounded-full border border-white cursor-pointer">
-                    <SelectValue>
+                    <SelectValue placeholder="Timeline">
                       {field.value
                         ? shiftOptions.find((opt) => opt.value === field.value)
                             ?.label[currentLang]

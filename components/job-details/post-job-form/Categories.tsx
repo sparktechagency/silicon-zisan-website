@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 import { Label } from "@/components/ui/label";
 import { Controller, useWatch } from "react-hook-form";
 import {
@@ -9,8 +8,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { memo, useEffect, useState } from "react";
 import { useCookie } from "@/hooks/useCookies";
+import { TranslatedValue } from "@/hooks/TranslatedValue";
 
 interface CategoriesProps {
   control: any;
@@ -42,70 +41,6 @@ export default function Categories({
       .replace(/^en\//, "")
       .replace(/\/$/, "") || "en";
 
-  // const TranslatedValue = ({ text, lang = "en" }: any) => {
-  //   const [translated, setTranslated] = useState(text);
-
-  //   useEffect(() => {
-  //     const getTranslation = async () => {
-  //       // API কী এবং লজিক এখানে থাকবে
-  //       const res = await translateText(text, lang);
-  //       setTranslated(res);
-  //     };
-  //     if (text) getTranslation();
-  //   }, [text, lang]);
-
-  //   return <span>{translated}</span>;
-  // };
-
-  const TranslatedValue = memo(({ text, lang }: any) => {
-    const [translated, setTranslated] = useState(text);
-
-    useEffect(() => {
-      let isMounted = true; // Cleanup flag
-
-      const getTranslation = async () => {
-        if (!text) return;
-        const cached = sessionStorage.getItem(`trans_${lang}_${text}`);
-        if (cached) {
-          setTranslated(cached);
-          return;
-        }
-
-        const res = await translateText(text, lang);
-        if (isMounted) {
-          setTranslated(res);
-          sessionStorage.setItem(`trans_${lang}_${text}`, res); // cache result
-        }
-      };
-
-      getTranslation();
-
-      return () => {
-        isMounted = false; // prevent state update if unmounted
-      };
-    }, [text, lang]);
-
-    return <span>{translated}</span>;
-  });
-
-  async function translateText(text: string, target: string) {
-    const res = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=${process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ q: text, target, format: "text" }),
-      },
-    );
-    const data = await res.json();
-    console.log(
-      "data.data.translations[0].translatedText",
-      data.data.translations[0].translatedText,
-    );
-
-    return data.data.translations[0].translatedText;
-  }
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       {/* Category */}
@@ -120,7 +55,6 @@ export default function Categories({
               <SelectTrigger className="w-full border">
                 <SelectValue placeholder="Select Category">
                   {field.value ? (
-                    // এখানে সরাসরি await না করে কম্পোনেন্ট কল করুন
                     <TranslatedValue text={field.value} lang={currentLang} />
                   ) : (
                     "Select Category"
@@ -130,7 +64,6 @@ export default function Categories({
               <SelectContent>
                 <SelectGroup>
                   {categories.map((item) => (
-                    // value হিসেবে English name ই রাখুন যাতে logic ঠিক থাকে
                     <SelectItem key={item._id} value={item.name}>
                       <span>{item.name}</span>
                     </SelectItem>
@@ -157,7 +90,6 @@ export default function Categories({
               <SelectTrigger className="w-full border">
                 <SelectValue placeholder="Select SubCategory">
                   {field.value ? (
-                    // এখানে সরাসরি await না করে কম্পোনেন্ট কল করুন
                     <TranslatedValue text={field.value} lang={currentLang} />
                   ) : (
                     "Select SubCategory"

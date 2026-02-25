@@ -22,6 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { TranslatedValue } from "@/hooks/TranslatedValue";
+import { useCookie } from "@/hooks/useCookies";
 
 type Inputs = {
   name: string;
@@ -57,6 +59,13 @@ export default function EditProfile({ title }: { title?: string }) {
   const [categories, setCategories] = useState<any[]>([]);
   const router = useRouter();
   const countryList = countryListData.getAll();
+
+  const googtrans = useCookie("googtrans");
+  const currentLang =
+    googtrans
+      .replace(/^\/en\//, "")
+      .replace(/^en\//, "")
+      .replace(/\/$/, "") || "en";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -212,16 +221,6 @@ export default function EditProfile({ title }: { title?: string }) {
           )}
         </div>
 
-        {/* 
-        <div className="space-y-2">
-          <Label htmlFor="address">Address</Label>
-          <Input
-            id="address"
-            placeholder="Enter address"
-            {...register("address")}
-          />
-        </div> */}
-
         <AddressInput setValue={setValue} register={register} errors={errors} />
 
         <div className="space-y-2">
@@ -230,7 +229,6 @@ export default function EditProfile({ title }: { title?: string }) {
             <SearchableCountrySelect
               value={watch("countryCode")}
               onChange={(dialCode: string) => {
-                // ✅ setValue only, no triggerValidation needed for optional field
                 setValue("countryCode", dialCode, { shouldDirty: true });
               }}
               error={errors.countryCode}
@@ -241,10 +239,6 @@ export default function EditProfile({ title }: { title?: string }) {
               type="tel"
               {...register("phone", {
                 required: "Phone number is required",
-                // pattern: {
-                //   value: /^[0-9]{6,14}$/,
-                //   message: "Invalid phone number (6-14 digits only)",
-                // },
               })}
               placeholder="Phone number"
             />
@@ -256,22 +250,27 @@ export default function EditProfile({ title }: { title?: string }) {
 
         <div>
           <Label className="block text-sm mb-1">Business Category</Label>
+
           <Controller
             name="businessCategory"
             control={control}
+            rules={{ required: "Category is required" }}
             render={({ field }) => (
-              <Select value={field.value || ""} onValueChange={field.onChange}>
+              <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger className="w-full border">
-                  <SelectValue placeholder="Select Category" />
+                  <SelectValue>
+                    {field.value ? (
+                      <TranslatedValue text={field.value} lang={currentLang} />
+                    ) : (
+                      "Select Category"
+                    )}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    {categories.map((item, index) => (
-                      <SelectItem
-                        key={`${item.name}-${index}`}
-                        value={item.name}
-                      >
-                        <span> {item.name}</span>
+                    {categories.map((item) => (
+                      <SelectItem key={item._id} value={item.name}>
+                        <span>{item.name}</span>
                       </SelectItem>
                     ))}
                   </SelectGroup>
