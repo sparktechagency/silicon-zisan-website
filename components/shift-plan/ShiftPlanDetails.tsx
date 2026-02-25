@@ -55,143 +55,6 @@ export default function ShiftPlanDetails({ details }: any) {
     }
   };
 
-  const handleDownload3 = async () => {
-    if (!details) return;
-
-    const currentLang = googtrans?.split("/")[2] || "en";
-    console.log("currentLang", currentLang);
-
-    // ✅ Step 2: Translation array থেকে texts নিন
-    console.log("parts", currentLang);
-    const translated = translations[currentLang] ?? translations["en"];
-
-    const [
-      t_personalInfo, // [0]
-      t_name, // [1]
-      t_email, // [2]
-      t_address, // [3]
-      t_contact, // [4]
-      t_shiftPlan, // [5]
-      t_remarks, // [6]
-      t_date, // [7]
-      t_from, // [8]
-      t_until, // [9]
-      t_shift, // [10]
-    ] = translated;
-
-    // ✅ Step 3: Logo fetch (same as before)
-    const response = await fetch(logo.src);
-    const blob = await response.blob();
-
-    const logoBase64: string = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.readAsDataURL(blob);
-    });
-
-    // ✅ Step 4: Schedule table - translated headers
-    const scheduleTable = {
-      table: {
-        headerRows: 1,
-        widths: ["*", "*", "*", "*"],
-        body: [
-          [
-            { text: t_date, style: "tableHeader" },
-            { text: t_from, style: "tableHeader" },
-            { text: t_until, style: "tableHeader" },
-            { text: t_shift, style: "tableHeader" },
-          ],
-          ...details.plans.flatMap((plan: any) =>
-            plan.days.map((d: any) => [
-              { text: dayjs(d).format("DD-MM-YYYY") },
-              { text: plan?.startTime.slice(11, 16) },
-              { text: plan?.endTime.slice(11, 16) },
-              { text: plan?.shift },
-            ]),
-          ),
-        ],
-      },
-      layout: "lightHorizontalLines",
-      margin: [0, 10, 0, 15],
-    };
-
-    // ✅ Step 5: Remarks section - translated header
-    const remarksSection =
-      details?.plans?.length > 0
-        ? {
-            margin: [0, 10, 0, 0],
-            stack: [
-              { text: t_remarks, style: "sectionHeader" },
-              {
-                ul: details.plans
-                  .map((plan: any) =>
-                    plan?.remarks ? { text: plan.remarks } : null,
-                  )
-                  .filter(Boolean),
-                style: "normalText",
-              },
-            ],
-          }
-        : null;
-
-    // ✅ Step 6: PDF definition - translated texts দিয়ে
-    const docDefinition: TDocumentDefinitions = {
-      pageMargins: [40, 40, 40, 40],
-      images: {
-        companyLogo: logoBase64,
-      },
-      content: [
-        {
-          columns: [
-            {
-              width: "*",
-              stack: [
-                { text: t_personalInfo, style: "sectionHeader" },
-                { text: `${t_name}: ${name || "—"}`, style: "normalText" },
-                { text: `${t_email}: ${email || "—"}`, style: "normalText" },
-                {
-                  text: `${t_address}: ${address || "—"}`,
-                  style: "normalText",
-                },
-                { text: `${t_contact}: ${phone || "—"}`, style: "normalText" },
-              ],
-            },
-            {
-              image: "companyLogo",
-              width: 120,
-              alignment: "right",
-            },
-          ],
-        },
-        {
-          text: `${t_shiftPlan} ${dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}`,
-          style: "sectionHeader",
-        },
-        scheduleTable,
-        ...(remarksSection ? [remarksSection] : []),
-      ],
-      styles: {
-        sectionHeader: {
-          fontSize: 16,
-          bold: true,
-          margin: [0, 10, 0, 5],
-        },
-        normalText: {
-          fontSize: 11,
-        },
-        tableHeader: {
-          bold: true,
-          fillColor: "#eeeeee",
-        },
-      },
-    };
-
-    // ✅ Step 7: PDF download
-    pdfMake
-      .createPdf(docDefinition)
-      .download(`shift-plan-${dayjs().format("YYYY-MM-DD")}.pdf`);
-  };
-
   const handleDownload4 = async () => {
     console.log(
       "process.env.GOOGLE_TRANSLATE_KEY",
@@ -211,11 +74,11 @@ export default function ShiftPlanDetails({ details }: any) {
       "Personal Information",
       currentLang,
     );
-    // const t_name = await translateText("Name", currentLang);
-    // const t_email = await translateText("Email", currentLang);
+
     const t_address = await translateText("Address", currentLang);
     const t_contact = await translateText("Contact", currentLang);
     const t_shiftPlan = await translateText("Shift Plan", currentLang);
+    const t_tasks = await translateText("Tasks", currentLang);
     const t_remarks = await translateText("Remarks", currentLang);
     const t_date = await translateText("Date", currentLang);
     const t_from = await translateText("Start", currentLang);
@@ -291,6 +154,30 @@ export default function ShiftPlanDetails({ details }: any) {
     //       }
     //     : null;
 
+    const tasksSection =
+      details?.plans[0]?.tasks?.length > 0
+        ? {
+            margin: [0, 10, 0, 0],
+            stack: [
+              { text: t_tasks, style: "sectionHeader" },
+              {
+                ul: (
+                  await Promise.all(
+                    details.plans[0].tasks.map(async (p: any) => {
+                      console.log("p", p);
+
+                      if (!p) return null;
+
+                      return await translateText(p, currentLang);
+                    }),
+                  )
+                ).filter(Boolean),
+                style: "normalText",
+              },
+            ],
+          }
+        : null;
+
     const remarksSection =
       details?.plans?.length > 0
         ? {
@@ -347,6 +234,7 @@ export default function ShiftPlanDetails({ details }: any) {
             style: "sectionHeader",
           },
           scheduleTable,
+          ...(tasksSection ? [tasksSection] : []),
           ...(remarksSection ? [remarksSection] : []),
         ],
         styles: {
@@ -389,6 +277,8 @@ export default function ShiftPlanDetails({ details }: any) {
 
     return data.data.translations[0].translatedText;
   }
+
+  console.log("details", details);
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -455,6 +345,16 @@ export default function ShiftPlanDetails({ details }: any) {
               )}
             </tbody>
           </table>
+        </div>
+
+        {/* Remarks */}
+        <div className="mt-6 ml-4">
+          <strong className="">Tasks</strong>
+          {details?.plans[0]?.tasks?.map((item: any, index: number) => (
+            <p key={index} className="">
+              {item}
+            </p>
+          ))}
         </div>
 
         {/* Remarks */}

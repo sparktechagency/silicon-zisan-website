@@ -108,9 +108,8 @@ export default function ViewProfile({ data, chatId }: any) {
           {renderInfoSection("Work Information", workInfo)}
         </div>
         {/* resume and others */}
-        {data.isProfileVisible === true && data?.resumeUrl && (
+        {/* {data.isProfileVisible === true && data?.resumeUrl && (
           <div className=" text-white   space-y-6 ">
-            {/* Header */}
             <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
               <div className="flex items-center gap-6">
                 <div>
@@ -140,7 +139,7 @@ export default function ViewProfile({ data, chatId }: any) {
               </div>
             </div>
           </div>
-        )}
+        )} */}
         {/* images */}
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {data.isProfileVisible === true &&

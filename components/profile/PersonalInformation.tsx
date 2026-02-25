@@ -78,7 +78,7 @@ export default function PersonalInformation({ data }: { data: any }) {
   }, [previewImage]);
 
   return (
-    <div className="w-full max-w-120 bg-card p-5 rounded-lg border border-gray-300/30 ">
+    <div className="w-full  bg-card p-3 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
         {/* {fileImage ? (

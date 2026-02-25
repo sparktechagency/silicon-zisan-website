@@ -22,6 +22,8 @@ export default function AlertsSettingCreate({ data }: any) {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
+  console.log("email", email);
+
   /* ---------------- SYNC ASYNC DATA ---------------- */
   useEffect(() => {
     if (data?.notificationSettings) {
@@ -31,13 +33,14 @@ export default function AlertsSettingCreate({ data }: any) {
       setAccepted(Boolean(data.notificationSettings.repeat));
     }
 
-    if (data?.user?.email) {
-      setEmail(data.user.email);
+    if (data?.notificationSettings?.email) {
+      setEmail(data.notificationSettings.email);
     }
   }, [data]);
 
   /* ---------------- SUBMIT HANDLER ---------------- */
   const handlePushNotification = async () => {
+    console.log("email", email);
     if (!accepted) {
       toast.error("Please accept Terms & Conditions");
       return;
@@ -72,6 +75,8 @@ export default function AlertsSettingCreate({ data }: any) {
           },
         },
       });
+
+      console.log("res", res);
 
       if (res?.success) {
         toast.success(res.message || "Settings updated");
