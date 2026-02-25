@@ -87,7 +87,7 @@ export default function ViewProfile({ data, chatId }: any) {
             <p className="text-3xl notranslate">
               {data?.user?.name?.trim() || "No Name"}
             </p>
-            <p className="text-2xl mt-1">Senior Business Analysis</p>
+            <p className="text-2xl mt-1">{data?.experiences[0]?.category}</p>
           </div>
         </div>
         <div>
