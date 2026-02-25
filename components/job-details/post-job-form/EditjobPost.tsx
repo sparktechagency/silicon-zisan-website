@@ -29,6 +29,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { se } from "date-fns/locale";
+import { experiences } from "@/demoData/data";
+import { useCookie } from "@/hooks/useCookies";
 
 type FormValues = {
   category: string;
@@ -44,12 +46,18 @@ type FormValues = {
   aboutCompany: string;
 };
 
-const expriences = ["With Experience", "Without Experience"];
-
 export default function EditJobPost({ data }: any) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<any[]>([]);
+
+  const googtrans = useCookie("googtrans");
+
+  const currentLang = (googtrans
+    .replace(/^\/en\//, "") // remove /en/ at the start
+    .replace(/^en\//, "") // remove en/ at the start if no leading slash
+    .replace(/\/$/, "") || "en") as keyof (typeof experiences)[0]["label"];
+
   const {
     register,
     control,
@@ -202,17 +210,20 @@ export default function EditJobPost({ data }: any) {
               rules={{ required: "Exprience is required" }}
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full border">
-                    <SelectValue placeholder="Select Experience Level" />
+                  <SelectTrigger className="button-unactive text-white w-full">
+                    <SelectValue>
+                      {field.value
+                        ? experiences?.find((opt) => opt.value === field.value)
+                            ?.label[currentLang]
+                        : "Select Timeline"}
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
-                      {expriences?.map((sub, index) => (
-                        <SelectItem key={`${index}`} value={String(sub)}>
-                          <span className="notranslate"> {sub}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
+                    {experiences?.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label[currentLang]}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               )}
@@ -221,7 +232,6 @@ export default function EditJobPost({ data }: any) {
               <span className="text-red-400">{errors.experience.message}</span>
             )}
           </div>
-
           {/* Salary Type*/}
           <SalaryDetailsFormValues
             control={control}

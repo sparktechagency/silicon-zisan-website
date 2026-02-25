@@ -25,12 +25,6 @@ export default function ContractInformation({
   const [loading, setLoading] = useState(false);
   const googtrans = useCookie("googtrans");
   const currentLang = googtrans?.split("/")[2] || "en";
-  const t = agreementTranslations[currentLang] ?? agreementTranslations["en"];
-
-  const place = "Place";
-  const date = "Date";
-
-  console.log("currentLang", currentLang);
 
   // const handleDownloadPdf = async () => {
   //   // Convert logo to base64 properly
@@ -229,244 +223,6 @@ export default function ContractInformation({
   //   }
   // };
 
-  const handleDownloadPdf2 = async () => {
-    const response = await fetch(agreement.src);
-    const blob = await response.blob();
-
-    const logoBase64: string = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.readAsDataURL(blob);
-    });
-
-    // Validation
-    if (!data || !getProfile || !getAdmin) {
-      toast.error("Required data is missing");
-      return;
-    }
-
-    try {
-      const docDefinition: any = {
-        pageMargins: [40, 40, 40, 40],
-        images: {
-          companyLogo: logoBase64,
-        },
-        content: [
-          // ✅ Title - translated
-          {
-            text: "Personnel Placement Agreement",
-            style: "header",
-            margin: [0, 0, 0, 20],
-          },
-
-          // ✅ Between / And section - translated
-          // not translate
-          {
-            columns: [
-              {
-                width: "70%",
-                stack: [
-                  { text: "Between:", style: "subheader" },
-                  { text: getProfile?.user?.name || "N/A" },
-                  { text: getProfile?.user?.email || "N/A" },
-                  {
-                    text: getProfile?.user?.address || "N/A",
-                    margin: [0, 0, 0, 8],
-                  },
-                  { text: "And:", style: "subheader" },
-                  { text: "Recruiter", margin: [0, 2, 0, 0] },
-                  { text: getAdmin?.address },
-                ],
-              },
-              {
-                width: "30%",
-                stack: [
-                  {
-                    image: "companyLogo",
-                    width: 100,
-                    alignment: "right",
-                  },
-                ],
-              },
-            ],
-            margin: [0, 0, 0, 20],
-          },
-
-          // not translate up data
-
-          // ✅ Contents - translated
-          { text: t.contentsTitle, style: "sectionHeader" },
-          {
-            text: t.contentsText,
-            margin: [0, 5, 0, 15],
-          },
-
-          // Agreement sections (dynamic content - same as before)
-          ...agreementSections.flatMap((section) => [
-            { text: section?.title, style: "sectionTitle" },
-            {
-              ul: section?.items?.map((item) => ({
-                text: item,
-                style: "normalText",
-              })),
-              margin: [0, 5, 0, 15],
-            },
-          ]),
-
-          // ✅ Job Details - translated
-          {
-            text: data?.category,
-
-            style: "sectionHeader",
-            margin: [0, 10, 0, 5],
-          },
-          {
-            text: data?.author?.address,
-            style: "normalText",
-            margin: [0, 0, 0, 0],
-          },
-
-          {
-            stack: [
-              `${data?.jobType || "N/A"}`,
-              `€${data?.salaryAmount || "N/A"}`,
-              `🕐 ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
-            ].map((text) => ({
-              text: `${text}`,
-              style: "normalText",
-              margin: [0, 2, 0, 2],
-            })),
-            margin: [0, 5, 0, 15],
-          },
-
-          {
-            text: t.jobDescription,
-            style: "sectionTitle",
-          },
-          {
-            text: data?.description || "N/A",
-            style: "normalText",
-            margin: [0, 5, 0, 15],
-          },
-
-          // ✅ Responsibilities - translated
-          { text: t.responsibilities, style: "sectionTitle" },
-          {
-            ul:
-              data?.responsibilities?.length > 0
-                ? data?.responsibilities?.map((item: string) => item)
-                : ["N/A"],
-            margin: [0, 5, 0, 15],
-          },
-
-          // ✅ Qualifications - translated
-          { text: t.qualifications, style: "sectionTitle" },
-          {
-            ul:
-              data?.qualifications?.length > 0
-                ? data?.qualifications?.map((item: string) => item)
-                : ["N/A"],
-            margin: [0, 5, 0, 15],
-          },
-
-          {
-            table: {
-              widths: ["*"],
-              body: [
-                // ✅ Place & Date row
-                [
-                  {
-                    border: [true, true, true, false], // bottom border নেই
-                    margin: [5, 5, 5, 5],
-                    columns: [
-                      {
-                        text: `${place} : ${getProfile?.user?.address.split(",")[0] || "N/A"}`,
-                        bold: true,
-                        alignment: "center",
-                        width: "50%",
-                      },
-                      {
-                        text: `${date} : ${dayjs(data?.createdAt).format("DD-MM-YYYY")}`,
-                        bold: true,
-                        alignment: "center",
-                        width: "50%",
-                      },
-                    ],
-                  },
-                ],
-
-                [
-                  {
-                    border: [true, false, true, true], // top border নেই
-                    text: t.confirmationText,
-                    style: "normalText",
-                    margin: [5, 8, 5, 8],
-                  },
-                ],
-              ],
-            },
-            layout: {
-              hLineWidth: (i: number, node: any) =>
-                i === 0 || i === node.table.body.length ? 1 : 0, // শুধু top ও bottom
-              vLineWidth: () => 1,
-              hLineColor: () => "#cccccc",
-              vLineColor: () => "#cccccc",
-            },
-            margin: [0, 5, 0, 10],
-          },
-        ],
-
-        styles: {
-          header: {
-            fontSize: 20,
-            bold: true,
-            alignment: "center",
-            color: "#333333",
-          },
-          subheader: {
-            fontSize: 14,
-            bold: true,
-            color: "#333333",
-            margin: [0, 5, 0, 2],
-          },
-          sectionHeader: {
-            fontSize: 16,
-            bold: true,
-            margin: [0, 10, 0, 5],
-            color: "#333333",
-          },
-          sectionTitle: {
-            fontSize: 14,
-            bold: true,
-            margin: [0, 10, 0, 5],
-            color: "#333333",
-          },
-          normalText: { fontSize: 12, color: "#555555" },
-          tableHeader: {
-            fontSize: 12,
-            bold: true,
-            fillColor: "#eeeeee",
-            color: "#333333",
-          },
-        },
-
-        defaultStyle: { fontSize: 11, color: "#444444" },
-      };
-
-      pdfMake
-        .createPdf(docDefinition)
-        .download(
-          `${data?.title?.replace(/\s+/g, "_") || "agreement"}-${Date.now()}.pdf`,
-        );
-    } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "An error occurred while generating the PDF.",
-      );
-    }
-  };
-
   const handleDownloadPdf4 = async () => {
     setLoading(true);
     if (!data || !getProfile || !getAdmin) {
@@ -494,7 +250,7 @@ export default function ContractInformation({
 
         try {
           const res = await fetch(
-            `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_TRANSLATE_KEY}`,
+            `https://translation.googleapis.com/language/translate/v2?key=${process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_KEY}`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -518,6 +274,10 @@ export default function ContractInformation({
       // ✅ TRANSLATE ALL DYNAMIC DATA
       // ================================
 
+      const personnelAgreement = await translateText(
+        "Personnel Placement Agreement",
+      );
+
       const translatedName = await translateText(
         getProfile?.user?.name || "N/A",
       );
@@ -528,7 +288,11 @@ export default function ContractInformation({
         getProfile?.user?.address || "N/A",
       );
 
+      const hireEmployeHeader = await translateText("Hire Employee Details");
       const translatedCategory = await translateText(data?.category || "N/A");
+      const translatedSubCategory = await translateText(
+        data?.subCategory || "N/A",
+      );
       const translatedAuthorAddress = await translateText(
         data?.author?.address || "N/A",
       );
@@ -626,7 +390,7 @@ export default function ContractInformation({
 
         content: [
           {
-            text: t.personnelAgreement,
+            text: personnelAgreement,
             style: "header",
             margin: [0, 0, 0, 20],
           },
@@ -665,9 +429,19 @@ export default function ContractInformation({
           ...translatedSections.flat(),
 
           {
+            text: hireEmployeHeader,
+            style: "sectionHeader",
+            margin: [0, 10, 0, 5],
+          },
+          {
             text: translatedCategory,
             style: "sectionHeader",
             margin: [0, 10, 0, 5],
+          },
+          {
+            text: translatedSubCategory,
+            style: "normalText",
+            margin: [0, 0, 0, 10],
           },
 
           {
@@ -678,7 +452,7 @@ export default function ContractInformation({
           {
             stack: [
               translatedJobType,
-              `€${data?.salaryAmount || "N/A"}`,
+              `€${data?.salaryAmount || "N/A"} ${data?.salaryType}ly`,
               ` ${dayjs(data?.deadline).format("DD-MM-YYYY")}`,
             ].map((text) => ({
               text,
@@ -743,6 +517,8 @@ export default function ContractInformation({
     }
   };
 
+  console.log("data", data);
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -751,7 +527,7 @@ export default function ContractInformation({
             onClick={() => history.back()}
             className="cursor-pointer mr-2"
           />
-          <p className="notranslate">Personnel Placement Agreement</p>
+          <p className="">Personnel Placement Agreement</p>
         </div>
 
         <div className="space-y-3">
@@ -810,12 +586,14 @@ export default function ContractInformation({
                 <h2 className="text-xl font-semibold text-gray-800 ">
                   {data?.category}
                 </h2>
-                <p className="text-sm text-gray-500 ">
-                  {data?.author?.address}
-                </p>
+                <h1>{data?.subCategory}</h1>
+                <p className="text-sm text-gray-500 "></p>
                 <div className="mt-2 text-sm text-gray-600">
+                  <p> {data?.author?.address}</p>
                   <p className="">{data?.jobType}</p>
-                  <p className="">€{data?.salaryAmount}</p>
+                  <p className="">
+                    €{data?.salaryAmount} {data?.salaryType}ly
+                  </p>
                   <p className="flex gap-1 items-center">
                     <Clock3 size={18} />{" "}
                     {dayjs(data?.deadline).format("DD-MM-YYYY")}

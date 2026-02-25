@@ -1,7 +1,6 @@
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -11,11 +10,22 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { StartDateModal } from "./StartDateModal";
 import { EndDateModal } from "./EndDateModal";
 import { Button } from "../ui/button";
+import { Controller, useForm } from "react-hook-form";
+import { shiftOptions } from "@/demoData/data";
+import { useCookie } from "@/hooks/useCookies";
 
 export default function ShiftPlanStatus() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const googtrans = useCookie("googtrans");
+  const currentLang = (googtrans
+    .replace(/^\/en\//, "")
+    .replace(/^en\//, "")
+    .replace(/\/$/, "") || "en") as keyof (typeof shiftOptions)[0]["label"];
+
+  const { control } = useForm();
 
   const handleParams = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -35,45 +45,42 @@ export default function ShiftPlanStatus() {
     <div className="mb-7">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <div>
-          <Select onValueChange={(value) => handleParams("shift", value)}>
-            <SelectTrigger className="w-full!  lg:w-[180px] button-unactive rounded-3xl px-7">
-              <SelectValue placeholder="Select Plan" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="Morning">Morning</SelectItem>
-                <SelectItem value="Evening">Evening</SelectItem>
-                <SelectItem value="Night">Night</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Controller
+            name="shift"
+            control={control}
+            render={({ field }) => {
+              return (
+                <Select
+                  value={field.value}
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    handleParams("shift", value);
+                  }}
+                >
+                  <SelectTrigger className="button-unactive text-white w-full rounded-full border border-white cursor-pointer">
+                    <SelectValue placeholder="Timeline">
+                      {field.value
+                        ? shiftOptions.find((opt) => opt.value === field.value)
+                            ?.label[currentLang]
+                        : "Select Timeline"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {shiftOptions?.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label[currentLang]}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              );
+            }}
+          />
         </div>
         <div>
-          {/* <Select onValueChange={(value) => handleParams("endDate", value)}>
-            <SelectTrigger className="w-[180px] button-unactive rounded-3xl px-7">
-              <SelectValue placeholder="Select Month" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="2026-01-01">January</SelectItem>
-                <SelectItem value="2027-04-01">February</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select> */}
           <StartDateModal />
         </div>
         <div>
-          {/* <Select onValueChange={(value) => handleParams("startDate", value)}>
-            <SelectTrigger className="w-[180px] button-unactive rounded-3xl px-7">
-              <SelectValue placeholder="Select Year" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup className="my-2">
-                <SelectItem value="2026-01-01">2026</SelectItem>
-                <SelectItem value="2026-04-01">2026</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select> */}
           <EndDateModal />
         </div>
         <div className="">

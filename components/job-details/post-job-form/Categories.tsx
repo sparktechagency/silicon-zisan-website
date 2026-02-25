@@ -8,11 +8,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCookie } from "@/hooks/useCookies";
+import { TranslatedValue } from "@/hooks/TranslatedValue";
 
 interface CategoriesProps {
   control: any;
   categories: {
     name: string;
+    _id: string;
     subCategories: string[];
   }[];
   errors?: any;
@@ -31,6 +34,13 @@ export default function Categories({
   const subCategories =
     categories?.find((c) => c.name === selectedCategory)?.subCategories || [];
 
+  const googtrans = useCookie("googtrans");
+  const currentLang =
+    googtrans
+      .replace(/^\/en\//, "")
+      .replace(/^en\//, "")
+      .replace(/\/$/, "") || "en";
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       {/* Category */}
@@ -43,13 +53,19 @@ export default function Categories({
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
-                <SelectValue placeholder="Select Category" />
+                <SelectValue placeholder="Select Category">
+                  {field.value ? (
+                    <TranslatedValue text={field.value} lang={currentLang} />
+                  ) : (
+                    "Select Category"
+                  )}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {categories.map((item, index) => (
-                    <SelectItem key={`${item.name}-${index}`} value={item.name}>
-                      <span> {item.name}</span>
+                  {categories.map((item) => (
+                    <SelectItem key={item._id} value={item.name}>
+                      <span>{item.name}</span>
                     </SelectItem>
                   ))}
                 </SelectGroup>
@@ -72,13 +88,19 @@ export default function Categories({
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
-                <SelectValue placeholder="Select Subcategory" />
+                <SelectValue placeholder="Select SubCategory">
+                  {field.value ? (
+                    <TranslatedValue text={field.value} lang={currentLang} />
+                  ) : (
+                    "Select SubCategory"
+                  )}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {subCategories.map((sub, index) => (
                     <SelectItem key={`${index}`} value={String(sub)}>
-                      <span className="notranslate"> {sub}</span>
+                      <span className=""> {sub}</span>
                     </SelectItem>
                   ))}
                 </SelectGroup>

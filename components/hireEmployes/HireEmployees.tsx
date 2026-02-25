@@ -10,6 +10,8 @@ export default async function HireEmployees() {
     tags: ["hire-employee"],
   });
 
+  console.log("hire employess", res?.data);
+
   return (
     <>
       <Link href="/hire-employees-form" className="flex justify-end">
@@ -46,7 +48,11 @@ export default async function HireEmployees() {
               </div>
             </div>
           </div>
-          <p className="my-3 text-sm sm:text-lg">{item?.aboutCompany}</p>
+          <p className="my-3 text-sm sm:text-lg">
+            {item?.description.length > 40
+              ? item.description.slice(0, 40) + "..."
+              : item.description}
+          </p>
           {/* <p className="flex items-center gap-2">
             <Clock4 size={20} />
             17:00

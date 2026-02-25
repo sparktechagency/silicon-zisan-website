@@ -28,8 +28,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { experiences } from "@/demoData/data";
+import { useCookie } from "@/hooks/useCookies";
 
-const expriences = ["With Experience", "Without Experience"];
+// const expriences = ["With Experience", "Without Experience"];
 
 type FormValues = {
   category: string;
@@ -95,6 +97,13 @@ const PostJobForm = () => {
   const name = searchParams.get("name");
 
   const selectedSubCategory = categories[Number(watch("subCategory"))];
+
+  const googtrans = useCookie("googtrans");
+
+  const currentLang = (googtrans
+    .replace(/^\/en\//, "") // remove /en/ at the start
+    .replace(/^en\//, "") // remove en/ at the start if no leading slash
+    .replace(/\/$/, "") || "en") as keyof (typeof experiences)[0]["label"];
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -169,7 +178,7 @@ const PostJobForm = () => {
           <JobType control={control} register={register} errors={errors} />
 
           {/* with out exprience */}
-          <div>
+          <div className="mb-3">
             <Label className="block text-sm mb-1">Exprience</Label>
             <Controller
               name="experience"
@@ -177,17 +186,20 @@ const PostJobForm = () => {
               rules={{ required: "Exprience is required" }}
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full border">
-                    <SelectValue placeholder="Select Experience Level" />
+                  <SelectTrigger className="button-unactive text-white w-full">
+                    <SelectValue>
+                      {field.value
+                        ? experiences?.find((opt) => opt.value === field.value)
+                            ?.label[currentLang]
+                        : "Select Timeline"}
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectGroup>
-                      {expriences?.map((sub, index) => (
-                        <SelectItem key={`${index}`} value={String(sub)}>
-                          <span className="notranslate"> {sub}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
+                    {experiences?.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label[currentLang]}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               )}

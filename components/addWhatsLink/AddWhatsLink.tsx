@@ -22,7 +22,7 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
     reset,
     setValue,
     watch,
-    trigger: triggerValidation,
+
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: { whatsApp: whatsApp || "", countryCode: "+49" },
@@ -35,9 +35,17 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
   }, [whatsApp, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { countryCode, ...rest } = data;
+    const cleanPhone = data.whatsApp.replace(/^0+/, "");
+    const formattedPhone = countryCode
+      ? `${countryCode}${cleanPhone}`
+      : cleanPhone;
+
     const payload = {
-      whatsApp: `${data.countryCode}${data.whatsApp.replace(/^0+/, "")}`,
+      ...rest,
+      whatsApp: formattedPhone,
     };
+
     try {
       const res = await myFetch(`/employers/me`, {
         method: "PATCH",
@@ -46,6 +54,7 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
 
       if (res.success) {
         toast.success("Number is updated Successfully");
+        reset();
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -74,8 +83,7 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
             <SearchableCountrySelect
               value={watch("countryCode")}
               onChange={(dialCode: string) => {
-                setValue("countryCode", dialCode);
-                triggerValidation("countryCode");
+                setValue("countryCode", dialCode, { shouldDirty: true });
               }}
               error={errors.countryCode}
               countryList={countryList}
@@ -85,10 +93,10 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
               type="tel"
               {...register("whatsApp", {
                 required: "Phone number required",
-                pattern: {
-                  value: /^[0-9]{6,14}$/,
-                  message: "Invalid phone number",
-                },
+                // pattern: {
+                //   value: /^[0-9]{6,14}$/,
+                //   message: "Invalid phone number",
+                // },
               })}
               placeholder="Phone number"
             />

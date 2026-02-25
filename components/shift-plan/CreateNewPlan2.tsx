@@ -210,6 +210,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         body: payload,
       });
 
+      console.log("plans", res);
+
       if (res.status === 402) {
         router.push("/subscriptions");
       }
