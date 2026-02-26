@@ -43,7 +43,7 @@ type Plan = {
   endTime: string;
   days: string[];
   tasks: string[];
-  remarks: string;
+  // remarks: string;
 };
 
 // const names = ["Morning", "Evening", "Nigh t"];
@@ -100,11 +100,15 @@ export default function CreateNewPlan2({ employee, editData }: any) {
   };
 
   useEffect(() => {
+    console.log("editData", editData);
+
     if (editData) {
       reset({
         worker: editData?.worker?._id || "",
         // shift: editData.plans[0].shift,
         taskInput: editData.taskInput || "",
+        remarks: editData.plans[0].remarks || "",
+        // tasks: editData?.plans[0].tasks.map((t: any) => t) || "",
 
         // tasks:
         //   Array.isArray(editData.plans[0].tasks) &&
@@ -157,16 +161,25 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       return dayjs(`${today}T${hour}:${minute}:00`).toISOString();
     };
 
-    const payload = {
+    // const payload = {
+    //   startTime: convertToLocalISO(data.startTime),
+    //   endTime: convertToLocalISO(data.endTime),
+    //   days: selectedDates.map((d) => d.toISOString()),
+    //   tasks: data.tasks.map((t) => t.value),
+    //   remarks: data.remarks,
+    //   shift: data.shift,
+    // };
+
+    const updatedPlan = {
+      shift: data.shift,
       startTime: convertToLocalISO(data.startTime),
       endTime: convertToLocalISO(data.endTime),
       days: selectedDates.map((d) => d.toISOString()),
       tasks: data.tasks.map((t) => t.value),
-      remarks: data.remarks,
-      shift: data.shift,
+      remarks: data.remarks, // ✅ include remarks
     };
 
-    setPlans((prev) => [...prev, payload]);
+    setPlans((prev) => [...prev, updatedPlan]);
     setSelectedDates([]);
     reset({
       worker: data.worker,
@@ -184,6 +197,8 @@ export default function CreateNewPlan2({ employee, editData }: any) {
   };
 
   const onSubmit = async (data: FormValues) => {
+    console.log("data.remarks,", data.remarks);
+
     if (!plans.length) {
       toast.error("Please add at least one shift plan");
       return;
@@ -196,16 +211,29 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       ? `/shift-plans/update/${editData._id}` // ✅ Use editData._id, not 'id'
       : "/shift-plans/create";
 
+    // const payload = {
+    //   worker: data.worker,
+    //   plans,
+    // };
     const payload = {
       worker: data.worker,
-      plans,
+      plans: plans.map((p) =>
+        editData?._id
+          ? {
+              ...p,
+              // tasks: data.tasks.map((t) => t.value),
+              remarks: data.remarks, // ✅ merge latest remarks
+            }
+          : p,
+      ),
     };
-
     try {
       const res = await myFetch(url, {
         method: method,
         body: payload,
       });
+
+      console.log("res", res);
 
       if (res.status === 402) {
         router.push("/subscriptions");

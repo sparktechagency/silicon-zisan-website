@@ -140,11 +140,15 @@ export default function Subscriptions({ res, giftSubscription }: any) {
 
                 <div className="mt-auto">
                   <Button
-                    disabled={activePlan === "Basic"}
+                    disabled={
+                      activePlan === "Basic" ||
+                      activePlan === "Standard" ||
+                      activePlan === "Booster"
+                    }
                     className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                       loadingId === res[0]?._id && "cursor-not-allowed"
                     }`}
-                    onClick={() => handleSubscribe(res[0]?._id)}
+                    // onClick={() => handleSubscribe(res[0]?._id)}
                   >
                     {activePlan === "Basic"
                       ? "Activated"

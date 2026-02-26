@@ -21,7 +21,7 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
               <CustomImage
                 src={item?.receiver?.image}
                 title={item?.receiver?.name}
-                className="w-20 h-20 sm:w-28 sm:h-28 rounded-full object-cover border-2 border-gray-700"
+                className="w-20 h-20 sm:w-28 sm:h-28 rounded-full  border-2 border-gray-700"
               />
             </div>
 

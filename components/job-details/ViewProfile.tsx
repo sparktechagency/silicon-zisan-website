@@ -1,8 +1,7 @@
 "use client";
 
-import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
-import Image from "next/image";
-import pdf from "../../public/dashboard/pdf.png";
+import { ArrowLeft } from "lucide-react";
+
 import CustomImage from "@/utils/CustomImage";
 import { Button } from "../ui/button";
 import { myFetch } from "@/utils/myFetch";
@@ -60,6 +59,9 @@ export default function ViewProfile({ data, chatId }: any) {
       ))}
     </div>
   );
+
+  console.log("data---------", data);
+
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6 my-12">
       {/* Header */}
@@ -172,7 +174,8 @@ export default function ViewProfile({ data, chatId }: any) {
             </p>
             <p className="mt-1">
               Salary : {data?.experiences[0]?.salaryAmount && <span>€</span>}{" "}
-              {data?.experiences[0]?.salaryAmount || "No Amount"}
+              {`${data?.experiences[0]?.salaryAmount} ${data?.experiences[0]?.salaryType}ly` ||
+                "No Amount"}
             </p>
           </div>
         )}
