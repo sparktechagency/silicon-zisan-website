@@ -105,7 +105,7 @@
 
 //         // Listener for getMessage (standard)
 //         socket.on("getMessage", (newMessage: Message) => {
-//           console.log("Socket received getMessage:", newMessage);
+//           ("Socket received getMessage:", newMessage);
 //           revalidate("chatMessages");
 //           revalidate("chatlist");
 //           // Update chat list

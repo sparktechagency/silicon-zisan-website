@@ -38,9 +38,6 @@ export default function NewPassword() {
         },
         token: token,
       });
-      console.log("token", token);
-
-      console.log("res", res);
 
       if (res?.success) {
         toast.success(res.message);

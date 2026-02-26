@@ -16,11 +16,6 @@ import CustomImage from "@/utils/CustomImage";
 export default function ViewDetailsPerson({ data, chatId }: any) {
   const router = useRouter();
 
-  console.log(
-    "data?.user?.jobSeeker?.about",
-    data?.resume?.personalInfo?.aboutMe,
-  );
-
   const handleApproved = async (id: string) => {
     try {
       const res = await myFetch(`/applications/update/${id}`, {
@@ -61,8 +56,6 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
       );
     }
   };
-
-  console.log("data get", data);
 
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6 my-12">

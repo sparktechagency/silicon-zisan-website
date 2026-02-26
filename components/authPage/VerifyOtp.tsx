@@ -33,8 +33,6 @@ export function VerifyOtp() {
         body: { email, oneTimeCode: Number(otp) },
       });
 
-      console.log("verify token", res);
-
       if (res?.success) {
         if (res?.data) {
           // if reset token is available then redirect reset password page

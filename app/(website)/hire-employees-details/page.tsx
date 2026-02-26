@@ -19,8 +19,6 @@ export default async function ContractInformationHomePage({
     tags: ["profile"],
   });
 
-  console.log("res", res?.data);
-
   return (
     <>
       <ContractInformation

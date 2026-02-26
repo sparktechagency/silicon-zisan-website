@@ -244,31 +244,17 @@ export default function ContractInformation({
         reader.readAsDataURL(blob);
       });
 
-      // ✅ Translate helper
-      const translateText = async (text: string) => {
+      async function translateText(text: string) {
         if (!text || currentLang === "en") return text;
+        const res = await fetch("/api/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text, target: currentLang, format: "text" }),
+        });
 
-        try {
-          const res = await fetch(
-            `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_TRANSLATE_KEY}`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                q: text,
-                target: currentLang,
-                format: "text",
-              }),
-            },
-          );
-
-          const json = await res.json();
-          return json?.data?.translations?.[0]?.translatedText || text;
-        } catch (err) {
-          console.error("Translate error:", err);
-          return text;
-        }
-      };
+        const data = await res.json();
+        return data.translatedText;
+      }
 
       // ================================
       // ✅ TRANSLATE ALL DYNAMIC DATA

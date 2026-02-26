@@ -16,8 +16,6 @@ export default async function JobPostHomePage() {
     tags: ["profile"],
   });
 
-  console.log("get profile", profileData.data?.user.image);
-
   return (
     <div className="basis-[70%]">
       <h1 className=" p-3 rounded font-medium mb-4 bg-card text-white text-2xl border border-white/30">

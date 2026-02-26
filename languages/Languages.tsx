@@ -88,7 +88,7 @@
 
 "use client";
 
-import { useCookie } from "@/hooks/useCookies";
+// import { useCookie } from "@/hooks/useCookies";
 import Script from "next/script";
 import { useEffect } from "react";
 
@@ -103,8 +103,7 @@ declare global {
 }
 
 export default function Languages() {
-  const googtrans = useCookie("googtrans");
-  console.log("check", googtrans);
+  // const googtrans = useCookie("googtrans");
 
   useEffect(() => {
     // Store original methods

@@ -10,8 +10,6 @@ export default async function HireEmployees() {
     tags: ["hire-employee"],
   });
 
-  console.log("hire employess", res?.data);
-
   return (
     <>
       <Link href="/hire-employees-form" className="flex justify-end">

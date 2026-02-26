@@ -15,11 +15,11 @@
 //     });
 
 //     socket.on("connect", () => {
-//       console.log("✅ Socket connected:", socket?.id);
+//       ("✅ Socket connected:", socket?.id);
 //     });
 
 //     socket.on("disconnect", () => {
-//       console.log("⚠️ Socket disconnected");
+//       ("⚠️ Socket disconnected");
 //     });
 
 //     socket.on("connect_error", (err) => {
