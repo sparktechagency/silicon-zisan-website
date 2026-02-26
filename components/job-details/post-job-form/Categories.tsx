@@ -53,19 +53,13 @@ export default function Categories({
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
-                <SelectValue placeholder="Select Category">
-                  {field.value ? (
-                    <TranslatedValue text={field.value} lang={currentLang} />
-                  ) : (
-                    "Select Category"
-                  )}
-                </SelectValue>
+                <SelectValue placeholder="Select Category" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {categories.map((item) => (
                     <SelectItem key={item._id} value={item.name}>
-                      <span>{item.name}</span>
+                      <TranslatedValue text={item.name} lang={currentLang} />
                     </SelectItem>
                   ))}
                 </SelectGroup>
