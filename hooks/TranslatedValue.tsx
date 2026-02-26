@@ -5,7 +5,7 @@ import { memo, useEffect, useState } from "react";
 
 async function translateText(text: string, target: string) {
   const res = await fetch(
-    `https://translation.googleapis.com/language/translate/v2?key=${process.env.NEXT_PUBLIC_GOOGLE_TRANSLATE_KEY}`,
+    `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_TRANSLATE_KEY}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
