@@ -1,5 +1,6 @@
 /* eslint-disable react/display-name */
 "use client";
+import { getCookie, setCookie } from "cookies-next/client";
 import { memo, useEffect, useState } from "react";
 
 async function translateText(text: string, target: string) {
@@ -25,22 +26,65 @@ export const TranslatedValue = memo(({ text, lang }: any) => {
 
   useEffect(() => {
     let isMounted = true; // Cleanup flag
+    // const key = `trans_${lang}_${text}`;
+
+    // const getTranslation = async () => {
+    //   if (!text) return;
+    //   // const cached = sessionStorage.getItem(`trans_${lang}_${text}`);
+    //   const cached = getCookie(key);
+    //   if (cached) {
+    //     setTranslated(cached);
+    //     return;
+    //   }
+
+    //   const res = await translateText(text, lang);
+    //   if (isMounted) {
+    //     setTranslated(res);
+    //     // sessionStorage.setItem(`trans_${lang}_${text}`, res); // cache result
+    //     console.log(key, res);
+
+    //     setCookie(key, res);
+    //   }
+    // };
 
     const getTranslation = async () => {
       if (!text) return;
-      const cached = sessionStorage.getItem(`trans_${lang}_${text}`);
-      if (cached) {
-        setTranslated(cached);
+
+      // const key = `trans_${lang}_${text}`;
+      // const key = `trans_${lang}_${btoa(text)}`;
+      const key = `trans_${lang}_${encodeURIComponent(text)}`;
+
+      // 1️⃣ Check sessionStorage
+      // const cachedSession = sessionStorage.getItem(key);
+      // if (cachedSession) {
+      //   setTranslated(cachedSession);
+      //   return;
+      // }
+
+      // 2️⃣ Check cookie
+      const cachedCookie = getCookie(key);
+      if (cachedCookie) {
+        const value = cachedCookie.toString();
+        setTranslated(value);
+        sessionStorage.setItem(key, value);
         return;
       }
 
+      // 3️⃣ Call API
       const res = await translateText(text, lang);
+
       if (isMounted) {
         setTranslated(res);
-        sessionStorage.setItem(`trans_${lang}_${text}`, res); // cache result
+
+        // Save to session
+        // sessionStorage.setItem(key, res);
+
+        // Save to cookie (7 days)
+        setCookie(key, res, {
+          maxAge: 60 * 60 * 24 * 7, // 7 days
+        });
       }
     };
-
     getTranslation();
 
     return () => {

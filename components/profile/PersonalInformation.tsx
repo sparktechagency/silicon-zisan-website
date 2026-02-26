@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 // import Image from "next/image";
-import profile from "../../public/profile/avatar.png";
+// import profile from "../../public/profile/avatar.png";
 import { Camera } from "lucide-react";
 import CustomImage from "@/utils/CustomImage";
 import { myFetch } from "@/utils/myFetch";
@@ -94,7 +94,7 @@ export default function PersonalInformation({ data }: { data: any }) {
         )} */}
         <CustomImage
           src={fileImage}
-          fallback={profile}
+          // fallback={profile}
           width={100}
           height={100}
           title="Profile"

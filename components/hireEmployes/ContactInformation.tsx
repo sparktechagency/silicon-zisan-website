@@ -405,7 +405,9 @@ export default function ContractInformation({
                   { text: translatedEmail },
                   { text: translatedAddress, margin: [0, 0, 0, 8] },
                   { text: t.and, style: "subheader" },
+
                   { text: "Recruiter" },
+                  { text: "JobsInApp" },
                   { text: getAdmin?.address || "N/A" },
                 ],
               },
