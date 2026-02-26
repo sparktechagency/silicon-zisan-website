@@ -31,7 +31,7 @@ export default function AdminContact({ chatId, adminContact }: any) {
   return (
     <div className="">
       <Link
-        href={`https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${adminContact?.email}`}
+        href={`mailto:${adminContact?.email}`}
         target="_blank"
         rel="noopener noreferrer"
       >

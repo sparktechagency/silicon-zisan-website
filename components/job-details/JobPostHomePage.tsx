@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { myFetch } from "@/utils/myFetch";
-import Default from "../../public/default.jpg";
+// import Default from "../../public/default.jpg";
 import CustomImage from "@/utils/CustomImage";
-import Image from "next/image";
 import { UserSearch } from "lucide-react";
 
 export default async function JobPostHomePage() {
@@ -12,6 +11,12 @@ export default async function JobPostHomePage() {
     const length = await myFetch(`/applications/job/${id}`);
     return length?.data?.data?.length;
   };
+
+  const profileData = await myFetch("/employers/me", {
+    tags: ["profile"],
+  });
+
+  console.log("get profile", profileData.data?.user.image);
 
   return (
     <div className="basis-[70%]">
@@ -27,24 +32,13 @@ export default async function JobPostHomePage() {
             <div className="flex flex-col sm:flex-row items-center gap-4">
               {/* Image / Logo */}
               <div className="shrink-0 w-32 sm:w-36 md:w-40">
-                {item?.author?.image ? (
-                  <CustomImage
-                    src={item?.author?.image || "No Image"}
-                    title="Logo"
-                    width={160}
-                    height={160}
-                    className="w-full h-[200px] object-contain"
-                  />
-                ) : (
-                  // <Skeleton className="w-full h-32" />
-                  <Image
-                    src={Default}
-                    alt="Logo"
-                    width={160}
-                    height={160}
-                    className="w-full h-full object-contain"
-                  />
-                )}
+                <CustomImage
+                  src={profileData?.data?.user?.image}
+                  title="Logo"
+                  width={160}
+                  height={160}
+                  className="w-full h-[200px] object-contain"
+                />
               </div>
 
               {/* Company Details */}
