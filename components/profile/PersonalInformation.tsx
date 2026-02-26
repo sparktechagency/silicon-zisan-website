@@ -78,20 +78,9 @@ export default function PersonalInformation({ data }: { data: any }) {
   }, [previewImage]);
 
   return (
-    <div className="w-full  bg-card p-3 rounded-lg border border-gray-300/30 ">
+    <div className="  bg-card p-3 rounded-lg border border-gray-300/30 ">
       {/* Profile Image */}
       <div className="relative w-36 h-36 rounded-lg overflow-hidden border border-gray-400 mb-6">
-        {/* {fileImage ? (
-          <CustomImage
-            src={fileImage}
-            width={100}
-            height={100}
-            title="Profile"
-            className="w-full h-full"
-          />
-        ) : (
-          <Skeleton className="w-full h-full" />
-        )} */}
         <CustomImage
           src={fileImage}
           // fallback={profile}
@@ -131,17 +120,17 @@ export default function PersonalInformation({ data }: { data: any }) {
                 <span className="text-sm w-[80%] notranslate"> : {value}</span>
               </>
             ) : ( */}
-            <div className="grid grid-cols-[40%_80%] sm:grid-cols-[200px_80%]  py-2 ">
+            <div className="grid grid-cols-[30%_80%] sm:grid-cols-[170px_auto]  py-2 ">
               {" "}
               <div className="text-sm  ">{label}</div>
-              <div className="text-sm "> : {value}</div>
+              <div className="text-sm"> : {value}</div>
             </div>
           </div>
         ))}
       </div>
 
       {/* Buttons */}
-      <div className="">
+      <div className="mb-4">
         <Link
           href={`/profile/edit-profile`}
           className="custom-btn text-white px-4 py-2 rounded-md"

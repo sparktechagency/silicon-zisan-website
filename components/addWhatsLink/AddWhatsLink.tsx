@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/incompatible-library */
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -8,6 +7,7 @@ import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { SearchableCountrySelect } from "@/helper/CountryCodeSearch";
 import countryListData from "country-list-with-dial-code-and-flag";
+import { revalidate } from "@/utils/revalidateTag";
 
 type Inputs = {
   whatsApp: string;
@@ -16,6 +16,7 @@ type Inputs = {
 
 export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
   const countryList = countryListData.getAll();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -25,16 +26,19 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
 
     formState: { errors },
   } = useForm<Inputs>({
-    defaultValues: { whatsApp: whatsApp || "", countryCode: "+49" },
+    defaultValues: { whatsApp: whatsApp || "" },
   });
 
   // const cleanedPhone = whatsApp.replace(/^0+/, "");
+
+  console.log("whats app", whatsApp);
 
   useEffect(() => {
     reset({ whatsApp });
   }, [whatsApp, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true);
     const { countryCode, ...rest } = data;
     const cleanPhone = data.whatsApp.replace(/^0+/, "");
     const formattedPhone = countryCode
@@ -46,6 +50,8 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
       whatsApp: formattedPhone,
     };
 
+    console.log("payload", payload);
+
     try {
       const res = await myFetch(`/employers/me`, {
         method: "PATCH",
@@ -54,7 +60,9 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
 
       if (res.success) {
         toast.success("Number is updated Successfully");
+        revalidate("whatsapp");
         reset();
+        // window.location.reload();
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -62,6 +70,8 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
       const errorMessage =
         err instanceof Error ? err.message : "An error occurred";
       toast.error(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,7 +117,7 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
           )}
         </div>
         <div className="flex justify-end">
-          <Button className="custom-btn h-12 text-xl mt-3">
+          <Button disabled={loading} className="custom-btn h-12 text-xl mt-3">
             Update Number
           </Button>
         </div>

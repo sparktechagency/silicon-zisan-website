@@ -87,8 +87,8 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
 
         <CustomImage
           src={data?.user?.image}
-          title={data?.user?.name || "User Image"}
-          className="rounded-md w-44 h-44 object-cover"
+          title={data?.user?.name}
+          className="rounded-md w-40 h-40"
         />
 
         <div className="mt-4 sm:mt-0">
