@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { useState } from "react";
-import { translations } from "@/hooks/translate";
+// import { translations } from "@/hooks/translate";
 import { useCookie } from "@/hooks/useCookies";
 
 (pdfMake as any).vfs = pdfFonts.vfs;
@@ -28,7 +28,6 @@ export default function ShiftPlanDetails({ details }: any) {
     .replace(/^\/en\//, "") // remove /en/ at the start
     .replace(/^en\//, "") // remove en/ at the start if no leading slash
     .replace(/\/$/, "");
-  console.log("parts", currentLang);
 
   /* ================= SEND SHIFT ================= */
   const handleSendShift = async (e: React.FormEvent) => {
@@ -60,9 +59,6 @@ export default function ShiftPlanDetails({ details }: any) {
     if (!details) return;
 
     const currentLang = googtrans.split("/")[2] || "en";
-    console.log("currentLang", currentLang);
-
-    console.log("PDF lang:", currentLang);
 
     // ✅ Step 1: Translate texts dynamically
     const t_personalInfo = await translateText(
@@ -159,8 +155,6 @@ export default function ShiftPlanDetails({ details }: any) {
                 ul: (
                   await Promise.all(
                     details.plans[0].tasks.map(async (p: any) => {
-                      console.log("p", p);
-
                       if (!p) return null;
 
                       return await translateText(p, currentLang);
@@ -183,8 +177,6 @@ export default function ShiftPlanDetails({ details }: any) {
                 ul: (
                   await Promise.all(
                     details.plans.map(async (p: any) => {
-                      console.log("p", p.remarks);
-
                       if (!p?.remarks) return null;
 
                       return await translateText(p.remarks, currentLang);
@@ -254,26 +246,16 @@ export default function ShiftPlanDetails({ details }: any) {
     }
   };
 
-  // Helper: Google Translate API function
   async function translateText(text: string, target: string) {
-    const res = await fetch(
-      `https://translation.googleapis.com/language/translate/v2?key=${process.env.GOOGLE_TRANSLATE_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ q: text, target, format: "text" }),
-      },
-    );
+    const res = await fetch("/api/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, target }),
+    });
+
     const data = await res.json();
-    console.log(
-      "data.data.translations[0].translatedText",
-      data.data.translations[0].translatedText,
-    );
-
-    return data.data.translations[0].translatedText;
+    return data.translatedText;
   }
-
-  console.log("details", details);
 
   return (
     <div className="max-w-3xl mx-auto">

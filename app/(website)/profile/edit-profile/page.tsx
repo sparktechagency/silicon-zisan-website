@@ -94,8 +94,6 @@ export default function EditProfile({ title }: { title?: string }) {
     fetchCategories();
   }, []);
 
-  console.log("initialData", initialData);
-
   const {
     register,
     handleSubmit,

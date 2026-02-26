@@ -60,7 +60,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
     .replace(/^\/en\//, "") // remove /en/ at the start
     .replace(/^en\//, "") // remove en/ at the start if no leading slash
     .replace(/\/$/, "") || "en") as keyof (typeof shiftOptions)[0]["label"];
-  console.log("parts", currentLang);
 
   const {
     control,
@@ -167,8 +166,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
       shift: data.shift,
     };
 
-    console.log("payload", payload);
-
     setPlans((prev) => [...prev, payload]);
     setSelectedDates([]);
     reset({
@@ -209,8 +206,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         method: method,
         body: payload,
       });
-
-      console.log("plans", res);
 
       if (res.status === 402) {
         router.push("/subscriptions");

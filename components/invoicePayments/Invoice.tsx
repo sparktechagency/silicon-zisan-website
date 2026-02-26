@@ -2,8 +2,6 @@ import dayjs from "dayjs";
 import { EyeIcon } from "lucide-react";
 
 export default function Invoice({ data }: any) {
-  console.log("data", data);
-
   return (
     <>
       {data?.map((item: any, index: any) => (

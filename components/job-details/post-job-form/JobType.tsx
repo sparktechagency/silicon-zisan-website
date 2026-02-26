@@ -19,7 +19,7 @@ export default function JobType({ control, register, errors }: any) {
     .replace(/^\/en\//, "") // remove /en/ at the start
     .replace(/^en\//, "") // remove en/ at the start if no leading slash
     .replace(/\/$/, "") || "en") as keyof (typeof jobTypes)[0]["label"];
-  console.log("parts", currentLang);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-4 mb-4">
       <div>
