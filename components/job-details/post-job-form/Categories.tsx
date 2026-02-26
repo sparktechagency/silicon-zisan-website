@@ -53,7 +53,7 @@ export default function Categories({
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
-                <SelectValue placeholder="Select Category" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -82,19 +82,13 @@ export default function Categories({
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
               <SelectTrigger className="w-full border">
-                <SelectValue placeholder="Select SubCategory">
-                  {field.value ? (
-                    <TranslatedValue text={field.value} lang={currentLang} />
-                  ) : (
-                    "Select SubCategory"
-                  )}
-                </SelectValue>
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
                   {subCategories.map((sub, index) => (
                     <SelectItem key={`${index}`} value={String(sub)}>
-                      <span className=""> {sub}</span>
+                      <TranslatedValue text={sub} lang={currentLang} />
                     </SelectItem>
                   ))}
                 </SelectGroup>
