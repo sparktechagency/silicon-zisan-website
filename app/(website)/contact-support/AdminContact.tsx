@@ -31,7 +31,21 @@ export default function AdminContact({ chatId, adminContact }: any) {
   };
   return (
     <div className="">
-      <EmailChoiceModal email={adminContact?.email} />
+      <EmailChoiceModal
+        email={adminContact?.email}
+        trigger={
+          <div className="w-full border rounded p-2 flex justify-between items-center mt-4 custom-btn">
+            <div className="">
+              <p className="text-gray-300">Email Support</p>
+              <p className="text-gray-400">{adminContact?.email}</p>
+            </div>
+
+            <p>
+              <ChevronRight />
+            </p>
+          </div>
+        }
+      />
       <Link
         href={`https://wa.me/${adminContact?.whatsApp}`}
         target="_blank"

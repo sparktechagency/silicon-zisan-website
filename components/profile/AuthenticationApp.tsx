@@ -13,12 +13,14 @@ import { useRouter } from "next/navigation";
 
 export default function AuthenticationApp({ getprofile }: any) {
   const qrcode = getCookie("qrcode");
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
   const [otp, setOtp] = useState("");
 
   const handleVeryfyToken = async () => {
+    setLoading(true);
     const payload = {
       userId: getprofile?._id,
       otp: otp,
@@ -38,6 +40,8 @@ export default function AuthenticationApp({ getprofile }: any) {
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -102,6 +106,7 @@ export default function AuthenticationApp({ getprofile }: any) {
       </div>
 
       <Button
+        disabled={loading}
         className="w-full custom-btn h-12 mt-4"
         onClick={handleVeryfyToken}
       >

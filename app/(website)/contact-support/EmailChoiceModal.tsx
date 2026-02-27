@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ChevronRight } from "lucide-react";
 import { FaEnvelope, FaGoogle, FaMicrosoft, FaYahoo } from "react-icons/fa";
 
-const EmailChoiceModal = ({ email }: any) => {
+const EmailChoiceModal = ({ email, trigger }: any) => {
   const providers = [
     {
       name: "Default Mail App",
@@ -42,18 +42,7 @@ const EmailChoiceModal = ({ email }: any) => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <div className="w-full border rounded p-2 flex justify-between items-center mt-4 custom-btn">
-          <div className="">
-            <p className="text-gray-300">Email Support</p>
-            <p className="text-gray-400">{email}</p>
-          </div>
-
-          <p>
-            <ChevronRight />
-          </p>
-        </div>
-      </DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="w-[28vw] bg-[#1E2A37]">
         <div
           className=" animate-in fade-in"
