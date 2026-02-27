@@ -36,13 +36,13 @@ export default function AddEmployeeForm({
     reset,
     watch,
     setValue,
-    trigger: triggerValidation,
+
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
       name: "",
       email: "",
-      countryCode: "+49",
+      countryCode: "",
       phone: "",
       address: "",
     },
@@ -69,14 +69,19 @@ export default function AddEmployeeForm({
       ? `/workers/update/${workerData._id}`
       : "/workers/create";
 
-    // 🔹 Clean phone number
-    const cleanedPhone = data.phone.replace(/^0+/, "");
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { countryCode, ...rest } = data;
+
+    const cleanPhone = data.phone.replace(/^0+/, "");
+    const formattedPhone = countryCode
+      ? `${countryCode}${cleanPhone}`
+      : cleanPhone;
 
     const payload = {
       name: data.name,
       email: data.email,
       address: data.address,
-      phone: `${data.countryCode}${cleanedPhone}`,
+      phone: formattedPhone,
     };
 
     try {
@@ -147,11 +152,19 @@ export default function AddEmployeeForm({
             <div>
               <Label className="mb-1">Contact Number</Label>
               <div className="flex gap-2">
-                <SearchableCountrySelect
+                {/* <SearchableCountrySelect
                   value={watch("countryCode")}
                   onChange={(dialCode: string) => {
                     setValue("countryCode", dialCode);
                     triggerValidation("countryCode");
+                  }}
+                  error={errors.countryCode}
+                  countryList={countryList}
+                /> */}
+                <SearchableCountrySelect
+                  value={watch("countryCode")}
+                  onChange={(dialCode: string) => {
+                    setValue("countryCode", dialCode, { shouldDirty: true });
                   }}
                   error={errors.countryCode}
                   countryList={countryList}
@@ -161,10 +174,10 @@ export default function AddEmployeeForm({
                   type="tel"
                   {...register("phone", {
                     required: "Phone number required",
-                    pattern: {
-                      value: /^[0-9]{6,14}$/,
-                      message: "Invalid phone number",
-                    },
+                    // pattern: {
+                    //   value: /^[0-9]{6,14}$/,
+                    //   message: "Invalid phone number",
+                    // },
                   })}
                   placeholder="Phone number"
                 />

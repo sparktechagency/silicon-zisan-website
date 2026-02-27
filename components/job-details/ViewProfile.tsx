@@ -1,14 +1,16 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, DownloadIcon, EyeIcon } from "lucide-react";
 
 import CustomImage from "@/utils/CustomImage";
 import { Button } from "../ui/button";
 import { myFetch } from "@/utils/myFetch";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import Image from "next/image";
+import pdf from "../../public/dashboard/pdf.png";
 
-export default function ViewProfile({ data, chatId }: any) {
+export default function ViewProfile({ data, chatId, check }: any) {
   const router = useRouter();
   const handleChat = async (id: string) => {
     try {
@@ -110,7 +112,7 @@ export default function ViewProfile({ data, chatId }: any) {
           {renderInfoSection("Work Information", workInfo)}
         </div>
         {/* resume and others */}
-        {/* {data.isProfileVisible === true && data?.resumeUrl && (
+        {!check && data?.resumeUrl && (
           <div className=" text-white   space-y-6 ">
             <div className="flex justify-between items-center border border-[#A6B6C7] rounded-md p-4">
               <div className="flex items-center gap-6">
@@ -141,17 +143,17 @@ export default function ViewProfile({ data, chatId }: any) {
               </div>
             </div>
           </div>
-        )} */}
+        )}
         {/* images */}
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {data.isProfileVisible === true &&
+          {!check &&
             data?.attachments?.map((item: any, index: number) => {
               return (
                 <div key={index} className="image-wrapper">
                   <CustomImage
                     src={item}
                     title={`Office ${index + 1}`}
-                    className="object-cover w-80 h-80"
+                    className="object-cover w-80 h-60"
                     width={100}
                     height={100}
                   />

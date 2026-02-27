@@ -4,9 +4,10 @@ import { myFetch } from "@/utils/myFetch";
 export default async function page({
   searchParams,
 }: {
-  searchParams: { profieID: string };
+  searchParams: { profieID: string; check: string };
 }) {
   const { profieID } = await searchParams;
+  const { check } = await searchParams;
 
   const res = await myFetch(`/job-seekers/single/${profieID}`);
 
@@ -19,9 +20,15 @@ export default async function page({
     },
   });
 
+  console.log("check-------", check);
+
   return (
     <>
-      <ViewProfile data={res?.data} chatId={response?.data?._id} />
+      <ViewProfile
+        data={res?.data}
+        chatId={response?.data?._id}
+        check={check}
+      />
     </>
   );
 }

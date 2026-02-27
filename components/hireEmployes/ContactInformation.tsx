@@ -274,7 +274,7 @@ export default function ContractInformation({
         getProfile?.user?.address || "N/A",
       );
 
-      const hireEmployeHeader = await translateText("Hire Employee Details");
+      const hireEmployeHeader = await translateText("Job Details");
       const translatedCategory = await translateText(data?.category || "N/A");
       const translatedSubCategory = await translateText(
         data?.subCategory || "N/A",
