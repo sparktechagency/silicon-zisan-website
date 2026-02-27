@@ -1,7 +1,6 @@
 "use client";
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { ChevronRight } from "lucide-react";
 import { FaEnvelope, FaGoogle, FaMicrosoft, FaYahoo } from "react-icons/fa";
 
 const EmailChoiceModal = ({ email, trigger }: any) => {

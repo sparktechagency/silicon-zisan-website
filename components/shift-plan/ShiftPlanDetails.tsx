@@ -193,10 +193,9 @@ export default function ShiftPlanDetails({ details }: any) {
     let remarksSection = null;
 
     if (details?.plans?.length > 0) {
-      const remarks = details.plans[0]?.remarks || [];
-
-      const translatedRemarks = await Promise.all(
-        remarks.map((r: string) => translateText(r, currentLang)),
+      const translatedRemarks = await translateText(
+        details.plans[0].remarks,
+        currentLang,
       );
 
       remarksSection = {
@@ -204,12 +203,13 @@ export default function ShiftPlanDetails({ details }: any) {
         stack: [
           { text: t_remarks, style: "sectionHeader" },
           {
-            ul: translatedRemarks.filter(Boolean),
+            text: translatedRemarks,
             style: "normalText",
           },
         ],
       };
     }
+
     // ✅ Step 5: PDF definition
 
     try {
