@@ -169,27 +169,47 @@ export default function ShiftPlanDetails({ details }: any) {
           }
         : null;
 
-    const remarksSection =
-      details?.plans?.length > 0
-        ? {
-            margin: [0, 10, 0, 0],
-            stack: [
-              { text: t_remarks, style: "sectionHeader" },
-              {
-                ul: (
-                  await Promise.all(
-                    details.plans.map(async (p: any) => {
-                      if (!p?.remarks) return null;
+    // const remarksSection =
+    //   details?.plans?.length > 0
+    //     ? {
+    //         margin: [0, 10, 0, 0],
+    //         stack: [
+    //           { text: t_remarks, style: "sectionHeader" },
+    //           {
+    //             ul: (
+    //               await Promise.all(
+    //                 details.plans.map(async (p: any) => {
+    //                   if (!p?.remarks) return null;
 
-                      return await translateText(p.remarks, currentLang);
-                    }),
-                  )
-                ).filter(Boolean),
-                style: "normalText",
-              },
-            ],
-          }
-        : null;
+    //                   return await translateText(p.remarks, currentLang);
+    //                 }),
+    //               )
+    //             ).filter(Boolean),
+    //             style: "normalText",
+    //           },
+    //         ],
+    //       }
+    //     : null;
+    let remarksSection = null;
+
+    if (details?.plans?.length > 0) {
+      const remarks = details.plans[0]?.remarks || [];
+
+      const translatedRemarks = await Promise.all(
+        remarks.map((r: string) => translateText(r, currentLang)),
+      );
+
+      remarksSection = {
+        margin: [0, 10, 0, 0],
+        stack: [
+          { text: t_remarks, style: "sectionHeader" },
+          {
+            ul: translatedRemarks.filter(Boolean),
+            style: "normalText",
+          },
+        ],
+      };
+    }
     // ✅ Step 5: PDF definition
 
     try {
