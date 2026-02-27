@@ -152,7 +152,6 @@ export default function HeaderTwo({
             <div className="space-x-2 flex items-center">
               <CustomImage
                 src={profileData?.user?.image}
-                fallback={profile}
                 title="Zasulehry"
                 width={50}
                 height={50}
@@ -275,7 +274,7 @@ export default function HeaderTwo({
               <div className="flex items-center space-x-3">
                 <CustomImage
                   src={profileData?.user?.image}
-                  fallback={profile}
+                  // fallback={profile}
                   title="Profile"
                   width={40}
                   height={40}
