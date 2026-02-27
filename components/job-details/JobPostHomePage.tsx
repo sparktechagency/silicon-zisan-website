@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { myFetch } from "@/utils/myFetch";
 // import Default from "../../public/default.jpg";
-import CustomImage from "@/utils/CustomImage";
+
 import { UserSearch } from "lucide-react";
+import Image from "next/image";
 
 export default async function JobPostHomePage() {
   const res = await myFetch("/jobs/me?isHiringRequest=false");
@@ -30,9 +31,9 @@ export default async function JobPostHomePage() {
             <div className="flex flex-col sm:flex-row items-center gap-4">
               {/* Image / Logo */}
               <div className="shrink-0 w-32 sm:w-36 md:w-40">
-                <CustomImage
+                <Image
                   src={profileData?.data?.user?.image}
-                  title="Logo"
+                  alt={profileData?.data?.user?.name}
                   width={160}
                   height={160}
                   className="w-full h-[200px] object-contain"

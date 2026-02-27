@@ -108,7 +108,7 @@ export default async function Footer() {
               >
                 <GooglePlayIcon />
                 <div className="ml-3">
-                  <div className="text-xs text-gray-800">Get it on</div>
+                  <div className="text-xs text-gray-800">Download on</div>
                   <div className="text-sm font-semibold">Google Play</div>
                 </div>
               </Link>
@@ -119,7 +119,7 @@ export default async function Footer() {
               >
                 <AppleStoreIcon />
                 <div className="ml-3">
-                  <div className="text-xs text-gray-800">Get it on</div>
+                  <div className="text-xs text-gray-800">Download on</div>
                   <div className="text-sm font-semibold">Apple Store</div>
                 </div>
               </Link>

@@ -47,7 +47,7 @@ export const ChatCard = ({ chat }: ChatCardProps) => {
         <div>
           <CustomImage
             src={participant?.image}
-            fallback={defalutImage.src}
+            // fallback={defalutImage.src}
             title={participant?.name || "User"}
             width={44}
             height={44}

@@ -7,10 +7,12 @@ type LocationFeature = {
     name: string;
     city?: string;
     country?: string;
+    labe: string;
   };
   geometry: {
     coordinates: [number, number];
   };
+  label?: string;
 };
 
 export default function AddressInput({ setValue, register, errors }: any) {
@@ -33,15 +35,50 @@ export default function AddressInput({ setValue, register, errors }: any) {
       return;
     }
 
+    // const timeout = setTimeout(async () => {
+    //   try {
+    //     setLoading(true);
+    //     const res = await fetch(
+    //       `https://photon.komoot.io/api/?lang=en&q=${input}&limit=5`,
+    //     );
+    //     const data = await res.json();
+    //     console.log("data", data);
+
+    //     setSuggestions(data.features || []);
+    //     setOpen(true);
+    //   } catch (err) {
+    //     console.error(err);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // }, 400);
+
     const timeout = setTimeout(async () => {
       try {
         setLoading(true);
+
         const res = await fetch(
           `https://photon.komoot.io/api/?lang=en&q=${input}&limit=5`,
         );
+
         const data = await res.json();
 
-        setSuggestions(data.features || []);
+        const formatted = (data.features || []).map((item: any) => {
+          const p = item.properties;
+
+          const road = [p.housenumber, p.street].filter(Boolean).join(" ");
+
+          const location = [p.city, p.country].filter(Boolean).join(", ");
+
+          return {
+            ...item,
+            label: [road, location].filter(Boolean).join(", "),
+          };
+        });
+
+        console.log("formatted", formatted);
+
+        setSuggestions(formatted);
         setOpen(true);
       } catch (err) {
         console.error(err);
@@ -49,9 +86,23 @@ export default function AddressInput({ setValue, register, errors }: any) {
         setLoading(false);
       }
     }, 400);
-
     return () => clearTimeout(timeout);
   }, [input]);
+
+  // const handleSelect = ({
+  //   label,
+  //   coordinates,
+  // }: {
+  //   label: string;
+  //   coordinates: [number, number];
+  // }) => {
+  //   isSelectingRef.current = true;
+  //   setValue("address", label, { shouldDirty: true });
+  //   setValue("location", coordinates);
+
+  //   setOpen(false);
+  //   setSuggestions([]);
+  // };
 
   const handleSelect = ({
     label,
@@ -60,6 +111,8 @@ export default function AddressInput({ setValue, register, errors }: any) {
     label: string;
     coordinates: [number, number];
   }) => {
+    console.log("click");
+
     isSelectingRef.current = true;
     setValue("address", label, { shouldDirty: true });
     setValue("location", coordinates);
@@ -67,7 +120,6 @@ export default function AddressInput({ setValue, register, errors }: any) {
     setOpen(false);
     setSuggestions([]);
   };
-
   return (
     <div className="relative">
       {/* INPUT */}
@@ -84,7 +136,7 @@ export default function AddressInput({ setValue, register, errors }: any) {
       )}
 
       {/* DROPDOWN */}
-      {open && suggestions.length > 0 && (
+      {/* {open && suggestions.length > 0 && (
         <ul className="absolute z-50 mt-1 w-full rounded-md border bg-white text-black shadow">
           {suggestions.map((item, index) => {
             const label = [
@@ -113,6 +165,27 @@ export default function AddressInput({ setValue, register, errors }: any) {
             );
           })}
         </ul>
+      )} */}
+      {open && suggestions.length > 0 && (
+        <div className="absolute z-50 mt-1 w-full rounded-md border bg-white text-black shadow">
+          {suggestions.map((item, index) => (
+            <div
+              key={index}
+              className="p-2 hover:bg-gray-100 cursor-pointer"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                handleSelect({
+                  label: item.label || "",
+                  coordinates: item.geometry.coordinates,
+                });
+              }}
+            >
+              {item.label}
+            </div>
+          ))}
+        </div>
       )}
 
       {loading && <p className="mt-1 text-xs text-gray-400">Searching...</p>}

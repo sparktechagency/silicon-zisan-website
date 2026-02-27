@@ -23,7 +23,7 @@ export default function Alerts({ res }: any) {
 
     // Navigate only for JOB_SEEKER_ALERT
     if (item.type === "JOB_SEEKER_ALERT") {
-      router.push(`/view-profile?profieID=${item.referenceId}`);
+      router.push(`/view-profile?profieID=${item.referenceId}&check=true`);
     }
   };
 

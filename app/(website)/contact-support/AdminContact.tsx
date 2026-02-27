@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import EmailChoiceModal from "./EmailChoiceModal";
 
 export default function AdminContact({ chatId, adminContact }: any) {
   const router = useRouter();
@@ -30,22 +31,7 @@ export default function AdminContact({ chatId, adminContact }: any) {
   };
   return (
     <div className="">
-      <Link
-        href={`mailto:${adminContact?.email}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <div className="border rounded p-2 flex justify-between items-center mt-4 custom-btn">
-          <div className="">
-            <p className="text-gray-300">Email Support</p>
-            <p className="text-gray-400">{adminContact?.email}</p>
-          </div>
-
-          <p>
-            <ChevronRight />
-          </p>
-        </div>
-      </Link>
+      <EmailChoiceModal email={adminContact?.email} />
       <Link
         href={`https://wa.me/${adminContact?.whatsApp}`}
         target="_blank"

@@ -11,7 +11,7 @@ export const mainNavigation: NavItem[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { name: "Facebook", href: "https://facebook.com", icon: "facebook" },
+  // { name: "Facebook", href: "https://facebook.com", icon: "facebook" },
   { name: "Instagram", href: "https://instagram.com", icon: "instagram" },
   { name: "Youtube", href: "https://youtube.com", icon: "youtube" },
 ];
