@@ -22,6 +22,8 @@ export default function ShiftPlanDetails({ details }: any) {
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
 
+  console.log("details", details.plans[0].remarks);
+
   const googtrans = useCookie("googtrans");
   // const googtrans = useCookie("googtrans")?.value || "/en/en";
   const currentLang = googtrans
@@ -337,11 +339,12 @@ export default function ShiftPlanDetails({ details }: any) {
         {/* Remarks */}
         <div className="mt-6 ml-4">
           <strong className="">Remarks</strong>
-          {details?.plans?.map((item: any, index: number) => (
+          {/* {details?.plans?.map((item: any, index: number) => (
             <p key={index} className="">
               {item.remarks}
             </p>
-          ))}
+          ))} */}
+          <p>{details.plans[0].remarks}</p>
         </div>
       </div>
 

@@ -18,10 +18,12 @@ import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import SubscriptionDetails from "../dashboard/dashboardSubscription/SubscriptionDetails";
 import { Info } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Subscriptions({ res, giftSubscription }: any) {
   const swiperRef = useRef<null | any>(null);
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubscribe = async (id: string) => {
     setLoadingId(id);
@@ -33,6 +35,10 @@ export default function Subscriptions({ res, giftSubscription }: any) {
           package: id,
         },
       });
+
+      if (res.status === 403) {
+        router.push("/profile/edit-profile");
+      }
 
       if (res.success) {
         window.open(res.data, "_blank");

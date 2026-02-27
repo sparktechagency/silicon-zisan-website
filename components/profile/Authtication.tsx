@@ -13,7 +13,7 @@ export default function TwoFactorAuth({ getProfile }: any) {
     Boolean(getProfile?.authentication?.is2FAEmailActive),
   );
   const [authAppActive, setAuthAppActive] = useState(
-    Boolean(getProfile?.authentication?.is2FAAuthenticatorActive),
+    Boolean(getProfile?.authentication?.is2FAAppActive),
   );
   const router = useRouter();
 
@@ -67,7 +67,7 @@ export default function TwoFactorAuth({ getProfile }: any) {
       const res = await myFetch("/users/profile", {
         method: "PATCH",
         body: {
-          is2FAAuthenticatorActive: false,
+          is2FAAppActive: false,
         },
       });
 
@@ -126,7 +126,7 @@ export default function TwoFactorAuth({ getProfile }: any) {
         <div className="flex items-center justify-between bg-card px-4 py-3 rounded-lg">
           <div>
             <p className="text-sm">{authAppActive ? "Active" : "Inactive"}</p>
-            <p className="text-base font-medium">Google Authenticator App</p>
+            <p className="text-base font-medium">Authenticator App</p>
           </div>
           <Switch
             checked={authAppActive}

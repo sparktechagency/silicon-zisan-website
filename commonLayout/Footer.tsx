@@ -7,6 +7,7 @@ import logo from "../public/logo.png";
 import Container from "@/share/Container";
 import { myFetch } from "@/utils/myFetch";
 import { Phone } from "lucide-react";
+import EmailChoiceModal from "@/app/(website)/contact-support/EmailChoiceModal";
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
@@ -68,7 +69,7 @@ export default async function Footer() {
               </li>
 
               <div className="mt-3">
-                <Link
+                {/* <Link
                   href="mailto:info@jobsinapp.de"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -77,7 +78,16 @@ export default async function Footer() {
                     <EmailIcon />
                     <span className="ml-2">{res?.data?.email}</span>
                   </li>
-                </Link>
+                </Link> */}
+                <EmailChoiceModal
+                  email={res?.data?.email}
+                  trigger={
+                    <li className="flex items-center text-gray-200 text-sm cursor-pointer">
+                      <EmailIcon />
+                      <span className="ml-2">{res?.data?.email}</span>
+                    </li>
+                  }
+                />
               </div>
               <Link href="/contact-support">
                 <li className="flex items-center text-gray-200 text-sm ">

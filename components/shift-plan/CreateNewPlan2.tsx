@@ -235,6 +235,10 @@ export default function CreateNewPlan2({ employee, editData }: any) {
 
       console.log("res", res);
 
+      if (res.status === 403) {
+        router.push("/profile/edit-profile");
+      }
+
       if (res.status === 402) {
         router.push("/subscriptions");
       }

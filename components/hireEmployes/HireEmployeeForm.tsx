@@ -135,6 +135,10 @@ const HireEmployeeForm = () => {
         body: payload,
       });
 
+      if (res.status === 403) {
+        router.push("/profile/edit-profile");
+      }
+
       // if (res.status === 402) {
       //   router.push("/subscriptions");
       // }

@@ -26,6 +26,7 @@ export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -34,6 +35,7 @@ export default function SignUpPage() {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setLoading(true);
     if (data.password !== data.confirmPassword) {
       toast.error("Password and Confirm password do not match");
     }
@@ -66,6 +68,8 @@ export default function SignUpPage() {
       const message =
         error instanceof Error ? error.message : "An error occurred";
       toast.error(message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -186,7 +190,11 @@ export default function SignUpPage() {
             </span>
           </label>
 
-          <Button className="custom-btn w-full" type="submit">
+          <Button
+            disabled={loading}
+            className="custom-btn w-full"
+            type="submit"
+          >
             Register
           </Button>
 
