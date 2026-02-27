@@ -97,7 +97,7 @@ const MessageChart = ({
       <div className="flex gap-2 py-4 px-5 border rounded-md border-gray-500/40 bg-card static items-center">
         <CustomImage
           src={participant?.image}
-          fallback={defalutImage}
+          // fallback={defalutImage}
           title="header"
           width={44}
           height={44}
@@ -136,7 +136,7 @@ const MessageChart = ({
                   {!isMyMessage && (
                     <CustomImage
                       src={participant?.image}
-                      fallback={defalutImage}
+                      // fallback={defalutImage}
                       title="avatar"
                       className="w-8 h-8 rounded-full mr-2 object-cover"
                       width={32}
