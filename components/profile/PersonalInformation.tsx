@@ -14,6 +14,7 @@ import Link from "next/link";
 export default function PersonalInformation({ data }: { data: any }) {
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
   const [fileImage, setFileImage] = React.useState<string | null>(null);
+  console.log("fileImage", fileImage);
 
   const inputRef = React.useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -37,6 +38,7 @@ export default function PersonalInformation({ data }: { data: any }) {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
+      console.log("file", file);
 
       const formData = new FormData();
       formData.append("image", file);
@@ -53,11 +55,16 @@ export default function PersonalInformation({ data }: { data: any }) {
 
           router.refresh();
         } else {
-          toast.error(response.message || "Failed to update profile image");
+          toast.error(
+            (response as any)[0]?.error.message ||
+              "Failed to update profile image",
+          );
         }
       } catch (error) {
         console.error("Error updating profile image:", error);
-        toast.error("Something went wrong");
+        toast.error(
+          error instanceof Error ? error.message : "something went wrong",
+        );
       }
     }
   };
@@ -71,6 +78,8 @@ export default function PersonalInformation({ data }: { data: any }) {
   useEffect(() => {
     const fetchProfile = async () => {
       const res = await getProfile();
+      console.log("res", res.image);
+
       setFileImage(res?.image || null);
     };
 

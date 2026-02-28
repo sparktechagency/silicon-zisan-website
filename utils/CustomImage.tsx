@@ -52,8 +52,7 @@
 // }
 "use client";
 
-import Image, { StaticImageData } from "next/image";
-import { useState } from "react";
+import Image from "next/image";
 
 interface CustomImageProps {
   src?: string | null;
@@ -70,20 +69,18 @@ export default function CustomImage({
   height = 100,
   className = "",
 }: CustomImageProps) {
-  const [imgSrc] = useState<string | StaticImageData>(src || "");
-
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const finalSrc =
-    typeof imgSrc === "string"
-      ? imgSrc.startsWith("http")
-        ? imgSrc
-        : new URL(imgSrc, baseUrl).toString()
-      : imgSrc;
+    typeof src === "string"
+      ? src.startsWith("http")
+        ? src
+        : new URL(src, baseUrl).toString()
+      : src;
 
   return (
     <Image
-      src={finalSrc}
+      src={finalSrc!}
       alt={title || "image"}
       width={width}
       height={height}

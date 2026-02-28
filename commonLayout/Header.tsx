@@ -1,4 +1,3 @@
-// HeaderTwo.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -10,28 +9,22 @@ import Container from "@/share/Container";
 import { gradientClasses } from "@/styles/gradients";
 import { mainNavigation } from "@/constants/navigation";
 import call from "../public/call-header.svg";
-import profile from "../public/profile/avatar.png";
 import CustomImage from "@/utils/CustomImage";
-import { myFetch } from "@/utils/myFetch";
 import { disconnectSocket, getSocket } from "@/utils/socket";
 import { revalidate } from "@/utils/revalidateTag";
 import { useChatSocket } from "@/hooks/useChatSocket";
-
-type Profile = {
-  user: {
-    image: string;
-    name: string;
-  };
-};
 
 export default function HeaderTwo({
   notification,
   token,
   messageNotification,
+  profileData,
 }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [profileData, setProfileData] = useState<Profile | null>(null);
+  // const [profileData, setProfileData] = useState<Profile | null>(null);
   const pathname = usePathname();
+
+  console.log("profileData", profileData);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -44,16 +37,16 @@ export default function HeaderTwo({
     onError: (err: any) => console.error(err),
   });
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const res = await myFetch("/employers/me", {
-        tags: ["profile"],
-      });
-      setProfileData(res?.data);
-    };
+  // useEffect(() => {
+  //   const getProfile = async () => {
+  //     const res = await myFetch("/employers/me", {
+  //       tags: ["profile"],
+  //     });
+  //     setProfileData(res?.data);
+  //   };
 
-    getProfile();
-  }, []);
+  //   getProfile();
+  // }, []);
 
   const count =
     messageNotification?.reduce(
@@ -151,7 +144,7 @@ export default function HeaderTwo({
           <Link href="/profile" className="hidden md:block">
             <div className="space-x-2 flex items-center">
               <CustomImage
-                src={profileData?.user?.image}
+                src={profileData?.data?.user?.image}
                 title="Zasulehry"
                 width={50}
                 height={50}
