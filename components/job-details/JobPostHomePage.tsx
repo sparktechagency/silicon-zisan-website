@@ -28,10 +28,10 @@ export default async function JobPostHomePage() {
           >
             <div className="flex flex-col sm:flex-row items-center gap-4">
               {/* Image / Logo */}
-              <div className="shrink-0 w-32 sm:w-36 md:w-40">
+              <div className="shrink-0 w-60 sm:w-36 md:w-40">
                 <CustomImage
                   src={profileData?.data?.user?.image}
-                  title={profileData?.data?.user?.name}
+                  title=""
                   width={160}
                   height={160}
                   className="w-full h-[200px] object-contain"
@@ -71,7 +71,7 @@ export default async function JobPostHomePage() {
                     <p>{getAppliedJob(item?._id)} Applicant</p>
                   </div>
                   <div>
-                    <div className="">
+                    <div className="mt-3 sm:mt-0">
                       <Link
                         href={`/view-details-jobs/${item._id}`}
                         className="w-full"

@@ -79,7 +79,7 @@ export default function ViewProfile({ data, chatId, check }: any) {
         <div className="flex gap-4">
           <CustomImage
             src={data?.user?.image}
-            title="Office"
+            title=""
             className="rounded-full h-28 w-28 object-cover"
             width={10}
             height={10}
@@ -150,7 +150,7 @@ export default function ViewProfile({ data, chatId, check }: any) {
                 <div key={index} className="image-wrapper">
                   <CustomImage
                     src={item}
-                    title={`Office ${index + 1}`}
+                    title=""
                     className="object-cover w-80 h-60"
                     width={100}
                     height={100}

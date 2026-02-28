@@ -131,7 +131,7 @@ export default function HeaderTwo({
             <div className="space-x-2 flex items-center">
               <CustomImage
                 src={profileData?.data?.user?.image}
-                title="Zasulehry"
+                title=""
                 width={50}
                 height={50}
                 className="h-12 w-12 rounded-full object-cover"
@@ -236,11 +236,7 @@ export default function HeaderTwo({
               rel="noopener noreferrer"
             >
               <div className="rounded-full w-[10%] bg-[#227C90] p-2 border-t border-b border-t-[#97d4e2] border-b-[#97d4e2]">
-                <Image
-                  src={call}
-                  alt="Zasulehry"
-                  className="lg:w-8 lg:h-8 rotate-90"
-                />
+                <Image src={call} alt="" className="lg:w-8 lg:h-8 rotate-90" />
               </div>
             </Link>
 
@@ -252,15 +248,15 @@ export default function HeaderTwo({
             >
               <div className="flex items-center space-x-3">
                 <CustomImage
-                  src={profileData?.user?.image}
+                  src={profileData?.data?.user?.image}
                   // fallback={profile}
-                  title="Profile"
+                  title=""
                   width={40}
                   height={40}
                   className="rounded-full object-cover h-10"
                 />
                 <p className="text-gray-800 font-medium">
-                  {profileData?.user?.name || "No Name"}
+                  {profileData?.data?.user?.name || "No Name"}
                 </p>
               </div>
             </Link>
