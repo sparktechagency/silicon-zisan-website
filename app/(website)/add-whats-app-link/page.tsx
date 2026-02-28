@@ -5,7 +5,6 @@ export default async function AddWhatsLinkPage() {
   const res = await myFetch("/employers/me", {
     tags: ["whatsapp"],
   });
-  console.log("res?.data?.whatsApp", res?.data);
 
   return (
     <>
