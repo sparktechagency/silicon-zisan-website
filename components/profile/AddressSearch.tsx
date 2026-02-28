@@ -76,8 +76,6 @@ export default function AddressInput({ setValue, register, errors }: any) {
           };
         });
 
-        console.log("formatted", formatted);
-
         setSuggestions(formatted);
         setOpen(true);
       } catch (err) {
@@ -111,8 +109,6 @@ export default function AddressInput({ setValue, register, errors }: any) {
     label: string;
     coordinates: [number, number];
   }) => {
-    console.log("click");
-
     isSelectingRef.current = true;
     setValue("address", label, { shouldDirty: true });
     setValue("location", coordinates);

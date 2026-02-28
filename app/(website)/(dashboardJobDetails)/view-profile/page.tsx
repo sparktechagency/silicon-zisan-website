@@ -20,8 +20,6 @@ export default async function page({
     },
   });
 
-  console.log("check-------", check);
-
   return (
     <>
       <ViewProfile

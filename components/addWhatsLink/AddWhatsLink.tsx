@@ -31,8 +31,6 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
 
   // const cleanedPhone = whatsApp.replace(/^0+/, "");
 
-  console.log("whats app", whatsApp);
-
   useEffect(() => {
     reset({ whatsApp });
   }, [whatsApp, reset]);
@@ -49,8 +47,6 @@ export default function AddWhatsLink({ whatsApp }: { whatsApp: string }) {
       ...rest,
       whatsApp: formattedPhone,
     };
-
-    console.log("payload", payload);
 
     try {
       const res = await myFetch(`/employers/me`, {

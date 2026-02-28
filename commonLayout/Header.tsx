@@ -21,10 +21,7 @@ export default function HeaderTwo({
   profileData,
 }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [profileData, setProfileData] = useState<Profile | null>(null);
   const pathname = usePathname();
-
-  console.log("profileData", profileData);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -36,17 +33,6 @@ export default function HeaderTwo({
     // onMessage: (msg) => setMessages((prev: any) => [...prev, msg]),
     onError: (err: any) => console.error(err),
   });
-
-  // useEffect(() => {
-  //   const getProfile = async () => {
-  //     const res = await myFetch("/employers/me", {
-  //       tags: ["profile"],
-  //     });
-  //     setProfileData(res?.data);
-  //   };
-
-  //   getProfile();
-  // }, []);
 
   const count =
     messageNotification?.reduce(
@@ -151,7 +137,7 @@ export default function HeaderTwo({
                 className="h-12 w-12 rounded-full object-cover"
               />
               <p className="notranslate">
-                {profileData?.user?.name || "No Name"}
+                {profileData?.data?.user?.name || "No Name"}
               </p>
             </div>
           </Link>

@@ -100,8 +100,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
   };
 
   useEffect(() => {
-    console.log("editData", editData);
-
     if (editData) {
       reset({
         worker: editData?.worker?._id || "",
@@ -197,8 +195,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
   };
 
   const onSubmit = async (data: FormValues) => {
-    console.log("data.remarks,", data.remarks);
-
     if (!plans.length) {
       toast.error("Please add at least one shift plan");
       return;
@@ -232,8 +228,6 @@ export default function CreateNewPlan2({ employee, editData }: any) {
         method: method,
         body: payload,
       });
-
-      console.log("res", res);
 
       if (res.status === 403) {
         router.push("/profile/edit-profile");
