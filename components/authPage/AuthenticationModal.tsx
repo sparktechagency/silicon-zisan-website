@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent } from "../ui/dialog";
 import { Input } from "../ui/input";
@@ -73,13 +73,27 @@ export default function AuthenticationModal({
     }
   };
 
+  const handle2FA = useCallback(() => {
+    if (data?.is2FAAppActive) {
+      setIsActive("auth");
+    } else {
+      setIsActive("email");
+    }
+  }, [data]);
+
+  // Auto-trigger when data loads
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    handle2FA();
+  }, [handle2FA]);
+
   return (
     <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
       <DialogContent className="border-none w-[98vw] md:w-[28vw]">
         <div className="grid grid-cols-2 gap-3 md:gap-9 mt-7">
           <Button
             disabled={!data?.is2FAEmail}
-            onClick={() => setIsActive("email")}
+            onClick={handle2FA}
             className={`bg-[#374859] border ${
               isActive === "email" ? "custom-btn" : ""
             }`}
@@ -88,8 +102,8 @@ export default function AuthenticationModal({
           </Button>
 
           <Button
-            disabled={!data?.is2FAAuthenticator}
-            onClick={() => setIsActive("auth")}
+            disabled={!data?.is2FAAppActive}
+            onClick={handle2FA}
             className={`bg-[#374859] border ${
               isActive === "auth" ? "custom-btn" : ""
             }`}
