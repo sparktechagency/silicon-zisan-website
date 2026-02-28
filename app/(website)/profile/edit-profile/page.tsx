@@ -140,6 +140,8 @@ export default function EditProfile({ title }: { title?: string }) {
   }, [initialData, reset, categories]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
+    console.log("click");
+
     if (!values.name || !values.legalForm || !values.address) {
       toast.error("Please select name, legal form, and address");
       return;
@@ -276,9 +278,11 @@ export default function EditProfile({ title }: { title?: string }) {
               </Select>
             )}
           />
-          {/* {errors?.category && (
-            <span className="text-red-400">{errors.category.message}</span>
-          )} */}
+          {errors?.businessCategory && (
+            <span className="text-red-400">
+              {errors.businessCategory.message}
+            </span>
+          )}
         </div>
 
         <div className="space-y-2">
