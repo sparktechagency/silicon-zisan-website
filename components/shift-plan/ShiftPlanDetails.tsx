@@ -10,7 +10,6 @@ import dayjs from "dayjs";
 import { myFetch } from "@/utils/myFetch";
 import { toast } from "sonner";
 import { useState } from "react";
-// import { translations } from "@/hooks/translate";
 import { useCookie } from "@/hooks/useCookies";
 
 (pdfMake as any).vfs = pdfFonts.vfs;
@@ -118,35 +117,8 @@ export default function ShiftPlanDetails({ details }: any) {
       margin: [0, 10, 0, 15],
     };
 
-    // ✅ Step 4: Remarks section
-    // const remarksSection =
-    //   details?.plans?.length > 0
-    //     ? {
-    //         margin: [0, 10, 0, 0],
-    //         stack: [
-    //           { text: t_remarks, style: "sectionHeader" }, // already translated header
-    //           {
-    //             // Translate each remark dynamically
-    //             ul: await Promise.all(
-    //               details.plans
-    //                 .map((plan: any) => plan?.remarks ?? null)
-    //                 .filter(Boolean)
-    //                 .map(async (remark: string) => {
-    //                   const translatedRemark = await translateText(
-    //                     remark,
-    //                     currentLang,
-    //                   );
-    //                   // return { text: translatedRemark };
-    //                 }),
-    //             ),
-    //             style: "normalText",
-    //           },
-    //         ],
-    //       }
-    //     : null;
-
     const tasksSection =
-      details?.plans[0]?.tasks?.length > 0
+      details?.plans?.length > 0
         ? {
             margin: [0, 10, 0, 0],
             stack: [
@@ -154,11 +126,9 @@ export default function ShiftPlanDetails({ details }: any) {
               {
                 ul: (
                   await Promise.all(
-                    details.plans.map(async (p: any) => {
-                      if (!p) return null;
-
-                      return await translateText(p.tasks, currentLang);
-                    }),
+                    details.plans
+                      .flatMap((p: any) => p.tasks || [])
+                      .map((task: string) => translateText(task, currentLang)),
                   )
                 ).filter(Boolean),
                 style: "normalText",
@@ -167,27 +137,6 @@ export default function ShiftPlanDetails({ details }: any) {
           }
         : null;
 
-    // const remarksSection =
-    //   details?.plans?.length > 0
-    //     ? {
-    //         margin: [0, 10, 0, 0],
-    //         stack: [
-    //           { text: t_remarks, style: "sectionHeader" },
-    //           {
-    //             ul: (
-    //               await Promise.all(
-    //                 details.plans.map(async (p: any) => {
-    //                   if (!p?.remarks) return null;
-
-    //                   return await translateText(p.remarks, currentLang);
-    //                 }),
-    //               )
-    //             ).filter(Boolean),
-    //             style: "normalText",
-    //           },
-    //         ],
-    //       }
-    //     : null;
     let remarksSection = null;
 
     if (details?.plans?.length > 0) {
@@ -348,20 +297,19 @@ export default function ShiftPlanDetails({ details }: any) {
         <div className="mt-6 ml-4">
           <strong className="">Tasks</strong>
           {details?.plans?.map((item: any, index: number) => (
-            <p key={index} className="">
-              {item.tasks}
-            </p>
+            <div key={index}>
+              {item?.tasks?.map((task: string, i: number) => (
+                <p key={i} className="whitespace-break-spaces">
+                  {task}
+                </p>
+              ))}
+            </div>
           ))}
         </div>
 
         {/* Remarks */}
         <div className="mt-6 ml-4">
           <strong className="">Remarks</strong>
-          {/* {details?.plans?.map((item: any, index: number) => (
-            <p key={index} className="">
-              {item.remarks}
-            </p>
-          ))} */}
           <p>{details.plans[0].remarks}</p>
         </div>
       </div>
