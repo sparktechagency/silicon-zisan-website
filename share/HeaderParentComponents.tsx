@@ -15,12 +15,17 @@ export default async function HeaderParentComponents() {
     tags: ["chatlist"],
   });
 
+  const profileData = await myFetch("/employers/me", {
+    tags: ["profile"],
+  });
+
   return (
     <>
       <HeaderTwo
         notification={res?.data}
         token={token}
         messageNotification={response?.data}
+        profileData={profileData}
       />
     </>
   );
