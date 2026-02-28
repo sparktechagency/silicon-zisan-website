@@ -81,7 +81,7 @@ export default function CustomImage({
   return (
     <Image
       src={finalSrc!}
-      alt={title || "image"}
+      alt={title || ""}
       width={width}
       height={height}
       className={`object-cover ${className}`}

@@ -47,10 +47,10 @@ export default function ViewDetailsCompany({ data, length }: any) {
 
       {/* Image */}
       <div className="sm:flex gap-4">
-        <div className="shrink-0 w-32 sm:w-36 md:w-40">
+        <div className="shrink-0 w-48 sm:w-36 md:w-40">
           <CustomImage
             src={data?.author?.image}
-            title={data?.author?.name}
+            title=""
             width={160}
             height={160}
             className="rounded-md object-contain w-80 h-44"

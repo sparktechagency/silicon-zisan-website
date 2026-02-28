@@ -87,7 +87,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
 
         <CustomImage
           src={data?.user?.image}
-          title={data?.user?.name}
+          title=""
           className="rounded-md w-40 h-40"
         />
 

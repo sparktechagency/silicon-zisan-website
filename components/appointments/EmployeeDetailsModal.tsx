@@ -80,7 +80,7 @@ export default function EmployeeDetailsModal({
             <div>
               <CustomImage
                 src={item?.receiver?.image}
-                title={item?.receiver?.name}
+                title=""
                 className="w-20 h-20 sm:w-20 sm:h-20 rounded-full  border-2 border-gray-700"
               />
             </div>

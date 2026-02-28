@@ -35,24 +35,6 @@ export default function AddressInput({ setValue, register, errors }: any) {
       return;
     }
 
-    // const timeout = setTimeout(async () => {
-    //   try {
-    //     setLoading(true);
-    //     const res = await fetch(
-    //       `https://photon.komoot.io/api/?lang=en&q=${input}&limit=5`,
-    //     );
-    //     const data = await res.json();
-    //     console.log("data", data);
-
-    //     setSuggestions(data.features || []);
-    //     setOpen(true);
-    //   } catch (err) {
-    //     console.error(err);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // }, 400);
-
     const timeout = setTimeout(async () => {
       try {
         setLoading(true);
@@ -68,7 +50,9 @@ export default function AddressInput({ setValue, register, errors }: any) {
 
           const road = [p.housenumber, p.street].filter(Boolean).join(" ");
 
-          const location = [p.city, p.country].filter(Boolean).join(", ");
+          const location = [p.city, p.postcode, p.country]
+            .filter(Boolean)
+            .join(", ");
 
           return {
             ...item,
@@ -86,21 +70,6 @@ export default function AddressInput({ setValue, register, errors }: any) {
     }, 400);
     return () => clearTimeout(timeout);
   }, [input]);
-
-  // const handleSelect = ({
-  //   label,
-  //   coordinates,
-  // }: {
-  //   label: string;
-  //   coordinates: [number, number];
-  // }) => {
-  //   isSelectingRef.current = true;
-  //   setValue("address", label, { shouldDirty: true });
-  //   setValue("location", coordinates);
-
-  //   setOpen(false);
-  //   setSuggestions([]);
-  // };
 
   const handleSelect = ({
     label,

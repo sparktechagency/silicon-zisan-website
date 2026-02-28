@@ -92,7 +92,7 @@ export default function PersonalInformation({ data }: { data: any }) {
           // fallback={profile}
           width={100}
           height={100}
-          title="Profile"
+          title=""
           className="w-full h-full"
         />
         {/* Camera Icon overlay */}
@@ -126,10 +126,10 @@ export default function PersonalInformation({ data }: { data: any }) {
                 <span className="text-sm w-[80%] notranslate"> : {value}</span>
               </>
             ) : ( */}
-            <div className="grid grid-cols-[30%_80%] sm:grid-cols-[170px_auto]  py-2 ">
+            <div className="grid grid-cols-[30%_72%] sm:grid-cols-[170px_auto]  py-2 ">
               {" "}
               <div className="text-sm  ">{label}</div>
-              <div className="text-sm"> : {value}</div>
+              <div className="text-sm "> : {value}</div>
             </div>
           </div>
         ))}

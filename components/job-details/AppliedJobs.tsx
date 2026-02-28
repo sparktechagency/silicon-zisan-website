@@ -32,7 +32,7 @@ export default function AppliedJobs({ data, limit }: any) {
                 <div className="relative">
                   <CustomImage
                     src={item?.user?.image}
-                    title={item?.user?.title}
+                    title=""
                     className="rounded-t-lg h-40 w-full"
                   />
                 </div>

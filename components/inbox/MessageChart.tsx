@@ -98,7 +98,7 @@ const MessageChart = ({
         <CustomImage
           src={participant?.image}
           // fallback={defalutImage}
-          title="header"
+          title=""
           width={44}
           height={44}
           className="w-11 h-11 rounded-full object-cover"
@@ -137,7 +137,7 @@ const MessageChart = ({
                     <CustomImage
                       src={participant?.image}
                       // fallback={defalutImage}
-                      title="avatar"
+                      title=""
                       className="w-8 h-8 rounded-full mr-2 object-cover"
                       width={32}
                       height={32}
@@ -156,7 +156,7 @@ const MessageChart = ({
                         <div className="mb-2">
                           <CustomImage
                             src={item.image}
-                            title="sent image"
+                            title=""
                             className="rounded-md max-w-[200px] h-auto object-cover"
                             width={200}
                             height={200}

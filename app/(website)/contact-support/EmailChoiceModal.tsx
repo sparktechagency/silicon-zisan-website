@@ -42,7 +42,7 @@ const EmailChoiceModal = ({ email, trigger }: any) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="w-[28vw] bg-[#1E2A37]">
+      <DialogContent className="sm:w-[28vw] bg-[#1E2A37]">
         <div
           className=" animate-in fade-in"
           onClick={(e) => e.stopPropagation()}

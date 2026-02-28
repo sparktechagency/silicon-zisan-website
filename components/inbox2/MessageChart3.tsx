@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import defalutImage from "@/public/default-image.png";
 
 import { Message } from "@/types/message";
 import { Chat } from "@/types/chat";
@@ -113,7 +112,7 @@ const MessageChart3 = ({
         <CustomImage
           src={singleData?.anotherParticipant?.image}
           // fallback={defalutImage.src}
-          title="header"
+          title=""
           width={44}
           height={44}
           className="w-11 h-11 rounded-full object-cover"
@@ -160,7 +159,7 @@ const MessageChart3 = ({
                       <CustomImage
                         src={singleData?.anotherParticipant?.image}
                         // fallback={defalutImage.src}
-                        title="avatar"
+                        title=""
                         className="w-8 h-8 rounded-full mr-2 object-cover"
                         width={32}
                         height={32}
@@ -179,7 +178,7 @@ const MessageChart3 = ({
                           <div className="mb-2">
                             <CustomImage
                               src={item.image}
-                              title="sent image"
+                              title=""
                               className="rounded-md max-w-50 h-auto object-cover"
                               width={200}
                               height={200}
