@@ -19,6 +19,7 @@ export default function HeaderTwo({
   token,
   messageNotification,
   profileData,
+  adminInformation,
 }: any) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -111,7 +112,7 @@ export default function HeaderTwo({
               ))}
 
               <Link
-                href="https://wa.me/+88018595439901"
+                href={`https://wa.me/${adminInformation?.whatsApp}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -231,7 +232,7 @@ export default function HeaderTwo({
             ))}
 
             <Link
-              href="https://wa.me/+88018595439901"
+              href={`https://wa.me/${adminInformation?.whatsApp}`}
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -101,7 +101,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                 </button>
               </div>
 
-              <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+              <div className="bg-[#304150] h-[420px] sm:h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
                 <div className="flex justify-between items-center">
                   <div className="mt-4">
                     <h1 className="text-white text-lg lg:text-2xl font-semibold w-40">
@@ -135,7 +135,11 @@ export default function SubscriptionPlan({ data, name }: any) {
               </div>
 
               <Button
-                disabled={activePlan === "Basic"}
+                disabled={
+                  activePlan === "Basic" ||
+                  activePlan === "Standard" ||
+                  activePlan === "Booster"
+                }
                 className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
                   loadingId === data[0]?._id && "cursor-not-allowed"
                 }`}
@@ -170,7 +174,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                 </button>
               </div>
 
-              <div className="bg-[#304150] h-[450px] rounded py-6 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+              <div className="bg-[#304150] h-[420px] sm:h-[450px] rounded py-6 px-5 my-3 border border-gray-300/30 flex flex-col grow">
                 <div className="flex justify-between items-center">
                   <div className="mt-4">
                     <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
@@ -244,7 +248,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                 </button>
               </div>
 
-              <div className="bg-[#304150] h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
+              <div className="bg-[#304150] h-[420px] sm:h-[450px] rounded py-3 px-5 my-3 border border-gray-300/30 flex flex-col grow">
                 <div className="flex justify-between items-center">
                   <div className="mt-4">
                     <h1 className="text-white text-lg lg:text-2xl font-semibold text-nowrap">
