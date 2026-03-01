@@ -50,7 +50,7 @@ export default function AddressInput({ setValue, register, errors }: any) {
 
           const road = [p.housenumber, p.street].filter(Boolean).join(" ");
 
-          const location = [p.city, p.postcode, p.country]
+          const location = [p.city, p.postcode, p.street, p.country]
             .filter(Boolean)
             .join(", ");
 
