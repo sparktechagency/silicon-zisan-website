@@ -84,7 +84,7 @@ export default function TwoFactorAuth({ getProfile }: any) {
   };
 
   return (
-    <Container className="px-10 md:px-40  space-y-6 my-16">
+    <Container className="sm:px-10 md:px-40  space-y-6 my-16">
       <div className="flex gap-2">
         <div>
           <button
