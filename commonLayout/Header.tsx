@@ -255,7 +255,7 @@ export default function HeaderTwo({
                   height={40}
                   className="rounded-full object-cover h-10"
                 />
-                <p className="text-gray-800 font-medium">
+                <p className="text-gray-800 font-medium notranslate">
                   {profileData?.data?.user?.name || "No Name"}
                 </p>
               </div>
