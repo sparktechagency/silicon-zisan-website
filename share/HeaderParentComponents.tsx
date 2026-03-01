@@ -19,6 +19,9 @@ export default async function HeaderParentComponents() {
     tags: ["profile"],
   });
 
+  const adminInformation = await myFetch("/contact");
+  console.log("adminInformation", adminInformation);
+
   return (
     <>
       <HeaderTwo
@@ -26,6 +29,7 @@ export default async function HeaderParentComponents() {
         token={token}
         messageNotification={response?.data}
         profileData={profileData}
+        adminInformation={adminInformation?.data}
       />
     </>
   );

@@ -15,7 +15,7 @@ export default async function MainLayout({
     <SocketProvider token={token!}>
       {/* newest code */}
       <HeaderParentComponents />
-      <Container className="flex flex-col xl:flex-row gap-4 my-12 md:px-10 lg:px-0">
+      <Container className="flex flex-col xl:flex-row gap-4 my-5 sm:my-12 md:px-10 lg:px-0">
         <SidebarCheck />
 
         {/* Content */}
