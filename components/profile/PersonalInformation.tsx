@@ -127,8 +127,7 @@ export default function PersonalInformation({ data }: { data: any }) {
               </>
             ) : ( */}
             <div className="grid grid-cols-[30%_72%] sm:grid-cols-[170px_auto]  py-2 ">
-              {" "}
-              <div className="text-sm  ">{label}</div>
+              <div className="text-sm  wrap-break-word ">{label}</div>
               <div className="text-sm "> : {value}</div>
             </div>
           </div>
