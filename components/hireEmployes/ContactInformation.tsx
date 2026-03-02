@@ -282,6 +282,25 @@ export default function ContractInformation({
       const translatedAuthorAddress = await translateText(
         data?.author?.address || "N/A",
       );
+
+      // {getProfile?.user?.address?.split(",") ? (
+      //             <div>
+      //               <p>{getProfile?.user?.address?.split(",")[0]}</p>
+      //               Place :
+      //               {getProfile?.user?.address
+      //                 ?.split(",")
+      //                 ?.slice(1, 2)
+      //                 ?.join(", ")}
+      //             </div>
+      //           ) : (
+      //             <div>
+      //               Place :{" "}
+      //               {getProfile?.user?.address
+      //                 ?.split(",")
+      //                 ?.slice(0, 2)
+      //                 ?.join(", ")}
+      //             </div>
+      //           )}
       const translatedJobType = await translateText(data?.jobType || "N/A");
       const translatedDescription = await translateText(
         data?.description || "N/A",
@@ -318,7 +337,28 @@ export default function ContractInformation({
       // ✅ CONFIRMATION TABLE
       // ================================
 
-      const shortAddress = translatedAddress?.split(",")?.[0] || "N/A";
+      // const shortAddress = translatedAddress?.split(",") || "N/A";
+      const addressParts = translatedAddress?.split(",") || [];
+
+      // const shortAddress = addressParts[0] || "N/A";
+      const shortAddress =
+        addressParts.length > 1
+          ? addressParts.slice(0, 2).join(", ")
+          : addressParts.slice(0).join(", ");
+      // {
+      //   getProfile?.user?.address?.split(",") ? (
+      //     <div>
+      //       <p>{getProfile?.user?.address?.split(",")[0]}</p>
+      //       Place :
+      //       {getProfile?.user?.address?.split(",")?.slice(1, 2)?.join(", ")}
+      //     </div>
+      //   ) : (
+      //     <div>
+      //       Place :{" "}
+      //       {getProfile?.user?.address?.split(",")?.slice(0, 2)?.join(", ")}
+      //     </div>
+      //   );
+      // }
 
       const formattedDate = dayjs(data?.createdAt).format("DD-MM-YYYY");
 
@@ -505,6 +545,14 @@ export default function ContractInformation({
     }
   };
 
+  const address = getProfile?.user?.address || "";
+  const parts = address
+    .split(",")
+    .map((p: any) => p.trim())
+    .filter(Boolean);
+
+  const withoutLast = parts.slice(0, -1).join(", ");
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -624,10 +672,15 @@ export default function ContractInformation({
             {/* Confirmation */}
             <div className="border rounded p-3">
               <div className="sm:flex sm:justify-around font-bold">
-                <p className="">
-                  Place :{" "}
-                  {getProfile?.user?.address.split(",")[0] || "No Place"}
-                </p>
+                <div>
+                  <div>
+                    {withoutLast ? (
+                      <p>Place: {withoutLast}</p>
+                    ) : (
+                      <p>Place: N/A</p>
+                    )}
+                  </div>
+                </div>
                 <p className="">
                   Date : {dayjs(data?.createdAt).format("DD-MM-YYYY")}
                 </p>
