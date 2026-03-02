@@ -45,18 +45,44 @@ export default function AddressInput({ setValue, register, errors }: any) {
 
         const data = await res.json();
 
+        // const formatted = (data.features || []).map((item: any) => {
+        //   const p = item.properties;
+
+        //   const road = [p.housenumber, p.street].filter(Boolean).join(" ");
+
+        //   const location = [p.city, p.postcode, p.street, p.country]
+
+        //     .filter(Boolean)
+        //     .join(", ");
+        //   console.log("location", location);
+
+        //   return {
+        //     ...item,
+        //     label: [road, location].filter(Boolean).join(", "),
+        //   };
+        // });
+
         const formatted = (data.features || []).map((item: any) => {
           const p = item.properties;
 
-          const road = [p.housenumber, p.street].filter(Boolean).join(" ");
+          // Street + House Number
+          const streetLine = [p.street, p.housenumber]
+            .filter(Boolean)
+            .join(" ");
 
-          const location = [p.city, p.postcode, p.street, p.country]
+          // Postcode + City
+          const cityLine = [p.postcode, p.city].filter(Boolean).join(" ");
+
+          // Final label
+          const label = [streetLine, cityLine, p.country]
             .filter(Boolean)
             .join(", ");
 
+          console.log("location", label);
+
           return {
             ...item,
-            label: [road, location].filter(Boolean).join(", "),
+            label,
           };
         });
 
