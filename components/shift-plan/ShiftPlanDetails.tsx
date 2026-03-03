@@ -33,10 +33,12 @@ export default function ShiftPlanDetails({ details }: any) {
     e.preventDefault();
     setLoading(true);
 
+    console.log("currentLang", currentLang);
+
     try {
       const res = await myFetch(`/shift-plans/send-worker/${details?._id}`, {
         method: "POST",
-        body: { language: currentLang || "en" },
+        body: { language: currentLang || "de" },
       });
 
       if (res.success) {

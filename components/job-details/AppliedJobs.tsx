@@ -11,7 +11,7 @@ export default function AppliedJobs({ data, limit }: any) {
       <CustomBackButton />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-3">
         {data?.map((item: any, index: number) => {
-          const isLocked = limit && index >= 2;
+          const isLocked = limit && index >= 1;
           return (
             <div
               key={item?._id}
