@@ -283,24 +283,6 @@ export default function ContractInformation({
         data?.author?.address || "N/A",
       );
 
-      // {getProfile?.user?.address?.split(",") ? (
-      //             <div>
-      //               <p>{getProfile?.user?.address?.split(",")[0]}</p>
-      //               Place :
-      //               {getProfile?.user?.address
-      //                 ?.split(",")
-      //                 ?.slice(1, 2)
-      //                 ?.join(", ")}
-      //             </div>
-      //           ) : (
-      //             <div>
-      //               Place :{" "}
-      //               {getProfile?.user?.address
-      //                 ?.split(",")
-      //                 ?.slice(0, 2)
-      //                 ?.join(", ")}
-      //             </div>
-      //           )}
       const translatedJobType = await translateText(data?.jobType || "N/A");
       const translatedDescription = await translateText(
         data?.description || "N/A",
@@ -337,28 +319,10 @@ export default function ContractInformation({
       // ✅ CONFIRMATION TABLE
       // ================================
 
-      // const shortAddress = translatedAddress?.split(",") || "N/A";
-      const addressParts = translatedAddress?.split(",") || [];
-
-      // const shortAddress = addressParts[0] || "N/A";
-      const shortAddress =
-        addressParts.length > 1
-          ? addressParts.slice(0, 2).join(", ")
-          : addressParts.slice(0).join(", ");
-      // {
-      //   getProfile?.user?.address?.split(",") ? (
-      //     <div>
-      //       <p>{getProfile?.user?.address?.split(",")[0]}</p>
-      //       Place :
-      //       {getProfile?.user?.address?.split(",")?.slice(1, 2)?.join(", ")}
-      //     </div>
-      //   ) : (
-      //     <div>
-      //       Place :{" "}
-      //       {getProfile?.user?.address?.split(",")?.slice(0, 2)?.join(", ")}
-      //     </div>
-      //   );
-      // }
+      const shortAddress = getProfile?.user?.address
+        ?.split(",")
+        ?.slice(0, -1)
+        ?.join(", ");
 
       const formattedDate = dayjs(data?.createdAt).format("DD-MM-YYYY");
 
@@ -372,16 +336,16 @@ export default function ContractInformation({
                 margin: [5, 5, 5, 5],
                 columns: [
                   {
-                    text: `${translatedPlace} : ${shortAddress}`,
+                    text: `${translatedPlace} : ${shortAddress} `,
                     bold: true,
                     alignment: "center",
-                    width: "50%",
+                    width: "70%",
                   },
                   {
                     text: `${translatedDateLabel} : ${formattedDate}`,
                     bold: true,
                     alignment: "center",
-                    width: "50%",
+                    width: "30%",
                   },
                 ],
               },
@@ -545,14 +509,6 @@ export default function ContractInformation({
     }
   };
 
-  const address = getProfile?.user?.address || "";
-  const parts = address
-    .split(",")
-    .map((p: any) => p.trim())
-    .filter(Boolean);
-
-  const withoutLast = parts.slice(0, -1).join(", ");
-
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -673,7 +629,13 @@ export default function ContractInformation({
             <div className="border rounded p-3">
               <div className="grid sm:grid-cols-[70%_auto] gap-4 font-bold">
                 <div className="">
-                  <p>Place: {getProfile?.user?.address || "N/A"}</p>
+                  <p>
+                    Place:{" "}
+                    {getProfile?.user?.address
+                      ?.split(",")
+                      ?.slice(0, -1)
+                      ?.join(", ") || "N/A"}
+                  </p>
                 </div>
 
                 <div className="">
