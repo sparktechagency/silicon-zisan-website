@@ -152,7 +152,7 @@ export default function Languages() {
 
     // ✅ Set GTranslate settings
     window.gtranslateSettings = {
-      default_language: "de",
+      default_language: "en",
       languages: ["de", "en", "fr", "nl", "ro", "pl", "uk", "it"],
       wrapper_selector: ".gtranslate_wrapper",
     };
@@ -169,8 +169,8 @@ export default function Languages() {
         select.addEventListener("change", function () {
           const lang = select.value;
 
-          document.cookie = `googtrans=/de/${lang}; path=/`;
-          document.cookie = `googtrans=/de/${lang}; path=/; domain=${window.location.hostname}`;
+          document.cookie = `googtrans=/en/${lang}; path=/`;
+          document.cookie = `googtrans=/en/${lang}; path=/; domain=${window.location.hostname}`;
 
           // window.location.reload();
         });
