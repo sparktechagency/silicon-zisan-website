@@ -16,7 +16,9 @@ async function translateText(text: string, target: string) {
 }
 export const TranslatedValue = memo(({ text, lang }: any) => {
   const [translated, setTranslated] = useState(text);
+  console.log("name ", translated);
 
+  console.log("text ", text);
   useEffect(() => {
     let isMounted = true; // Cleanup flag
 
@@ -36,13 +38,15 @@ export const TranslatedValue = memo(({ text, lang }: any) => {
 
       // 3️⃣ Call API
       const res = await translateText(text, lang);
+      console.log("res", res);
 
       if (isMounted) {
         setTranslated(res);
 
-        setCookie(key, res, {
-          maxAge: 60 * 60 * 24 * 7,
-        });
+        setCookie(key, res);
+        // setCookie(key, res, {
+        //   maxAge: 60 * 60 * 24 * 7,
+        // });
       }
     };
     getTranslation();

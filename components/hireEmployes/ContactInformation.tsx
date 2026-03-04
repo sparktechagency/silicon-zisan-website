@@ -671,19 +671,14 @@ export default function ContractInformation({
 
             {/* Confirmation */}
             <div className="border rounded p-3">
-              <div className="sm:flex sm:justify-around font-bold">
-                <div>
-                  <div>
-                    {withoutLast ? (
-                      <p>Place: {withoutLast}</p>
-                    ) : (
-                      <p>Place: N/A</p>
-                    )}
-                  </div>
+              <div className="grid sm:grid-cols-[70%_auto] gap-4 font-bold">
+                <div className="">
+                  <p>Place: {getProfile?.user?.address || "N/A"}</p>
                 </div>
-                <p className="">
+
+                <div className="">
                   Date : {dayjs(data?.createdAt).format("DD-MM-YYYY")}
-                </p>
+                </div>
               </div>
               <p className="mt-3">
                 The client confirmed the contract by selecting the checkbox, so

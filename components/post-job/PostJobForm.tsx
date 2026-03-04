@@ -109,6 +109,8 @@ const PostJobForm = () => {
     const fetchCategories = async () => {
       try {
         const data = await myFetch("/categories");
+        console.log("data", data.data);
+
         setCategories(data?.data);
       } catch (err) {
         console.error(err);

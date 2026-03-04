@@ -10,7 +10,9 @@ export default async function AlertsPage() {
   return (
     <>
       <Alerts res={res} />
-      <Pagination totalPages={res?.pagination?.totalPage} />
+      {res?.data?.length > 10 && (
+        <Pagination totalPages={res?.pagination?.totalPage} />
+      )}
     </>
   );
 }
