@@ -26,7 +26,7 @@ export default function ContractInformation({
   const googtrans = useCookie("googtrans");
   const currentLang = googtrans?.split("/")[2] || "en";
 
-  console.log("data", data);
+  // console.log("data", data);
 
   // const handleDownloadPdf = async () => {
   //   // Convert logo to base64 properly
@@ -269,9 +269,9 @@ export default function ContractInformation({
       const translatedName = await translateText(
         getProfile?.user?.name || "N/A",
       );
-      const translatedEmail = await translateText(
-        getProfile?.user?.email || "N/A",
-      );
+      // const translatedEmail = await translateText(
+      //   getProfile?.user?.email || "N/A",
+      // );
       const translatedAddressRaw = await translateText(
         getProfile?.user?.address || "N/A",
       );
