@@ -270,9 +270,16 @@ export default function ContractInformation({
       const translatedEmail = await translateText(
         getProfile?.user?.email || "N/A",
       );
-      const translatedAddress = await translateText(
+      const translatedAddressRaw = await translateText(
         getProfile?.user?.address || "N/A",
       );
+      const translatedAddress =
+        translatedAddressRaw !== "N/A"
+          ? translatedAddressRaw
+              .split(",")
+              .map((p: string) => p.trim())
+              .join("\n")
+          : "N/A";
 
       const hireEmployeHeader = await translateText("Job Details");
       const translatedCategory = await translateText(data?.category || "N/A");
@@ -320,9 +327,11 @@ export default function ContractInformation({
       // ================================
 
       const shortAddress = getProfile?.user?.address
-        ?.split(",")
-        ?.slice(0, -1)
-        ?.join(", ");
+        ? getProfile.user.address
+            .split(",")
+            .map((p: string) => p.trim())
+            .join("\n")
+        : "N/A";
 
       const formattedDate = dayjs(data?.createdAt).format("DD-MM-YYYY");
 
@@ -336,15 +345,15 @@ export default function ContractInformation({
                 margin: [5, 5, 5, 5],
                 columns: [
                   {
-                    text: `${translatedPlace} : ${shortAddress} `,
+                    text: `${translatedPlace} :\n${shortAddress}`,
                     bold: true,
-                    alignment: "center",
+                    alignment: "left",
                     width: "70%",
                   },
                   {
-                    text: `${translatedDateLabel} : ${formattedDate}`,
+                    text: `${translatedDateLabel} :\n${formattedDate}`,
                     bold: true,
-                    alignment: "center",
+                    alignment: "left",
                     width: "30%",
                   },
                 ],
@@ -392,13 +401,20 @@ export default function ContractInformation({
                 stack: [
                   { text: t.between, style: "subheader" },
                   { text: translatedName },
-                  { text: translatedEmail },
+                  // { text: translatedEmail },
                   { text: translatedAddress, margin: [0, 0, 0, 8] },
                   { text: t.and, style: "subheader" },
 
                   { text: "Recruiter" },
                   { text: "JobsInApp" },
-                  { text: getAdmin?.address || "N/A" },
+                  {
+                    text: getAdmin?.address
+                      ? getAdmin.address
+                          .split(",")
+                          .map((p: string) => p.trim())
+                          .join("\n")
+                      : "N/A",
+                  },
                 ],
               },
               {
@@ -526,14 +542,36 @@ export default function ContractInformation({
               <div>
                 <h3 className="font-bold text-gray-700 text-xl">Between :</h3>
                 <p className="notranslate">{getProfile?.user?.name}</p>
-                <p className="notranslate">{getProfile?.user?.email}</p>
-                <p>{getProfile?.user?.address}</p>
+                {/* <p className="notranslate">{getProfile?.user?.email}</p> */}
+                <p>
+                  {getProfile?.user?.address
+                    ? getProfile.user.address
+                        .split(",")
+                        .map((part: string, index: number) => (
+                          <span key={index}>
+                            {index > 0 && <br />}
+                            {part.trim()}
+                          </span>
+                        ))
+                    : ""}
+                </p>
               </div>
               <div className="mt-2">
                 <h3 className="font-bold text-gray-700 text-xl">And :</h3>
                 <p>Recruiter</p>
                 <p className="notranslate">JobsInApp</p>
-                <p>{getAdmin?.address}</p>
+                <p>
+                  {getAdmin?.address
+                    ? getAdmin.address
+                        .split(",")
+                        .map((part: string, index: number) => (
+                          <span key={index}>
+                            {index > 0 && <br />}
+                            {part.trim()}
+                          </span>
+                        ))
+                    : ""}
+                </p>
                 {/* <p>{adminInformation?.whatsApp}</p> */}
                 {/* <p>{getAdmin?.phone}</p> */}
               </div>
@@ -630,16 +668,22 @@ export default function ContractInformation({
               <div className="grid sm:grid-cols-[70%_auto] gap-4 font-bold">
                 <div className="">
                   <p>
-                    Place:{" "}
+                    Place: <br />
                     {getProfile?.user?.address
-                      ?.split(",")
-                      ?.slice(0, -1)
-                      ?.join(", ") || "N/A"}
+                      ? getProfile.user.address
+                          .split(",")
+                          .map((part: string, index: number) => (
+                            <span key={index}>
+                              {index > 0 && <br />}
+                              {part.trim()}
+                            </span>
+                          ))
+                      : "N/A"}
                   </p>
                 </div>
 
                 <div className="">
-                  Date : {dayjs(data?.createdAt).format("DD-MM-YYYY")}
+                  Date : <br /> {dayjs(data?.createdAt).format("DD-MM-YYYY")}
                 </div>
               </div>
               <p className="mt-3">

@@ -240,7 +240,7 @@ export default function ShiftPlanDetails({ details }: any) {
             >
               <ArrowLeft />
             </button>
-            <p className="text-xl capitalize notranslate">shift plan view</p>
+            <p className="text-xl capitalize">shift plan view</p>
           </div>
           <div>
             <Image src={logo} alt="logo" className="w-36" />

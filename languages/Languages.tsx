@@ -150,6 +150,12 @@ export default function Languages() {
       }
     };
 
+    // ✅ Set default translation to German if no cookie exists
+    if (!document.cookie.includes("googtrans")) {
+      document.cookie = "googtrans=/en/de; path=/";
+      document.cookie = `googtrans=/en/de; path=/; domain=${window.location.hostname}`;
+    }
+
     // ✅ Set GTranslate settings
     window.gtranslateSettings = {
       default_language: "en",
