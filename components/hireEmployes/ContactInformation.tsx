@@ -26,6 +26,8 @@ export default function ContractInformation({
   const googtrans = useCookie("googtrans");
   const currentLang = googtrans?.split("/")[2] || "en";
 
+  console.log("data", data);
+
   // const handleDownloadPdf = async () => {
   //   // Convert logo to base64 properly
   //   const response = await fetch(agreement.src);
@@ -524,6 +526,8 @@ export default function ContractInformation({
       setLoading(false);
     }
   };
+
+  console.log("data?.author?.address", data?.author?.address);
 
   return (
     <div className="max-w-3xl mx-auto my-7">
