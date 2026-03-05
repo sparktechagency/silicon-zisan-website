@@ -26,6 +26,8 @@ export default function ContractInformation({
   const googtrans = useCookie("googtrans");
   const currentLang = googtrans?.split("/")[2] || "en";
 
+  console.log("data", data);
+
   // const handleDownloadPdf = async () => {
   //   // Convert logo to base64 properly
   //   const response = await fetch(agreement.src);
@@ -509,6 +511,8 @@ export default function ContractInformation({
     }
   };
 
+  console.log("data?.author?.address", data?.author?.address);
+
   return (
     <div className="max-w-3xl mx-auto my-7">
       <div className="bg-white text-gray-700 p-6 rounded-md shadow">
@@ -631,10 +635,9 @@ export default function ContractInformation({
                 <div className="">
                   <p>
                     Place:{" "}
-                    {getProfile?.user?.address
-                      ?.split(",")
-                      ?.slice(0, -1)
-                      ?.join(", ") || "N/A"}
+                    {data?.author?.address.includes(",")
+                      ? data.author.address.split(",").slice(0, -1).join(", ")
+                      : data?.author?.address}
                   </p>
                 </div>
 
