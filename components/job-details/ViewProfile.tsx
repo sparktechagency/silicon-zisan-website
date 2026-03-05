@@ -53,10 +53,13 @@ export default function ViewProfile({ data, chatId, check }: any) {
     <div className="section mt-9">
       <h2 className="text-2xl">{title}</h2>
       {data.map((item: any, index: number) => (
-        <div className="grid grid-cols-[150px_auto_1fr] mb-3 mt-3" key={index}>
+        <div
+          className="grid grid-cols-[100px_auto_1fr] sm:grid-cols-[150px_auto_1fr] mb-3 mt-3"
+          key={index}
+        >
           <span className="label">{item.label}</span>
           <span> : </span>
-          <span className="value notranslate  ml-2">{item.value}</span>
+          <span className="value notranslate break-all ml-2">{item.value}</span>
         </div>
       ))}
     </div>
@@ -86,10 +89,12 @@ export default function ViewProfile({ data, chatId, check }: any) {
           />
 
           <div className="">
-            <p className="text-3xl notranslate">
+            <p className="text-2xl md:text-3xl notranslate">
               {data?.user?.name?.trim() || "No Name"}
             </p>
-            <p className="text-2xl mt-1">{data?.experiences[0]?.category}</p>
+            <p className="text-xl md:text-2xl mt-1">
+              {data?.experiences[0]?.category}
+            </p>
           </div>
         </div>
         <div>

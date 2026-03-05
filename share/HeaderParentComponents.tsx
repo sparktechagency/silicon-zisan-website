@@ -20,7 +20,7 @@ export default async function HeaderParentComponents() {
   });
 
   const adminInformation = await myFetch("/contact");
-  console.log("adminInformation", adminInformation);
+  // console.log("adminInformation", adminInformation);
 
   return (
     <>
