@@ -32,6 +32,8 @@ export default function ViewDetailsCompany({ data, length }: any) {
     }
   };
 
+  console.log("job data ===>>", data);
+
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6">
       {/* Header */}
@@ -61,7 +63,7 @@ export default function ViewDetailsCompany({ data, length }: any) {
           <p className="text-lg font-semibold notranslate">
             {data?.author?.name}
           </p>
-          <p className="text-sm text-gray-300">{data?.author?.address}</p>
+          <p className="text-sm text-gray-300">{data?.address}</p>
           <p className="text-md mt-1 ">{data?.category}</p>
           <p className="text-md mt-1 ">{data?.subCategory}</p>
           <div className="flex gap-4 text-sm mt-2">
