@@ -67,11 +67,12 @@ export default function ContractInformation({
         "Personnel Placement Agreement",
       );
 
-      const translatedName = getProfile?.user?.name || "N/A";
-
       // const translatedEmail = await translateText(
       //   getProfile?.user?.email || "N/A",
       // );
+
+      const translatedName = getProfile?.user?.name || "N/A";
+
       const translatedAddressRaw = await translateText(
         getProfile?.user?.address || "N/A",
       );
