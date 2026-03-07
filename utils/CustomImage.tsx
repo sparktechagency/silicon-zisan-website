@@ -53,6 +53,8 @@
 "use client";
 
 import Image from "next/image";
+import defaultImage from "@/public/logo.png";
+import { useState } from "react";
 
 interface CustomImageProps {
   src?: string | null;
@@ -69,18 +71,33 @@ export default function CustomImage({
   height = 100,
   className = "",
 }: CustomImageProps) {
+  const [imgSrc, setImgSrc] = useState<string | null>(null);
   const baseUrl = process.env.NEXT_PUBLIC_IMAGE_URL || "";
 
   const finalSrc =
-    typeof src === "string"
+    typeof src === "string" && src.trim() !== ""
       ? src.startsWith("http")
         ? src
         : new URL(src, baseUrl).toString()
-      : src;
+      : null;
+
+  if (!finalSrc && !imgSrc) {
+    return (
+      <Image
+        src={defaultImage}
+        alt={title || "image"}
+        width={width}
+        height={height}
+        className={`object-contain ${className}`}
+        loading="lazy"
+        sizes="100vw"
+      />
+    );
+  }
 
   return (
     <Image
-      src={finalSrc!}
+      src={imgSrc || finalSrc!}
       alt={title || ""}
       width={width}
       height={height}
@@ -88,7 +105,7 @@ export default function CustomImage({
       loading="lazy"
       sizes="100vw"
       unoptimized
-      // onError={() => setImgSrc(defaultImage)}
+      onError={() => setImgSrc(defaultImage.src)}
     />
   );
 }
