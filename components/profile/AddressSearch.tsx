@@ -40,7 +40,7 @@ export default function AddressInput({ setValue, register, errors }: any) {
         setLoading(true);
 
         const res = await fetch(
-          `https://photon.komoot.io/api/?lang=en&q=${input}&limit=5`,
+          `https://photon.komoot.io/api/?lang=en&q=${input}&limit=20`,
         );
 
         const data = await res.json();
@@ -65,18 +65,28 @@ export default function AddressInput({ setValue, register, errors }: any) {
         const formatted = (data.features || []).map((item: any) => {
           const p = item.properties;
 
-          // Street + House Number
+          // The Photon API has properties like: name, housenumber, street, postcode, city, state, country
+          // For city/country searches, name will often hold the city/country name itself
+          const name = p.name;
           const streetLine = [p.street, p.housenumber]
             .filter(Boolean)
             .join(" ");
-
-          // Postcode + City
           const cityLine = [p.postcode, p.city].filter(Boolean).join(" ");
+          const stateArea = p.state;
 
-          // Final label
-          const label = [streetLine, cityLine, p.country]
-            .filter(Boolean)
-            .join(", ");
+          // Build a comprehensive, deduplicated label starting from specific to general
+          // Remove elements that might just be identical to the name (e.g., if searching for Paris, name=Paris, city=Paris)
+          const parts = [
+            name !== p.city && name !== p.country ? name : null,
+            streetLine,
+            cityLine,
+            stateArea,
+            p.country,
+          ].filter(Boolean);
+
+          // Get unique parts (just in case state and city are the same string, etc.)
+          const uniqueParts = Array.from(new Set(parts));
+          const label = uniqueParts.join(", ");
 
           console.log("location", label);
 
@@ -158,11 +168,11 @@ export default function AddressInput({ setValue, register, errors }: any) {
         </ul>
       )} */}
       {open && suggestions.length > 0 && (
-        <div className="absolute z-50 mt-1 w-full rounded-md border bg-white text-black shadow">
+        <div className="absolute z-50 mt-1 w-full max-h-60 rounded-md border border-gray-500/70 bg-[#1c344e] text-white shadow-lg overflow-y-auto">
           {suggestions.map((item, index) => (
             <div
               key={index}
-              className="p-2 hover:bg-gray-100 cursor-pointer"
+              className="p-2 hover:bg-[#3a4f66] border-b border-gray-500/70 cursor-pointer text-sm transition-colors"
               onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
