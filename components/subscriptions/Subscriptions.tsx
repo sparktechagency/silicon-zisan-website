@@ -58,6 +58,10 @@ export default function Subscriptions({ res, giftSubscription }: any) {
 
   const activePlan = activeSubscription?.name || "Basic";
 
+  const basicPlan = res?.find((item: any) => item?.name === "Basic");
+  const standardPlan = res?.find((item: any) => item?.name === "Standard");
+  const boosterPlan = res?.find((item: any) => item?.name === "Booster");
+
   return (
     <Container className="px-5">
       <div className="relative max-w-7xl mx-auto">
@@ -86,7 +90,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
           }}
         >
           {/* Slide 1: Basic */}
-          {res[0] && (
+          {basicPlan && (
             <SwiperSlide>
               <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
                 <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -111,9 +115,9 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                         Basic Free
                       </h1>
                       <div className="text-white text-sm mt-2 flex items-center gap-2.5">
-                        <p> € {res[0]?.dailyPrice} Per Day</p>
+                        <p> € {basicPlan?.dailyPrice} Per Day</p>
                         <SubscriptionDetails
-                          bio={res[0]?.description}
+                          bio={basicPlan?.description}
                           trigger={
                             <p>
                               <Info />
@@ -138,7 +142,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                   </div>
 
                   <ul className="py-10 px-5 sm:px-5 list-disc list-outside ml-4 space-y-1 text-white text-[14px] sm:text-[16px]">
-                    {res[0]?.benefits?.map((list: any, index: number) => (
+                    {basicPlan?.benefits?.map((list: any, index: number) => (
                       <li key={index} className="pl-1">
                         {list}
                       </li>
@@ -154,13 +158,13 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                       activePlan === "Booster"
                     }
                     className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                      loadingId === res[0]?._id && "cursor-not-allowed"
+                      loadingId === basicPlan?._id && "cursor-not-allowed"
                     }`}
-                    // onClick={() => handleSubscribe(res[0]?._id)}
+                    // onClick={() => handleSubscribe(basicPlan?._id)}
                   >
                     {activePlan === "Basic"
                       ? "Activated"
-                      : loadingId === res[0]?._id
+                      : loadingId === basicPlan?._id
                         ? "Processing..."
                         : "Subscribe Now"}
                   </Button>
@@ -170,7 +174,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
           )}
 
           {/* Slide 2: Standard */}
-          {res[1] && (
+          {standardPlan && (
             <SwiperSlide>
               <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
                 <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -195,9 +199,9 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                         Standard
                       </h1>
                       <div className="text-white text-sm mt-2 flex items-center gap-2.5">
-                        <p> € {res[1]?.dailyPrice} Per Day</p>
+                        <p> € {standardPlan?.dailyPrice} Per Day</p>
                         <SubscriptionDetails
-                          bio={res[1]?.description}
+                          bio={standardPlan?.description}
                           trigger={
                             <p>
                               <Info />
@@ -214,7 +218,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                   </div>
 
                   <ul className="py-10 px-5 sm:px-5 list-disc list-outside ml-4 space-y-1 text-white text-[14px] sm:text-[16px]">
-                    {res[1]?.benefits?.map((list: any, index: number) => (
+                    {standardPlan?.benefits?.map((list: any, index: number) => (
                       <li key={index} className="pl-1">
                         {list}
                       </li>
@@ -226,9 +230,9 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                   <Button
                     disabled={activePlan === "Standard"}
                     className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 `}
-                    onClick={() => handleSubscribe(res[1]?._id)}
+                    onClick={() => handleSubscribe(standardPlan?._id)}
                   >
-                    {loadingId === res[1]?._id
+                    {loadingId === standardPlan?._id
                       ? "Processing..."
                       : activePlan === "Standard"
                         ? "Activated"
@@ -240,7 +244,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
           )}
 
           {/* Slide 3: Booster */}
-          {res[2] && (
+          {boosterPlan && (
             <SwiperSlide>
               <div className="bg-card md:w-[50%] lg:w-[90%] mx-auto p-3 rounded border border-gray-300/30 flex flex-col h-full">
                 <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -265,9 +269,9 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                         Booster
                       </h1>
                       <div className="text-white text-sm mt-2 flex items-center gap-2.5">
-                        <p> € {res[2]?.dailyPrice} Per Day</p>
+                        <p> € {boosterPlan?.dailyPrice} Per Day</p>
                         <SubscriptionDetails
-                          bio={res[2]?.description}
+                          bio={boosterPlan?.description}
                           trigger={
                             <p>
                               <Info />
@@ -292,7 +296,7 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                   </div>
 
                   <ul className="py-10 px-5 sm:px-5 list-disc list-outside ml-4 space-y-1 text-white text-[14px] sm:text-[16px]">
-                    {res[2]?.benefits?.map((list: any, index: number) => (
+                    {boosterPlan?.benefits?.map((list: any, index: number) => (
                       <li key={index} className="pl-1">
                         {list}
                       </li>
@@ -303,14 +307,14 @@ export default function Subscriptions({ res, giftSubscription }: any) {
                 <div className="mt-auto">
                   <Button
                     disabled={
-                      activePlan === "Booster" || loadingId === res[2]?._id
+                      activePlan === "Booster" || loadingId === boosterPlan?._id
                     }
                     className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                      loadingId === res[2]?._id && "cursor-not-allowed"
+                      loadingId === boosterPlan?._id && "cursor-not-allowed"
                     }`}
-                    onClick={() => handleSubscribe(res[2]?._id)}
+                    onClick={() => handleSubscribe(boosterPlan?._id)}
                   >
-                    {loadingId === res[2]?._id
+                    {loadingId === boosterPlan?._id
                       ? "Processing..."
                       : activePlan === "Booster"
                         ? "Activated"
