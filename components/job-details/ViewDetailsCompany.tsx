@@ -32,7 +32,7 @@ export default function ViewDetailsCompany({ data, length }: any) {
     }
   };
 
-  console.log("job data ===>>", data);
+  // console.log("job data ===>>", data);
 
   return (
     <div className="bg-card text-white p-6 rounded-lg max-w-4xl mx-auto space-y-6">
