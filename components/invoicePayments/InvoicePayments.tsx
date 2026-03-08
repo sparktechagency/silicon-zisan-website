@@ -1,7 +1,7 @@
 import Invoice from "./Invoice";
 
 export default function InvoicePayments({ data }: any) {
-  console.log("invoice data ===>>", data);
+  // console.log("invoice data ===>>", data);
   return (
     <>
       <div className="flex gap-4">

@@ -16,9 +16,9 @@ async function translateText(text: string, target: string) {
 }
 export const TranslatedValue = memo(({ text, lang }: any) => {
   const [translated, setTranslated] = useState(text);
-  console.log("name ", translated);
+  // console.log("name ", translated);
 
-  console.log("text ", text);
+  // console.log("text ", text);
   useEffect(() => {
     let isMounted = true; // Cleanup flag
 

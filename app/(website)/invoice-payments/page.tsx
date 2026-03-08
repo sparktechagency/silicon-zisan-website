@@ -3,7 +3,7 @@ import { myFetch } from "@/utils/myFetch";
 
 export default async function InvoicePaymentspage() {
   const res = await myFetch("/invoices/me");
-  console.log("res ===>>", res?.data);
+  // console.log("res ===>>", res?.data);
   return (
     <>
       <InvoicePayments data={res?.data} />

@@ -328,7 +328,7 @@ export default function ContractInformation({
     }
   };
 
-  console.log("data?.author?.address", data?.author?.address);
+  // console.log("data?.author?.address", data?.author?.address);
 
   return (
     <div className="max-w-3xl mx-auto my-7">

@@ -140,7 +140,7 @@ export default function EditProfile({ title }: { title?: string }) {
   }, [initialData, reset, categories]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values) => {
-    console.log("click");
+    // console.log("click");
 
     if (!values.name || !values.legalForm || !values.address) {
       toast.error("Please select name, legal form, and address");
