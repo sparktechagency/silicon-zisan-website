@@ -26,7 +26,6 @@ export default function ContractInformation({
   const googtrans = useCookie("googtrans");
   const currentLang = googtrans?.split("/")[2] || "en";
 
- 
   const handleDownloadPdf4 = async () => {
     setLoading(true);
     if (!data || !getProfile || !getAdmin) {
@@ -68,11 +67,11 @@ export default function ContractInformation({
         "Personnel Placement Agreement",
       );
 
-      // const translatedName = await translateText(
-      //   getProfile?.user?.name || "N/A",
+      // const translatedEmail = await translateText(
+      //   getProfile?.user?.email || "N/A",
       // );
 
-      const translatedName = getProfile?.user?.name || "N/A"
+      const translatedName = getProfile?.user?.name || "N/A";
 
       const translatedAddressRaw = await translateText(
         getProfile?.user?.address || "N/A",

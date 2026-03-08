@@ -37,6 +37,9 @@ export const useChatSocket = ({
     };
 
     const handleError = (error: any) => {
+      if (error === "Invalid chatId" || error?.message === "Invalid chatId") {
+        return;
+      }
       console.error("[ChatSocket] error:", error);
       onError(error);
     };

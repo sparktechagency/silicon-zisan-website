@@ -86,7 +86,7 @@ export default function VerifyModal({ trigger }: any) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>{trigger}</DialogTrigger>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent className="sm:w-[80vw] xl:w-[50vw] border-none">
         <form onSubmit={handleSubmit}>
           <div className="grid sm:grid-cols-2 gap-4 mt-3">

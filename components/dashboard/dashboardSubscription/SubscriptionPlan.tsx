@@ -56,6 +56,10 @@ export default function SubscriptionPlan({ data, name }: any) {
 
   const activePlan = activeSubscription?.name || "Basic";
 
+  const basicPlan = data?.find((item: any) => item?.name === "Basic");
+  const standardPlan = data?.find((item: any) => item?.name === "Standard");
+  const boosterPlan = data?.find((item: any) => item?.name === "Booster");
+
   return (
     <div className="relative px-2 md:px-0">
       <Swiper
@@ -83,7 +87,7 @@ export default function SubscriptionPlan({ data, name }: any) {
         }}
       >
         {/* Slide 1: Basic */}
-        {data[0] && (
+        {basicPlan && (
           <SwiperSlide>
             <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -111,7 +115,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                       <p className="text-white text-sm ">Free</p>
 
                       <SubscriptionDetails
-                        bio={data[0]?.description}
+                        bio={basicPlan?.description}
                         trigger={
                           <p>
                             <Info />
@@ -128,7 +132,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {data[0]?.benefits?.map((item: any, index: number) => (
+                  {basicPlan?.benefits?.map((item: any, index: number) => (
                     <li key={index}>{item}</li>
                   ))}
                 </ul>
@@ -156,7 +160,7 @@ export default function SubscriptionPlan({ data, name }: any) {
         )}
 
         {/* Slide 2: Standard */}
-        {data[1] && (
+        {standardPlan && (
           <SwiperSlide>
             <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -182,10 +186,10 @@ export default function SubscriptionPlan({ data, name }: any) {
                     </h1>
                     <div className="flex gap-3 items-center mt-1">
                       <p className="text-white text-sm ">
-                        € {data[1]?.dailyPrice} Per Day
+                        € {standardPlan?.dailyPrice} Per Day
                       </p>
                       <SubscriptionDetails
-                        bio={data[1]?.description}
+                        bio={standardPlan?.description}
                         trigger={
                           <p>
                             <Info />
@@ -202,7 +206,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {data[1]?.benefits?.map((item: any, index: number) => (
+                  {standardPlan?.benefits?.map((item: any, index: number) => (
                     <li className="" key={index}>
                       {item}
                     </li>
@@ -230,7 +234,7 @@ export default function SubscriptionPlan({ data, name }: any) {
         )}
 
         {/* Slide 3: Booster */}
-        {data[2] && (
+        {boosterPlan && (
           <SwiperSlide>
             <div className="bg-card p-3 rounded border border-gray-300/30 flex flex-col h-[630px] md:w-[60%] lg:w-[50%] mx-auto">
               <h1 className="text-lg sm:text-2xl font-semibold my-2">
@@ -256,10 +260,10 @@ export default function SubscriptionPlan({ data, name }: any) {
                     </h1>
                     <div className="flex gap-3 items-center mt-1">
                       <p className="text-white text-sm ">
-                        € {data[2]?.dailyPrice} Per Day
+                        € {boosterPlan?.dailyPrice} Per Day
                       </p>
                       <SubscriptionDetails
-                        bio={data[2]?.description}
+                        bio={boosterPlan?.description}
                         trigger={
                           <p>
                             <Info />
@@ -276,7 +280,7 @@ export default function SubscriptionPlan({ data, name }: any) {
                 </div>
 
                 <ul className="py-10 px-1 sm:px-5 list-disc list-outside space-y-1 text-white text-[14px] sm:text-[16px]">
-                  {data[2]?.benefits?.map((item: any, index: number) => (
+                  {boosterPlan?.benefits?.map((item: any, index: number) => (
                     <li className="" key={index}>
                       {item}
                     </li>
@@ -288,9 +292,9 @@ export default function SubscriptionPlan({ data, name }: any) {
                 <Button
                   disabled={activePlan === "Booster"}
                   className={`custom-btn py-2 rounded font-semibold w-full text-lg h-10 ${
-                    loadingId === data[2]?._id && "cursor-not-allowed"
+                    loadingId === boosterPlan?._id && "cursor-not-allowed"
                   }`}
-                  onClick={() => handleSubscribe(data[2]?._id)}
+                  onClick={() => handleSubscribe(boosterPlan?._id)}
                 >
                   {activePlan === "Booster"
                     ? "Activated"
