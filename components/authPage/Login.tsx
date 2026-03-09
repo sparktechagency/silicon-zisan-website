@@ -125,16 +125,16 @@ export default function LoginPage() {
           </Link>
         </div>
         <p className="text-center my-4">Or Continue With</p>
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-4 w-full">
           <Button
             type="button"
-            className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+            className="flex-1 bg-white text-[#2C3E50] hover:text-[#0288A6]"
           >
             <FaGoogle />
           </Button>
           <Button
             type="button"
-            className="px-8! bg-white text-[#2C3E50] hover:text-[#0288A6]"
+            className="flex-1 bg-white text-[#2C3E50] hover:text-[#0288A6]"
           >
             <FaApple />
           </Button>
