@@ -6,8 +6,54 @@ import DeleteButton from "./DeleteButton";
 import EmployeeDetailsModal from "./EmployeeDetailsModal";
 import CustomImage from "@/utils/CustomImage";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { useCookie } from "@/hooks/useCookies";
 
 export default function AppointmentCardsConfirmed({ data, chatId }: any) {
+  const [translatedMessages, setTranslatedMessages] = useState<
+    Record<string, string>
+  >({});
+  const googtrans = useCookie("googtrans");
+  const currentLang = googtrans?.split("/")[2] || "en";
+
+  useEffect(() => {
+    const translateMessages = async () => {
+      if (!data || data.length === 0) return;
+
+      const newTranslations: Record<string, string> = {};
+
+      await Promise.all(
+        data.map(async (item: any) => {
+          if (item?.message) {
+            try {
+              const res = await fetch("/api/translate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  text: item.message,
+                  target: currentLang,
+                  format: "text",
+                }),
+              });
+              if (res.ok) {
+                const json = await res.json();
+                newTranslations[item._id] = json.translatedText || item.message;
+              } else {
+                newTranslations[item._id] = item.message;
+              }
+            } catch {
+              newTranslations[item._id] = item.message;
+            }
+          }
+        }),
+      );
+
+      setTranslatedMessages(newTranslations);
+    };
+
+    translateMessages();
+  }, [data, currentLang]);
+
   return (
     <>
       {data?.map((item: any) => (
@@ -53,8 +99,8 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
 
                 <div>
                   {item?.message && (
-                    <p className="sm:text-xl whitespace-pre-wrap">
-                      {item?.message?.split("\n\n").slice(2).join("\n\n")}
+                    <p className="sm:text-xl">
+                      {translatedMessages[item._id] || item.message}
                     </p>
                   )}
                 </div>
@@ -92,7 +138,10 @@ export default function AppointmentCardsConfirmed({ data, chatId }: any) {
             <div>
               {item.status !== "Cancelled" && (
                 <EmployeeDetailsModal
-                  item={item}
+                  item={{
+                    ...item,
+                    message: translatedMessages[item._id] || item.message,
+                  }}
                   chatId={chatId}
                   trigger={
                     <button className="cursor-pointer">

@@ -1,13 +1,13 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { Dialog, DialogContent } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { getCookie, setCookie } from "cookies-next/client";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface AuthenticationModalProps {
   data: any;
@@ -27,6 +27,7 @@ export default function AuthenticationModal({
 }: AuthenticationModalProps) {
   const [isActive, setIsActive] = useState("");
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const email = getCookie("email");
 
@@ -39,18 +40,18 @@ export default function AuthenticationModal({
     defaultValues: { otp: "" },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
     const url =
       isActive === "email" ? "/auth/verify-email" : "/totp/verify-token";
 
     const payload = {
       userId: userId,
-      otp: data.otp,
+      otp: formData.otp,
     };
 
     const payload2 = {
       email: email,
-      oneTimeCode: Number(data.otp),
+      oneTimeCode: Number(formData.otp),
     };
 
     try {
@@ -59,17 +60,21 @@ export default function AuthenticationModal({
         body: isActive === "email" ? payload2 : payload,
       });
 
-      console.log("res ===>>", res);
-
       if (res.success) {
-        if (res?.data?.accessToken) {
-          setCookie("accessToken", res?.data?.accessToken);
+        // When verifying OTP, the token might be in res.data, instead of res.data.accessToken
+        const tokenToSave =
+          typeof res.data === "string" ? res.data : res?.data?.accessToken;
+
+        if (tokenToSave) {
+          setCookie("accessToken", tokenToSave);
         }
-        if (res?.data?.role) {
-          setCookie("role", res?.data?.role);
-        }
-        onClose();
-        window.location.assign(callbackUrl);
+
+        router.push(callbackUrl);
+
+        // Also force a reload so the nav bar picks up the new token
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -88,18 +93,19 @@ export default function AuthenticationModal({
 
   // Auto-trigger when data loads
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // eslint-disable-next-line
     handle2FA();
   }, [handle2FA]);
 
   return (
     <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-      <DialogContent className="border-none w-[98vw] md:w-[28vw]">
-        <div className="grid grid-cols-2 gap-3 md:gap-9 mt-7">
+      <DialogContent className="border-none w-[95vw] max-w-md rounded-2xl p-6">
+        <DialogTitle className="sr-only">Authentication</DialogTitle>
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-7">
           <Button
             disabled={!data?.is2FAEmailActive}
-            onClick={handle2FA}
-            className={`bg-[#374859] border ${
+            onClick={() => setIsActive("email")}
+            className={`flex-1 bg-[#374859] border text-sm sm:text-base whitespace-nowrap ${
               isActive === "email" ? "custom-btn" : ""
             }`}
           >
@@ -108,12 +114,12 @@ export default function AuthenticationModal({
 
           <Button
             disabled={!data?.is2FAAppActive}
-            onClick={handle2FA}
-            className={`bg-[#374859] border ${
+            onClick={() => setIsActive("auth")}
+            className={`flex-1 bg-[#374859] border text-sm sm:text-base whitespace-nowrap ${
               isActive === "auth" ? "custom-btn" : ""
             }`}
           >
-            Authentication
+            Authenticator App
           </Button>
         </div>
 
