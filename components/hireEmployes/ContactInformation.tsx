@@ -79,7 +79,7 @@ export default function ContractInformation({
           ? translatedAddressRaw
               .split(",")
               .map((p: string) => p.trim())
-              .join("\n")
+              .join(",\n")
           : "N/A";
 
       const hireEmployeHeader = await translateText("Job Details");
@@ -127,6 +127,9 @@ export default function ContractInformation({
 
       const shortAddress = getProfile?.user?.address
         ? getProfile.user.address
+            .split(",")
+            .map((p: string) => p.trim())
+            .join(",\n")
         : "N/A";
 
       const formattedDate = dayjs(data?.createdAt).format("DD-MM-YYYY");
@@ -204,7 +207,12 @@ export default function ContractInformation({
                   { text: "Recruiter" },
                   { text: "JobsInApp" },
                   {
-                    text: getAdmin?.address ? getAdmin.address : "N/A",
+                    text: getAdmin?.address
+                      ? getAdmin.address
+                          .split(",")
+                          .map((p: string) => p.trim())
+                          .join(",\n")
+                      : "N/A",
                   },
                 ],
               },
@@ -337,16 +345,36 @@ export default function ContractInformation({
                 <p className="notranslate">{getProfile?.user?.name}</p>
                 {/* <p className="notranslate">{getProfile?.user?.email}</p> */}
                 <p>
-                  {getProfile?.user?.address ? getProfile.user.address : ""}
+                  {getProfile?.user?.address
+                    ? getProfile.user.address
+                        .split(",")
+                        .map((part: string, index: number, arr: string[]) => (
+                          <span key={index}>
+                            {index > 0 && <br />}
+                            {part.trim()}
+                            {index < arr.length - 1 ? "," : ""}
+                          </span>
+                        ))
+                    : ""}
                 </p>
               </div>
               <div className="mt-2">
                 <h3 className="font-bold text-gray-700 text-xl">And :</h3>
                 <p>Recruiter</p>
                 <p className="notranslate">JobsInApp</p>
-                <p>{getAdmin?.address ? getAdmin.address : ""}</p>
-                {/* <p>{adminInformation?.whatsApp}</p> */}
-                {/* <p>{getAdmin?.phone}</p> */}
+                <p>
+                  {getAdmin?.address
+                    ? getAdmin.address
+                        .split(",")
+                        .map((part: string, index: number, arr: string[]) => (
+                          <span key={index}>
+                            {index > 0 && <br />}
+                            {part.trim()}
+                            {index < arr.length - 1 ? "," : ""}
+                          </span>
+                        ))
+                    : ""}
+                </p>
               </div>
             </div>
             <div>
@@ -444,6 +472,14 @@ export default function ContractInformation({
                     Place: <br />
                     {getProfile?.user?.address
                       ? getProfile.user.address
+                          .split(",")
+                          .map((part: string, index: number, arr: string[]) => (
+                            <span key={index}>
+                              {index > 0 && <br />}
+                              {part.trim()}
+                              {index < arr.length - 1 ? "," : ""}
+                            </span>
+                          ))
                       : "N/A"}
                   </p>
                 </div>
