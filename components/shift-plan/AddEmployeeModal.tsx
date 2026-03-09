@@ -91,7 +91,7 @@ export default function AddEmployeeForm({
       });
 
       if (res.success) {
-        toast.success("Employee added successfully");
+        toast.success(res?.message);
         await revalidate("shift-plan");
         setOpen(false);
         reset();

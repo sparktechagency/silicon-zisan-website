@@ -338,7 +338,7 @@ export default function ContractInformation({
         </div>
 
         <div className="space-y-3">
-          <div className="flex space-x-72 items-start">
+          <div className="flex justify-between items-start w-full gap-4">
             <div>
               <div>
                 <h3 className="font-bold text-gray-700 text-xl">Between :</h3>

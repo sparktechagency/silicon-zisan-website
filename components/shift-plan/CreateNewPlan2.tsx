@@ -454,7 +454,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
 
           <div className="grid grid-cols-2 gap-4 mt-6">
             <div>
-              <Label className="block mb-2">From</Label>
+              <Label className="block mb-2">Start Time</Label>
               <CustomTimePicker
                 name="startTime"
                 control={control}
@@ -462,7 +462,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
               />
             </div>
             <div>
-              <Label className="block mb-2">To</Label>
+              <Label className="block mb-2">End Time</Label>
               <CustomTimePicker
                 name="endTime"
                 control={control}
