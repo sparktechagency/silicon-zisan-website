@@ -13,7 +13,6 @@ import { Label } from "../ui/label";
 import { X } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
-import AddEmployeeForm from "./AddEmployeeModal";
 import ShiftPlanDate from "./ShiftPlanDate";
 import Container from "@/share/Container";
 import CustomBackButton from "@/share/CustomBackButton";
@@ -35,7 +34,7 @@ export default function CreateNewPlan() {
     "Holiday Weekend",
   ]);
   const [remarks, setRemarks] = useState(
-    "Take Time Off This Holiday Weekend To Rest, Travel, And Spend Moments With Family."
+    "Take Time Off This Holiday Weekend To Rest, Travel, And Spend Moments With Family.",
   );
 
   // date
