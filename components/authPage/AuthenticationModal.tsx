@@ -7,7 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
 import { myFetch } from "@/utils/myFetch";
 import { getCookie, setCookie } from "cookies-next/client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface AuthenticationModalProps {
   data: any;
@@ -27,7 +27,6 @@ export default function AuthenticationModal({
 }: AuthenticationModalProps) {
   const [isActive, setIsActive] = useState("");
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const email = getCookie("email");
 
@@ -60,11 +59,17 @@ export default function AuthenticationModal({
         body: isActive === "email" ? payload2 : payload,
       });
 
+      console.log("res ===>>", res);
+
       if (res.success) {
-        toast.success("Authentication Successfully");
-        setCookie("accessToken", res?.data?.accessToken);
+        if (res?.data?.accessToken) {
+          setCookie("accessToken", res?.data?.accessToken);
+        }
+        if (res?.data?.role) {
+          setCookie("role", res?.data?.role);
+        }
         onClose();
-        router.push(callbackUrl);
+        window.location.assign(callbackUrl);
       } else {
         toast.error((res as any)?.error[0].message);
       }
@@ -92,7 +97,7 @@ export default function AuthenticationModal({
       <DialogContent className="border-none w-[98vw] md:w-[28vw]">
         <div className="grid grid-cols-2 gap-3 md:gap-9 mt-7">
           <Button
-            disabled={!data?.is2FAEmail}
+            disabled={!data?.is2FAEmailActive}
             onClick={handle2FA}
             className={`bg-[#374859] border ${
               isActive === "email" ? "custom-btn" : ""

@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import CustomImage from "@/utils/CustomImage";
 
 export default function ViewDetailsPerson({ data, chatId }: any) {
+  console.log(data);
   const router = useRouter();
 
   const handleApproved = async (id: string) => {
@@ -137,7 +138,7 @@ export default function ViewDetailsPerson({ data, chatId }: any) {
       <div>
         <h1 className="text-xl">About Me</h1>
         <p className="mt-4 text-gray-300 w-[80%]">
-          {data?.resume?.personalInfo?.aboutMe || "No information provided"}
+          {data?.user?.jobSeeker?.about || "-"}
         </p>
       </div>
 

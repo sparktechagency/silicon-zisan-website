@@ -10,15 +10,13 @@ import { Button } from "../ui/button";
 import { myFetch } from "@/utils/myFetch";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import AuthenticationModal from "./AuthenticationModal";
-import { getCookie } from "cookies-next/client";
+import { setCookie } from "cookies-next/client";
 
 export function AuthenticationVerify() {
   const [otp, setOtp] = React.useState("");
-  const [showModal, setShowModal] = React.useState(false); // <-- state to control modal
   const searchParams = useSearchParams();
-  const email = getCookie("email");
 
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
   const id = searchParams.get("userId") || "";
 
   const handleVerifyOtp = async (e: React.FormEvent) => {
@@ -37,13 +35,22 @@ export function AuthenticationVerify() {
         body: payload,
       });
 
+      console.log("res ===>>", res);
+
       if (res?.success) {
-        toast.success(res.message);
-        setShowModal(true); // <-- show the modal
+        toast.success("Authentication Successfully");
+        if (res?.data?.accessToken) {
+          setCookie("accessToken", res?.data?.accessToken);
+        }
+        if (res?.data?.role) {
+          setCookie("role", res?.data?.role);
+        }
+        window.location.assign(callbackUrl);
       } else {
         toast.error(res.message);
       }
     } catch (err) {
+      console.error(err);
       toast.error("Verification failed. Please try again.");
     }
   };
@@ -77,14 +84,6 @@ export function AuthenticationVerify() {
           Continue
         </Button>
       </form>
-
-      {/* Modal rendered conditionally */}
-      {/* {showModal && (
-        <AuthenticationModal
-          open={showModal}
-          onClose={() => setShowModal(false)}
-        />
-      )} */}
     </div>
   );
 }

@@ -10,8 +10,8 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setCookie } from "cookies-next/client";
 import { Eye, EyeOff } from "lucide-react";
-import AuthenticationModal from "./AuthenticationModal";
 import { useState } from "react";
+import AuthenticationModal from "./AuthenticationModal";
 
 type Inputs = {
   email: string;
@@ -24,7 +24,6 @@ export default function LoginPage() {
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
-
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
 
@@ -53,9 +52,10 @@ export default function LoginPage() {
         if (res.success && res?.data?.userId) {
           const params = new URLSearchParams(searchParams?.toString()); // Start with current params
           params.set("userId", res?.data?.userId); // Set or update the userId parameter
+
           router.push(`?${params.toString()}`);
-          setShowModal(true);
           setData(res?.data);
+          setShowModal(true);
           return;
         }
 

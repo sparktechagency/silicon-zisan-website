@@ -76,7 +76,7 @@ export default function JobType({ control, register, errors }: any) {
           {...register("deadline")}
           type="date"
           placeholder="Type Here"
-          className="w-full px-3 py-2 text-gray-200"
+          className="w-full px-3 py-2 text-gray-200 block min-w-full appearance-none min-h-[40px]"
         />
       </div>
     </div>
