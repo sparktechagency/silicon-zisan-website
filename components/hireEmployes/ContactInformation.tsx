@@ -73,9 +73,7 @@ export default function ContractInformation({
 
       const translatedName = getProfile?.user?.name || "N/A";
 
-      const translatedAddressRaw = await translateText(
-        getProfile?.user?.address || "N/A",
-      );
+      const translatedAddressRaw = getProfile?.user?.address || "N/A";
       const translatedAddress =
         translatedAddressRaw !== "N/A"
           ? translatedAddressRaw
@@ -89,9 +87,7 @@ export default function ContractInformation({
       const translatedSubCategory = await translateText(
         data?.subCategory || "N/A",
       );
-      const translatedAuthorAddress = await translateText(
-        data?.author?.address || "N/A",
-      );
+      const translatedAuthorAddress = data?.author?.address || "N/A";
 
       const translatedJobType = await translateText(data?.jobType || "N/A");
       const translatedDescription = await translateText(
@@ -131,9 +127,6 @@ export default function ContractInformation({
 
       const shortAddress = getProfile?.user?.address
         ? getProfile.user.address
-            .split(",")
-            .map((p: string) => p.trim())
-            .join("\n")
         : "N/A";
 
       const formattedDate = dayjs(data?.createdAt).format("DD-MM-YYYY");
@@ -200,7 +193,7 @@ export default function ContractInformation({
           {
             columns: [
               {
-                width: "70%",
+                width: "80%",
                 stack: [
                   { text: t.between, style: "subheader" },
                   { text: translatedName },
@@ -211,17 +204,12 @@ export default function ContractInformation({
                   { text: "Recruiter" },
                   { text: "JobsInApp" },
                   {
-                    text: getAdmin?.address
-                      ? getAdmin.address
-                          .split(",")
-                          .map((p: string) => p.trim())
-                          .join("\n")
-                      : "N/A",
+                    text: getAdmin?.address ? getAdmin.address : "N/A",
                   },
                 ],
               },
               {
-                width: "30%",
+                width: "20%",
                 stack: [
                   {
                     image: "companyLogo",
@@ -349,34 +337,14 @@ export default function ContractInformation({
                 <p className="notranslate">{getProfile?.user?.name}</p>
                 {/* <p className="notranslate">{getProfile?.user?.email}</p> */}
                 <p>
-                  {getProfile?.user?.address
-                    ? getProfile.user.address
-                        .split(",")
-                        .map((part: string, index: number) => (
-                          <span key={index}>
-                            {index > 0 && <br />}
-                            {part.trim()}
-                          </span>
-                        ))
-                    : ""}
+                  {getProfile?.user?.address ? getProfile.user.address : ""}
                 </p>
               </div>
               <div className="mt-2">
                 <h3 className="font-bold text-gray-700 text-xl">And :</h3>
                 <p>Recruiter</p>
                 <p className="notranslate">JobsInApp</p>
-                <p>
-                  {getAdmin?.address
-                    ? getAdmin.address
-                        .split(",")
-                        .map((part: string, index: number) => (
-                          <span key={index}>
-                            {index > 0 && <br />}
-                            {part.trim()}
-                          </span>
-                        ))
-                    : ""}
-                </p>
+                <p>{getAdmin?.address ? getAdmin.address : ""}</p>
                 {/* <p>{adminInformation?.whatsApp}</p> */}
                 {/* <p>{getAdmin?.phone}</p> */}
               </div>
@@ -476,13 +444,6 @@ export default function ContractInformation({
                     Place: <br />
                     {getProfile?.user?.address
                       ? getProfile.user.address
-                          .split(",")
-                          .map((part: string, index: number) => (
-                            <span key={index}>
-                              {index > 0 && <br />}
-                              {part.trim()}
-                            </span>
-                          ))
                       : "N/A"}
                   </p>
                 </div>

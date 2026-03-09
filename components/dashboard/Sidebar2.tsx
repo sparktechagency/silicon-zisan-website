@@ -23,7 +23,7 @@ export default function Sidebar2() {
   const router = useRouter();
 
   return (
-    <div className="basis-[29%] px-4 max-h-[83vh] overflow-y-scroll">
+    <div className="basis-[28%] px-4 max-h-[83vh] overflow-y-scroll">
       {data?.map((item: any, index: number) => {
         // const active =
         const active =

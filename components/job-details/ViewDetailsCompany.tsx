@@ -117,7 +117,7 @@ export default function ViewDetailsCompany({ data, length }: any) {
         </ul>
       </div>
       <div>
-        <h3 className="text-lg font-semibold mb-2">About </h3>
+        <h3 className="text-lg font-semibold mb-2">About Yourself</h3>
         <p className="whitespace-break-spaces">{data?.aboutCompany}</p>
       </div>
 
