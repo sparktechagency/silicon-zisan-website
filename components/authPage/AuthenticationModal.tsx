@@ -126,7 +126,7 @@ export default function AuthenticationModal({
         <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
           <Input placeholder="Enter Your OTP" {...register("otp")} />
           <Button disabled={!isActive} className="custom-btn mt-7 w-full">
-            Submit
+            Confirm
           </Button>
         </form>
       </DialogContent>
