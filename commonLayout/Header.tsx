@@ -24,6 +24,8 @@ export default function HeaderTwo({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
+  // console.log("profileData ===>>", profileData);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };

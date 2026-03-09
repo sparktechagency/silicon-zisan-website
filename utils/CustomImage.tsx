@@ -84,11 +84,11 @@ export default function CustomImage({
   if (!finalSrc && !imgSrc) {
     return (
       <Image
-        src={defaultImage}
+        src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png"
         alt={title || "image"}
         width={width}
         height={height}
-        className={`object-contain ${className}`}
+        className={`object-cover ${className}`}
         loading="lazy"
         sizes="100vw"
       />

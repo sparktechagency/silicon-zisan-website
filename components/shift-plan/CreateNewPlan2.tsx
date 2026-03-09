@@ -289,7 +289,7 @@ export default function CreateNewPlan2({ employee, editData }: any) {
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger className="button-unactive text-white w-full">
-                      <SelectValue placeholder="Select Employee" />
+                      <SelectValue placeholder="" />
                     </SelectTrigger>
                     <SelectContent>
                       {employee?.map((item: any) => (

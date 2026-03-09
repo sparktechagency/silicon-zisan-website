@@ -61,7 +61,7 @@ export function CreateForm({ res }: any) {
         : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly confirm it in your JobsinApp Account. Please come to this address.`;
 
     // const finalMessage = radioMessage + " " + (data.message || "");
-    const finalMessage = `${res?.user?.name}\n\n${radioMessage}\n\n${data.message || ""}`;
+    const finalMessage = `${data.message || ""}`;
 
     const payload = {
       receiver: res?.user?._id,

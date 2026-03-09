@@ -108,7 +108,7 @@ export default async function Footer() {
           {/* Download Our Mobile App */}
           <div className="md:col-span-1 lg:col-span-1">
             <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Download Our Mobile App
+              Download Mobile App
             </h3>
             <div className="space-y-3">
               <Link

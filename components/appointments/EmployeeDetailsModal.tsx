@@ -1,4 +1,9 @@
-import { Dialog, DialogTrigger, DialogContent } from "../ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+} from "../ui/dialog";
 import { Button } from "../ui/button";
 import dayjs from "dayjs";
 import CustomImage from "@/utils/CustomImage";
@@ -74,6 +79,7 @@ export default function EmployeeDetailsModal({
 
       {/* Dialog Content */}
       <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg  sm:w-[40vw] xl:w-[30vw]">
+        <DialogTitle className="sr-only">Employee Details</DialogTitle>
         <div>
           <div className="rounded-xl grid grid-cols-[20%_80%] gap-4">
             {/* Profile Image */}
@@ -119,9 +125,7 @@ export default function EmployeeDetailsModal({
                 </p>
               )} */}
 
-              <p className="sm:text-xl whitespace-pre-wrap">
-                {item?.message?.split("\n\n").slice(1).join("\n\n")}
-              </p>
+              <p className="sm:text-xl whitespace-pre-wrap">{item?.message}</p>
               {/* <p className="sm:text-xl mt-4">Location : {item?.address}</p> */}
             </div>
           </div>

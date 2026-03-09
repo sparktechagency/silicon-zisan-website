@@ -102,6 +102,10 @@ export default function ContractInformation({
         (data?.qualifications || []).map((q: string) => translateText(q)),
       );
 
+      const translatedMoreDetails = await translateText(
+        data?.aboutCompany || "N/A",
+      );
+
       const translatedPlace = await translateText("Place");
       const translatedDateLabel = await translateText("Date");
 
@@ -282,6 +286,9 @@ export default function ContractInformation({
           { text: t.qualifications, style: "sectionTitle" },
           { ul: translatedQualifications, margin: [0, 5, 0, 15] },
 
+          { text: "More Details", style: "sectionTitle" },
+          { text: translatedMoreDetails, margin: [0, 5, 0, 15] },
+
           confirmationTable,
         ],
 
@@ -348,11 +355,10 @@ export default function ContractInformation({
                   {getProfile?.user?.address
                     ? getProfile.user.address
                         .split(",")
-                        .map((part: string, index: number, arr: string[]) => (
+                        .map((part: string, index: number) => (
                           <span key={index}>
                             {index > 0 && <br />}
                             {part.trim()}
-                            {index < arr.length - 1 ? "," : ""}
                           </span>
                         ))
                     : ""}
@@ -366,11 +372,10 @@ export default function ContractInformation({
                   {getAdmin?.address
                     ? getAdmin.address
                         .split(",")
-                        .map((part: string, index: number, arr: string[]) => (
+                        .map((part: string, index: number) => (
                           <span key={index}>
                             {index > 0 && <br />}
                             {part.trim()}
-                            {index < arr.length - 1 ? "," : ""}
                           </span>
                         ))
                     : ""}
@@ -462,6 +467,13 @@ export default function ContractInformation({
                   ))}
                 </ul>
               </div>
+
+              <div className="mt-4">
+                <h4 className="text-md font-semibold text-gray-700 mb-1">
+                  More Details
+                </h4>
+                <p className="text-sm text-gray-600">{data?.aboutCompany}</p>
+              </div>
             </div>
 
             {/* Confirmation */}
@@ -473,11 +485,10 @@ export default function ContractInformation({
                     {getProfile?.user?.address
                       ? getProfile.user.address
                           .split(",")
-                          .map((part: string, index: number, arr: string[]) => (
+                          .map((part: string, index: number) => (
                             <span key={index}>
                               {index > 0 && <br />}
                               {part.trim()}
-                              {index < arr.length - 1 ? "," : ""}
                             </span>
                           ))
                       : "N/A"}

@@ -234,7 +234,7 @@ const HireEmployeeForm = () => {
 
           {/* About Yourself */}
           <div className="mb-6">
-            <Label className="block text-sm mb-1">About Yourself</Label>
+            <Label className="block text-sm mb-1">More Details</Label>
             <Textarea
               {...register("aboutCompany", {
                 required: "Required about yourself",
