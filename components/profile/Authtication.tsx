@@ -72,7 +72,7 @@ export default function TwoFactorAuth({ getProfile }: any) {
       });
 
       if (res.success) {
-        toast.success("Google Authenticator App is   Closed");
+        toast.success("Authenticator App is Closed");
       } else {
         toast.error((res as any)?.error?.[0]?.message || "Update failed");
         setAuthAppActive(true); // rollback UI
