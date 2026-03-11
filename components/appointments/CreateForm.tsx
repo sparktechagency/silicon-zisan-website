@@ -55,10 +55,10 @@ export function CreateForm({ res }: any) {
       .millisecond(0)
       .toISOString();
 
-    const radioMessage =
-      data.option === "call"
-        ? `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly, confirm it in your JobsinApp Account and share one active contact number. We will call you`
-        : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly confirm it in your JobsinApp Account. Please come to this address.`;
+    // const radioMessage =
+    //   data.option === "call"
+    //     ? `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly, confirm it in your JobsinApp Account and share one active contact number. We will call you`
+    //     : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly confirm it in your JobsinApp Account. Please come to this address.`;
 
     // const finalMessage = radioMessage + " " + (data.message || "");
     const finalMessage = `${data.message || ""}`;

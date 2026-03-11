@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Dialog,
   DialogTrigger,
@@ -78,69 +79,55 @@ export default function EmployeeDetailsModal({
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       {/* Dialog Content */}
-      <DialogContent className="bg-white text-gray-800  p-6 rounded-lg  border border-white/10 shadow-lg  sm:w-[40vw] xl:w-[30vw]">
+      <DialogContent className="bg-card text-white p-6 rounded-xl border border-gray-800/60 shadow-lg sm:w-[40vw] xl:w-[30vw] transition-all">
         <DialogTitle className="sr-only">Employee Details</DialogTitle>
         <div>
-          <div className="rounded-xl grid grid-cols-[20%_80%] gap-4">
+          <div className="rounded-xl flex flex-col sm:grid sm:grid-cols-[auto_1fr] gap-4 sm:gap-6 items-start">
             {/* Profile Image */}
-            <div>
+            <div className="flex justify-center sm:justify-start">
               <CustomImage
                 src={item?.receiver?.image}
                 title=""
-                className="w-20 h-20 sm:w-20 sm:h-20 rounded-full  border-2 border-gray-700"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border border-gray-600 shadow-sm"
               />
             </div>
 
             {/* Info Section */}
-            <div>
-              <h3 className="sm:text-xl font-semibold notranslate">
+            <div className="w-full">
+              <h3 className="text-lg sm:text-xl font-semibold notranslate text-gray-100 tracking-wide text-center sm:text-left">
                 {item?.receiver?.name}
               </h3>
 
-              <div className="text-sm flex items-center gap-2">
-                <span className="sm:text-xl">
-                  {dayjs(item?.scheduledAt).format("YYYY-MM-DD")}
-                </span>
-                <span className="sm:text-xl">{item?.time}</span>
+              <div className="mt-3 flex flex-col gap-2 text-sm sm:text-base text-gray-300">
+                <div className="flex items-center gap-2 justify-center sm:justify-start">
+                  <span className="font-medium text-gray-200">
+                    {dayjs(item?.scheduledAt).format("DD-MM-YYYY")}
+                  </span>
+                  <span className="text-gray-400">•</span>
+                  <span className="font-medium text-gray-200">
+                    {item?.time}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 justify-center sm:justify-start">
+                  <Clock4 size={18} className="text-gray-400" />
+                  <span className="font-medium text-gray-200">
+                    {dayjs(item.scheduledAt).format("HH:mm") || "No Time"}
+                  </span>
+                </div>
               </div>
-
-              <div className="flex items-center gap-1">
-                <Clock4 size={18} />
-                <span className="sm:text-xl">
-                  {dayjs(item.scheduledAt).format("HH:mm") || "No Time  "}
-                </span>
-              </div>
-
-              {/* {item?.address ? (
-                <p className="sm:text-xl my-2">
-                  An Appointment Is Available For You. Kindly Confirm It In Your
-                  JobsinApp Account. Please Come To This Address {item.address}.
-                </p>
-              ) : (
-                <p className="sm:text-xl my-2">
-                  {" "}
-                  An appointment is available for you. Kindly confirm it in your
-                  JobsinApp Account and share your active contact number. We
-                  will call you.
-                </p>
-              )} */}
-
-              <p className="sm:text-xl whitespace-pre-wrap">{item?.message}</p>
-              {/* <p className="sm:text-xl mt-4">Location : {item?.address}</p> */}
             </div>
           </div>
         </div>
-
-        {/* <hr className="bg-green-950 my-5" /> */}
-        {/* 
-        <Button className="custom-btn py-2" onClick={handleClickModalTwo}>
-          Reply
-        </Button> */}
-
+        <div className="mt-4 bg-gray-800/20 p-3 rounded-lg border-l-2 border-gray-600">
+          <p className="text-sm sm:text-base whitespace-pre-wrap text-gray-300 italic">
+            {item?.message || "No message provided."}
+          </p>
+        </div>
         <Button
           disabled={!showInbox}
           onClick={() => handleInbox(chatId)}
-          className="custom-btn py-2 w-full"
+          className="custom-btn py-2 w-full mt-4 font-semibold text-white shadow-sm transition-all"
         >
           Inbox
         </Button>
