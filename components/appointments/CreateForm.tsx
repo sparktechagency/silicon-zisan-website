@@ -71,6 +71,8 @@ export function CreateForm({ res }: any) {
       message: finalMessage,
     };
 
+    // console.log("creating appointment payload ===========>>", payload);
+
     try {
       const res = await myFetch("/appointments/create", {
         method: "POST",
@@ -87,6 +89,8 @@ export function CreateForm({ res }: any) {
       } else {
         toast.error((res as any)?.error[0].message);
       }
+
+      // console.log("create appointment ========>>", res);
     } catch (err) {
       toast.error(err instanceof Error ? res?.message : "something went wrong");
     } finally {

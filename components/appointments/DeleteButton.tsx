@@ -5,6 +5,7 @@ import {
   DialogTrigger,
   DialogContent,
   DialogClose,
+  DialogTitle,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
@@ -60,7 +61,7 @@ export default function DeleteButton({ id, title, trigger }: Props) {
 
       {/* Modal */}
       <DialogContent className="bg-gray-500/40 backdrop-blur-sm text-white p-6 rounded-lg text-center border border-white/10 shadow-lg w-[80vw] sm:w-[30vw]">
-        <h2 className="text-lg font-semibold mb-6">
+        <DialogTitle className="text-lg font-semibold mb-6">
           {title ? (
             <>
               Are You Sure You Want To Delete <br /> Whatsapp Link?
@@ -68,7 +69,7 @@ export default function DeleteButton({ id, title, trigger }: Props) {
           ) : (
             <>Are You Sure You Want To Cancel The Appointment?</>
           )}
-        </h2>
+        </DialogTitle>
 
         <Input
           value={text}
