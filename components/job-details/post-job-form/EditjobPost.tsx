@@ -23,12 +23,10 @@ import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { se } from "date-fns/locale";
 import { experiences } from "@/demoData/data";
 import { useCookie } from "@/hooks/useCookies";
 
@@ -170,6 +168,7 @@ export default function EditJobPost({ data }: any) {
         router.push("/view-details-jobs/" + data._id);
       } else {
         toast.error((res as any)?.error[0].message);
+        router.push("/subscriptions");
       }
     } catch (err) {
       const errorMessage =
