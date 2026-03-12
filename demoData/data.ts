@@ -71,7 +71,7 @@ export const data = [
     path: "/subscription-plan",
   },
   {
-    title: "Hire Employees",
+    title: "Hire Employee",
     value: "hireEmployees",
     icon: hire,
     path: "/hire-employees",

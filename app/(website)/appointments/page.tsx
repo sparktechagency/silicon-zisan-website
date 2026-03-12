@@ -19,6 +19,8 @@ export default async function page({
     },
   });
 
+  console.log("all appointments", res);
+
   return (
     <>
       <Appointments res={res?.data} chatId={response?.data?._id} />

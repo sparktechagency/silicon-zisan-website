@@ -106,6 +106,8 @@ export default function ContractInformation({
         data?.aboutCompany || "N/A",
       );
 
+      const translatedMoreDetailsLabel = await translateText("More Details");
+
       const translatedPlace = await translateText("Place");
       const translatedDateLabel = await translateText("Date");
 
@@ -286,7 +288,7 @@ export default function ContractInformation({
           { text: t.qualifications, style: "sectionTitle" },
           { ul: translatedQualifications, margin: [0, 5, 0, 15] },
 
-          { text: "More Details", style: "sectionTitle" },
+          { text: translatedMoreDetailsLabel, style: "sectionTitle" },
           { text: translatedMoreDetails, margin: [0, 5, 0, 15] },
 
           confirmationTable,

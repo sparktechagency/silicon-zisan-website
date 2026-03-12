@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
@@ -19,6 +19,8 @@ type FormData = {
   phone: string;
   address: string;
 };
+
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 export default function AddEmployeeForm({
   workerData,
@@ -108,6 +110,9 @@ export default function AddEmployeeForm({
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       <DialogContent className="rounded-xl w-[36vw] bg-[#3C4751] backdrop-blur-sm opacity-90 border border-gray-400/30 shadow-lg">
+        <VisuallyHidden>
+          <DialogTitle>Add Employee</DialogTitle>
+        </VisuallyHidden>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="text-white space-y-5"

@@ -159,6 +159,12 @@ export default function ShiftPlanDetails({ details }: any) {
       };
     }
 
+    // ✅ Translate the date (Month Year)
+    const t_formattedDate = await translateText(
+      dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY"),
+      currentLang
+    );
+
     // ✅ Step 5: PDF definition
 
     try {
@@ -188,7 +194,7 @@ export default function ShiftPlanDetails({ details }: any) {
             ],
           },
           {
-            text: `${t_shiftPlan} ${dayjs(details?.plans[0]?.days[0]).format("MMMM YYYY")}`,
+            text: `${t_shiftPlan} ${t_formattedDate}`,
             style: "sectionHeader",
           },
           scheduleTable,
