@@ -122,13 +122,13 @@ export default function EmployeeDetailsModal({
           </div>
         </div>
 
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <p className="text-sm sm:text-base whitespace-pre-wrap text-gray-300 italic">
             {item?.address && item.address.trim() !== ""
               ? `An Appointment Is Available For You. Kindly Confirm It In Your JobsinApp Account. Please Come To ${item.address}.`
               : "An appointment is available for you. Kindly confirm it in your JobsinApp Account and share your active contact number. We will call you."}
           </p>
-        </div>
+        </div> */}
 
         <div className="mt-4 bg-gray-800/20 p-3 rounded-lg border-l-2 border-gray-600">
           <p>Instructions:</p>

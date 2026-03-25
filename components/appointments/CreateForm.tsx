@@ -55,13 +55,14 @@ export function CreateForm({ res }: any) {
       .millisecond(0)
       .toISOString();
 
-    // const radioMessage =
-    //   data.option === "call"
-    //     ? `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly, confirm it in your JobsinApp Account and share one active contact number. We will call you`
-    //     : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}  kindly confirm it in your JobsinApp Account. Please come to this address.`;
+    const radioMessage =
+      data.option === "call"
+        ? `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}.  Kindly confirm it in your JobsinApp Account and share one active contact number. We will call you`
+        : `An appointment is available for you on ${dayjs(localIsoString).format("DD-MM-YYYY")}/${data.time}.  Kindly confirm it in your JobsinApp Account. Please come to this address.`;
 
-    // const finalMessage = radioMessage + " " + (data.message || "");
-    const finalMessage = `${data.message || ""}`;
+    const seekerName = res?.user?.name || "Candidate";
+    const finalMessage = `Dear ${seekerName},\n\n${radioMessage}\n\n${data.message || ""}`;
+    // const finalMessage = `${data.message || ""}`;
 
     const payload = {
       receiver: res?.user?._id,
@@ -71,7 +72,7 @@ export function CreateForm({ res }: any) {
       message: finalMessage,
     };
 
-    // console.log("creating appointment payload ===========>>", payload);
+    console.log("creating appointment payload ===========>>", payload);
 
     try {
       const res = await myFetch("/appointments/create", {
@@ -90,7 +91,7 @@ export function CreateForm({ res }: any) {
         toast.error((res as any)?.error[0].message);
       }
 
-      // console.log("create appointment ========>>", res);
+      console.log("create appointment ========>>", res);
     } catch (err) {
       toast.error(err instanceof Error ? res?.message : "something went wrong");
     } finally {
