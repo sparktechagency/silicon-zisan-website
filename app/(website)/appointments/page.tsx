@@ -19,7 +19,7 @@ export default async function page({
     },
   });
 
-  console.log("all appointments", res);
+  // console.log("all appointments", res);
 
   return (
     <>
